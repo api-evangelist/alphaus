@@ -1,0 +1,35 @@
+generated: '2026-07-17'
+method: searched
+source: https://labs.alphaus.cloud/docs/blueapi/authentication/
+docs: https://labs.alphaus.cloud/docs/blueapi/authentication/
+summary:
+  types: [oauth2]
+  oauth2_flows: [clientCredentials]
+  token_header: 'Authorization: Bearer <token>'
+schemes:
+  - name: OAuth2ClientCredentials
+    type: oauth2
+    flow: clientCredentials
+    grant_type: client_credentials
+    scope: openid
+    token_urls:
+      - product: ripple-octo
+        url: https://login.alphaus.cloud/ripple/access_token
+      - product: wavepro
+        url: https://login.alphaus.cloud/access_token
+    credentials:
+      client_id: Obtained from Ripple or WavePro (API client).
+      client_secret: Obtained from Ripple or WavePro (API client).
+    example: |
+      curl -X POST \
+        -F client_id={client-id} \
+        -F client_secret={client-secret} \
+        -F grant_type=client_credentials \
+        -F scope=openid \
+        https://login.alphaus.cloud/ripple/access_token
+    token_response: [access_token, token_type, expires_in, refresh_token]
+    usage: 'Authorization: Bearer $ACCESS_TOKEN'
+note: >-
+  The generated OpenAPI (grpc-gateway) does not declare securitySchemes, so this profile is captured
+  from the Blue API authentication docs (searched), not derived from the spec. RBAC/authorization is
+  managed via the Iam service.
