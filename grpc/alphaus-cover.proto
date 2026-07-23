@@ -1,0 +1,4137 @@
+syntax = "proto3";
+
+package blueapi.cover.v1;
+
+import "api/cover/optimizationrecommendation.proto";
+import "api/cover/recommendation/recommendation.proto";
+import "api/cover/attribute.proto";
+import "api/cover/user.proto";
+import "api/cover/view.proto";
+import "api/cover/unitcost.proto";
+import "api/cover/costgroup.proto";
+import "api/cover/accountaccess.proto";
+import "api/cover/costforecast.proto";
+import "api/cover/discountplan.proto";
+import "api/cover/discountrecommendation.proto";
+import "api/cover/rightsizingrecommendation.proto";
+import "api/cover/alert.proto";
+import "api/cover/budget.proto";
+import "api/cover/insightreport.proto";
+import "protos/operation.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "api/cover/role.proto";
+import "google/protobuf/struct.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/alphauslabs/blueapi/cover";
+option java_package = "cloud.alphaus.api.cover";
+option java_outer_classname = "CoverProto";
+
+// Cover service definition.
+service Cover {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+    description: "(BETA) Cover API. Base URL: https://api.alphaus.cloud/m/blue/cover"
+    external_docs: {
+      url: "https://github.com/alphauslabs/blueapi/tree/main/cover/";
+      description: "Service definition";
+    }
+  };
+
+  // Onboard an organization with an admin account and default cost group
+  rpc OnboardOrg(OnboardOrgRequest) returns (OnboardOrgResponse) {
+    option (google.api.http) = {
+      post: "/v1/members/onboard"
+      body: "*"
+    };
+  }
+
+  // Activate the added user
+  rpc ActivateUser(ActivateUserRequest) returns (ActivateUserResponse) {
+    option (google.api.http) = {
+      post: "/v1/members/activate"
+      body: "*"
+    };
+  }
+
+  // Get the details of the logged-in user
+  rpc GetUserDetails(GetUserDetailsRequest) returns (GetUserDetailsResponse) {
+    option (google.api.http) = {
+      get: "/v1/me"
+    };
+  }
+
+  // Modify user's avatar
+  rpc UpdateUserAvatar(UpdateUserAvatarRequest) returns (UpdateUserAvatarResponse) {
+    option (google.api.http) = {
+      put: "/v1/me/avatar"
+      body: "*"
+    };
+  }
+
+  // Modify user's icon
+  rpc UpdateUserIcon(UpdateUserIconRequest) returns (UpdateUserIconResponse) {
+    option (google.api.http) = {
+      put: "/v1/me/icon"
+      body: "*"
+    };
+  }
+
+  // Modify user's color theme
+  rpc UpdateUserColorTheme(UpdateUserColorThemeRequest) returns (UpdateUserColorThemeResponse) {
+    option (google.api.http) = {
+      put: "/v1/me/colortheme"
+      body: "*"
+    };
+  }
+
+  // Modify user's name
+  rpc UpdateUserName(UpdateUserNameRequest) returns (UpdateUserNameResponse) {
+    option (google.api.http) = {
+      put: "/v1/me/name"
+      body: "*"
+    };
+  }
+
+  // Modify user's email
+  rpc UpdateUserEmail(UpdateUserEmailRequest) returns (UpdateUserEmailResponse) {
+    option (google.api.http) = {
+      put: "/v1/me/email"
+      body: "*"
+    };
+  }
+
+  // Modify user's main view
+  rpc UpdateUserMainView(UpdateUserMainViewRequest) returns (UpdateUserMainViewResponse) {
+    option (google.api.http) = {
+      put: "/v1/me/mainview"
+      body: "*"
+    };
+  }
+
+  // Reset user's password
+  rpc ResetUserPassword(ResetUserPasswordRequest) returns (ResetUserPasswordResponse) {
+    option (google.api.http) = {
+      post: "/v1/me/password"
+      body: "*"
+    };
+  }
+
+  // Modify user's locale
+  rpc UpdateUserLocale(UpdateUserLocaleRequest) returns (UpdateUserLocaleResponse) {
+    option (google.api.http) = {
+      put: "/v1/me/locale"
+      body: "*"
+    };
+  }
+
+  // Modify user's app theme
+  rpc UpdateUserAppTheme(UpdateUserAppThemeRequest) returns (UpdateUserAppThemeResponse) {
+    option (google.api.http) = {
+      put: "/v1/me/apptheme"
+      body: "*"
+    };
+  }
+
+  // Modify user's timezone
+  rpc UpdateUserTimezone(UpdateUserTimezoneRequest) returns (UpdateUserTimezoneResponse) {
+    option (google.api.http) = {
+      put: "/v1/me/timezone"
+      body: "*"
+    };
+  }
+
+  // Modify attributes
+  rpc UpdateUserAttributes(UpdateUserAttributesRequest) returns (UpdateUserAttributesResponse) {
+    option (google.api.http) = {
+      put: "/v1/me/attributes"
+      body: "*"
+    };
+  }
+
+  // Reset member's password
+  rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse) {
+    option (google.api.http) = {
+      post: "/v1/members/resetpassword"
+      body: "*"
+    };
+  }
+
+  // Create a view
+  rpc CreateView(CreateViewRequest) returns (CreateViewResponse) {
+    option (google.api.http) = {
+      post: "/v1/views"
+      body: "*"
+    };
+  }
+
+  // Get all the views
+  rpc GetViews(GetViewsRequest) returns (GetViewsResponse) {
+    option (google.api.http) = {
+      get: "/v1/views"
+    };
+  }
+
+  // Get the details of the current view
+  rpc GetCurrentView(GetCurrentViewRequest) returns (GetCurrentViewResponse) {
+    option (google.api.http) = {
+      get: "/v1/views/{viewId}"
+    };
+  }
+
+  // Get favorite views
+  rpc GetFavoriteViews(GetFavoriteViewsRequest) returns (GetFavoriteViewsResponse) {
+    option (google.api.http) = {
+      get: "/v1/views/favorites"
+    };
+  }
+
+  // Publish current view
+  rpc PublishView(PublishViewRequest) returns (PublishViewResponse) {
+    option (google.api.http) = {
+      post: "/v1/views/publish"
+      body: "*"
+    };
+  }
+
+  // Add to favorites
+  rpc AddFavorite(AddFavoriteRequest) returns (AddFavoriteResponse) {
+    option (google.api.http) = {
+      put: "/v1/views/favorite/add"
+      body: "*"
+    };
+  }
+
+  // Remove from favorites
+  rpc RemoveFavorite(RemoveFavoriteRequest) returns (RemoveFavoriteResponse) {
+    option (google.api.http) = {
+      put: "/v1/views/favorite/remove"
+      body: "*"
+    };
+  }
+
+  // Updates the view details
+  rpc UpdateView(UpdateViewRequest) returns (UpdateViewResponse) {
+    option (google.api.http) = {
+      put: "/v1/views/{viewId}"
+      body: "*"
+    };
+  }
+
+  // Updates the view's layout
+  rpc UpdateViewLayout(UpdateViewLayoutRequest) returns (UpdateViewLayoutResponse) {
+    option (google.api.http) = {
+      put: "/v1/views/layout/{viewId}"
+      body: "*"
+    };
+  }
+
+  // Updates the view's widget
+  rpc UpdateViewWidget(UpdateViewWidgetRequest) returns (UpdateViewWidgetResponse) {
+    option (google.api.http) = {
+      put: "/v1/views/layout/{viewId}/{widgetId}"
+      body: "*"
+    };
+  }
+
+  // Update view's color theme
+  rpc UpdateViewColorTheme(UpdateViewColorThemeRequest) returns (UpdateViewColorThemeResponse) {
+    option (google.api.http) = {
+      put: "/v1/views/{viewId}/colortheme"
+      body: "*"
+    };
+  }
+
+  // Update report's currency settings
+  rpc UpdateViewCurrency(UpdateViewCurrencyRequest) returns (UpdateViewCurrencyResponse) {
+    option (google.api.http) = {
+      put: "/v1/views/{viewId}/currency"
+      body: "*"
+    };
+  }
+
+  // Sets Org's reference of currency exchange rate
+  rpc SetOrgUpdateCurrency(SetOrgUpdateCurrencyRequest) returns (SetOrgUpdateCurrencyResponse) {
+    option (google.api.http) = {
+      post: "/v1/organizations/currency"
+      body: "*"
+    };
+  }
+
+  // Get Org's reference of currency exchange rate
+  rpc GetOrgUpdateCurrency(GetOrgUpdateCurrencyRequest) returns (GetOrgUpdateCurrencyResponse) {
+    option (google.api.http) = {
+      get: "/v1/organizations/currency"
+    };
+  }
+
+  // Get list of exchange rates for a fixed report
+  rpc ListExchangeRates(ListExchangeRatesRequest) returns (ListExchangeRatesResponse) {
+    option (google.api.http) = {
+      get: "/v1/organizations/rates"
+    };
+  }
+
+  // Deletes a view
+  rpc DeleteView(DeleteViewRequest) returns (DeleteViewResponse) {
+    option (google.api.http) = {
+      delete: "/v1/views/{viewId}"
+    };
+  }
+
+  // Updates the side menu state
+  rpc UpdateSideMenuState(UpdateSideMenuStateRequest) returns (UpdateSideMenuStateResponse) {
+    option (google.api.http) = {
+      put: "/v1/views/{viewId}/sidemenustate"
+      body: "*"
+    };
+  }
+
+  // Add as side menu favorite
+  rpc AddSideMenuFavorite(AddSideMenuFavoriteRequest) returns (AddSideMenuFavoriteResponse) {
+    option (google.api.http) = {
+      post: "/v1/views/{viewId}/sidemenufavorite"
+      body: "*"
+    };
+  }
+
+  // Remove from side menu favorite
+  rpc RemoveSideMenuFavorite(RemoveSideMenuFavoriteRequest) returns (RemoveSideMenuFavoriteResponse) {
+    option (google.api.http) = {
+      post: "/v1/views/{viewId}/sidemenuunfavorite"
+      body: "*"
+    };
+  }
+
+  // Create a cost group
+  rpc CreateCostGroup(CreateCostGroupRequest) returns (CreateCostGroupResponse) {
+    option (google.api.http) = {
+      post: "/v1/costgroups"
+      body: "*"
+    };
+  }
+
+  // Get all the cost groups
+  rpc GetCostGroups(GetCostGroupsRequest) returns (GetCostGroupsResponse) {
+    option (google.api.http) = {
+      get: "/v1/costgroups"
+    };
+  }
+
+  // Retrieve the categories to be utilized in the creation of the cost group.
+  rpc GetCategories(GetCategoriesRequest) returns (GetCategoriesResponse) {
+    option (google.api.http) = {
+      get: "/v1/categories"
+    };
+  }
+
+  // Get the details of the cost group
+  rpc GetCostGroupDetails(GetCostGroupDetailsRequest) returns (GetCostGroupDetailsResponse) {
+    option (google.api.http) = {
+      get: "/v1/costgroups/{costGroupId}"
+    };
+  }
+
+  // Update cost group's name
+  rpc UpdateCostGroupName(UpdateCostGroupNameRequest) returns (UpdateCostGroupNameResponse) {
+    option (google.api.http) = {
+      put: "/v1/costgroups/{costGroupId}/name"
+      body: "*"
+    };
+  }
+
+  // Update cost group's description
+  rpc UpdateCostGroupDescription(UpdateCostGroupDescriptionRequest) returns (UpdateCostGroupDescriptionResponse) {
+    option (google.api.http) = {
+      put: "/v1/costgroups/{costGroupId}/description"
+      body: "*"
+    };
+  }
+
+  // Update cost group's image
+  rpc UpdateCostGroupImage(UpdateCostGroupImageRequest) returns (UpdateCostGroupImageResponse) {
+    option (google.api.http) = {
+      put: "/v1/costgroups/{costGroupId}/image"
+      body: "*"
+    };
+  }
+
+  // Update cost group's icon
+  rpc UpdateCostGroupIcon(UpdateCostGroupIconRequest) returns (UpdateCostGroupIconResponse) {
+    option (google.api.http) = {
+      put: "/v1/costgroups/{costGroupId}/icon"
+      body: "*"
+    };
+  }
+
+  // Update cost group's color theme
+  rpc UpdateCostGroupColorTheme(UpdateCostGroupColorThemeRequest) returns (UpdateCostGroupColorThemeResponse) {
+    option (google.api.http) = {
+      put: "/v1/costgroups/{costGroupId}/colortheme"
+      body: "*"
+    };
+  }
+
+  // Update cost group's combinations
+  rpc UpdateCostGroupCombinations(UpdateCostGroupCombinationsRequest) returns (UpdateCostGroupCombinationsResponse) {
+    option (google.api.http) = {
+      put: "/v1/costgroups/{costGroupId}/combinations"
+      body: "*"
+    };
+  }
+
+  rpc ResolveCostGroupCombinations(ResolveCostGroupCombinationsRequest) returns (ResolveCostGroupCombinationsResponse) {
+    option (google.api.http) = {
+      get: "/v1/costgroups/resolve/{costGroupId}"
+    };
+  } 
+
+  // Deletes a cost group
+  rpc DeleteCostGroup(DeleteCostGroupRequest) returns (DeleteCostGroupResponse) {
+    option (google.api.http) = {
+      delete: "/v1/costgroups/{costGroupId}"
+    };
+  }
+
+  // Gets a CloudFormation launch URL for enabling the account access.
+  rpc GetAccountAccessTemplateUrl(GetAccountAccessTemplateUrlRequest) returns (GetAccountAccessTemplateUrlResponse) {
+    option (google.api.http) = {
+      get: "/v1/aws/acctaccess"
+    };
+  }
+
+
+  // Gets the current account. For GCP and Azure.
+  rpc GetDataAccess(GetAndDeleteDataAccessRequest) returns (DataAccess) {
+    option (google.api.http) = {
+      get: "/v1/account/{target}"
+    };
+  }
+
+  // Deletes GCP or Azure accounts based on the provided request.
+  rpc DeleteDataAccess(GetAndDeleteDataAccessRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/account/{target}"
+    };
+  }
+
+  // Starts validation of the account access stack deployment. If successful, the IAM role created from the CloudFormation stack will be registered to the target.
+  rpc CreateAccountAccess(CreateAccountAccessRequest) returns (AccountAccess) {
+    option (google.api.http) = {
+      post: "/v1/aws/acctaccess"
+      body: "*"
+    };
+  }
+
+  // Starts validation of the account access stackset deployment. If successful, the IAM role created from the CloudFormation stackset will be registered to the linked accounts.
+  rpc CreateAccountAccessStackset(CreateAccountAccessStacksetRequest) returns (AccountAccess) {
+    option (google.api.http) = {
+      post: "/v1/aws/acctaccess/stackset"
+      body: "*"
+    };
+  }
+
+  // Starts validation of the account access cur stack deployment. If successful, the IAM role created from the CloudFormation stack will be registered to the target.
+  rpc CreateAccountAccessCur(CreateAccountAccessRequest) returns (AccountAccess) {
+    option (google.api.http) = {
+      post: "/v1/aws/acctaccess/cur"
+      body: "*"
+    };
+  }
+
+  // Starts an update to an existing account access CloudFormation stack for template changes, if any. Only call this API if the status of your account access is 'outdated'.
+  rpc UpdateAccountAccess(UpdateAccountAccessRequest) returns (protos.Operation) {
+    option (google.api.http) = {
+      put: "/v1/aws/acctaccess/{target}"
+    };
+  }
+
+  // Deletes the current account access role attached to this target account. This does not delete the CloudFormation deployment in your account.
+  rpc DeleteAccountAccess(DeleteAccountAccessRequest) returns (DeleteAccountAccessResponse) {
+    option (google.api.http) = {
+      delete: "/v1/acctaccess/{target}"
+    };
+  }
+
+  // Registers an account
+  rpc RegisterAccount(RegisterAccountRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/account"
+      body: "*"
+    };
+  }
+
+  // Registers GCP/Azure account.
+  rpc RegisterDataAccess(RegisterDataAccessRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/account"
+      body: "*"
+    };
+  }
+
+  // Add Billing Account ID for GCP. 
+  rpc AddBillingAccount(BillingAccountRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/billingacct"
+      body: "*"
+    };
+  }
+
+  // Lists Azure and GCP accounts.
+  rpc ListDataAccess(ListDataAccessRequest) returns (stream DataAccess) {
+    option (google.api.http) = {
+      post: "/v1/account/all:read"
+    };
+  }
+
+  // Lists unregistered linked accounts
+  rpc ListUnregisteredAccounts(ListUnregisteredAccountsRequest) returns (ListUnregisteredAccountsResponse) {
+    option (google.api.http) = {
+      post: "/v1/account/unregistered:read"
+    };
+  }
+
+  // Update GCP/Azure account info
+  rpc UpdateDataAccess(UpdateDataAccessRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/account/{target}"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Lists assets for costgroup 
+  rpc ListAssets(ListAssetsRequest) returns (stream Resource) {
+    option (google.api.http) = {
+      post: "/v1/assets:read"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Assets summary for costgroup 
+  rpc GetAssetsSummary(GetAssetsSummaryRequest) returns (GetAssetsSummaryResponse) {
+    option (google.api.http) = {
+      get: "/v1/assets/summary/{costGroupId}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Get usage and usage-based costs for the specified costgroup
+  rpc GetCostUsage(GetCostUsageRequest) returns (stream CostItem) {
+    option (google.api.http) = {
+      post: "/v1/costusage:read"
+      body: "*"
+    };
+  }
+
+
+  // Assign payer to a linked account
+  rpc AssignPayer(AssignPayerRequest) returns (AssignPayerResponse) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/payers"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Lists all the allocators
+  rpc ListAllocators(ListAllocatorsRequest) returns (stream CostAllocatorDetails) {
+    option (google.api.http) = {
+      get: "/v1/allocators"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Creates cost allocator item
+  rpc CreateAllocator(CreateAllocatorRequest) returns (CostAllocatorDetails) {
+    option (google.api.http) = {
+      post: "/v1/allocators"
+      body: "*"
+    };
+  }
+
+  // Get all available attributes for the charges
+  rpc GetAllocationAttributes(GetAllocationAttributesRequest) returns (GetAllocationAttributesResponse) {
+    option (google.api.http) = {
+      get: "/v1/allocators/attribute"
+    };
+  }
+
+  // Get all values of the allocation source
+  rpc GetAllocationSources(GetAllocationSourcesRequest) returns (GetAllocationSourcesResponse) {
+    option (google.api.http) = {
+      get: "/v1/allocators/source"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Updates a cost allocator item
+  rpc UpdateAllocator(CostAllocatorRequest) returns (CostAllocatorDetails) {
+    option (google.api.http) = {
+      put: "/v1/allocators/{id}"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Deletes a cost allocator
+  rpc DeleteAllocator(DeleteAllocatorRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/allocators/{id}"
+    };
+  }
+  
+  // WORK-IN-PROGRESS: Get all available allocation items for the specified cost group
+  rpc GetCostGroupAllocation(GetCostGroupAllocationRequest) returns (stream AllocationItem) {
+    option (google.api.http) = {
+      post: "/v1/allocations:read"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Add or read user from Auth0
+  rpc ProcessAuth0User(ProcessAuth0UserRequest) returns (ProcessAuth0UserResponse) {
+    option (google.api.http) = {
+      post: "/v1/members/auth0"
+      body: "*"
+    };
+  }
+   // WORK-IN-PROGRESS: PartnerCenterCredentials for Azure
+  rpc AddPartnerCenterCredentials(AddPartnerCenterCredentialsRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/azure/credentials/partnercenter"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Adding MpnSetting for Azure
+  rpc AddMpnSetting(AddMpnSettingRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/azure/credentials/mpn"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Get Cost Group by Attribute Type
+  rpc GetCostGroupAttribute(GetCostGroupAttributeRequest) returns (GetCostGroupAttributeResponse) {
+    option (google.api.http) = {
+      post: "/v1/attributes"
+      body: "*"
+    };
+  }
+
+  // Get Alerts under organization
+  rpc GetAlerts(GetAlertsRequest) returns (stream GetAlertsResponse) {
+    option (google.api.http) = {
+      get: "/v1/alerts/cost"
+    };
+  }
+
+  // Create Alerts under organization
+  rpc CreateAlert(CreateAlertRequest) returns (CreateAlertResponse) {
+    option (google.api.http) = {
+      post: "/v1/alerts/cost"
+      body: "*"
+    };
+  }
+
+  // Get Specific Alert under organization
+  rpc GetAlertDetails(GetAlertDetailsRequest) returns (GetAlertDetailsResponse) {
+    option (google.api.http) = {
+      get: "/v1/alerts/cost/{id}"
+    };
+  }
+
+  // Delete Specific Alert under organization
+  rpc DeleteAlert(DeleteAlertRequest) returns (DeleteAlertResponse) {
+    option (google.api.http) = {
+      delete: "/v1/alerts/cost/{id}"
+    };
+  }
+
+  // Update Specific Alert under organization
+  rpc UpdateAlertDetails(UpdateAlertDetailsRequest) returns (UpdateAlertDetailsResponse) {
+    option (google.api.http) = {
+      put: "/v1/alerts/cost/{id}"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Get Channels under organization
+  rpc GetChannels(GetChannelsRequest) returns (stream GetChannelsResponse) {
+    option (google.api.http) = {
+      post: "/v1/channels:read"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Create Channel under organization
+  rpc CreateChannel(CreateChannelRequest) returns (CreateChannelResponse) {
+    option (google.api.http) = {
+      post: "/v1/channels"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Get Specific Channel under organization
+  rpc GetChannelDetails(GetChannelDetailsRequest) returns (GetChannelDetailsResponse) {
+    option (google.api.http) = {
+      get: "/v1/channels/{id}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Delete Specific Channel under organization
+  rpc DeleteChannel(DeleteChannelRequest) returns (DeleteChannelResponse) {
+    option (google.api.http) = {
+      delete: "/v1/channels/{id}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Update Specific Channel under organization
+  rpc UpdateChannelDetails(UpdateChannelDetailsRequest) returns (UpdateChannelDetailsResponse) {
+    option (google.api.http) = {
+      put: "/v1/channels/{id}"
+      body: "*"
+    };
+  }
+
+   // Get the data of a cost group containing anomaly values
+  rpc GetAnomalyinCostGroup(GetAnomalyinCostGroupRequest) returns (stream AnomalyData) {
+    option (google.api.http) = {
+      post: "/v1/anomaly"
+      body: "*"
+    };
+  }
+
+  // Create discount Expiration Alert.
+  rpc CreateDiscountExpirationAlert(CreateDiscountExpirationAlertRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/alerts/expire/discount"
+      body: "*"
+    };
+  }
+
+  // Update discount Expiration Alert
+  rpc UpdateDiscountExpirationAlert(UpdateDiscountExpirationAlertRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/alerts/expire/discount/{id}"
+      body: "*"
+    };
+  }
+
+  // Get discount Expiration Alert Data
+  rpc GetDiscountExpirationAlert(ManipulateDiscountExpirationAlertRequest) returns (DiscountExpiryAlertData) {
+    option (google.api.http) = {
+      get: "/v1/alerts/expire/discount/{id}"
+    };
+  }
+
+  // List all discount Expiration Alert Data
+  rpc ListDiscountExpirationAlert(ListDiscountExpirationAlertRequest) returns (stream DiscountExpiryAlertData) {
+    option (google.api.http) = {
+      post: "/v1/alerts/expire/discount/all:read"
+    };
+  }
+
+  // Delete selected discount Expiration Alert Data
+  rpc DeleteDiscountExpirationAlert(ManipulateDiscountExpirationAlertRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/alerts/expire/discount/{id}"
+    };
+  }
+
+  // Create Anomaly Alert
+  rpc CreateAnomalyAlert(CreateAnomalyAlertRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/alerts/anomaly"
+      body: "*"
+    };
+  }
+
+    // Delete Anomaly Alert
+  rpc DeleteAnomalyAlert(ManipulateAnomalyAlertRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/alerts/anomaly/{id}"
+    };
+  }
+
+   // List all the Anomaly Alert Data
+  rpc ListAnomalyAlert(ListAnomalyAlertRequest) returns (stream AnomalyAlertData) {
+    option (google.api.http) = {
+      post: "/v1/alerts/anomaly/all:read"
+    };
+  }
+
+    // Get Anomaly Alert Data
+  rpc GetAnomalyAlert(ManipulateAnomalyAlertRequest) returns (AnomalyAlertData) {
+    option (google.api.http) = {
+      get: "/v1/alerts/anomaly/{id}"
+    };
+  }
+
+   // Update Anomaly Alert
+  rpc UpdateAnomalyAlert(UpdateAnomalyAlertRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/alerts/anomaly/{id}"
+      body: "*"
+    };
+  }
+
+  //Octo new user registration
+  rpc RegisterNewUser(RegisterNewUserRequest) returns (RegisterNewUserResponse) {
+    option (google.api.http) = {
+      post: "/v1/members/register"
+      body: "*"
+    };
+  }
+
+  //Octo getting user profile
+  rpc GetUserProfile(GetUserProfileRequest) returns (GetUserProfileResponse) {
+    option (google.api.http) = {
+      get: "/v1/members/profile/{email}"
+    };
+  }
+
+  //Update user profile
+  rpc UpdateUserProfile(UpdateUserProfileRequest) returns (UpdateUserProfileResponse) {
+    option (google.api.http) = {
+      put: "/v1/members/profile/{email}"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: List all Budgets in an organization or Budgets under specific cost group
+  rpc ListBudgets(ListBudgetsRequest) returns (stream ListBudgetsResponse) {
+    option (google.api.http) = {
+      post: "/v1/budget:read"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Get specific Budget data for a cost group in an organization
+  rpc GetBudget(GetBudgetRequest) returns (GetBudgetResponse) {
+    option (google.api.http) = {
+      get: "/v1/budget/{id}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Create Budget for specific cost group in an organization
+  rpc CreateBudget(CreateBudgetRequest) returns (CreateBudgetResponse) {
+    option (google.api.http) = {
+      post: "/v1/budget"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Delete Budget for specific cost group in an organization
+  rpc DeleteBudget(DeleteBudgetRequest) returns (DeleteBudgetResponse) {
+    option (google.api.http) = {
+      delete: "/v1/budget/{id}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Update Budget for specific cost group in an organization
+  rpc UpdateBudget(UpdateBudgetRequest) returns (UpdateBudgetResponse) {
+    option (google.api.http) = {
+      put: "/v1/budget/{id}"
+      body: "*"
+    };
+  }
+
+  //WORK-IN-PROGRESS:Resolve user for aws marketplace subscription integration
+  rpc ResolveAWSMarketplaceTokenForOnboarding(ResolveAWSMarketplaceTokenForOnboardingRequest) returns (ResolveAWSMarketplaceTokenForOnboardingResponse) {
+    option (google.api.http) = {
+      post: "/v1/members/aws/subscription",
+      body: "*"
+    };
+  }
+
+  //Get the Customer Subscription status from marketplace
+  rpc GetCustomerSubscriptionStatus(GetCustomerSubscriptionStatusRequest) returns (GetCustomerSubscriptionStatusResponse) {
+    option (google.api.http) = {
+      get: "/v1/billing/status"
+    };
+  }
+
+  // Profiling for new users.
+  rpc CreateProfiling(CreateProfilingRequest) returns (CreateProfilingResponse) {
+    option (google.api.http) = {
+      post: "/v1/members/profile"
+      body: "*"
+    };
+  }
+
+   // Adding orgId to marketplace customers
+   rpc AddInfotoMarketplace(AddInfotoMarketplaceRequest) returns (AddInfotoMarketplaceResponse) {
+    option (google.api.http) = {
+      post: "/v1/marketplace/info"
+      body: "*"
+    };
+  }
+
+  // Get data for insights reports summary
+  rpc GetReportSummary(GetReportSummaryRequest) returns (GetReportSummaryResponse) {
+    option (google.api.http) = {
+      get: "/v1/reports/insight/summary/{costGroupId}"
+    };
+  }
+    // Lists recommendations based on specified criteria.
+   rpc ListRecommendationsV2(ListRecommendationV2Request) returns (stream ListRecommendationResponse) {
+    option (google.api.http) = {
+      post: "/v1/recommendations/all:read"
+      body: "*"
+    };
+  }
+
+  // Retrieves a specific recommendation by its ID. (Version 2)
+  rpc GetRecommendationV2(GetRecommendationV2Request) returns (GetRecommendationV2Response) {
+    option (google.api.http) = {
+      get: '/v1/recommendations/details/{id}'
+    };
+  }
+
+    // Sets Cost group's event indicator
+    rpc SetCostGroupEventIndicator(SetCostGroupEventIndicatorRequest) returns (SetCostGroupEventIndicatorResponse) {
+      option (google.api.http) = {
+        post: "/v1/costgroups/{costGroupId}/eventIndicator"
+        body: "*"
+      };
+    }
+
+     // Sets Cost group's anomaly options
+     rpc SetCostGroupAnomalyOptions(SetCostGroupAnomalyOptionsRequest) returns (SetCostGroupAnomalyOptionsResponse) {
+      option (google.api.http) = {
+        post: "/v1/costgroups/{costGroupId}/anomaly"
+        body: "*"
+      };
+    }
+
+     // Sets Org's starting month/ fiscal month
+     rpc SetOrgFiscalMonth(SetOrgFiscalMonthRequest) returns (SetOrgFiscalMonthResponse) {
+      option (google.api.http) = {
+        post: "/v1/reports/fiscalmonth"
+        body: "*"
+      };
+    }
+
+     // Get Org's starting month/ fiscal month
+     rpc GetOrgFiscalMonth(GetOrgFiscalMonthRequest) returns (GetOrgFiscalMonthResponse) {
+      option (google.api.http) = {
+        get: "/v1/reports/fiscalmonth"
+      };
+    }
+
+  // WORK-IN-PROGRESS: Transfer the account from the original organization to Alphaus payer account
+  rpc TransferOrganization(TransferOrganizationRequest) returns (TransferOrganizationResponse) {
+    option (google.api.http) = {
+      get: "/v1/organizations/transfer/{target}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Set user preference in cost group creation UI
+  rpc UpdateCostGroupCreationUI(UpdateCostGroupCreationUIRequest) returns (UpdateCostGroupCreationUIResponse) {
+    option (google.api.http) = {
+      put: "/v1/me/costgroupcreation"
+      body: "*"
+    };
+  }
+
+  // Lists Unit Types
+  rpc ListUnitTypes(ListUnitTypesRequest) returns (ListUnitTypesResponse) {
+    option (google.api.http) = {
+      get: "/v1/unitcost"
+    };
+  }
+
+   // Create Unit Type
+   rpc CreateUnitType(CreateUnitTypeRequest) returns (CreateUnitTypeResponse) {
+    option (google.api.http) = {
+      post: "/v1/unitcost"
+      body: "*"
+    };
+  }
+
+   // Get Specific Unit Type 
+   rpc GetUnitType(GetUnitTypeRequest) returns (GetUnitTypeResponse) {
+    option (google.api.http) = {
+      get: "/v1/unitcost/{id}"
+    };
+  }
+
+   // Update Specific Unit Type
+   rpc UpdateUnitType(UpdateUnitTypeRequest) returns (UpdateUnitTypeResponse) {
+    option (google.api.http) = {
+      put: "/v1/unitcost/{id}"
+      body: "*"
+    };
+  }
+
+  // Delete Specific Unit Type
+  rpc DeleteUnitType(DeleteUnitTypeRequest) returns (DeleteUnitTypeResponse) {
+    option (google.api.http) = {
+      delete: "/v1/unitcost/{id}"
+    };
+  }
+
+  // Merge Existing Unit Types
+  rpc MergeUnits(MergeUnitsRequest) returns (MergeUnitsResponse) {
+    option (google.api.http) = {
+      post: "/v1/unitcost/merge"
+      body: "*"
+    };
+  }
+  // List Suggested Unit Types
+  rpc ListSuggestedUnits(ListSuggestedUnitsRequest) returns (ListSuggestedUnitsResponse) {
+    option (google.api.http) = {
+      get: "/v1/unitcost/autosuggest"
+    };
+  }
+
+  // Merge Suggested Units
+  rpc MergeSuggestedUnits(MergeSuggestedUnitsRequest) returns (MergeSuggestedUnitsResponse) {
+    option (google.api.http) = {
+      post: "/v1/unitcost/autosuggest/merge"
+      body: "*"
+    };
+  }
+
+  // Create Unit from Suggested Units
+  rpc CreateUnitFromSuggested(CreateUnitFromSuggestedRequest) returns (CreateUnitFromSuggestedResponse) {
+    option (google.api.http) = {
+      post: "/v1/unitcost/autosuggest/create"
+      body: "*"
+    };
+  }
+  
+  // List all Shared Resources
+  rpc ListSharedResources(ListSharedResourcesRequest) returns (ListSharedResourcesResponse) {
+    option (google.api.http) = {
+      get: "/v1/unitcost/sharedresources"
+    };
+  }
+
+  // Create Shared Resource
+  rpc CreateSharedResource(CreateSharedResourcesRequest) returns (CreateSharedResourcesResponse) {
+    option (google.api.http) = {
+      post: "/v1/unitcost/sharedresources"
+      body: "*"
+    };
+  }
+
+  // Get Specific Shared Resource
+  rpc GetSharedResource(GetSharedResourcesRequest) returns (GetSharedResourcesResponse) {
+    option (google.api.http) = {
+      get: "/v1/unitcost/sharedresources/{id}"
+    };
+  }
+
+  // Update Specific Shared Resource
+  rpc UpdateSharedResource(UpdateSharedResourcesRequest) returns (UpdateSharedResourcesResponse) {
+    option (google.api.http) = {
+      put: "/v1/unitcost/sharedresources/{id}"
+      body: "*"
+    };
+  }
+
+  // Delete Specific Shared Resource
+  rpc DeleteSharedResource(DeleteSharedResourcesRequest) returns (DeleteSharedResourcesResponse) {
+    option (google.api.http) = {
+      delete: "/v1/unitcost/sharedresources/{id}"
+    };
+  }
+
+  // List all Unit Metrics
+  rpc ListUnitMetrics(ListUnitMetricsRequest) returns (ListUnitMetricsResponse) {
+    option (google.api.http) = {
+      get: "/v1/unitcost/metrics"
+    };
+  }
+
+  // Create Unit Metric
+  rpc CreateUnitMetric(CreateUnitMetricRequest) returns (CreateUnitMetricResponse) {
+    option (google.api.http) = {
+      post: "/v1/unitcost/metrics"
+      body: "*"
+    };
+  }
+
+  // Get Specific Unit Metric
+  rpc GetUnitMetric(GetUnitMetricRequest) returns (GetUnitMetricResponse) {
+    option (google.api.http) = {
+      get: "/v1/unitcost/metrics/{id}"
+    };
+  }
+
+  // Update Specific Unit Metric
+  rpc UpdateUnitMetric(UpdateUnitMetricRequest) returns (UpdateUnitMetricResponse) {
+    option (google.api.http) = {
+      put: "/v1/unitcost/metrics/{id}"
+      body: "*"
+    };
+  }
+
+  // Delete Specific Unit Metric
+  rpc DeleteUnitMetric(DeleteUnitMetricRequest) returns (DeleteUnitMetricResponse) {
+    option (google.api.http) = {
+      delete: "/v1/unitcost/metrics/{id}"
+    };
+  }
+
+  // Confirm Google Sheet Access
+  rpc ConfirmGoogleSheetAccess(ConfirmGoogleSheetAccessRequest) returns (ConfirmGoogleSheetAccessResponse) {
+    option (google.api.http) = {
+      post: "/v1/unitcost/metrics/googlesheet/confirm"
+      body: "*"
+    };
+  }
+
+  // Preview Google Sheet Data
+  rpc PreviewGoogleSheet(PreviewGoogleSheetRequest) returns (PreviewGoogleSheetResponse) {
+    option (google.api.http) = {
+      post: "/v1/unitcost/metrics/googlesheet/preview"
+      body: "*"
+    };
+  }
+
+  // Get Cloudwatch Metadata
+  rpc GetCloudwatchMetadata(GetCloudwatchMetadataRequest) returns (GetCloudwatchMetadataResponse) {
+    option (google.api.http) = {
+      get: "/v1/unitcost/metrics/cloudwatch/metadata"
+    };
+  }
+
+  rpc VerifyAPIAccess(VerifyAPIAccessRequest) returns (VerifyAPIAccessResponse) {
+    option (google.api.http) = {
+      get: "/v1/apiaccess/verify"
+    };
+  }
+
+  rpc GetAICostAndUsage(GetAICostAndUsageRequest) returns (GetAICostAndUsageResponse) {
+    option (google.api.http) = {
+      post: "/v1/ai/costusage"
+      body: "*"
+    };
+  }
+
+  rpc GetContainerCostUsage(ContainerCostUsageRequest) returns (ContainerCostUsageResponse) {
+    option (google.api.http) = {
+      post: "/v1/containers/costusage"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Populate demo data 
+  rpc PopulateDemoData(PopulateDemoDataRequest) returns (PopulateDemoDataResponse) {
+    option (google.api.http) = {
+      post: "/v1/demo/populate"
+      body: "*"
+    };
+   }
+
+   // WORK-IN-PROGRESS: Reset demo data
+   rpc ResetDemoData(ResetDemoDataRequest) returns (ResetDemoDataResponse) {
+    option (google.api.http) = {
+      post: "/v1/demo/reset"
+      body: "*"
+    };
+  }
+
+  // Get discount plan details for an organization (or MSP).
+  rpc GetDiscountPlan(GetDiscountPlanRequest) returns (GetDiscountPlanResponse) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/discountplan/{orgId}:read"
+      body: "*"
+    };
+  }
+  
+  rpc GetCostUsageV2(GetCostUsageV2Request) returns (stream GetCostUsageV2Response) {
+    option (google.api.http) = {
+      post: "/v1/costusage"
+      body: "*"
+    };
+  }
+
+  rpc ListNonperformingRate(ListNonperformingRateRequest) returns (ListNonperformingRateResponse) {
+    option (google.api.http) = {
+      post: "/v1/reports/rate/nonperforming:read"
+      body: "*"
+    };
+  }
+
+  rpc ListUntaggedResources(ListUntaggedResourcesRequest) returns (ListUntaggedResourcesResponse) {
+    option (google.api.http) = {
+      post: "/v1/reports/resources/untagged:read"
+      body: "*"
+    };
+  }
+
+  rpc ListForecasts(ListForecastsRequest) returns (ListForecastsResponse) {
+    option (google.api.http) = {
+      post: "/v1/forecasts:read"
+      body: "*"
+    };
+  }
+  
+  rpc CreateCostForecast(CreateCostForecastRequest) returns (CreateCostForecastResponse) {
+    option (google.api.http) = {
+      post: "/v1/forecasts"
+      body: "*"
+    };
+  }
+  
+  rpc GetCostForecast(GetCostForecastRequest) returns (GetCostForecastResponse) {
+    option (google.api.http) = {
+      get: "/v1/forecasts/{id}"
+    };
+  }
+  
+  rpc UpdateCostForecast(UpdateCostForecastRequest) returns (UpdateCostForecastResponse) {
+    option (google.api.http) = {
+      put: "/v1/forecasts/{id}"
+      body: "*"
+    };
+  }
+  
+  rpc DeleteCostForecast(DeleteCostForecastRequest) returns (DeleteCostForecastResponse) {
+    option (google.api.http) = {
+      delete: "/v1/forecasts/{id}"
+    };
+  }
+
+  rpc GetCostForecastsData(GetCostForecastsDataRequest) returns (stream GetCostForecastsDataResponse) {
+    option (google.api.http) = {
+      post: "/v1/forecasts/data:read"
+      body: "*"
+    };
+  }
+
+  rpc GetRecommendationV3(GetRecommendationV3Request) returns (GetRecommendationV3Response) {
+    option (google.api.http) = {
+      get: "/v1/recommendations"
+    };
+  }
+
+  rpc ListRecommendationsV3(ListRecommendationsV3Request) returns (ListRecommendationsV3Response) {
+    option (google.api.http) = {
+      post: "/v1/recommendations/summaries"
+      body: "*"
+    };
+  }
+
+  rpc ExecuteRecommendationV3(ExecuteRecommendationV3Request) returns (ExecuteRecommendationV3Response) {
+    option (google.api.http) = {
+      post: "/v1/recommendation/execute"
+      body: "*"
+    };
+  }
+
+  // Invites users to join the organization and assigns them roles.
+  rpc InviteUsers(InviteUsersRequest) returns (InviteUsersResponse) {
+    option (google.api.http) = {
+      post: "/v1/users/invite"
+      body: "*"
+    };
+  }
+
+  // Deletes a user from the organization.
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {
+    option (google.api.http) = {
+      delete: "/v1/users/{id}"
+    };
+  }
+
+  // Updates a user's role and cost group access.
+  rpc UpdateUserRole(UpdateUserRoleRequest) returns (UpdateUserRoleResponse) {
+    option (google.api.http) = {
+      put: "/v1/users/{user_id}"
+      body: "*"
+    };
+  }
+
+  // Lists all users in the organization
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {
+    option (google.api.http) = {
+      get: "/v1/users"
+    };
+  }
+
+  // Reinvites a user to join the organization. This can be used when the user did not receive or lost the original invitation email.
+  rpc ReinviteUser(ReinviteUserRequest) returns (ReinviteUserResponse) {
+    option (google.api.http) = {
+      post: "/v1/users/{id}/reinvite"
+      body: "*"
+    };
+  }
+
+  // Retrieves a user's details by their ID.
+  rpc GetUser(GetUserRequest) returns (GetUserResponse) {
+    option (google.api.http) = {
+      get: "/v1/users/{id}"
+    };
+  }
+
+  // Lists the roles and cost groups assigned to the authenticated user.
+  rpc GetMyRoles(GetMyRolesRequest) returns (GetMyRolesResponse) {
+    option (google.api.http) = {
+      get: "/v1/me/roles"
+    };
+  }
+
+}
+message GetMyRolesRequest{}
+
+message GetMyRolesResponse {
+  repeated api.cover.Role roles = 1;
+}
+
+message GetUserRequest {
+  string id = 1;
+}
+
+message GetUserResponse {
+  api.cover.User user = 1;
+}
+
+message ReinviteUserRequest {
+  string id = 1;
+}
+
+message ReinviteUserResponse {
+  api.cover.User user = 1;
+}
+
+message ListUsersRequest {}
+
+message ListUsersResponse {
+ message UserSummary {
+  string id = 1;
+  string email = 2;
+  string name = 3;
+  repeated string roles = 4;
+  bool activated = 5;
+  string avatar = 6;
+  string color_theme = 7;
+ }
+ repeated UserSummary users = 1;
+}
+
+message UpdateUserRoleRequest {
+  message Role {
+    string id = 1;
+    repeated string cost_group_ids = 2;
+  }
+
+  string user_id = 1;
+  repeated Role roles = 2;
+}
+
+message UpdateUserRoleResponse {
+  api.cover.User user = 1;
+}
+
+message DeleteUserRequest {
+  string id = 1;
+}
+
+message DeleteUserResponse {}
+
+message InviteUsersRequest {
+  repeated string emails = 1;
+  string role_id = 2;
+  repeated string cost_group_ids = 3;
+}
+
+message InviteUsersResponse {
+  repeated api.cover.User users = 1;
+}
+
+message ExecuteRecommendationV3Request {
+  enum ExecuteType {
+    DEFAULT = 0;
+    MARK_AS_EXECUTED = 1;
+    UNDO_EXECUTED = 2;
+    SUBMIT_TEMPLATE = 3;
+    RETRY_EXECUTE = 4;
+  }
+  repeated string ids = 1;
+  ExecuteType executeType = 2;
+}
+
+message ExecuteRecommendationV3Response {
+  google.protobuf.Struct result = 1;
+}
+
+message ListRecommendationsV3Request {
+  string costgroupId = 1;
+  repeated string statuses = 2;
+  map<string, string> filters = 3;
+}
+
+message ListRecommendationsV3Response {
+  message RecommendationSummary {
+    string id = 1;
+    string name = 2;
+    string target = 3;
+    string targetName = 18;
+    string category = 4;
+    string type = 5;
+    string vendor = 13;
+    string source = 19;
+    string code = 14;
+    optional string service = 15;
+    optional string region = 16;
+    optional string resourceId = 17;
+    double estimatedMonthlySavings = 6;
+    double estimatedMonthlyBeforeCost = 7;
+    double estimatedMonthlyAfterCost = 8;
+    optional string risk = 9;
+    optional string effort = 10;
+    string status = 11;
+    google.protobuf.Struct additionalDetails = 12;
+  }
+
+  repeated RecommendationSummary recommendations = 1;
+}
+
+
+message GetRecommendationV3Request {
+  repeated string ids = 1;
+}
+
+message GetRecommendationV3Response {
+  message RecommendationDetail {
+    string id = 1;
+    string name = 9;
+    string vendor = 2;
+    string source = 3;
+    string code = 4;
+    optional string service = 5;
+    string target = 7;
+    string targetName = 8;
+    string dateDetected = 6;
+    optional string region = 10;
+    double estimatedMonthlyBeforeCost = 11;
+    double estimatedMonthlyAfterCost = 12;
+    double estimatedMonthlySavings = 13;
+    optional string resourceId = 14;
+    string category = 15;
+    string type = 16;
+    string lastUpdated = 17;
+    string status = 18;
+    optional string risk = 19;
+    optional string effort = 20;
+    google.protobuf.Struct details = 21;
+  }
+
+  repeated RecommendationDetail recommendations = 1;
+}
+
+message GetCostForecastsDataRequest {
+  enum Granularity {
+    GRANULARITY_UNSPECIFIED = 0;
+    DAILY = 1;
+    MONTHLY = 2;
+  }
+
+  // Required. Cost Group Id
+  string costGroupId = 1;
+  // Required. Start Time in 2006-01-02 format
+  string startTime = 2;
+  // Required. End Time in 2006-01-02 format
+  string endTime = 3; 
+  Granularity granularity = 4; 
+}
+
+message GetCostForecastsDataResponse {
+    string date = 1;
+    double forecastCost = 2;
+    double upperBound = 3;
+    double lowerBound = 4;
+}
+
+message ListForecastsRequest {}
+
+message ListForecastsResponse {
+  repeated api.cover.CostForecastDetails costForecastDetails = 1;
+}
+
+message CreateCostForecastRequest {
+  // Required. Name of the forecast
+  string forecastName = 1;
+  // Optional. Description of the forecast
+  string description = 2;
+  // Required. Cost Group Id and Name
+  api.cover.CostGroup costGroup = 3;
+
+  // Required. The range of past actual cost to be used in forecasting. Valid values are: '1', '3', '6', and '12' (in months)
+  int64 pastActualCostRange = 4;
+  // Required. The number of months to look forward in the forecast. Valid values are: '1', '3', '6', and '12' (in months)
+  int64 lookForwardPeriod = 5;
+
+  // Optional.
+  repeated api.cover.ExternalAdjustment externalAdjustments = 6;
+}
+
+message CreateCostForecastResponse {
+  string id = 1;
+  string forecastName = 2;
+  string description = 3;
+  api.cover.CostGroup costGroup = 4;
+  int64 pastActualCostRange = 5;
+  int64 lookForwardPeriod = 6;
+  repeated api.cover.ExternalAdjustment externalAdjustments = 7;
+}
+
+message GetCostForecastRequest {
+  // Required. Forecast Id
+  string id = 1;
+}
+
+message GetCostForecastResponse {
+  string id = 1;
+  string forecastName = 2;
+  string description = 3;
+  api.cover.CostGroup costGroup = 4;
+  int64 pastActualCostRange = 5;
+  int64 lookForwardPeriod = 6;
+  repeated api.cover.ExternalAdjustment externalAdjustments = 7;
+  string createdBy = 8;
+  string creationDate = 9;
+  string lastUpdatedDate = 10;
+}
+
+message UpdateCostForecastRequest {
+  // Required. Forecast Id
+  string id = 1;
+
+  // Optional. Name of the forecast
+  string forecastName = 2;
+
+  // Optional. Description of the forecast
+  string description = 3;
+
+  // Optional. Cost Group Id and Name
+  api.cover.CostGroup costGroup = 4;
+
+  // Optional. The range of past actual cost to be used in forecasting. Valid values are: '1', '3', '6', and '12' (in months)
+  int64 pastActualCostRange = 5;
+
+  // Optional. The number of months to look forward in the forecast. Valid values are: '1', '3', '6', and '12' (in months)
+  int64 lookForwardPeriod = 6;
+
+  // Optional.
+  repeated api.cover.ExternalAdjustment externalAdjustments = 7;
+}
+
+message UpdateCostForecastResponse {
+  string id = 1;
+  string forecastName = 2;
+  string description = 3;
+  api.cover.CostGroup costGroup = 4;
+  int64 pastActualCostRange = 5;
+  int64 lookForwardPeriod = 6;
+  repeated api.cover.ExternalAdjustment externalAdjustments = 7;
+  string createdBy = 8;
+  string creationDate = 9;
+  string lastUpdatedDate = 10;
+}
+
+message DeleteCostForecastRequest {
+  // Required. Forecast Id
+  string id = 1;
+}
+
+message DeleteCostForecastResponse {
+  string id = 1;
+}
+
+message GetCostUsageV2Response {
+  double value = 1;
+  string date = 2;
+  string vendor = 3;
+  google.protobuf.Struct details = 4;
+}
+
+message GetCostUsageV2Request {
+  enum Granularity {
+    GRANULARITY_UNSPECIFIED = 0;
+    DAILY = 1;
+    MONTHLY = 2;
+  }
+
+  enum Category {
+    Category_UNSPECIFIED = 0;
+    COST = 1;
+    USAGE = 2;
+  }
+
+  string costGroupId = 1;
+  string startTime = 2;
+  string endTime = 3;
+  Granularity granularity = 4;
+  repeated string groupBys = 5;
+  Category category = 6;
+  string currency = 7;
+  api.cover.CostGroupAwsOptions awsOptions = 8;
+  api.cover.CostGroupAzureCspOptions azurecspOptions = 9;
+  api.cover.CostGroupGcpOptions gcpOptions = 10;
+}
+
+message PopulateDemoDataRequest{}
+message PopulateDemoDataResponse {}
+message ResetDemoDataRequest {}
+message ResetDemoDataResponse {}
+
+message ContainerCostUsageRequest {
+  enum TimeGranularity {
+    GRANULARITY_UNSPECIFIED = 0;
+    DAILY = 1;
+    MONTHLY = 2;
+  }
+
+  enum MetricType {
+    METRIC_UNSPECIFIED = 0;
+    COST = 1;
+    USAGE = 2;
+    EFFICIENCY = 3;
+    UNUSED_COST = 4;
+  }
+
+  enum ServiceType {
+    SERVICE_UNSPECIFIED = 0;
+    ECS = 1;
+    EKS = 2;
+  }
+
+  message FilterCriteria {
+    enum FilterOperator {
+      OPERATOR_UNSPECIFIED = 0;
+      EQUAL = 1;
+      NOT_EQUAL = 2;
+    }
+
+    string key = 1;
+    FilterOperator operator = 2;
+    string value = 3;
+  }
+
+  string costGroupId = 1;
+  string vendor = 2;
+  MetricType metricType = 3;
+  string startTime = 4;
+  string endTime = 5;
+  TimeGranularity granularity = 6;
+  repeated string groupBys = 7;
+  repeated FilterCriteria filters = 8;
+  ServiceType serviceType = 9;
+}
+
+message ContainerCostUsageResponse {
+  message CostMetric {
+    double amount = 1;
+    string currency = 2;
+    double unusedAmount = 3;
+  }
+
+  message UsageMetric {
+    string unit = 1;
+    double reservedAmount = 2;
+    double actualAmount = 3;
+    double efficiency = 4;
+    double cpuUtilization = 5;
+    double memoryUtilization = 6;
+  } 
+
+  message MetricDataPoint {
+    string date = 1;
+    oneof metricData {
+      CostMetric cost = 2;
+      UsageMetric usage = 3;
+    }
+  }
+
+  message ResourceHighlight {
+    string resourceId = 1;
+    string resourceName = 2;
+    double value = 3;
+  }
+
+  message ResourceHighlights {
+    ResourceHighlight highestClusterCost = 1;
+    ResourceHighlight highestUnusedCost = 2;
+    ResourceHighlight highestWorkloadCost = 3;
+    ResourceHighlight highestComputeCost = 4;
+  }
+
+  message GroupedResult {
+    map<string, string> attributes = 1;
+    repeated MetricDataPoint metricDataPoints = 2;
+  }
+
+  repeated GroupedResult results = 1;
+  ResourceHighlights highlights = 2;
+  double totalCost = 3;
+  double avgEfficiency = 4;
+}
+
+message GetAICostAndUsageRequest {
+  enum Granularity {
+    GRANULARITY_UNSPECIFIED = 0;
+    DAILY = 1;
+    MONTHLY = 2;
+  }
+
+  message Filter {
+    enum Operator {
+      OPERATOR_UNSPECIFIED = 0;
+      EQUAL = 1;
+      NOT_EQUAL = 2;
+    }
+
+    string key = 1;
+    Operator operator = 2;
+    // TEMPORARY. retain the old parameter to avoid errors in UI prod.
+    // Will remove once the latest changes in UI is released.
+    repeated string values = 3;
+    string value = 4;
+  }
+
+  string costGroupId = 1;
+  string vendor = 2;
+  string startTime = 3;
+  string endTime = 4;
+  Granularity granularity = 5;
+  repeated string groupBys = 6;
+  repeated Filter filters = 7;
+}
+
+message GetAICostAndUsageResponse {
+  message Cost {
+    double amount = 1;
+    string currency = 2;
+  }
+
+  message Usage {
+    string unit = 1;
+    double amount = 2;
+  }
+
+  message Metric {
+    string date = 1;
+    Cost cost = 2;
+    Usage usage = 3;
+    
+  }
+
+  message Result {
+    map<string, string> attributes = 1;
+    repeated Metric metrics = 2;
+  }
+
+  repeated Result results = 1;
+}
+
+message GetExecutionStatusRequest {}
+
+message GetExecutionStatusResponse {
+  string recommendationId = 1;
+  string status = 2;
+  string message = 3;
+}
+
+// Only supports gcp for now.
+message VerifyAPIAccessRequest {
+  // Required: gcp
+  string vendor = 1;
+  // Required: projectId
+  string target = 2;
+}
+
+message VerifyAPIAccessResponse {
+  bool result = 1;
+}
+
+message GetRecommendationV2Request {
+  string id = 1;
+  string costGroupId = 2;
+  string periodOption = 3;
+  string currency = 4;
+} 
+
+message GetRecommendationV2Response {
+  api.cover.recommendation.RecommendationData data = 1;
+}
+
+// Request message for OnboardOrg
+message OnboardOrgRequest {
+  string email = 1;
+  string password = 2;
+  string name = 3;
+  string orgId = 4;
+}
+
+// Response message for OnboardOrg
+message OnboardOrgResponse {
+  api.cover.UserData userData = 1;
+}
+
+// Request message for ActivateUser
+message ActivateUserRequest {
+  string userId = 1;
+  string previousPassword = 2;
+  string password = 3;
+  string name = 4;
+  string locale = 5;
+  // Email. For auth0 email validation.
+  string email = 6;
+  bool isAuth0 = 7;
+  // Auth0 user Id. For updating of user metadata.
+  string auth0UserId = 8;
+}
+
+// Response message for ActivateUser
+message ActivateUserResponse {
+  api.cover.UserData userData = 1;
+}
+
+// Request message for GetUserDetails
+message GetUserDetailsRequest {}
+
+// Response message for GetUserDetails
+message GetUserDetailsResponse {
+  api.cover.UserData userData = 1;
+}
+
+// Request message for UpdateUserAvatar
+message UpdateUserAvatarRequest {
+  string avatar = 1;
+}
+
+// Response message for UpdateUserAvatar
+message UpdateUserAvatarResponse {
+  api.cover.UserData userData = 1;
+}
+
+// Request message for UpdateUserIcon
+message UpdateUserIconRequest {
+  string icon = 1;
+}
+
+// Response message for UpdateUserIcon
+message UpdateUserIconResponse {
+  api.cover.UserData userData = 1;
+}
+
+// Request message for UpdateUserColorTheme
+message UpdateUserColorThemeRequest {
+  string colorTheme = 1;
+}
+
+// Response message for UpdateUserColorTheme
+message UpdateUserColorThemeResponse {
+  api.cover.UserData userData = 1;
+}
+
+// Request message for UpdateUserName
+message UpdateUserNameRequest {
+  string name = 1;
+}
+
+// Response message for UpdateUserName
+message UpdateUserNameResponse {
+  api.cover.UserData userData = 1;
+}
+
+// Request message for UpdateUserEmail
+message UpdateUserEmailRequest {
+  string email = 1;
+}
+
+// Response message for UpdateUserEmail
+message UpdateUserEmailResponse {
+  api.cover.UserData userData = 1;
+}
+
+// Request message for UpdateUserMainView
+message UpdateUserMainViewRequest {
+  string viewId = 1;
+}
+
+// Response message for UpdateUserMainView
+message UpdateUserMainViewResponse {
+  api.cover.UserData userData = 1;
+}
+
+// Request message for ResetUserPassword
+message ResetUserPasswordRequest {
+  string previousPassword = 1;
+  string newPassword = 2;
+}
+
+// Response message for ResetUserPassword
+message ResetUserPasswordResponse {
+  api.cover.UserData userData = 1;
+}
+
+// Request message for UpdateUserLocale
+message UpdateUserLocaleRequest {
+  string locale = 1;
+}
+
+// Response message for UpdateUserLocale
+message UpdateUserLocaleResponse {
+  api.cover.UserData userData = 1;
+}
+
+// Request message for UpdateUserAppTheme
+message UpdateUserAppThemeRequest {
+  string appTheme = 1;
+}
+
+// Response message for UpdateUserAppTheme
+message UpdateUserAppThemeResponse {
+  api.cover.UserData userData = 1;
+}
+
+// Request message for UpdateUserTimezone
+message UpdateUserTimezoneRequest {
+  string timeZone = 1;
+  bool autoTimeZone = 2;
+}
+
+// Response message for UpdateUserTimezone
+message UpdateUserTimezoneResponse {
+  api.cover.UserData userData = 1;
+}
+
+// Request message for UpdateUserAttributes
+message UpdateUserAttributesRequest {
+  repeated string attributes = 1;
+}
+
+// Response message for UpdateUserAttributes
+message UpdateUserAttributesResponse {
+  api.cover.UserData userData = 1;
+}
+
+// Request message for ResetPassword
+message ResetPasswordRequest {
+  // Required. UserId.
+  string userId = 1;
+}
+
+// Response message for ResetPassword
+message ResetPasswordResponse {
+  string userId = 1;
+}
+
+// Request message for CreateView
+message CreateViewRequest {
+  string name = 1;
+  string description = 2;
+  bool isPrivate = 3;
+  bool isEditable = 4;
+  string icon = 5;
+  string reportType = 6;
+  string colorTheme = 7;
+  string reportPeriod = 8;
+  string currency = 9;
+}
+
+// Response message for CreateView
+message CreateViewResponse {
+  api.cover.ViewData viewData = 1;
+}
+
+// Request message for GetViews
+message GetViewsRequest {}
+
+// Response message for GetViews
+message GetViewsResponse {
+  repeated api.cover.ViewList viewList = 1;
+}
+
+// Request message for GetCurrentView
+message GetCurrentViewRequest {
+  // Required. View Id.
+  string viewId = 1;
+}
+
+// Response message for GetCurrentView
+message GetCurrentViewResponse {
+  api.cover.ViewData viewData = 1;
+}
+
+// Request message for GetFavoriteViews
+message GetFavoriteViewsRequest {}
+
+// Response message for GetFavoriteViews
+message GetFavoriteViewsResponse {
+  repeated api.cover.Favorites favorites = 1;
+}
+
+// Request message for PublishView
+message PublishViewRequest {
+  // Required. View Id.
+  string viewId = 1;
+}
+
+// Response message for PublishView
+message PublishViewResponse {
+  string url = 1;
+}
+
+// Request message for AddFavorite
+message AddFavoriteRequest {
+  // Required. View Id.
+  string viewId = 1;
+}
+
+// Response message for AddFavorite
+message AddFavoriteResponse {
+  string viewId = 1;
+}
+
+// Request message for RemoveFavorite
+message RemoveFavoriteRequest {
+  // Required. View Id.
+  string viewId = 1;
+}
+
+// Response message for RemoveFavorite
+message RemoveFavoriteResponse {
+  string viewId = 1;
+}
+
+// Request message for UpdateView
+message UpdateViewRequest {
+  // Required. View Id.
+  string viewId = 1;
+  string name = 2;
+  string description = 3;
+  string icon = 4;
+  bool isPrivate = 5;
+  bool isEditable = 6;
+  string colorTheme = 7;
+}
+
+// Response message for UpdateView
+message UpdateViewResponse {
+  string viewId = 1;
+}
+
+// Request message for UpdateViewLayout
+message UpdateViewLayoutRequest {
+  // Required. View Id.
+  string viewId = 1;
+  repeated api.cover.WidgetData layout = 2;
+}
+
+// Response message for UpdateViewLayout
+message UpdateViewLayoutResponse {
+  repeated api.cover.ViewLayout layout = 1;
+}
+
+// Request message for UpdateViewWidget
+message UpdateViewWidgetRequest {
+  // Required. View Id.
+  string viewId = 1;
+  // Required. Widget Id.
+  string widgetId = 2;
+  google.protobuf.Struct options = 3;
+  repeated api.cover.LayoutRequests requests = 4;
+}
+
+// Response message for UpdateViewWidget
+message UpdateViewWidgetResponse {
+  string widgetId = 1;
+  api.cover.WidgetData widgetData = 2;
+}
+
+// Request message for UpdateViewColorTheme
+message UpdateViewColorThemeRequest {
+  string viewId = 1;
+  string colorTheme = 2;
+}
+
+// Response message for UpdateViewColorTheme
+message UpdateViewColorThemeResponse {
+  api.cover.ViewData viewData = 1;
+}
+
+// Request message for UpdateViewCurrency
+message UpdateViewCurrencyRequest {
+  string viewId = 1;
+  string currency = 2;
+}
+
+// Response message for UpdateViewCurrency
+message UpdateViewCurrencyResponse {
+  api.cover.ViewData viewData = 1;
+}
+
+message SetOrgUpdateCurrencyRequest {
+  // Required. Day of the month. Valid inputs are: "1 - 31"
+  int64 updateCurrency = 1;
+}
+
+message SetOrgUpdateCurrencyResponse {
+  int64 updateCurrency = 1;
+}
+
+message GetOrgUpdateCurrencyRequest {}
+
+message GetOrgUpdateCurrencyResponse {
+  string orgId = 1;
+  int64 updateCurrency = 2;
+  string lastUpdate = 3;
+}
+
+// Request message for ListExchangeRates
+message ListExchangeRatesRequest {
+  // Required. Start date Format: "YYYYMMDD"
+  string startDate = 1;
+
+  // Required. End date Format: "YYYYMMDD"
+  string endDate = 2;
+}
+
+// Response message for ListExchangeRates
+message ListExchangeRatesResponse {
+  string orgId = 1;
+  repeated ExchangeRates exchangeRates = 2;
+}
+
+message ExchangeRates {
+  string month = 1;
+  float exchangeRate = 2;
+  string date = 3;
+}
+
+// Request message for DeleteView
+message DeleteViewRequest {
+  // Required. View Id.
+  string viewId = 1;
+}
+
+// Response message for DeleteView
+message DeleteViewResponse {
+  string viewId = 1;
+}
+
+// Request message for UpdateSideMenuState
+message UpdateSideMenuStateRequest {
+  // Required. View Id.
+  string viewId = 1;
+  repeated api.cover.SideMenuState sidemenustate = 2;
+}
+
+// Response message for UpdateSideMenuState
+message UpdateSideMenuStateResponse {
+  string viewId = 1;
+}
+
+// Request message for AddSideMenuFavorite
+message AddSideMenuFavoriteRequest {
+  // Required. View Id.
+  string viewId = 1;
+  string menuItemId = 2;
+}
+
+// Response message for AddSideMenuFavorite
+message AddSideMenuFavoriteResponse {
+  string viewId = 1;
+}
+
+// Request message for RemoveSideMenuFavorite
+message RemoveSideMenuFavoriteRequest {
+  // Required. View Id.
+  string viewId = 1;
+  string menuItemId = 2;
+}
+
+// Response message for RemoveSideMenuFavorite
+message RemoveSideMenuFavoriteResponse {
+  string viewId = 1;
+}
+
+// Request message for CreateCostGroup
+message CreateCostGroupRequest {
+  string name = 1;
+  api.cover.CostGroupType type = 7;
+  string description = 2;
+  string image = 3;
+  string icon = 4;
+  string colorTheme = 5;
+  api.cover.Combinations combinations = 6;
+}
+
+// Response message for CreateCostGroup
+message CreateCostGroupResponse {
+  api.cover.CostGroupData costGroupData = 1;
+}
+
+// Request message for GetCostGroups
+message GetCostGroupsRequest {}
+
+// Response message for GetCostGroups
+message GetCostGroupsResponse {
+    repeated api.cover.CostGroupData costGroupData = 1;
+}
+
+// Request message for GetCostGroupDetails
+message GetCostGroupDetailsRequest {
+  // Required. Cost Group Id.
+  string costGroupId = 1;
+}
+
+// Response message for GetCostGroupDetails
+message GetCostGroupDetailsResponse {
+  api.cover.CostGroupData costGroupData = 1;
+}
+
+// Request message for UpdateCostGroupName
+message UpdateCostGroupNameRequest {
+  // Required. Cost Group Id.
+  string costGroupId = 1;
+  // Required. Name.
+  string name = 2;
+}
+
+// Response message for UpdateCostGroupName
+message UpdateCostGroupNameResponse {
+  string name = 1;
+}
+
+// Request message for UpdateCostGroupDescription
+message UpdateCostGroupDescriptionRequest {
+  // Required. Cost Group Id.
+  string costGroupId = 1;
+  // Required. Description.
+  string description = 2;
+}
+
+// Response message for UpdateCostGroupDescription
+message UpdateCostGroupDescriptionResponse {
+    string description = 1;
+}
+
+// Request message for UpdateCostGroupImage
+message UpdateCostGroupImageRequest {
+  // Required. Cost Group Id.
+  string costGroupId = 1;
+  // Required. Image.
+  string image = 2;
+}
+
+// Response message for UpdateCostGroupImage
+message UpdateCostGroupImageResponse {
+  string image = 1;
+}
+
+// Request message for UpdateCostGroupIcon
+message UpdateCostGroupIconRequest {
+  // Required. Cost Group Id.
+  string costGroupId = 1;
+  // Required. Icon.
+  string icon = 2;
+}
+
+// Response message for UpdateCostGroupIcon
+message UpdateCostGroupIconResponse {
+    string icon = 1;
+}
+
+// Request message for UpdateCostGroupColorTheme
+message UpdateCostGroupColorThemeRequest {
+  // Required. Cost Group Id.
+  string costGroupId = 1;
+  // Required. Color Theme.
+  string colorTheme = 2;
+}
+
+// Response message for UpdateCostGroupColorTheme
+message UpdateCostGroupColorThemeResponse {
+    string colorTheme = 1;
+}
+
+// Request message for UpdateCostGroupCombinations
+message UpdateCostGroupCombinationsRequest {
+  // Required. Cost Group Id.
+  string costGroupId = 1;
+  api.cover.Combinations combinations = 2;
+}
+
+// Response message for UpdateCostGroupCombinations
+message UpdateCostGroupCombinationsResponse {
+  api.cover.Combinations combinations = 1;
+}
+// Request message for DeleteCostGroup
+message DeleteCostGroupRequest {
+  // Required. Cost Group Id.
+  string costGroupId = 1;
+}
+
+// Response message for DeleteCostGroup
+message DeleteCostGroupResponse {
+  string costGroupId = 1;
+}
+
+// Request message for the GetAccountAccessTemplateUrlRequest rpc.
+message GetAccountAccessTemplateUrlRequest {
+  // All templates are publicly available from the reponse link (`templateUrl`) if you want to audit the included permissions.
+  string type = 1;
+}
+
+// Response message for the GetAccountAccessTemplateUrlResponse rpc.
+message GetAccountAccessTemplateUrlResponse {
+  // The CloudFormation launch url. Open it in your browser.
+  string launchUrl = 1;
+
+  // The latest CloudFormation template. The version is included in the filename.
+  string templateUrl = 2;
+
+  // The default stack name used. Can be modified.
+  string stackName = 3;
+
+  // The AWS account that will receive the access. Do not change.
+  string principal = 4;
+
+  // The external id for this role. Do not change.
+  string externalId = 5;
+
+  string templateVersion = 6;
+}
+
+// Response message for GetAccountAccess, CreateAccountAccess rpc.
+message AccountAccess {
+  // The queried target account.
+  string target = 1;
+
+  // The account name
+  string accountName = 2;
+
+  // The account type. Payer or linked account.
+  string accountType = 3;
+
+  // The payer account of the account.
+  string payerId = 4;
+
+  // The role ARN that provides the cross-account access permissions.
+  string roleArn = 5;
+
+  // The external id for this role.
+  string externalId = 6;
+
+  // The id of the CloudFormation stack deployed in the target account.
+  string stackId = 7;
+
+  // The region where the stack is deployed.
+  string stackRegion = 8;
+
+  // The latest template used to deploy the stack.
+  string templateUrl = 9;
+
+  // The s3 bucket name
+  string bucketName = 10;
+
+  // Report path prefix
+  string prefix = 11;
+
+  // The report name
+  string reportName = 12;
+
+  // The status of registration for CUR export, API access and Cloudwatch streaming
+  api.cover.RegistrationStatus registrationStatus = 13;
+
+  // This can be `latest`, `outdated`, or some error information.
+  string status = 14;
+
+  // The last updated timestamp, RFC3339 UTC.
+  string lastUpdated = 15;
+}
+
+// Request message for the CreateAccountAccess rpc.
+message CreateAccountAccessRequest {
+  // Required. The target AWS account to validate.
+  string target = 1;
+  // Optional. Set to true if deployment is done through terraform
+  bool fromTerraform = 2;
+}
+
+// Request message for the CreateAccountAccessStackset rpc.
+message CreateAccountAccessStacksetRequest {
+  // Required. The AWS payer account to validate.
+  string target = 1;
+  // Required. The region of the stack deployment.
+  string region = 2;
+}
+
+// Request message for the UpdateAccountAccess rpc.
+message UpdateAccountAccessRequest {
+  // Required. The target AWS account to update.
+  string target = 1;
+}
+
+// Request message for the DeleteAccountAccess rpc.
+message DeleteAccountAccessRequest {
+  // Required. The target AWS account to delete.
+  string target = 1;
+  string vendor = 2;
+}
+
+// Response message for the DeleteAccountAccess rpc.
+message DeleteAccountAccessResponse {
+  string targetId = 1;
+}
+
+// Request message for the RegisterAccount rpc.
+message RegisterAccountRequest {
+  // Required. Cloud vendor.
+  string vendor = 1;
+
+  // Required. The AWS account Id.
+  string accountId = 2;
+
+  // The account name
+  string accountName = 3;
+}
+
+// Request message for the Asset.ListResources rpc.
+message ListAssetsRequest {
+  // Required. Cost Group Id.
+  string costGroupId = 1;
+
+  // Optional. If not set, current month will be used. Format: `yyyymm`.
+  string startMonth = 2;
+
+  // Optional. If not set, current month will be used. Format: `yyyymm`.
+  string endMonth = 3;
+
+  // Optional. If true, returns only all assets with recommendation
+  bool withRecommendation = 4;
+
+  // Optional. For AWS-specific filter options.
+  repeated ListAssetsFilters awsOptions = 5;
+
+  // Optional. For AWS-specific properties filter options.
+  repeated ListAssetsFilters awsPropertiesOptions = 6;
+}
+
+message ListAssetsFilters {
+  map<string, string> andFilters = 1;
+}
+
+message Resource {
+	// Format is `yyyy-mm`
+	string date = 1;
+
+	// Organization ID
+	string orgId = 2;
+
+	// Only `aws` is supported for now.
+	string vendor = 3;
+
+	// Resource owner account
+	string account = 4;
+
+	// Only `AmazonEC2` is supported for now.
+	string service = 5;
+
+	// Resource unique identifier
+	string resourceId = 6;
+
+	// Only `AWS::EC2::Instance` is supported for now
+	string resourceType = 7;
+
+	// Cost incurred for the resource on specified month.
+	double cost = 8;
+
+	// Format: JSON String
+	string properties = 9;
+	
+	// Format: JSON String
+	string recommendation = 10;
+}
+
+message GetAssetsSummaryRequest {
+  // Required. Cost Group Id.
+  string costGroupId = 1;
+
+  // Optional. If not set, current month will be used. Format: `yyyymm`.
+  string startMonth = 2;
+
+  // Optional. If not set, current month will be used. Format: `yyyymm`.
+  string endMonth = 3;
+
+  // Optional. If true, return the assets summary for the requested period. Else, summary per month is returned.
+  bool combineDates = 4;
+
+  // Optional. For AWS-specific filter options.
+  repeated ListAssetsFilters awsOptions = 5;
+
+  // Optional. For AWS-specific properties filter options.
+  repeated ListAssetsFilters awsPropertiesOptions = 6;
+}
+
+message GetAssetsSummaryResponse {
+  repeated AssetsSummary summary = 1;
+  // Format: JSON String
+  string recommendationSummary = 2;
+}
+
+message AssetsSummary {
+  // Format is `yyyy-mm`
+	string date = 1;
+
+  // Only `aws` is supported for now.
+	string vendor = 2;
+
+  // Total number of resources
+  int64 totalResources = 3;
+
+  // Total Cost incurred for the resources on specified month.
+  double totalCost = 4;
+}
+
+message ResolveCostGroupCombinationsRequest {
+  // Required. Cost Group Id.
+  string costGroupId = 1;
+}
+
+message ResolveCostGroupCombinationsResponse {
+  string costGroupId = 1;
+  repeated api.cover.Account accounts = 2;
+}
+
+message GetCostUsageRequest {
+  // Required. Cost Group Id.
+  string costGroupId = 1;
+
+  // Optional. If not set, the first day of the current month will be used. Format: `yyyymmdd`.
+  string startTime = 2;
+
+  // Optional. If not set, current date will be used. Format: `yyyymmdd`.
+  string endTime = 3;
+
+  // Optional. If set to true, return data grouped by month within the date range. 
+  // If you want data that is grouped per account per month, set this to `true`, then set `groupByColumns` to `none`. 
+  // You can also use `groupByColumns` while setting this to true.
+  bool groupByMonth = 4;
+
+  // Optional. If set, returns only the services or accounts with the highest cost or usage
+  // Default value is 0.
+  int64 limit = 5;
+
+  // Optional. Valid values are `cost` and `usage`. 
+  // Default value is `cost`. Used only when limit is not 0.
+  string category = 6;
+
+  // Optional. Valid values are `service` and `account`. Only `service` is supported for now 
+  // Default value is `service`. Used only when limit is not 0.
+  string groupBy = 7;
+
+  // Optional. If set to true, return all available data including the data with zero cost.
+  // Default value is `false` which means that only data with non-zero cost are returned.
+  bool includeZeroCost = 8;
+
+  // Optional. Valid only for the `aws` vendor. AWS-specific options.
+  GetCostUsageRequestAwsOptions awsOptions = 9;
+
+  // Optional. Valid only for the `azure` vendor. Azure-specific options.
+  GetCostUsageRequestAzureOptions azureOptions = 10;
+
+  // Optional. Valid only for the `gcp` vendor. gcp-specific options.
+  GetCostUsageRequestGcpOptions gcpOptions = 11;
+
+   // Optional. Valid only for the `azurecsp` vendor. AzureCsp-specific options.
+  GetCostUsageRequestAzureCspOptions azurecspOptions = 12;
+
+   // Optional. For custom selection when creating cost groups.
+   // This field allows custom options for specifying criteria for cost group creation.
+  GetCostUsageRequestCustomOptions customOptions = 13;
+
+  // Optional. If set to true, include cost forecast 
+  bool includeForecast = 14;
+
+  // Optional. If not set, default value is `USD`.
+  string currency = 15;
+}
+
+message GetCostUsageRequestAwsOptions {
+  // Optional. A comma-separated list of columns to aggregate the data into. 
+  // Valid values are `productCode`, `serviceCode`, `region`, `zone`, `usageType`, `instanceType`, `operation`, `invoiceId`, `description`, and `resourceId`. 
+  // A special value of `none` is also supported, which means query by date or month per account only.
+  //
+  // For example, if you only want the services and region data, you can set this field to `productCode,region`. 
+  // Your input sequence doesn't matter (although the sequence above is recommended) as the actual sequence is already fixed in the return data (see the definition in https://github.com/alphauslabs/blueapi/blob/main/api/aws/cost.proto), which is generic to specific, top to bottom. Invalid values are discarded. Excluded columns will be empty.
+  string groupByColumns = 1;
+
+  // Optional. If set to true, group all input accounts into one.
+  bool groupAccounts = 2;
+
+  // Optional. A list of filtering options. See [ReadCostsRequestOptionsFilters] for more information on each filter item. 
+  // Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc.
+  repeated ReadCostsRequestOptionsFilters filters = 3;
+
+  // Optional. A list of filtering options specific for tags. 
+  // Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc. Discarded when `groupByColumns` field is set or if `groupByMonth` is true.
+  repeated ReadCostsRequestOptionsFilters tagFilters = 4;
+
+  // Optional. Tag key, only used when groupBy is set to `tag`.
+  string tagKey = 5;
+}
+
+message GetCostUsageRequestAzureOptions {
+  // Optional. A comma-separated list of columns to aggregate the data into. 
+  // Valid values are `accountId`, `serviceName`, `serviceTier`, `location`, `product`, `partNumber`, `resourceGuid`, `offerId`, `consumedService`, `departmentId`, `departmentName`, `resourceGroup`, `enrollment`, `additionalInfo`
+  // A special value of `none` is also supported, which means query by date or month per account only.
+  //
+  // For example, if you only want the services and location data, you can set this field to `serviceName,location`. 
+  string groupByColumns = 1;
+
+  // Optional. If set to true, group all input subscription into one.
+  bool groupAccounts = 2;
+
+  // Optional. A list of filtering options. See [ReadCostsRequestOptionsFilters] for more information on each filter item. 
+  // Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc.
+  repeated ReadCostsRequestOptionsFilters filters = 3;
+
+  // Optional. A list of filtering options specific for tags. 
+  // Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc. 
+  repeated ReadCostsRequestOptionsFilters tagFilters = 4;
+}
+
+message GetCostUsageRequestGcpOptions {
+  // Optional. A comma-separated list of columns to aggregate the data into. 
+  // A special value of `none` is also supported, which means query by date or month per account only.
+  //
+  // For example, if you only want the services and location data, you can set this field to `serviceName,location`. 
+  string groupByColumns = 1;
+
+  // Optional. If set to true, group all input projects into one.
+  bool groupAccounts = 2;
+
+  // Optional. A list of filtering options. See [ReadCostsRequestOptionsFilters] for more information on each filter item. 
+  // Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc.
+  repeated ReadCostsRequestOptionsFilters filters = 3;
+
+  // Optional. A list of filtering options specific for tags. 
+  // Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc. 
+  repeated ReadCostsRequestOptionsFilters tagFilters = 4;
+
+  repeated ReadCostsRequestOptionsFilters labelFilters = 5;
+
+  repeated ReadCostsRequestOptionsFilters projectLabelFilters = 6;
+
+  // Optional. Tag key, only used when groupBy is set to `tag`.
+  string tagKey = 7;
+}
+
+message GetCostUsageRequestAzureCspOptions {
+  // Optional. A comma-separated list of columns to aggregate the data into. 
+  // A special value of `none` is also supported, which means query by date or month per account only.
+  //
+  // For example, if you only want the services and location data, you can set this field to `serviceName,location`. 
+  string groupByColumns = 1;
+
+  // Optional. If set to true, group all input projects into one.
+  bool groupAccounts = 2;
+
+  // Optional. A list of filtering options. See [ReadCostsRequestOptionsFilters] for more information on each filter item. 
+  // Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc.
+  repeated ReadCostsRequestOptionsFilters filters = 3;
+
+  // Optional. A list of filtering options specific for tags. 
+  // Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc. 
+  repeated ReadCostsRequestOptionsFilters tagFilters = 4;
+
+  // Optional. Tag key, only used when groupBy is set to `tag`.
+  string tagKey = 5;
+}
+
+message GetCostUsageRequestCustomOptions {
+  // Optional. A comma-separated list of columns to aggregate the data into. 
+  // A special value of `none` is also supported, which means query by date or month per account only.
+  //
+  // For example, if you only want the services and location data, you can set this field to `serviceName,location`. 
+  string groupByColumns = 1;
+
+  // Optional. If set to true, group all input projects into one.
+  bool groupAccounts = 2;
+
+  // Optional. A list of filtering options. See [ReadCostsRequestOptionsFilters] for more information on each filter item. 
+  // Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc.
+  repeated ReadCostsRequestOptionsFilters filters = 3;
+
+    // Optional. A list of filtering options specific for tags. 
+  // Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc. 
+  repeated ReadCostsRequestOptionsFilters tagFilters = 4;
+
+  repeated ReadCostsRequestOptionsFilters labelFilters = 5;
+
+  repeated ReadCostsRequestOptionsFilters projectLabelFilters = 6;
+
+  // Optional. Tag key, only used when groupBy is set to `tag`.
+  string tagKey = 7;
+}
+
+
+// A map of "key:value" column filters. Dependent on `groupByColumns` and/or `groupByMonth`. The key indicates the column name while the value is the filter value prefixed by either "eq:" (equal), "re:" (regular expressions based on https://github.com/google/re2), or "!re:" (reverse "re:"). No prefix is the same as "eq:". Multiple map items will use the logical 'and' operator, e.g. mapfilter1 && mapfilter2 && mapfilter3, etc.
+//
+// For example, if you like to filter `productCode` to return only `AmazonEC2`, set to `{"productCode":"eq:AmazonEC2"}` or `{"productCode":"AmazonEC2"}`. You can also use a regular expression like `{"productCode":"re:AmazonEC2|AmazonRDS"}`, which means return all AmazonEC2 or AmazonRDS lineitems. Or reverse regexp, such as `{"productCode":"!re:^AmazonEC2$"}`, which means return all items except `AmazonEC2`.
+message ReadCostsRequestOptionsFilters {
+  map<string, string> andFilters = 1;
+}
+
+// Response message wrapper for cloud costs.
+message CostItem {
+  //`aws`, `azure`, `azureea` or `gcp`
+  string vendor = 1;
+  string date = 2;
+  string product = 3;
+  // AWS account, GCP projectId, AzureCSP accountId
+  string account = 4;
+  // Usage Type. Supports AWS usage types only. Other vendors will be grouped into one for each vendor.
+  string usageType = 16;
+  // Charge Type. Supports AWS usage types only. Types of charges in the CUR such as tax, discounts, fee, usage, etc.
+  string chargeType = 17;
+  double cost = 5;
+  // Could be AWS, Azure or GCP Cost
+  string details = 6;
+  // Cost Forecast
+  api.cover.AwsCostForecast forecast = 7; 
+  string region = 8;
+  // AWS payer acount, GCP billing account, Azure Payer account
+  string billingAccount = 9;
+  // Tag Value. Contains tag value of the input tag key. Only used if groupBy is set to tag
+  string tagValue = 10;
+  string lastUpdate = 11;
+  // Contains the list of unit items. Used only when groupBy is set to the selected unit type (e.g., "Product", "Environment", "Customer").
+  // Example: If groupBy is set to "Environment", this field might include values like "dev", "next", or "prod".  
+  string unit = 12;
+  // Category. Contains the category to which a service belongs. Only used if groupBy is set to category.
+  string category = 13;
+  // Indicates whether the item is tagged (true) or not (false).
+  bool tagged = 14;
+  //Contains the number of units for unit metric. Only used when feature flag for unit cost metric is enabled.
+  double numberOfUnits = 18;
+  // Contains the unit cost metric. Only used when feature flag for unit cost metric is enabled.
+  map<string, double> unitcostmetric = 15;
+  // Indicates the allocation category. "target" or "source". For target, allocated cost from other account while source is the cost allocated to other account.
+  string allocationCategory = 19;
+}
+
+// Status of upload file
+enum Status {
+  PENDING = 0;
+  IN_PROGRESS = 1;
+  SUCCESS = 2;
+  FAILED = 3;
+}
+
+// Request message for AssignPayer
+message AssignPayerRequest {
+  // Required. Cloud vendor.
+  string vendor = 1;
+
+  // Required. Account Id.
+  string accountId = 2;
+
+  // Required. The Payer Id.
+  string payerId = 3;
+}
+
+// Response message for AssignPayer
+message AssignPayerResponse {
+  string accountId = 1;
+  string payerId = 2;
+}
+
+// Request message for GetTags
+message GetTagsRequest {
+  // Required. Cloud vendor.
+  string vendor = 1;
+  string costGroupId = 2;
+}
+// Response message for GetFeeDetails, CreateFeeReallocation rpc.
+message FeeDetails {
+  string id = 1;
+  string orgId = 2;
+  string vendor = 3;
+  string account = 4;
+  string month = 5;
+  string lineType = 6;
+  string feeType = 7;
+  string productCode = 8;
+  string description = 9;
+  string started = 10;
+  string timeInterval = 11;
+  string productName = 12;
+  string currency = 13;
+  string splitStatus = 14;
+  bool isAllocated = 15;
+  bool isApplied = 16;
+  double unblendedCost = 17;
+  string sourceFee = 18;
+  string lastUpdate = 19;
+}
+
+message Allocator {
+  // Required. The type where the adjustments are to be applied. This can support `account`, `costGroup` and `payer`.
+  string type = 1;
+
+  // Required. The value for the specified attribute. `accountId` for account, `costGroupId` for cost group, `payerId` for payer and account name regex for account name.
+  string value = 2;
+
+  // Required. The formula to use to compute the value of the allocation on an attribute. If left blank, allocation is based on usage.
+  string formula = 3;
+	
+	// Optional. The number of months the adjustment is to be applied. If set, it will divide the cost equally to the number of months.
+	int64 months = 4;
+}
+
+// A map of "key:value" attribute filters. The key indicates the column name while the value is the filter value prefixed by either "eq:" (equal), "re:" (regular expressions based on https://github.com/google/re2), or "!re:" (reverse "re:"). No prefix is the same as "eq:". Multiple map items will use the logical 'and' operator, e.g. mapfilter1 && mapfilter2 && mapfilter3, etc.
+message Criteria {
+  map<string, string> and = 1;
+}
+
+message CostAllocatorDetails {
+  string id = 1;
+  string category = 2;
+  int64 expiration = 3;
+  // Optional. The starting month of the allocator to be effective.
+  string startMonth = 4;
+  // Optional. The default account for remaining costs. If not set, will allocate the cost to the original account.
+  string defaultAccount = 5;
+  // Required. Criteria for the adjustment to be applied.
+  api.cover.Combinations criteria = 6;
+  repeated Allocator allocator = 7;
+  string createTime = 8;
+  string updateTime = 9;
+  string name = 10;
+  string description = 11;
+}
+
+message CostAllocatorRequest {
+  string id = 1;
+  string category = 2;
+  int64 expiration = 3;
+  // Optional. The starting month of the allocator to be effective.
+  string startMonth = 4;
+  // Optional. The default account for remaining costs. If not set, will allocate the cost to the original account.
+  string defaultAccount = 5;
+  // Required. Criteria for the adjustment to be applied.
+  api.cover.Combinations criteria = 6;
+  repeated Allocator allocator = 7;
+  string name = 8;
+  string description = 9;
+}
+
+// Request message for the ListAllocators rpc.
+message ListAllocatorsRequest {}
+
+// Request message for the CreateAllocator rpc.
+message CreateAllocatorRequest {
+  // Optional. The category where the allocator is to be applied. Applicable values are `fee`, `account`, or `savings`. Default value is `fee`.
+  string category = 1;
+  int64 expiration = 2;
+  // Optional. The starting month of the allocator to be effective.
+  string startMonth = 3;
+  // Optional. The default account for remaining costs. If not set, will allocate the cost to the original account.
+  string defaultAccount = 4;
+  // Required. Criteria for the adjustment to be applied.
+  api.cover.Combinations criteria = 5;
+  repeated Allocator allocator = 6;
+  string name = 7;
+  string description = 8;
+}
+
+// Request message for the GetAllocationAttributes rpc.
+message GetAllocationAttributesRequest {
+  string category = 1;
+}
+
+// Response message for the GetAllocationAttributes rpc.
+message GetAllocationAttributesResponse {
+  message AllocationAttribute {
+    string type = 1;
+    repeated string service = 2;
+  }
+  repeated AllocationAttribute attribute = 1;
+}
+
+// Request message for the GetAllocationSources rpc.
+message GetAllocationSourcesRequest {
+  string type = 1;
+  string accountId = 2;
+}
+
+// Response message for the GetAllocationSources rpc.
+message GetAllocationSourcesResponse {
+  message AllocationSources {
+    string accountName = 1;
+    string service = 2;
+    string costGroup = 3;
+  }
+  repeated AllocationSources source = 1;
+  repeated api.cover.TagData tagData = 2;
+}
+
+// Request message for the DeleteAllocator rpc.
+message DeleteAllocatorRequest {
+  // Required. The id of the allocator to delete.
+  string id = 1;
+}
+
+// Request message for the GetCostGroupAllocation rpc.
+message GetCostGroupAllocationRequest {
+  // Required. The category to display on the cost group. Supports `fee` or `savings`.
+  string category = 1;
+  // Required. Cost Group Id.
+  string costGroupId = 2;
+  string startDate = 3;
+  string endDate = 4;
+}
+
+// Response message wrapper for cost group allocations.
+message AllocationItem {
+  string vendor = 1;
+  string month = 2;
+  string product = 3;
+  string account = 4;
+  string type = 5;
+  double cost = 6;
+  string costGroup = 7;
+}
+
+// Request message for AddUserFromAuth0asRoot rpc
+message ProcessAuth0UserRequest {
+  string source = 1;
+  string customerId = 2;
+  string email = 3;
+  string subuserId = 4;
+}
+
+// Response message wrapper for adding user from Auth0 as root
+message ProcessAuth0UserResponse {
+  bool isAuthorized = 1;
+}
+
+// Message Response for GetDataAccess. For Azure and GCP
+message DataAccess {
+  // Billing Id for GCP, Account Id for Azure
+  string target = 1; 
+
+  // Org Id
+  string orgId = 2;
+
+  // GCP Options
+  api.cover.GcpOptions gcpOptions = 3;
+
+  // Azure Options
+  api.cover.AzureOptions azureOptions = 4;
+
+  api.cover.AwsOptions awsOptions = 5;
+ 
+  // Account type, linked or payer
+  string accountType = 6; 
+
+  // Last Update
+  string lastUpdate = 7; 
+
+  // Time Created
+  string createTime = 8;
+
+  string vendor = 9;
+}
+
+// Request message for Register Data Access. For azure and gcp.
+message RegisterDataAccessRequest {
+  // Vendor (Azure/GCP)
+  string vendor = 1;
+
+  // Billing Id for GCP, Account Id for Azure
+  string target = 2;
+
+  // Account type (payer/linked)
+  string accountType = 3;
+
+  // GCP Options. Specific for GCP
+  api.cover.GcpOptions gcpOptions = 4;
+
+  // Azure Options. Specific for Azure
+  api.cover.AzureOptions azureOptions = 5;
+
+   // Aws Options. Specific for Aws
+  api.cover.AwsOptions awsOptions = 6;
+}
+
+// Request message for UpdateDataAccess (GCP/Azure)
+message UpdateDataAccessRequest {
+  // Billing Id for GCP, Account Id for Azure
+  string target = 1;
+
+  // GCP or Azure
+  string vendor = 2;
+
+  // GCP Options
+  api.cover.GcpOptions gcpOptions = 3;
+
+  // Azure Options
+  api.cover.AzureOptions azureOptions = 4;
+
+  // AWS Options
+  api.cover.AwsOptions awsOptions = 5;
+  
+  // Account Type
+  string accountType = 6;
+}
+
+// Request message for ListDataAccess
+message ListDataAccessRequest {}
+
+// Request message for ListUnregisteredAccounts
+message ListUnregisteredAccountsRequest {}
+
+// Response message for ListUnregisteredAccounts
+message ListUnregisteredAccountsResponse {
+  string orgId = 1;
+  repeated UnregisteredAccts unregisteredAccts = 2;
+}
+
+message UnregisteredAccts {
+  // Id of the unregistered account.
+  string id = 1;
+  string payerId = 2;
+  string status = 3;
+  string lastUpdate = 4;
+}
+
+// Request message for AddBillingAccount
+message BillingAccountRequest {
+  // Required. The billing account id.
+  string billingId = 1;
+
+  // Name of dataset you created.
+  string datasetId = 2;
+
+  // In creating dataset, It requires you to select a region.
+  string datasetRegion = 3;
+
+  // Project Id where the datasetId of BQ can be found.
+  string projectId = 4;
+
+  // Optional. Billing Name, this can be set by the users in Octo UI.
+  string billingName = 5;
+}
+
+message GetAndDeleteDataAccessRequest {
+  // Required. (Billing ID for GCP / Account ID for Azure) 
+  string target = 1;
+
+  // Vendor (GCP/Azure)
+  string vendor = 2;
+
+  // In the context of fetching account details, specifying the account type is necessary. This is because the target alone might not uniquely identify an account and could result in multiple data points.
+  string accountType = 3;
+}
+
+// Request message for AddPartnerCenterCredentials
+message AddPartnerCenterCredentialsRequest {
+  // The account Id
+  string accountId = 1;
+
+  // Application Id
+  string applicationId = 2;
+
+  // Secret Key
+  string secretKey = 3;
+}
+
+// Request message for AddMpnSetting
+message AddMpnSettingRequest {
+ // Partner Id / MPN Id
+  string mpnId = 1;
+}
+
+// Request message for GetCostGroupAttribute
+message GetCostGroupAttributeRequest {
+  string vendor = 1;
+
+  string attributeType = 2;
+
+  string costGroupId = 3;
+
+  //Optional, This is for Unit Cost. When present, the api will return all attributes except the combination in this item.
+  repeated api.cover.Combinations existingCombinations = 4;
+  //Optional, This is for Unit Cost. 
+  // When present, the currentCombination field represents a combination that is not yet finalized. 
+  // This field is used to compare with existingCombinations to analyze both sets 
+  // and determine the appropriate attributes to return.
+  api.cover.Combinations currentCombination = 5;
+}
+
+// Response message for GetCostGroupAttribute
+message GetCostGroupAttributeResponse {
+  repeated api.cover.Result result = 1;
+
+  repeated api.cover.TagData tagData = 2;
+}
+
+message GetCategoriesRequest {
+  string vendor = 1;
+}
+
+message GetCategoriesResponse {
+  repeated api.cover.Category category = 1;
+}
+
+// Request message for GetAlerts
+message GetAlertsRequest {}
+
+// Response message for GetAlerts
+message GetAlertsResponse {
+  api.cover.AlertData alertData = 1;
+}
+
+// Request message for CreateAlert
+message CreateAlertRequest {
+  // Required.
+  string name = 1;
+
+  // At least one in either fixedAmount or percentage.
+  float fixedAmount = 2;
+  float percentage = 3;
+
+  // Optional. daily or monthly. Only 'daily' is supported for now.
+  string granularity = 4;
+
+  // Required. Cost group IDs.
+  repeated string costGroups = 5;
+
+  // Required. Channel IDs.
+  repeated string channels = 6;
+}
+
+// Response message for CreateAlert
+message CreateAlertResponse {
+  api.cover.AlertData alertData = 1;
+}
+
+// Request message for GetAlertDetails
+message GetAlertDetailsRequest {
+  // Required. Alert ID.
+  string id = 1;
+}
+
+// Response message for GetAlertDetails
+message GetAlertDetailsResponse {
+  api.cover.AlertData alertData = 1;
+}
+
+// Request message for DeleteAlert
+message DeleteAlertRequest {
+  // Required. Alert ID.
+  string id = 1;
+}
+
+// Response message for DeleteAlert
+message DeleteAlertResponse {
+  string id = 1;
+}
+
+// Request message for UpdateAlertDetails
+message UpdateAlertDetailsRequest {
+  // Required. Alert ID.
+  string id = 1;
+
+  // If optional fields are not supplied, no changes occur.
+  // Optional.
+  string name = 2;
+
+  // Both are optional.
+  float fixedAmount = 3;
+  float percentage = 4;
+
+  // Optional. daily or monthly. Only 'daily' is supported for now.
+  string granularity = 5;
+
+  // Optional. Cost group IDs.
+  repeated string costGroups = 6;
+
+  // Optional. Channel IDs.
+  repeated string channels = 7;
+}
+
+// Response message for UpdateAlertDetails
+message UpdateAlertDetailsResponse {
+  api.cover.AlertData alertData = 1;
+}
+
+// Request message for GetChannels
+message GetChannelsRequest {
+  // Optional. Use email, slack, or msteams to filter the type of channels
+  // Otherwise, it returns all channels
+  string type = 1;
+}
+
+// Response message for GetChannels
+message GetChannelsResponse {
+  api.cover.ChannelData channelData = 1;
+}
+
+// Request message for CreateChannel
+message CreateChannelRequest {
+  // Required. Either actual email address or slack/msteams channel name
+  string name = 1;
+
+  // Required. email, slack, or msteams.
+  string type = 2;
+
+  // Optional. Only needed for slack and msteams type.
+  string webhookUrl = 3;
+}
+
+// Response message for CreateChannel
+message CreateChannelResponse {
+  api.cover.ChannelData channelData = 1;
+}
+
+// Request message for GetChannelDetails
+message GetChannelDetailsRequest {
+  // Required. Channel ID.
+  string id = 1;
+}
+
+// Response message for GetChannelDetails
+message GetChannelDetailsResponse {
+  api.cover.ChannelData channelData = 1;
+}
+
+// Request message for DeleteChannel
+message DeleteChannelRequest {
+  // Required. Channel ID.
+  string id = 1;
+}
+
+// Response message for DeleteChannel
+message DeleteChannelResponse {
+  string id = 1;
+}
+
+// Request message for UpdateChannelDetails
+message UpdateChannelDetailsRequest {
+  // Required. Channel ID.
+  string id = 1;
+
+  // If optional fields are not supplied, no changes occur.
+  // Optional. Either actual email address or slack/msteams channel name
+  string name = 2;
+
+  // Optional. email, slack, or msteams.
+  string type = 3;
+
+  // Optional. Only needed for slack and msteams type.
+  string webhookUrl = 4;
+}
+
+// Response message for UpdateChannelDetails
+message UpdateChannelDetailsResponse {
+  api.cover.ChannelData channelData = 1;
+}
+
+// Request message for getting anomaly
+message GetAnomalyinCostGroupRequest {
+  string costGroupId = 1;
+
+  // Start date for detecting anomalies. Valid format: YYYYMMDD
+  string startDate = 2;
+
+  // End date for detection anomalies. Valid format: YYYYMMDD
+  string endDate = 3;
+}
+
+// Message response for anomaly detection 
+message AnomalyData {
+    string account = 1;
+
+    string costGroupId = 2;
+
+    string vendor = 3;
+
+    string product = 4;
+
+    string date = 5;
+
+    float totalCost = 6;
+
+    // The value will be true if there is an anomaly for a specific account and product
+    bool isAnomaly = 7;
+
+     // Lower bound. If the total cost is lesser than the lowerlimit it is considered as anomaly
+    float lowerLimit = 8;
+
+    // Upper bound. If the total cost is greater than the upperlimit it is considered as anomaly
+    float upperLimit = 9;   
+
+    // The difference of the total cost and the upperlimit or lowerlimit if it is anomamly, if not anomaly then anomaly cost is 0
+    float anomalyCost = 10;
+
+    // How many percentage does the data is considered anomaly 
+    float anomalyProbability = 11;
+}
+
+// Request message for CreateDiscountExpirationAlert
+message CreateDiscountExpirationAlertRequest {
+  // Required if the alertEnabled is set to true
+  // Supported values are the following:
+  // [0, 7, 30, 60, 90]
+  repeated int64 frequencies = 1;
+
+  // Required. Cost Group Id
+  repeated string costGroups = 2;
+
+  // required. Switch in enabling alert.
+  bool alertEnabled = 3;
+
+  // required. Array of notificationChannel Ids from DynamoDB. Existing in ripple.
+  repeated string channels = 4;
+
+  // required. Name of alert
+  string name = 5;
+}
+
+message ManipulateDiscountExpirationAlertRequest {
+  // required. Id
+  string id = 1;
+}
+
+message UpdateDiscountExpirationAlertRequest {
+  // required. Id
+  string id = 1;
+
+  // required. 
+  bool alertEnabled = 2;
+
+  // required. Notification Channel Ids.
+  repeated string channels = 3;
+
+  // required. Frequencies.
+  repeated int64 frequencies = 4;
+
+  // Required. Cost Group Ids
+  repeated string costGroups = 5;
+
+  // required. Name
+  string name = 6;
+}
+
+message DiscountExpiryAlertData {
+  string id = 1;
+
+  string orgId = 2;
+
+  bool alertEnabled = 3;
+
+  repeated int64 frequencies = 4;
+
+  repeated api.cover.AlertCostGroup costGroups = 5;
+
+  string details = 6;
+
+  api.cover.AlertChannels channels = 7;
+
+  string name = 8;
+}
+
+// Request message for ListDiscountExpirationAlert
+message ListDiscountExpirationAlertRequest {}
+
+// Rquest message for CreateAnomalyAlert
+message CreateAnomalyAlertRequest {
+  // Required. Name of the Anomaly Alert
+  string name = 1;
+
+  // Required. Toggle disable and enable status of the alert
+  bool alertEnabled = 2;
+
+  // Required. How often the user wants to receive alerts. Daily or Weekly
+  string frequency = 3;
+
+  // Requried. The Id of the cost group you want to monitor if there is an anomaly
+  string costGroupId = 4;
+
+  // Required. The Channels where you want to send the alerts.
+  repeated string notificationChannels = 5;
+
+}
+message ManipulateAnomalyAlertRequest {
+  // required. Id
+  string id = 1;
+}
+
+message AnomalyAlertData {
+
+  string id = 1;
+
+  string orgId = 2;
+  
+  string name = 3;
+
+  bool alertEnabled = 4;
+  
+  string frequency = 5;
+
+  api.cover.AlertCostGroup costGroupId = 6;
+
+  api.cover.AlertChannels channels = 7;
+
+}
+
+// Request message for ListAnomalyAlert
+message ListAnomalyAlertRequest {}
+
+message UpdateAnomalyAlertRequest {
+  // required. Id
+  string id = 1;
+
+  // required. alert name  
+  string name = 2;
+
+  // required. 
+  bool alertEnabled = 3;
+
+  // required. Notification Channel Ids.
+  repeated string notificationChannels = 4;
+
+  // required. Frequency.
+  string frequency = 5;
+
+  // required. cost group id   
+  string costGroupId = 6;
+}
+
+// Request message for RegisterNewUser
+message RegisterNewUserRequest {
+  //required email
+  string email = 1;
+
+  //required password
+  string password = 2;
+
+  //required user Name
+  string name = 3;
+
+  //required company name
+  string company = 4;
+
+  //required company role
+  string role = 5;
+
+  //optional company monthly cloud usage
+  string amount = 6;
+
+  //optional intention
+  string intention = 7;
+}
+
+message RegisterNewUserResponse {
+  bool isAuthorized = 1;
+}
+
+//Request message for GetUserProfile
+message GetUserProfileRequest {
+  //required email
+  string email = 1;
+}
+
+message GetUserProfileResponse {
+  bool hasCreatedProfile = 1;
+  string name = 2;
+  string role = 3;
+  string usage = 4;
+  string intention = 5;
+  string companyName = 6;
+  string emailAddress = 7;
+  string linkSource = 8;
+  bool hasSubscribedUpdates = 9;
+}
+
+//Request message for UpdateUserProfile
+message UpdateUserProfileRequest {
+  //required email
+  string email = 1;
+  string name = 2;
+  string role = 3;
+  string usage = 4;
+  string intention = 5;
+  string companyName = 6;
+  string linkSource = 7;
+  bool hasSubscribedUpdates = 8;
+}
+
+message UpdateUserProfileResponse {
+  string email = 1;
+  string name = 2;
+  string role = 3;
+  string usage = 4;
+  string intention = 5;
+  string companyName = 6;
+  string linkSource = 7;
+  bool hasSubscribedUpdates = 8;
+}
+
+message ListBudgetsRequest {
+  // Optional. Set to true to include monthly spending and forecast within the budget period
+  bool includeSpendAndForecast = 1;
+
+  // Optional. Cost group ID. Return budgets under this specific cost group.
+  string costGroup = 2;
+}
+
+message ListBudgetsResponse {
+  api.cover.BudgetData budgetData = 1;
+}
+
+message GetBudgetRequest {
+  // Required. Budget ID.
+  string id = 1;
+}
+
+message GetBudgetResponse {
+  api.cover.BudgetData budgetData = 1;
+}
+
+message CreateBudgetRequest {
+  api.cover.BudgetData budgetData = 1;
+}
+
+message CreateBudgetResponse {
+  api.cover.BudgetData budgetData = 1;
+}
+
+message DeleteBudgetRequest {
+  // Required. Budget ID.
+  string id = 1;
+}
+
+message DeleteBudgetResponse {
+  string id = 1;
+}
+
+message UpdateBudgetRequest {
+  // Required. Budget ID.
+  string id = 1;
+  api.cover.BudgetData budgetData = 2;
+}
+
+message UpdateBudgetResponse {
+  api.cover.BudgetData budgetData = 1;
+}
+
+message ResolveAWSMarketplaceTokenForOnboardingRequest {
+  string registrationToken = 1;
+}
+
+message ResolveAWSMarketplaceTokenForOnboardingResponse {
+  bool isAllowedToOnboard = 1;
+
+  string customerId = 2;
+}
+
+message GetCustomerSubscriptionStatusRequest {}
+
+message GetCustomerSubscriptionStatusResponse {
+  string dateRegistered = 1;
+  string subscriptionExpiry = 2;
+  int32 daysLeft = 3;
+  bool isSubscribed = 4;
+  bool isExpired = 5;
+  string plan = 6;
+  string amount = 7;
+  string paymentOption = 8;
+  string paymentMethod = 9;
+  double credit = 10;
+}
+
+message CreateProfilingRequest {
+  string name = 1;
+  string role = 2;
+  string usage = 3;
+  string intention = 4;
+  string companyName = 5;
+  string emailAddress = 6;
+  string linkSource = 7;
+  bool hasSubscribedUpdates = 8;
+}
+
+message CreateProfilingResponse {}
+
+message AddInfotoMarketplaceRequest{
+  string customerIdentifier = 1;
+}
+
+message AddInfotoMarketplaceResponse{}
+
+message GetReportSummaryRequest{
+  // Required. Cost Group Id.
+  string costGroupId = 1;
+
+  // Required. Start date Format: "YYYYMMDD"
+  string startDate = 2;
+
+  // Required. End date Format: "YYYYMMDD"
+  string endDate = 3;
+
+  // Required. Report Type. Valid inputs are: "quarterly", "yearly"
+  string reportType = 4;
+
+  // Optional. If not set, default value is `USD`.
+  string currency = 5;
+}
+
+message GetReportSummaryResponse{
+  string costGroupId = 1;
+  string startDate = 2;
+  string endDate = 3;
+  api.cover.ExecutiveSummary executiveSummary = 4;
+  api.cover.OptimizationRecommendationSummary optimizationRecommendationSummary = 5;
+  api.cover.SavingsSummary savingsSummary = 6;
+}
+
+message ListRecommendationV2Request {
+  string costgroupId = 1;
+  string dateRangeStart = 2;
+  string dateRangeEnd = 3;
+  RateSettings rateSettings = 4;
+  // Optional. If not set, default value is `USD`.
+  string currency = 5;
+  message RateSettings {
+    string spType = 1;
+    string rateModel = 2;
+    string paymentOption = 3;
+    string term = 4;
+    string service = 5;
+    string offeringClass = 6;
+    string vendor = 7;
+  }
+}
+
+message ListRecommendationResponse{
+  string recommendationId = 1;
+  string recommendation = 2;
+  string service = 3;
+  double estimatedMonthlySaving = 4;
+  double estimatedMonthlyCost = 5;
+  string scoring = 6;
+  string vendor = 7;
+  string category = 8;
+  string optimizationStatus = 9;
+  string errorMessage = 10;
+  string accountId = 11;
+  string accountName = 12;
+  string instanceName = 13;
+  string instanceId = 14;
+  string instanceType = 15;
+  string region = 16;
+  double commitment = 17;
+  string spType = 18;
+  int64 numberToPurchase = 19;
+  string riType = 20;
+  string type = 21;
+  string source = 22;
+  string dateRecommended = 23;
+  string recommendationGroup = 24;
+  string lastUpdatedAt = 25;
+  PurchaseOption purchaseOption = 26;
+  message PurchaseOption {
+    string spType = 1;
+    string offeringClass = 2;
+    double commitment = 3;
+    int64 numberToPurchase = 4;
+    string paymentOption = 5;
+    string term = 6;
+    bool currentGeneration = 7;
+    string serviceType = 8;
+    double upfrontCost = 9;
+  }
+}
+message SetCostGroupEventIndicatorRequest {
+  // Required. Cost Group Id.
+  string costGroupId = 1;
+
+  // Required. Only anomaly is supported as of now
+  bool anomaly = 2;
+
+  // Optional. Temporary storage of cost group creation UI preference
+  bool visualBuilder = 3;
+}
+
+message SetCostGroupEventIndicatorResponse {
+  string costGroupId = 1;
+  api.cover.EventIndicator eventIndicator = 2;
+}
+
+message SetCostGroupAnomalyOptionsRequest {
+  // Required. Cost Group Id.
+  string costGroupId = 1;
+  
+  // Required
+  float threshold = 2;
+
+  // Required. When set to true, the threshold is a percentage to the actual cost. Otherwise, it is a fixed amount.
+  bool isPercentage = 3;
+
+  // Optional. The number of past months to be used in training the model. Note: This will affect the results of anomaly detection. Default and max is 9 while min is 1.
+  int64 pastDataInMonths = 4;
+}
+
+message SetCostGroupAnomalyOptionsResponse {
+  string costGroupId = 1;
+  api.cover.AnomalyOptions anomalyOptions = 2;
+}
+
+message SetOrgFiscalMonthRequest {
+  // Required. Fiscal month. Valid inputs are: "01 - 12"
+  string fiscalMonth = 1;
+}
+
+message SetOrgFiscalMonthResponse {
+  string fiscalMonth = 1;
+}
+
+message GetOrgFiscalMonthRequest {}
+
+message GetOrgFiscalMonthResponse {
+  string fiscalMonth = 1;
+  string dateRegistered = 2;
+}
+
+message TransferOrganizationRequest {
+  // Required. The target account to be transferred.
+  string target = 1;
+  // Required. The region of the target account.
+  string region = 2;
+  // Optional. Alphaus payer account to be used for the transfer.
+  string payer = 3;
+  // Optional. The org id of the payer account.
+  string orgId = 4;
+}
+
+message TransferOrganizationResponse {
+    string target = 1;
+}
+
+message UpdateCostGroupCreationUIRequest {
+  bool useNewCostGroupCreationUI = 1;
+}
+
+message UpdateCostGroupCreationUIResponse {
+  api.cover.UserData userData = 1;
+}
+
+message ListUnitTypesRequest{
+}
+
+message ListUnitTypesResponse{
+  repeated api.cover.UnitCostData unitCostData = 1;
+}
+
+message CreateUnitTypeRequest{
+  string unitName = 1;
+  repeated api.cover.UnitItem unitItems = 2;
+  repeated api.cover.SharedResourcesCombination sharedResources = 3;
+  string description = 4;
+}
+
+message CreateUnitTypeResponse{
+  api.cover.UnitCostData unitCostData = 1;
+}
+
+message GetUnitTypeRequest{
+  //Required. Unit Type Id
+  string id = 1;
+}
+
+message GetUnitTypeResponse{
+  api.cover.UnitCostData unitCostData = 1;
+}
+
+message UpdateUnitTypeRequest{
+  //Required. Unit Type Id
+  string id = 1;
+
+  //Optional
+  string unitName = 2;
+
+  //Optional
+  repeated api.cover.UnitItem unitItems = 3;
+
+  //Optional
+  repeated api.cover.SharedResourcesCombination sharedResources = 4;
+  
+  //Optional
+  string description = 5;
+}
+
+message UpdateUnitTypeResponse{
+  api.cover.UnitCostData unitCostData = 1;
+}
+
+message DeleteUnitTypeRequest{
+  //Required. Unit Type Id
+  string id = 1;
+}
+
+message DeleteUnitTypeResponse{
+  string id = 1;
+}
+
+message MergeUnitsRequest{
+  repeated string unitCostIds = 1;
+  string unitName = 2;
+  string description = 3;
+}
+
+message MergeUnitsResponse{
+  api.cover.UnitCostData mergedUnitCost = 1;
+}
+
+message ListSuggestedUnitsRequest{
+}
+
+message ListSuggestedUnitsResponse{
+  repeated api.cover.SuggestedUnit suggestedUnits = 1;
+}
+
+message MergeSuggestedUnitsRequest{
+  repeated string suggestedUnitIds = 1;
+  repeated string unitItemIds = 2;
+  string unitName = 3;
+  string description = 4;
+}
+
+message MergeSuggestedUnitsResponse{
+ api.cover.SuggestedUnit mergedSuggestedUnits = 1;
+}
+
+message CreateUnitFromSuggestedRequest{
+  repeated string suggestedUnitIds = 1;
+}
+
+message CreateUnitFromSuggestedResponse{
+  repeated string unitCostIds = 1;
+}
+
+message ListSharedResourcesRequest{
+}
+
+message ListSharedResourcesResponse{
+  repeated api.cover.SharedResourcesCombination sharedResources = 1;
+}
+
+message CreateSharedResourcesRequest{
+  string sharedResourceName = 1;
+  api.cover.ResourcesCombinations sharedResourcesCombinations = 2;
+  // List the unit items and their corresponding percentages.
+  map<string, double> distribution = 3;
+  double allocated = 4;
+  double unallocated = 5;
+  string description = 6;
+}
+
+message CreateSharedResourcesResponse{
+  api.cover.SharedResourcesCombination sharedResources = 1;
+}
+
+message GetSharedResourcesRequest{
+  //Required. Shared Resource Id
+  string id = 1;
+}
+
+message GetSharedResourcesResponse{
+  api.cover.SharedResourcesCombination sharedResources = 1;
+}
+
+message UpdateSharedResourcesRequest{
+  //Required. Shared Resource Id
+  string id = 1;
+
+  //Optional
+  string sharedResourceName = 2;
+
+  //Optional
+  api.cover.ResourcesCombinations sharedResourcesCombinations = 3;
+
+  //Optional
+  map<string, double> distribution = 4;
+
+  //Optional
+  double allocated = 5;
+
+  //Optional
+  double unallocated = 6;
+
+  //Optional
+  string description = 7;
+}
+
+message UpdateSharedResourcesResponse{
+  api.cover.SharedResourcesCombination sharedResources = 1;
+}
+
+message DeleteSharedResourcesRequest{
+  //Required. Shared Resource Id
+  string id = 1;
+}
+
+message DeleteSharedResourcesResponse{
+  string id = 1;
+}
+
+message ListUnitMetricsRequest{
+  // Optional. Filter by aggregation method.
+  string aggregationMethod = 1;
+
+  // Optional. Filter by data source.
+  string dataSource = 2;
+
+  // Optional. Filter by status.
+  string status = 3;
+}
+
+message ListUnitMetricsResponse{
+  repeated api.cover.UnitMetric unitMetrics = 1;
+}
+
+message CreateUnitMetricRequest{
+  //Required. Unit Metric Name
+  string metricName = 1;
+  string aggregationMethod = 2;
+  string dataSource = 3;
+  string description = 4;
+  repeated string costgroupId = 5;
+  api.cover.SourceInfo sourceInfo = 6;
+}
+
+message CreateUnitMetricResponse{
+  api.cover.UnitMetric unitMetric = 1;
+}
+
+message GetUnitMetricRequest{
+  //Required. Unit Metric Id
+  string id = 1;
+}
+
+message GetUnitMetricResponse{
+  api.cover.UnitMetric unitMetric = 1;
+}
+
+message UpdateUnitMetricRequest{
+  //Required. Unit Metric Id
+  string id = 1;
+
+  //Optional
+  string metricName = 2;
+
+  //Optional
+  string aggregationMethod = 3;
+
+  //Optional
+  string dataSource = 4;
+
+  //Optional
+  string description = 5;
+
+  //Optional
+  repeated string costgroupId = 6;
+
+  //Optional
+  api.cover.SourceInfo sourceInfo = 7;
+}
+
+message UpdateUnitMetricResponse{
+  api.cover.UnitMetric unitMetric = 1;
+}
+
+message DeleteUnitMetricRequest{
+  //Required. Unit Metric Id
+  string id = 1;
+}
+
+message DeleteUnitMetricResponse{
+  string id = 1;
+}
+
+message PreviewGoogleSheetRequest{
+  // Required. The id of the Google Sheet.
+  // Example: "1A2B3C4D5E6F7G8H9I0J"
+  string googleSheetId = 1;
+  // Example: "https://docs.google.com/spreadsheets/d/1A2B3C4D5E6F7G8H9I0J/edit"
+  // Optional. The URL of the Google Sheet. 
+  string sheetUrl = 2;
+  // Required. The name of the sheet within the Google Sheet.
+  // Example: "Sheet1"
+  string sheetName = 3;
+  // Required. The range of cells to preview. 
+  // Example: "A1:Z100"
+  string range = 4;
+}
+
+message PreviewGoogleSheetResponse{
+  //Contains the column headers of the Google Sheet.
+  repeated string header = 1;
+  //Contains the data rows of the Google Sheet.
+  repeated api.cover.RowData rowData = 2;
+}
+
+message ConfirmGoogleSheetAccessRequest{
+  // Required. The URL of the Google Sheet.
+  // Example: "https://docs.google.com/spreadsheets/d/1A2B3C4D5E6F7G8H9I0J/edit"
+  string sheetUrl = 1;
+}
+
+message ConfirmGoogleSheetAccessResponse{
+  // The extracted id from the Google Sheet URL.
+  // Example: "1A2B3C4D5E6F7G8H9I0J"
+  string googleSheetId = 1;
+  // The name of the sheet within the Google Sheet.
+  // Example: "Sheet1"
+  repeated string sheetNames = 2;
+}
+
+message GetCloudwatchMetadataRequest {
+  // Required. The AWS account ID to assume when querying CloudWatch.
+  string accountId = 1;
+
+  // Required. The AWS region where the metrics should be queried (e.g., "us-east-1").
+  string region = 2;
+
+  // Required. The type of metadata to retrieve.
+  // Valid values: "namespace", "metric", or "dimension".
+  string type = 3;
+
+  // Conditionally required.
+  // Must be provided when `type` is "metric" or "dimension".
+  // Example: "AWS/EC2", "AWS/Lambda", or a custom namespace like "MyApp/BusinessMetrics".
+  string namespace = 4;
+
+  // Conditionally required.
+  // Must be provided when `type` is "dimension".
+  // Example: "CPUUtilization", "Invocations", etc.
+  string metricName = 5;
+}
+
+
+
+message GetCloudwatchMetadataResponse {
+  repeated string namespaces = 1;
+  repeated string metrics = 2;
+
+  message Dimension {
+    string name = 1;
+    repeated string values = 2;
+  }
+
+  repeated Dimension dimensions = 3;
+}
+
+// Request message for GetDiscountPlan
+message GetDiscountPlanRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Organization Id.
+  string orgId = 2;
+
+  // Required. Valid values: 'all', 'reservation', 'savingsplan'
+  string reductionDisplay = 3;
+
+  // Optional. If set to "true", details of the RI or SP list is returned. Default: false.
+	bool includeDetails = 4;
+
+  // Optional. The start date of the displayed data. If not set, the first day of the current month will be used. Format: yyyy-mm-dd.
+  string fromDate = 5;
+
+  // Optional. The end date of the displayed data. If not set, current date will be used. Format: yyyy-mm-dd.
+  string toDate = 6;
+
+  // Optional. Payer Id.
+  string payerId = 7;
+
+  // Optional. Billing group Id.
+  string billingInternalId = 8;
+
+  // Optional. Account group Id.
+  string groupId = 9;
+
+  // Optional. Cost Group Id used in octo.
+  string costGroupId = 10;
+
+  // Optional. List of Account Ids.
+  repeated string accounts = 11;
+
+  // Optional. List of services.
+  repeated string services = 12;
+}
+
+// Response message for GetDiscountPlan
+message GetDiscountPlanResponse {
+  string orgId = 1;
+  api.cover.AwsDiscountPlans awsDiscountPlans = 2;
+}
+
+// Request message for ListNonperformingRate
+message ListNonperformingRateRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Cost Group Id.
+  string costGroupId = 2;
+
+  // Optional. The start date of the displayed data. If not set, the first day of the current month will be used. Format: yyyy-mm-dd.
+  string fromDate = 3;
+
+  // Optional. The end date of the displayed data. If not set, current date will be used. Format: yyyy-mm-dd.
+  string toDate = 4;
+
+  // Optional. The type of optimization; `ri`, `sp`, or `all`.
+  string type = 5;
+}
+
+// Response message for ListNonperformingRate
+message ListNonperformingRateResponse {
+  message Nonperforming {
+    string type = 1;
+    string account = 2;
+    double utilization = 3;
+    double waste = 4;
+  }
+  repeated Nonperforming nonperforming = 1;
+}
+
+// Request message for ListUntaggedResources
+message ListUntaggedResourcesRequest {
+  // Required. 
+  string vendor = 1;
+
+  // Required. Cost Group Id.
+  string costGroupId = 2;
+
+  // Optional. The start date of the displayed data. If not set, the first day of the current month will be used. Format: yyyy-mm-dd.
+  string fromDate = 3;
+
+  // Optional. The end date of the displayed data. If not set, current date will be used. Format: yyyy-mm-dd.
+  string toDate = 4;
+
+  // Optional. The number of top untagged resources to be displayed. If not set, top 10 untagged resources are returned.
+  int64 limit = 5;
+}
+
+// Response message for ListUntaggedResources
+message ListUntaggedResourcesResponse {
+  message UntaggedResources {
+    string resource = 1;
+    string service = 2;
+    string accountId = 3;
+    string costGroup = 4;
+    double cost = 5;
+    string vendor = 6;
+  }
+  repeated UntaggedResources untaggedResources = 1;
+}

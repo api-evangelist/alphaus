@@ -1,0 +1,2577 @@
+syntax = "proto3";
+
+package blueapi.cost.v1;
+
+import "api/account.proto";
+import "api/coverage.proto";
+import "api/budget.proto";
+import "api/forecast.proto";
+import "api/utilization.proto";
+import "api/aws/breakeven.proto";
+import "api/aws/cost.proto";
+import "api/aws/calculator.proto";
+import "api/aws/recommendation.proto";
+import "api/aws/reduction.proto";
+import "api/gcp/cost.proto";
+import "api/azure/cost.proto";
+import "api/ripple/payer.proto";
+import "api/ripple/v1/dashboard.proto";
+import "api/wave/budget.proto";
+import "api/costtag.proto";
+import "protos/operation.proto";
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/field_mask.proto";
+
+option go_package = "github.com/alphauslabs/blueapi/cost";
+option java_package = "cloud.alphaus.api.cost";
+option java_outer_classname = "CostProto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Alphaus Blue: Cost Service";
+    version: "1.0";
+    contact: {
+      name: "Alphaus Blue: Cost Service";
+      url: "https://alphauslabs.github.io/blueapi/apis/cost.html";
+    };
+    license: {
+      name: "License: Apache License 2.0";
+      url: "https://github.com/alphauslabs/blueapi/blob/main/LICENSE";
+    };
+  };
+  external_docs: {
+    url: "https://alphauslabs.github.io/blueapi/apis/cost.html";
+    description: "More about Alphaus Blue: Cost Service";
+  }
+};
+
+// Service for reading aggregated costs for your cloud costs and usages.
+service Cost {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+    description: "Cost API. Base URL: https://api.alphaus.cloud/m/blue/cost"
+    external_docs: {
+      url: "https://github.com/alphauslabs/blueapi/tree/main/cost/";
+      description: "Service definition";
+    }
+  };
+
+  // Lists vendor payer accounts.
+  //
+  // For AWS, these are management accounts (formerly known as master or payer accounts); for Azure, these are subscriptions, for GCP, these are projects.
+  rpc ListPayerAccounts(ListPayerAccountsRequest) returns (stream api.Account) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/payers"
+    };
+  }
+
+  // Gets a vendor payer account.
+  //
+  // This API includes all of the account's metadata. See (https://alphauslabs.github.io/blueapi/)[https://alphauslabs.github.io/blueapi/] for the list of supported attributes. For AWS, this means a management account (formerly known as master or payer account); for Azure, this means a subscription, for GCP, this means a project.
+  rpc GetPayerAccount(GetPayerAccountRequest) returns (api.ripple.Payer) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/payers/{id}"
+    };
+  }
+
+    // Lists vendor payer accounts with extended information. WORK IN PROGRESS
+  //
+  // This endpoint returns additional fields beyond the standard ListPayerAccounts response.
+  // For AWS, these are management accounts (formerly known as master or payer accounts); for Azure, these are subscriptions, for GCP, these are projects.
+  rpc ListPayerAccountsExtended(ListPayerAccountsRequest) returns (stream PayerAccountExtended) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/payersextended"
+    };
+  }
+
+  // Gets a vendor payer account with extended information. WORK IN PROGRESS
+  //
+  // This endpoint returns additional fields beyond the standard GetPayerAccount response.
+  // For AWS, this means a management account (formerly known as master or payer account); for Azure, this means a subscription, for GCP, this means a project.
+  rpc GetPayerAccountExtended(GetPayerAccountRequest) returns (PayerAccountExtended) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/payersextended/{id}"
+    };
+  }
+
+  // Gets a payer account's import history.
+  //
+  // Import history is a list of timestamps our system tracks when the account's data are imported to our system, which in turn, triggers processing. At the moment, this only supports AWS (CUR files). You can also set `{id}` to `*` to return all payers' information under the organization.
+  rpc GetPayerAccountImportHistory(GetPayerAccountImportHistoryRequest) returns (stream GetPayerAccountImportHistoryResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/payers/{id}/importhistory"
+    };
+  }
+
+  // Gets a payer account's proforma reports. Applicable for AWS payer accounts only.
+  rpc GetPayerProformaReports(GetPayerProformaReportsRequest) returns (GetPayerProformaReportsResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/payers/{id}/proforma"
+    };
+  }
+
+
+  // DEPRECATED: Registers a vendor payer account. This is now deprecated for AWS payer accounts. To register an AWS payer account, check out the 'CreateDefaultCostAccess' API.
+  rpc CreatePayerAccount(CreatePayerAccountRequest) returns (api.Account) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/payers"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRES: Registers a vendor payer account with their basics details such as accountId and accountName.
+  rpc RegisterPayerAccount(RegisterPayerAccountRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/payers/basicdetails"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRES: Updates a vendor payer account's basics details.
+  rpc UpdatePayerAccount(UpdatePayerAccountRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/{vendor}/payers/basicdetails/{id}"
+      body: "*"
+    };
+  }
+
+
+  // Deletes a vendor payer account.
+  rpc DeletePayerAccount(DeletePayerAccountRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{vendor}/payers/{id}"
+    };
+  }
+
+  // Lists all vendor accounts.
+  rpc ListAccounts(ListAccountsRequest) returns (stream api.Account) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/accounts"
+      additional_bindings {
+        get: "/v1/{vendor}/accounts/groups/{groupId}"
+      }
+    };
+  }
+
+  // Gets a vendor account. This API includes all of the account's metadata. See https://alphauslabs.github.io/blueapi/ for the list of supported attributes.
+  rpc GetAccount(GetAccountRequest) returns (api.Account) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/accounts/{id}"
+    };
+  }
+
+  // Registers a vendor account.
+  rpc CreateAccount(CreateAccountRequest) returns (api.Account) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/accounts"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Updates a vendor account. Only available in Ripple.
+  rpc UpdateAccount(UpdateAccountRequest) returns (api.Account) {
+    option (google.api.http) = {
+      put: "/v1/{vendor}/accounts/{id}"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Deletes a vendor account.
+  rpc DeleteAccount(DeleteAccountRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{vendor}/accounts/{id}"
+    };
+  }
+
+  // Reads all vendor account-original-resources.
+  // Account that have not been used for one month will no longer be retrieved.
+  rpc ReadAccountOriginalResources(ReadAccountOriginalResourcesRequest) returns (stream api.AccountOriginalResource) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/aors:read"
+      body: "*"
+    };
+  }
+
+  // Lists all vendor tags.
+  rpc ListTags(ListTagsRequest) returns (stream api.CostTag) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/tags"
+      additional_bindings {
+        get: "/v1/{vendor}/tags/groups/{groupId}"
+      }
+    };
+  }
+
+  // Lists the vendor calculator's queued accounts for calculation.
+  //
+  // If result is non-empty, it means calculation is still in progress for the returned accounts. Only available in Ripple.
+  rpc ListCalculatorRunningAccounts(ListCalculatorRunningAccountsRequest) returns (stream ListCalculatorRunningAccountsResponse) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/calculator/running:read"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Gets the vendor cost calculator's current configuration.
+  rpc GetCalculatorConfig(GetCalculatorConfigRequest) returns (GetCalculatorConfigResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/calculator/config"
+    };
+  }
+
+  // Lists the cost calculator's cost modifiers. At the moment, the supported {vendor} is 'aws'. Only available in Ripple.
+  rpc ListCalculatorCostModifiers(ListCalculatorCostModifiersRequest) returns (stream CalculatorCostModifier) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/calculator/config/costmods"
+    };
+  }
+
+  // Creates a cost modifier.
+  //
+  // A cost modifier allows you to modify the cost per lineitem. At the moment, the supported `{vendor}` is `aws` and only applies to items not affected by trueunblended calculations. Items not covered include some usages under `AmazonEC2`, `AmazonRDS`, `AmazonElastiCache`, `AmazonES`, and `AmazonRedShift`, that are covered by their respective RIs and/or SPs. Non-usage items such as discounts, refunds, fees, etc. are also not covered. Only available in Ripple.
+  rpc CreateCalculatorCostModifier(CreateCalculatorCostModifierRequest) returns (CreateCalculatorCostModifierResponse) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/calculator/config/costmods"
+      body: "*"
+    };
+  }
+
+  // Deletes a cost modifier. At the moment, the supported {vendor} is 'aws'. Only available in Ripple.
+  rpc DeleteCalculatorCostModifier(DeleteCalculatorCostModifierRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{vendor}/calculator/config/costmods/{id}"
+    };
+  }
+
+  // Initiates an ondemand import of all registered CUR files.
+  //
+  // See https://help.alphaus.cloud/en/articles/3612555-ripple-aws-things-you-need-to-prepare-before-starting for more information.
+  rpc ImportCurFiles(ImportCurFilesRequest) returns (protos.Operation) {
+    option (google.api.http) = {
+      post: "/v1/aws/cur:import"
+      body: "*"
+    };
+  }
+
+  // Triggers monthly calculations for costs and invoices at either organization or billing group level.
+  //
+  // For the AWS calculator, aggregation is done at daily and monthly level. Also, all occurrences of the character `|` (pipe) in the CUR descriptions and tag key/values are replaced with the `/` (forward-slash) character. This is due to the `|` character having a special designation in the data processing workflows.
+  rpc CalculateCosts(CalculateCostsRequest) returns (protos.Operation) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/costs:calculate"
+      body: "*"
+    };
+  }
+
+  // Lists vendor costs calculations history and statuses.
+  rpc ListCalculationsHistory(ListCalculationsHistoryRequest) returns (ListCalculationsHistoryResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/calculations/history"
+    };
+  }
+
+  // Lists the schedules of your monthly calculations. Only available in Ripple.
+  rpc ListCalculationsSchedules(ListCalculationsSchedulesRequest) returns (ListCalculationsSchedulesResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/calculations/schedules"
+    };
+  }
+
+  // Creates a schedule to trigger your monthly calculations. At the moment, only one schedule is allowed per account. Only available in Ripple.
+  rpc CreateCalculationsSchedule(CreateCalculationsScheduleRequest) returns (CalculationsSchedule) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/calculations/schedules"
+      body: "*"
+    };
+  }
+
+  // Deletes the schedule of your monthly calculations. Only available in Ripple.
+  rpc DeleteCalculationsSchedule(DeleteCalculationsScheduleRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{vendor}/calculations/schedules/{id}"
+    };
+  }
+
+  // Lists the usage-based cost filter condition. Only available in Wave(Pro).
+  rpc ListCostFilters(ListCostFiltersRequest) returns (ListCostFiltersResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/costfilters"
+    };
+  }
+
+  // Creates the usage-based cost filter condition.
+  //
+  // You can consider cost filters as predefined/prefiltered queries using the `v1/{vendor}/costs:read` or `ReadCosts` API. Only available in Wave(Pro).
+  rpc CreateCostFilters(CreateCostFiltersRequest) returns (CreateCostFiltersResponse) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/costfilters"
+      body: "*"
+    };
+  }
+
+  // Updates the usage-based cost filter condition. Only available in Wave(Pro).
+  rpc UpdateCostFilters(UpdateCostFiltersRequest) returns (UpdateCostFiltersResponse) {
+    option (google.api.http) = {
+      put: "/v1/{vendor}/costfilters/{filterId}"
+      body: "*"
+    };
+  }
+
+  // Deletes the usage-based cost filter condition. Only available in Wave(Pro).
+  rpc DeleteCostFilters(DeleteCostFiltersRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{vendor}/costfilters/{filterId}"
+    };
+  }
+
+  // Exports the usage-based cost filter condition. Only available in Wave(Pro).
+  rpc ExportCostFiltersFile(ExportCostFiltersFileRequest) returns (protos.Operation) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/costfilters/{filterId}:export"
+      body: "*"
+    };
+  }
+
+  // Reads the available cost attributes of an organization (Ripple) or billing group (Wave).
+  //
+  // Similar to the `ReadCosts` API but without the aggregated usages and costs. At the moment, the supported `{vendor}` is `aws`. If datetime range parameters are not set, month-to-date (current month) will be returned.
+  rpc ReadCostAttributes(ReadCostAttributesRequest) returns (stream CostAttributeItem) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/costattrs:read"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Reads the available cost attributes of an organization (Ripple) or billing group (Wave).
+  rpc GetCostAttributes(GetCostAttributesRequest) returns (GetCostAttributesResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/costattrs"
+    };
+  }
+
+  // Reads the usage-based cost details of an organization (Ripple) or billing group (Wave).
+  //
+  // You can refer to this [guide](https://labs.alphaus.cloud/docs/guides/aws-query-costs/) for more examples on how to use this API. Although the guide uses `bluectl`, the parameters are the same.
+  rpc ReadCosts(ReadCostsRequest) returns (stream CostItem) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/costs:read"
+      body: "*"
+    };
+  }
+
+  // Reads the non-usage-based details of an organization (Ripple) or billing group (Wave[Pro]).
+  //
+  // This API covers non-usage-based adjustments, such as Fees, Credits, Discounts, Tax, Upfront Fees, etc. At the moment, the supported `{vendor}` is `aws` or `azure`. If datetime range parameters are not set, month-to-date (current month) will be returned.
+  rpc ReadAdjustments(ReadAdjustmentsRequest) returns (stream CostItem) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/adjustments:read"
+      body: "*"
+    };
+  }
+
+  // Reads the usage-based tag costs of a billing group.
+  //
+  // At the moment, the supported `{vendor}` is `aws`. If datetime range parameters are not set, month-to-date (current month) will be returned.
+  rpc ReadTagCosts(ReadTagCostsRequest) returns (stream CostItem) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/tagcosts:read"
+      body: "*"
+    };
+  }
+
+  // Reads the usage-based non tag costs of a billing group.
+  //
+  // At the moment, the supported `{vendor}` is `aws`. If datetime range parameters are not set, month-to-date (current month) will be returned.
+  rpc ReadNonTagCosts(ReadNonTagCostsRequest) returns (stream CostItem) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/nontagcosts:read"
+      body: "*"
+    };
+  }
+
+  // Fetches cost forecasts for the specified billing group. Includes historical cost (up to previous month) and forecasted cost (up to three months for now).
+  rpc GetForecasts(GetForecastsRequest) returns (GetForecastsResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/forecasts"
+    };
+  }
+
+  // Fetches monthly accumulated costs vs forecasted cost vs budget for the id.
+  rpc GetMonthlyCostForecast(GetMonthlyCostForecastRequest) returns (GetMonthlyCostForecastResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/forecasts/monthly/{level}/{id}"
+    };
+  }
+
+  // Fetches previous month cost vs current month forecast vs current accumulated cost per category for id.
+  rpc GetMonthOnMonthCostForecast(GetMonthOnMonthCostForecastRequest) returns (GetMonthOnMonthCostForecastResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/forecasts/month-on-month/{level}/{id}"
+    };
+  }
+
+  // Fetches current month daily forecast vs current accumulated daily cost for id.
+  rpc GetMonthToDateCostForecast(GetMonthToDateCostForecastRequest) returns (GetMonthToDateCostForecastResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/forecasts/month-to-date/{level}/{id}"
+    };
+  }
+
+  // Fetches monthly budget for the account/acctgroup id.
+  rpc GetAccountBudget(GetAccountBudgetRequest) returns (GetAccountBudgetResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/budget/{level}/{id}"
+    };
+  }
+
+  // Creates monthly budget for the account/acctgroup id.
+  rpc CreateAccountBudget(CreateAccountBudgetRequest) returns (CreateAccountBudgetResponse) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/budget/{level}/{id}"
+      body: "*"
+    };
+  }
+
+  // Updates monthly budget for the account/acctgroup id.
+  rpc UpdateAccountBudget(UpdateAccountBudgetRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/{vendor}/budget/{budgetId}"
+      body: "*"
+    };
+  }
+
+  // Removes monthly budget for the account/acctgroup id from database.
+  rpc DeleteAccountBudget(DeleteAccountBudgetRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{vendor}/budget/{budgetId}"
+    };
+  }
+
+  // Get the budget alerts for the account id. Only available in Wave(Pro).
+  rpc GetAccountBudgetAlerts(GetAccountBudgetAlertsRequest) returns (api.wave.BudgetAlert) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/alerts/{id}"
+    };
+  }
+
+  // Create the budget alerts for the account id. Only available in Wave(Pro).
+  rpc CreateAccountBudgetAlerts(CreateAccountBudgetAlertsRequest) returns (api.wave.BudgetAlert) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/alerts/{id}"
+      body: "*"
+    };
+  }
+
+  // Update the budget alerts for the account id. Only available in Wave(Pro).
+  rpc UpdateAccountBudgetAlerts(UpdateAccountBudgetAlertsRequest) returns (api.wave.BudgetAlert) {
+    option (google.api.http) = {
+      put: "/v1/{vendor}/alerts/{id}"
+      body: "*"
+    };
+  }
+
+  // Delete the budget alerts for the account id. Only available in Wave(Pro).
+  rpc DeleteAccountBudgetAlerts(DeleteAccountBudgetAlertsRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{vendor}/alerts/{id}"
+    };
+  }
+
+  // ReadBudgetAlerts
+  // 
+  // Reads the budget alerts.
+  // Only available in Wave(Pro).
+  // [ERRORS] 
+  // - Unimplemented:
+  //   - not implemented
+  // - InvalidArgument:
+  //   - parse error
+  rpc ReadBudgetAlerts(ReadBudgetAlertsRequest) returns (stream BudgetAlerts) {
+    option (google.api.http) = {
+      post: "/v1/alerts:read"
+      body: "*"
+    };
+  }
+
+  // GetBudgetAlerts
+  // 
+  // Gets the budget alerts.
+  // Only available in Wave(Pro).
+  rpc GetBudgetAlerts(GetBudgetAlertsRequest) returns (BudgetAlerts) {
+    option (google.api.http) = {
+      get: "/v1/alerts/{id}"
+    };
+  }
+
+  // CreateBudgetAlerts
+  // 
+  // Create the budget alerts.
+  // Only available in Wave(Pro).
+  rpc CreateBudgetAlerts(CreateBudgetAlertsRequest) returns (BudgetAlerts) {
+    option (google.api.http) = {
+      post: "/v1/alerts"
+      body: "*"
+    };
+  }
+
+  // UpdateBudgetAlerts
+  // 
+  // Updates the budget alerts.
+  // Only available in Wave(Pro).
+  rpc UpdateBudgetAlerts(UpdateBudgetAlertsRequest) returns (BudgetAlerts) {
+    option (google.api.http) = {
+      put: "/v1/alerts/{id}"
+      body: "*"
+    };
+  }
+
+  // DeleteBudgetAlerts
+  // 
+  // Deletes the budget alerts.
+  // Only available in Wave(Pro).
+  rpc DeleteBudgetAlerts(DeleteBudgetAlertsRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/alerts/{id}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Get cost opmtimization recommendations for an organization (or MSP).
+  rpc GetRecommendations(GetRecommendationsRequest) returns (GetRecommendationsResponse) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/recommendations/{orgId}:read"
+      body: "*"
+    };
+  }
+
+  // Get cost reduction details for an organization (or MSP).
+  rpc GetCostReduction(GetCostReductionRequest) returns (GetCostReductionResponse) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/reduction/{orgId}:read"
+      body: "*"
+    };
+  }
+
+  // Exports RI and SP for all payers. 
+  rpc GetExportRISP(GetExportRISPRequest) returns (GetExportRISPResponse) {
+    option (google.api.http) = {
+      post: "/v1/exportcsv/payers:export"
+      body: "*"
+    };
+  }
+
+  // Exports a vendor report and delivers results via email notification channel.
+  // Supports multiple report types per vendor. For AWS, this covers RI/SP utilization reports.
+  // Returns a long-running operation; use GetOperation to poll for completion.
+  rpc ExportReport(ExportReportRequest) returns (protos.Operation) {
+    option (google.api.http) = {
+      post: "/v1/reports:export"
+      body: "*"
+    };
+  }
+
+  // Get the utilization details for an organization (or MSP).
+  rpc GetUtilization(GetUtilizationRequest) returns (GetUtilizationResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/utilization/{orgId}"
+    };
+  }
+
+  // Get coverage options details for an organization (or MSP).
+  rpc GetCoverageOptions(GetCoverageOptionsRequest) returns (GetCoverageOptionsResponse) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/coverage/options/{orgId}:read"
+      body: "*"
+    };
+  }
+
+  // Get ondemand cost details for an organization (or MSP).
+  rpc GetCoverageOndemand(GetCoverageOndemandRequest) returns (GetCoverageOndemandResponse) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/coverage/ondemand/{orgId}:read"
+      body: "*"
+    };
+  }
+
+  // Get the breakeven point details for the RI or SP.
+  rpc GetBreakevenPoint(GetBreakevenPointRequest) returns (GetBreakevenPointResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/bep/{orgId}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Check inputed accountIds belong to current MSP or not
+  rpc CheckAccountsBelongToMsp (CheckAccountsRequest) returns (CheckAccountsResponse) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/accounts/customers/accounts:check"
+      body: "*"
+    };
+  }
+
+  // Read the invoice ids. Only available in Ripple.
+  rpc ReadInvoiceIds (ReadInvoiceIdsRequest) returns (stream ReadInvoiceIdsResponse) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/invoiceids:read"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Read the invoice overviews. Only available in Ripple.
+  rpc ReadInvoiceOverViews (ReadInvoiceOverviewsRequest) returns (stream api.ripple.v1.OverViewSection) {
+    option (google.api.http) = {
+      post: "/v1/invoiceoverviews:read"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Read the invoice costs. Only available in Ripple.
+  rpc ReadInvoiceCosts (ReadInvoiceCostsRequest) returns (stream api.ripple.v1.TotalSection) {
+    option (google.api.http) = {
+      post: "/v1/invoicecosts:read"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Read the invoice group costs. Only available in Ripple.
+  rpc ReadInvoiceGroupCosts (ReadInvoiceGroupCostsRequest) returns (stream api.ripple.v1.BillingGroupSection) {
+    option (google.api.http) = {
+      post: "/v1/invoicegroupcosts:read"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: List the prerequisites for cost calculations.
+  rpc ListCalculationPrerequisites (ListCalculationPrerequisitesRequest) returns (ListCalculationPrerequisitesResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/calculation/prerequisites/{month}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Setup payer's billing transfer information
+  rpc SetupPayerAccountBillingTransfer (SetupPayerAccountBillingTransferRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/payers/{id}/billingtransfer"
+      body: "*"
+    };
+  }
+}
+// Request message for the Cost.ListPayerAccounts rpc.
+message ListPayerAccountsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Optional. Get only the value that set fieldMask.
+  //
+  // see more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto
+  google.protobuf.FieldMask field_mask = 2;
+}
+
+// Request message for the Cost.GetPayerAccount rpc.
+message GetPayerAccountRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. The id of the account to get.
+  string id = 2;
+}
+
+// Extended payer account information with additional metadata.
+message PayerAccountExtended {
+  // Standard payer account information includes: vendor, id, name, orgId, billingInternalId, and metadata array
+  api.ripple.Payer payer = 1;
+
+  // The target payer account ID (from extended response).
+  string target = 2;
+
+  // The IAM role ARN for cost access (from payer.metadata or extended response).
+  string roleArn = 3;
+
+  // The external ID used for assuming the role (if applicable).
+  string externalId = 4;
+
+  // The CloudFormation stack ID (if using stack-based deployment).
+  string stackId = 5;
+
+  // The AWS region where the CloudFormation stack is deployed.
+  string stackRegion = 6;
+
+  // The CloudFormation template URL used for deployment.
+  string templateUrl = 7;
+
+  // The current status of the payer setup. Comma-separated values such as 'curOnly,manualExport', etc.
+  string status = 8;
+
+  // The timestamp when the payer configuration was last updated in RFC3339 format.
+  string lastUpdated = 9;
+
+  // S3 bucket name (from payer.metadata).
+  string bucketName = 10;
+
+  // S3 prefix (from payer.metadata).
+  string prefix = 11;
+
+  // CUR report name (from payer.metadata).
+  string reportName = 12;
+
+  // Default cost access role ARN (from payer.metadata).
+  string defaultCostAccessRoleArn = 13;
+
+  // The CUR type for AWS payers. Valid values are `legacy` and `2.0` (from payer.metadata).
+  string curType = 14;
+}
+
+// Request message for the Cost.GetPayerAccountImportHistory rpc.
+message GetPayerAccountImportHistoryRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. The account id to query. Could be `*`, which implies all payers.
+  string id = 2;
+
+  // Optional. The UTC month to query. If empty, defaults to current month. Format is `yyyymm`. For example, June 2021 will be `202106`.
+  string month = 3;
+}
+
+// Response message for the Cost.GetPayerAccountImportHistory rpc.
+message GetPayerAccountImportHistoryResponse {
+  // The queried account id.
+  string id = 1;
+
+  // The queried UTC month.
+  string month = 2;
+
+  // List of timestamps in RFC3339 format with the `T` separator. Example: `2019-10-12T07:20:50.52Z`
+  repeated string timestamps = 3;
+}
+
+// Request message for Cost.GetPayerProformaReports rpc.
+message GetPayerProformaReportsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. The account id to query.
+  string id = 2;
+}
+
+// Response message for Cost.GetPayerProformaReports rpc.
+message GetPayerProformaReportsResponse {
+  repeated ProformaReports reports = 1;
+}
+
+message ProformaReports {
+  // payer account id
+  string id = 1;
+
+  // billing group internal id
+  string billingInternalId = 2;
+
+  // billing group name
+  string billingGroupName = 3;
+
+  // s3 bucket name
+  string bucketName = 4;
+
+  // s3 report prefix
+  string prefix = 5;
+
+  // report name
+  string reportName = 6;
+
+  // role arn
+  string roleArn = 7;
+}
+
+// See [https://help.alphaus.cloud/en/articles/3612555-ripple-aws-things-you-need-to-prepare-before-starting] for more information.
+//
+// See [https://docs.aws.amazon.com/cur/latest/userguide/cur-create.html] for more information. Requirements include: Additional report details = 'Include Resource IDS' enabled, Prefix = non-empty (recommendation only), Time granularity = 'Hourly', File format = 'text/csv'.
+message CreatePayerAccountRequestAwsOptions {
+  // Required. The id of the management account.
+  string id = 1;
+
+  // Optional. The name, or description of the management account. This is set to `id` when not specified.
+  string name = 2;
+
+  // Required. S3 Bucket name.
+  string bucketName = 3;
+
+  // Optional. Prefix.
+  string prefix = 4;
+
+  // Required. Report name.
+  string reportName = 5;
+
+  // Required. Role ARN for Alphaus to assume for access.
+  string roleArn = 6;
+}
+
+// Request message for the Cost.CreatePayerAccount rpc.
+message CreatePayerAccountRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required for the `aws` vendor. AWS-specific options.
+  CreatePayerAccountRequestAwsOptions awsOptions = 2;
+}
+
+// Request message for the Cost.DeletePayerAccount rpc.
+message DeletePayerAccountRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. The id of the account.
+  string id = 2;
+}
+
+// Request message for the Cost.ListAccounts rpc.
+message ListAccountsRequest {
+  // Required. At the moment, `aws` and `gcp` is supported.
+  string vendor = 1;
+
+  // Optional. The billing group internal id. Only valid for Ripple users.
+  string groupId = 2;
+
+  // Optional.
+  google.protobuf.FieldMask field_mask = 3;
+}
+
+// Request message for the Cost.GetAccount rpc.
+message GetAccountRequest {
+  // Required. At the moment, `aws` and `gcp` is supported.
+  string vendor = 1;
+
+  // Required. The account id to retrieve.
+  string id = 2;
+
+  // Optional.
+  google.protobuf.FieldMask field_mask = 3;
+}
+
+// AWS-specific options for registering an account.
+message CreateAccountRequestAwsOptions {
+  // Optional. The management account id (formerly known as master, or payer) to which an account belongs to, initially. If the account is moved to another management account, the system is able to detect it and set this value accordingly.
+  string managementAccountId = 1;
+}
+
+// GCP-specific options for registering an account.
+message CreateAccountRequestGcpOptions {
+  // Optional. 
+  string managementAccountId = 1;
+
+  // Optional. 
+  string managementBillingId = 2;
+}
+
+// Request message for the Cost.CreateAccount rpc.
+message CreateAccountRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. The account id to register.
+  string id = 2;
+
+  // Optional. If empty, set to the value of `id`.
+  string name = 3;
+
+  // Optional. The parent `billingInternalId` of the billing group to which this account will belong to.
+  string parent = 4;
+
+  // Required for the `aws` vendor. AWS-specific options.
+  CreateAccountRequestAwsOptions awsOptions = 5;
+
+  // Required for the `gcp` vendor. GCP-specific options.
+  CreateAccountRequestGcpOptions gcpOptions = 6;
+}
+
+// Request message for the Cost.UpdateAccount rpc.
+message UpdateAccountRequest {
+  // Required.
+  string vendor = 1;
+
+  // Required.
+  string id = 2;
+
+  // Optional.
+  string name = 3;
+}
+
+// Request message for the Cost.DeleteAccount rpc.
+message DeleteAccountRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. The account id to delete.
+  string id = 2;
+}
+
+// Request message for the Cost.ListTags rpc.
+message ListTagsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Optional. The billing group internal id. Only valid for Ripple users.
+  string groupId = 2;
+
+  // Optional.
+  google.protobuf.FieldMask field_mask = 3;
+}
+
+// Request message for the Cost.ListCalculatorRunningAccounts rpc.
+message ListCalculatorRunningAccountsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Optional. The UTC month to query. Defaults to current month if empty. Format is `yyyymm`. For example, June 2021 will be `202106`.
+  string month = 2;
+}
+
+// Response message for the Cost.ListCalculatorRunningAccounts rpc.
+message ListCalculatorRunningAccountsResponse {
+  message AwsRunningAccount {
+    // The queried month. Format is yyyy-mm.
+    string month = 1;
+
+    // The AWS account that is actively processing.
+    string account = 2;
+
+    // The target date the account is processing for.
+    string date = 3;
+
+    // The timestamp when the calculation has started.
+    string started = 4;
+  }
+
+  // AWS-specific entry.
+  AwsRunningAccount aws = 1;
+}
+
+// Request message for the Cost.GetCalculatorConfig rpc.
+message GetCalculatorConfigRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+}
+
+// Response message for the Cost.GetCalculatorConfig rpc.
+message GetCalculatorConfigResponse {
+  api.aws.CalculatorConfig aws = 1;
+}
+
+// AWS-specific options definition.
+message CalculatorCostModifierAwsOptions {
+  // Optional. The account to which the modifier is applied. A comma-separated list of accounts is also valid.
+  string accountId = 1;
+
+  // Optional. The group to which the modifier is applied. Accepts billing internal ids. A comma-separated list of billing internal ids is also valid.
+  string groupId = 2;
+
+  // Optional. The payer id to which the modifier is applied. A comma-separated list of payer ids is also valid.
+  string payerId = 3;
+
+  // A map of "key:value" attribute filters. The key indicates the column name while the value is the filter value prefixed by either "eq:" (equal), "re:" (regular expressions based on https://github.com/google/re2), or "!re:" (reverse "re:"). No prefix is the same as "eq:". Multiple map items will use the logical 'and' operator, e.g. mapfilter1 && mapfilter2 && mapfilter3, etc.
+  //
+  // For example, if you like your modifiers to apply to `productCode:AmazonEC2`, set to `{"productCode":"eq:AmazonEC2"}` or `{"productCode":"AmazonEC2"}`. You can also use a regular expression like `{"productCode":"re:AmazonEC2|AmazonRDS"}`, which means apply to all AmazonEC2 or AmazonRDS lineitems. Or reverse regexp, such as `{"productCode":"!re:^AmazonEC2$"}`, which means apply to all items except `AmazonEC2`. Valid keys are `productCode`, `serviceCode`, `region`, `zone`, `usageType`, `instanceType`, `operation`, `description`, and `resourceId`.
+  message Qualifier {
+    map<string, string> and = 1;
+  }
+
+  // Optional. Conditional qualifiers to further filter the modifier targets. Multiple qualifiers use the logical `or` operator; `qualifiers[0] || qualifiers[1] || qualifiers[n]`.
+  repeated Qualifier qualifiers = 4;
+
+  message Modifier {
+    // Required. Our modifier formula. The final result should be a number. Integers are converted to floating points.
+    //
+    // Supported operators are `*`, `/`, `+`, `-`, and `%`. You can use parenthesis `()` to control precedence. Additional supported operators include `==`, `!=`, `!`, `>`, `<`, `>=`, `<=`, and the ternary operator `? :`, or `cond ? expr1 : expr2`.
+    // Examples:
+    //  `1 + 2 * 3` = 7
+    //  `(1 + 2) * 3` = 9
+    //  `7.8 % 5` = 2.8
+    //  `true ? 1.1 : 2.2` = 1.1
+    //  `1 > 2 ? 1.1 : 2.2` = 2.2
+    //
+    // You can use the `cost` variable to reference the original lineitem cost. For example, if you want to add $10 to the cost, you can use the formula: `cost + 10`. For trueunblended-type billing groups, `cost` refers to the calculated trueunblended cost.
+    //
+    // The `usage` variable refers to the usage amount of a lineitem. For example, if you want to use a different rate of $1.5, you can use the formula: `usage * 1.5`.
+    //
+    // The `unblendedcost` variable refers to the lineitem's unblended cost as indicated in the CUR. Note that the `unblendedcost` variable is different than the `cost` variable, although there are cases where the two are equal.
+    //
+    // The `ondemandrate` variable refers to the lineitem's public ondemand rate as indicated in the CUR.
+    //
+    // You can check out this [guide](https://alphauslabs.github.io/docs/guides/aws-cost-mods/) for more examples.
+    string formula = 1;
+
+    message DescriptionModifier {
+      // Optional. Add a prefix to the description.
+      string prefix = 1;
+
+      // Optional. Add a suffix to the description.
+      string suffix = 2;
+
+      // Optional. Replace the description with the input.
+      string replace = 3;
+
+      // Optional. Replace matching occurences with the input. The key part is the regular expression matcher based on https://github.com/google/re2, while the value is the replacement. The order of replacement is not guaranteed.
+      //
+      // You can use the `{{ondemandrate}}` variable in the replacement value part to reference the public ondemand rate indicated in the CUR.
+      map<string, string> replaceMatch = 4;
+    }
+
+    // Optional. A simple description modifier.
+    DescriptionModifier descriptionModifier = 2;
+  }
+
+  Modifier modifier = 5;
+
+  // Optional. Specifies the modifier id in which this modifier will be applied after. For example, if you have another modifier `mod1` and you create a new modifier with `after` set to `mod1`, the calculator will apply `mod1` first, then this modifier. If `after` is not set, the application sequence for multiple overlapping modifiers will be by update timestamp, newest to oldest.
+  string after = 6;
+
+  // Optional. Default to false. If set to true, the modifier will create a new row in the table with similar data that satisfies the qualifier the only differences is it contains the amount to be subtracted or to be added. If set to false, the modifier will update the cost directly.
+  bool createNewRow = 7;
+}
+
+// Azure-specific options definition.
+message CalculatorCostModifierAzureOptions {
+  // Optional. The group to which the modifier is applied. Accepts billing internal ids. A comma-separated list of billing internal ids is also valid.
+  string groupId = 1;
+  
+  // Optional. The payer id (a.k.a Azure billing id) to which the modifier is applied. A comma-separated list of payer ids is also valid.
+  string payerId = 2;
+
+  // Optional. The Azure customer id to which the modifier is applied. A comma-separated list of customers is also valid.
+  string customerId = 3;
+
+  // Optional. The Azure subscription id to which the modifier is applied. A comma-separated list of subscriptions is also valid.
+  string subscriptionId = 4;
+
+  // Optional. The Azure entitlement id to which the modifier is applied. A comma-separated list of entitlements is also valid.
+  string entitlementId = 5;
+
+  // A map of "key:value" attribute filters. The key indicates the column name while the value is the filter value prefixed by either "eq:" (equal), "re:" (regular expressions based on https://github.com/google/re2), or "!re:" (reverse "re:"). No prefix is the same as "eq:". Multiple map items will use the logical 'and' operator, e.g. mapfilter1 && mapfilter2 && mapfilter3, etc.
+  //
+  // For example, if you like your modifiers to apply to `productId:CFQ7TTC0LFLX` (Microsoft 365 E3), set to `{"productId":"eq:CFQ7TTC0LFLX"}` or `{"productId":"CFQ7TTC0LFLX"}`. You can also use a regular expression like `{"productId":"re:CFQ7TTC0LFLX|DZH318Z0BQ4L"}`, which means apply to all `Microsoft 365 E3` or `Virtual Machines Ev3 Series` lineitems. Or reverse regexp, such as `{"productId":"!re:^CFQ7TTC0LFLX$"}`, which means apply to all items except `Microsoft 365 E3`. Valid keys are `productId`, `productName`, `skuId`, `skuName`, `description`, `category` and `domainName`.
+  message Qualifier {
+    map<string, string> and = 1;
+  }
+
+  // Optional. Conditional qualifiers to further filter the modifier targets. Multiple qualifiers use the logical `or` operator; `qualifiers[0] || qualifiers[1] || qualifiers[n]`.
+  repeated Qualifier qualifiers = 6;
+
+  message Modifier {
+    // Required. Our modifier formula. The final result should be a number. Integers are converted to floating points.
+    //
+    // Supported operators are `*`, `/`, `+`, `-`, and `%`. You can use parenthesis `()` to control precedence. Additional supported operators include `==`, `!=`, `!`, `>`, `<`, `>=`, `<=`, and the ternary operator `? :`, or `cond ? expr1 : expr2`.
+    // Examples:
+    //  `1 + 2 * 3` = 7
+    //  `(1 + 2) * 3` = 9
+    //  `7.8 % 5` = 2.8
+    //  `true ? 1.1 : 2.2` = 1.1
+    //  `1 > 2 ? 1.1 : 2.2` = 2.2
+    //
+    // You can use the `cost` variable to reference the original lineitem cost. For example, if you want to add $10 to the cost, you can use the formula: `cost + 10`. For trueunblended-type billing groups, `cost` refers to the calculated trueunblended cost.
+    //
+    // The `quantity` variable refers to the billable quantity amount of a lineitem. For example, if you want to use a different rate of $1.5, you can use the formula: `quantity * 1.5`.
+    //
+    // The `unitPrice` variable refers to the lineitem's effective unit price as indicated in the Azure invoice.
+    //
+    // You can check out this [guide](https://alphauslabs.github.io/docs/guides/aws-cost-mods/) for more examples.
+    string formula = 1;
+
+    message DescriptionModifier {
+      // Optional. Add a prefix to the description.
+      string prefix = 1;
+
+      // Optional. Add a suffix to the description.
+      string suffix = 2;
+
+      // Optional. Replace the description with the input.
+      string replace = 3;
+    }
+
+    // Optional. A simple description modifier.
+    DescriptionModifier descriptionModifier = 2;
+  }
+
+  Modifier modifier = 7;
+
+  // Optional. Specifies the modifier id in which this modifier will be applied after. For example, if you have another modifier `mod1` and you create a new modifier with `after` set to `mod1`, the calculator will apply `mod1` first, then this modifier. If `after` is not set, the application sequence for multiple overlapping modifiers will be by update timestamp, newest to oldest.
+  string after = 8;
+}
+
+message CalculatorCostModifier {
+  string id = 1;
+  string createTime = 2;
+  string updateTime = 3;
+  CalculatorCostModifierAwsOptions awsOptions = 4;
+  CalculatorCostModifierAzureOptions azureOptions = 5;
+}
+
+// Request message for the Cost.ListCalculatorCostModifiers rpc.
+message ListCalculatorCostModifiersRequest {
+  // Required. At the moment, only `aws` and `azure` are supported.
+  string vendor = 1;
+}
+
+// Request message for the Cost.CreateCalculatorCostModifier rpc.
+message CreateCalculatorCostModifierRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required if `{vendor}` is `aws`. AWS-specific options.
+  CalculatorCostModifierAwsOptions awsOptions = 2;
+
+  // Required if `{vendor}` is `azure`. Azure-specific options.
+  CalculatorCostModifierAzureOptions azureOptions = 3;
+}
+
+// Response message for the Cost.CreateCalculatorCostModifier rpc.
+message CreateCalculatorCostModifierResponse {
+  repeated CalculatorCostModifier aws = 1;
+  repeated CalculatorCostModifier azure = 2;
+}
+
+// Request message for the Cost.DeleteCalculatorCostModifier rpc.
+message DeleteCalculatorCostModifierRequest {
+  // Required. At the moment, only `aws` and `azure` are supported.
+  string vendor = 1;
+
+  // Required. The id of the modifier to delete.
+  string id = 2;
+}
+
+// Request message for the Cost.ImportCurFiles rpc.
+message ImportCurFilesRequest {
+  // Optional. The UTC month to import. If empty, it defaults to the current month. Format is `yyyymm`. For example, June 2021 will be `202106`.
+  string month = 1;
+
+  // Optional. A comma-separated list of management accounts to import. If empty, all CURs associated with all your management accounts will be imported.
+  string filter = 2;
+}
+
+// Response message wrapper for cloud costs.
+message CostItem {
+  api.aws.Cost aws = 1;
+  api.gcp.Cost gcp = 2;
+  api.azure.Cost azure = 3;
+}
+
+message CalculateCostsRequestAwsOptions {
+  // Optional. If set to true, discard existing calculation operation(s), if any, and make this as the active/latest one. By default, if there is an ongoing operation during the call, the request will fail.
+  bool force = 1;
+
+  // Optional. If set to true, only calculate for account-type billing groups. If both `accountsOnly` and `tagsOnly` are set to true, `accountsOnly` will prevail.
+  bool accountsOnly = 2;
+
+  // Optional. If set to true, only calculate for tags-type billing groups. Discarded when the organization doesn't have any tag-based billing groups configured. If both `accountsOnly` and `tagsOnly` are set to true, `accountsOnly` will prevail.
+  bool tagsOnly = 3;
+}
+
+// Request message for the Cost.CalculateCosts rpc.
+message CalculateCostsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Optional. A comma-separated list of billing internal ids. If empty, calculate for all billing groups.
+  //
+  // At the moment, for AWS, this is only valid for account type billing groups, not tag billing groups. If a tag billing group is provided, it is discarded and the calculation is done for the whole organization.
+  string groupId = 2;
+
+  // Optional. The UTC month to calculate. If empty, it defaults to the previous month. Format is `yyyymm`. For example, June 2021 will be `202106`.
+  string month = 3;
+
+  // Optional. Valid only for the `aws` vendor. AWS-specific options.
+  CalculateCostsRequestAwsOptions awsOptions = 4;
+}
+
+// Request message for the Cost.ListCalculationsHistory rpc.
+message ListCalculationsHistoryRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Optional. List operations on and after this date. Format is yyyymmdd. For example, if you want to list all operations starting from June 01, 2021, set to `20210601`. If not set, defaults to the first day of the current UTC month.
+  string asOf = 2;
+
+  // Optional. If true, exclude all operations that are marked as done. Include by default.
+  bool excludeDone = 3;
+}
+
+// AWS-specific response message for the Cost.ListCalculationsHistory rpc. Should be compatible with the Operations API.
+message ListCalculationsHistoryAwsResponse {
+  repeated protos.Operation operations = 1;
+}
+
+// Response message for the Cost.ListCalculationsHistory rpc.
+message ListCalculationsHistoryResponse {
+  ListCalculationsHistoryAwsResponse aws = 1;
+}
+
+message CalculationsSchedule {
+  // The schedule id.
+  string id = 1;
+
+  // The desired schedule in UTC, using the [cron](https://man7.org/linux/man-pages/man5/crontab.5.html) format.
+  string schedule = 2;
+
+  // The macro that augments `schedule`.
+  string scheduleMacro = 8;
+
+  // The target month for the calculation. Empty means previous month (default).
+  string targetMonth = 9;
+
+  // The schedule for the next run in UTC.
+  string nextRun = 3;
+
+  // The channel id to use for notifications.
+  string notificationChannel = 4;
+
+  // If set to true, force calculations to proceed regardless of run status.
+  bool force = 5;
+
+  // If set to true, skips the actual calculations.
+  bool dryRun = 6;
+
+  // The current state of this schedule. Normally set to "OK", or empty if no issues. Otherwise, will contain an error string.
+  string status = 7;
+}
+
+// Request message for the Cost.ListCalculationsSchedules rpc.
+message ListCalculationsSchedulesRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+}
+
+// Response message for the Cost.ListCalculationsSchedules rpc.
+message ListCalculationsSchedulesResponse {
+  repeated CalculationsSchedule schedules = 1;
+}
+
+// Request message for the Cost.CreateCalculationsSchedule rpc.
+message CreateCalculationsScheduleRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. The desired schedule in UTC, using the unix-cron string format `* * * * *` which is a set of five fields in a line using the order: `minute hour day-of-the-month month day-of-the-week`.
+  //
+  // * `minute` values can be `0-59`
+  // * `hour` values can be `0-23`
+  // * `day-of-the-month` values can be `1-31`
+  // * `month` values can be `1-12`, or `JAN-DEC`
+  // * `day-of-the-week` values can be `0-6`, or `SUN-SAT`, or `7` for Sunday
+  //
+  // Special characters:
+  // * A field can contain an asterisk (*), which always stands for "first-last".
+  // * Ranges are two numbers separated with a hyphen (-) and the specified range is inclusive.
+  // * Following a range with `/NUMBER` specifies skips of the number's value through the range. For example, both `0-23/2` and `*/2` can be used in the `hour` field to specify execution every two hours.
+  // * A list is a set of numbers (or ranges) separated by commas (,). For example, `1,2,5,6` in the `month` field specifies an execution on the first, second, fifth, and sixth days of the month.
+  string schedule = 2;
+
+  // Optional. Non-standard macro(s) that augment(s) `schedule`'s behavior. The only supported value for now is `@endofmonth`.
+  //
+  // `@endofmonth` - If set, the backend scheduler will only use the `minute` and `hour` part of `schedule`'s value and set the days to 28th, 29th, 30th, and 31st but the runner will do the filtering for the actual end of the trigger month. Note that this is different than setting `schedule` to, say, `0 0 28-31 * *`.
+  string scheduleMacro = 6;
+
+  // Optional. The desired month to calculate. If not set, defaults to previous month. The only supported value for now is `@current`.
+  //
+  // `@current` - If set, calculate for the month the schedule is triggered (or current month).
+  string targetMonth = 7;
+
+  // Optional. The channel id to use for notifications. At the moment, only email-type notification channels are supported. If not set, your default channel will be used. And if non-existent, an email-type notification channel will be created using your primary email address.
+  string notificationChannel = 3;
+
+  // Optional. Not used at the moment.
+  bool force = 4;
+
+  // Optional. If set to true, skips the actual calculations. Useful as test, or reminder.
+  bool dryRun = 5;
+}
+
+// Request message for the Cost.DeleteCalculationsSchedule rpc.
+message DeleteCalculationsScheduleRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. The id to delete. Can be set to either `-` or `*`, which means all.
+  string id = 2;
+}
+
+// Request message for the Cost.ReadCostAttributes rpc.
+message ReadCostAttributesRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Optional. If set, reads the cost attributes of this group. Only valid for Ripple users. Implied as the parent billing group for Wave(Pro) users.
+  //
+  // For AWS Ripple, only billing internal ids are supported at the moment. Overriden when `accountId` is set to anything other than `*`. Set this and `accountId` to `*` to read the cost attributes of the whole organization. Optional for AWS Wave(Pro).
+  string groupId = 2;
+
+  // Optional. You can set it to a single account or a comma-separated list of accounts.
+  //
+  // For AWS, setting this will override `groupId`. Set this and `groupId` to `*` to read the cost attributes of the whole organization.
+  string accountId = 3;
+
+  // Optional. The UTC date to start streaming data from. If not set, the first day of the current month will be used. Format: `yyyymmdd`. The oldest supported date is `20200101`.
+  string startTime = 4;
+
+  // Optional. The UTC date to end the streaming data. If not set, current date will be used. Format: `yyyymmdd`.
+  string endTime = 5;
+
+  message AwsOptions {
+    // Optional. A comma-separated list of dimensions to query. Valid values are `productCode`, `serviceCode`, `region`, `zone`, `usageType`, `instanceType`, `operation`, `invoiceId`, `description`, `resourceId`, `tags`, and `costCategories`. Sequence doesn't matter. An empty value implies all attributes will be returned.
+    string dimensions = 1;
+  }
+
+  // Optional. Valid only for the `aws` vendor. AWS-specific options.
+  AwsOptions awsOptions = 6;
+
+  message AzureOptions {
+    // Optional. The Azure customer id to which the modifier is applied. A comma-separated list of customers is also valid.
+    string customerId = 1;
+
+    // Optional. The Azure subscription id to which the modifier is applied. A comma-separated list of subscriptions is also valid.
+    string subscriptionId = 2;
+
+    // Optional. The Azure entitlement id to which the modifier is applied. A comma-separated list of entitlements is also valid.
+    string entitlementId = 3;
+  }
+
+  AzureOptions azureOptions = 7;
+}
+
+// Response message for the Cost.ReadCostAttributes rpc.
+message CostAttributeItem {
+  api.aws.CostAttribute aws = 1;
+  api.azure.CostAttribute azure = 2;
+}
+
+// Request message for the Cost.GetCostAttributes rpc.
+message GetCostAttributesRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Format: `yyyy-mm`. 
+  string month = 2;
+
+  // Optional. If set, reads the cost attributes of this group. Only valid for Ripple users. Implied as the parent billing group for Wave(Pro) users.
+  string groupId = 3;
+
+  // Optional. You can set it to a single account or a comma-separated list of accounts. If set, overrides `groupId`
+  string accountId = 4;
+
+  // Optional. A comma-separated list of dimensions to query. Valid values are `productCode`, `serviceCode`, `region`, `zone`, `usageType`, `instanceType`, `operation`, `invoiceId`, `description`, `resourceId` and `tags`. Sequence doesn't matter. An empty value implies all attributes will be returned.
+  string category = 5;
+
+}
+
+// Response message for the Cost.GetCostAttributes rpc.
+message GetCostAttributesResponse {
+  // The cost attributes.
+  repeated CostAttribute items = 1;
+}
+
+message CostAttribute {
+  string vendor = 1;
+  string category = 2;
+  repeated string data = 3;
+}
+
+// A map of "key:value" column filters. Dependent on `groupByColumns` and/or `groupByMonth`. The key indicates the column name while the value is the filter value prefixed by either "eq:" (equal), "re:" (regular expressions based on https://github.com/google/re2), or "!re:" (reverse "re:"). No prefix is the same as "eq:". Multiple map items will use the logical 'and' operator, e.g. mapfilter1 && mapfilter2 && mapfilter3, etc.
+//
+// For example, if you like to filter `productCode` to return only `AmazonEC2`, set to `{"productCode":"eq:AmazonEC2"}` or `{"productCode":"AmazonEC2"}`. You can also use a regular expression like `{"productCode":"re:AmazonEC2|AmazonRDS"}`, which means return all AmazonEC2 or AmazonRDS lineitems. Or reverse regexp, such as `{"productCode":"!re:^AmazonEC2$"}`, which means return all items except `AmazonEC2`.
+message ReadCostsRequestAwsOptionsFilters {
+  map<string, string> andFilters = 1;
+}
+
+// AWS-specific options for ReadCostsRequest.
+message ReadCostsRequestAwsOptions {
+  // Optional. A comma-separated list of columns to aggregate the data into. Valid values are `productCode`, `serviceCode`, `region`, `zone`, `usageType`, `instanceType`, `operation`, `invoiceId`, `description`, and `resourceId`. A special value of `none` is also supported, which means query by date or month per account only.
+  //
+  // For example, if you only want the services and region data, you can set this field to `productCode,region`. Your input sequence doesn't matter (although the sequence above is recommended) as the actual sequence is already fixed in the return data (see the definition in https://github.com/alphauslabs/blueapi/blob/main/api/aws/cost.proto), which is generic to specific, top to bottom. Invalid values are discarded. Excluded columns will be empty.
+  string groupByColumns = 1;
+
+  // Optional. If set to true, return data grouped by month within the date range. If you want data that is grouped per account per month, set this to `true`, then set `groupByColumns` to `none`. You can also use `groupByColumns` while setting this to true.
+  bool groupByMonth = 2;
+
+  // Optional. If set to true, group all input accounts into one.
+  bool groupAccounts = 8;
+
+  // Optional. Required if groupByColumn is set to tag.
+  string groupByTagKey = 12;
+
+  // Optional. A list of filtering options. See [ReadCostsRequestAwsOptionsFilters] for more information on each filter item. Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc.
+  repeated ReadCostsRequestAwsOptionsFilters filters = 3;
+
+  // A map of "key:value" tag filters. The key indicates the tag key while the value is the filter tag value which can be prefixed by either "eq:" (equal), "re:" (regular expressions based on https://github.com/google/re2), or "!re:" (reverse "re:"). No prefix is the same as "eq:". Multiple map items will use the logical 'and' operator, e.g. mapfilter1 && mapfilter2 && mapfilter3, etc.
+  //
+  // For example, if you want to query lineitems with the tag `project:MY_PROJECT`, set to `{"project":"MY_PROJECT"}`. You can also use regular expressions for tag values, such as `{"name":"re:[A-Za-z0-9]*"}`.
+  message TagFilters {
+    map<string, string> andFilters = 1;
+  }
+
+  // Optional. A list of filtering options specific for tags. Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc. Discarded when `groupByColumns` field is set or if `groupByMonth` is true.
+  repeated TagFilters tagFilters = 9;
+
+  // Optional. If set to true, stream will include resource tags. Discarded when `groupByColumns` field is set to `none`. `IncludeTags` is set to `false` if `groupByColumns` includes `tags` and `GroupByTagKey` has a value
+  bool includeTags = 4;
+
+  // Optional. If set to true, stream will include resource cost category information. Discarded when `groupByColumns` field is set to `none`.
+  bool includeCostCategories = 5;
+
+  // Optional. Set to US dollars (USD) by default (AWS CUR's default currency). You can set it to the desired three-letter currency symbol (i.e. JPY, EUR, GBP), in which case, it will use the latest exchange rates provided by https://fixer.io. If you prefer a custom exchange rate, you can append the rate to the currency's three-letter symbol. For example, `JPY:110.622` for the Japanese Yen. Note that the exchange rate should be against the US dollar (USD).
+  string toCurrency = 6;
+
+  // Optional. If set to true, always get the up-to-date calculation results. This data isn't necessarily in-sync with your invoice data as AWS could still have updated your CUR files even after you created your invoices. By default, returned data are those that are always in-sync with your invoices.
+  //
+  // This field is discarded for Wave(Pro) users. You will always get the latest data that is in-sync with your invoices.
+  bool forceLatest = 7;
+
+  // If true, force API to not use cached data.
+  bool noCache = 10;
+
+  // WORK-IN-PROGRESS: Optional. If set to true, include adjustment entries in the output. Adjustments include fees, discounts, credits, etc. The output here is the same as the ReadAdjustments API.
+  bool includeAdjustments = 11;
+}
+
+// Request message for the Cost.ReadCosts rpc.
+message ReadCostsRequest {
+  // Required. Supported vendors are `aws`,`azure` and `gcp`.
+  string vendor = 1;
+
+  // Optional. If set, reads the usage-based cost details of this group. Only valid for Ripple users. Implied as the parent billing group for Wave(Pro) users.
+  //
+  // For AWS Ripple, only billing internal ids are supported at the moment. Overriden when `accountId` is set to anything other than `*`. Set this and `accountId` to `*` to read the usage-based cost details of the whole organization. Optional for AWS Wave(Pro).
+  string groupId = 2;
+
+  // Optional. You can set it to a single account or a comma-separated list of accounts.
+  //
+  // For AWS, setting this will override `groupId`. Set this and `groupId` to `*` to read the usage-based cost details of the whole organization.
+  string accountId = 3;
+
+  // Optional. The UTC date to start streaming data from. If not set, the first day of the current month will be used. Format: `yyyymmdd`. The oldest supported date is `20200101`.
+  string startTime = 4;
+
+  // Optional. The UTC date to end the streaming data. If not set, current date will be used. Format: `yyyymmdd`.
+  string endTime = 5;
+
+  // Optional. Valid only for the `aws` vendor. AWS-specific options.
+  ReadCostsRequestAwsOptions awsOptions = 6;
+
+  // Optional. Valid only for the `gcp` vendor. GCP-specific options.
+  ReadCostsRequestGcpOptions gcpOptions = 7;
+
+  // Optional. Valid only for the `azure` vendor. Azure-specific options.
+  ReadCostsRequestAzureOptions azureOptions = 8;
+}
+
+message ReadAdjustmentsRequestAwsOptions {
+  // Optional. Set to US dollars (USD) by default (AWS CUR's default currency). You can set it to the desired three-letter currency symbol (i.e. JPY, EUR, GBP), in which case, it will use the latest exchange rates provided by https://fixer.io. If you prefer a custom exchange rate, you can append the rate to the currency's three-letter symbol. For example, `JPY:110.622` for the Japanese Yen. Note that the exchange rate should be against the US dollar (USD).
+  string toCurrency = 1;
+}
+
+// Request message for the Cost.ReadAdjustments rpc.
+message ReadAdjustmentsRequest {
+  // Required. At the moment, only `aws` or `azure` is supported.
+  string vendor = 1;
+
+  // Optional. At the moment, only billing internal ids are supported. If set, reads the non-usage-based adjustment details of this group. Valid only if `accountId` is not set. If both `groupId` and `accountId` are not set, reads the adjustment details of the whole organization. Only valid for Ripple users. Implied (or discarded) for Wave(Pro) users.
+  string groupId = 2;
+
+  // Optional. If set, reads the non-usaged-based adjustment details of this account. Also invalidates the `groupId` value even if set. If both `groupId` and `accountId` are not set, reads the adjustment details of the whole organization.
+  string accountId = 3;
+
+  // Optional. The UTC date to start streaming data from. If not set, the first day of the current month will be used. Format: `yyyymmdd`.
+  string startTime = 4;
+
+  // Optional. The UTC date to end the streaming data. If not set, current date will be used. Format: `yyyymmdd`.
+  string endTime = 5;
+
+  // Optional. Valid only for the `aws` vendor. AWS-specific options.
+  ReadAdjustmentsRequestAwsOptions awsOptions = 6;
+}
+
+message ReadTagCostsRequestAwsOptions {
+  // Optional. If set, only return data for this tagId.
+  string tagId = 1;
+
+  // Optional. A comma-separated list of columns to aggregate the data into. Valid values are `productCode`, `serviceCode`, `region`, `zone`, `usageType`, `instanceType`, `operation`, `invoiceId`, `description`, and `resourceId`. A special value of `none` is also supported, which means query by date or month per account only.
+  //
+  // For example, if you only want the services and region data, you can set this field to `productCode,region`. Your input sequence doesn't matter (although the sequence above is recommended) as the actual sequence is already fixed in the return data (see the definition in https://github.com/alphauslabs/blueapi/blob/main/api/aws/cost.proto), which is generic to specific, top to bottom. Invalid values are discarded. Excluded columns will be empty.
+  string groupByColumns = 2;
+
+  // Optional. If set to true, return data grouped by month within the date range. If you want data that is grouped per account per month, set this to `true`, then set `groupByColumns` to `none`. You can also use `groupByColumns` while setting this to true.
+  bool groupByMonth = 3;
+
+  // Optional. A list of filtering options. See [ReadCostsRequestAwsOptionsFilters] for more information on each filter item. Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc.
+  repeated ReadCostsRequestAwsOptionsFilters filters = 4;
+
+  // A map of "key:value" tag filters. The key indicates the tag key while the value is the filter tag value which can be prefixed by either "eq:" (equal), "re:" (regular expressions based on https://github.com/google/re2), or "!re:" (reverse "re:"). No prefix is the same as "eq:". Multiple map items will use the logical 'and' operator, e.g. mapfilter1 && mapfilter2 && mapfilter3, etc.
+  //
+  // For example, if you want to query lineitems with the tag `project:MY_PROJECT`, set to `{"project":"MY_PROJECT"}`. You can also use regular expressions for tag values, such as `{"name":"re:[A-Za-z0-9]*"}`.
+  message TagFilters {
+    map<string, string> andFilters = 1;
+  }
+
+  // Optional. A list of filtering options specific for tags. Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc. Discarded when `groupByColumns` field is set or if `groupByMonth` is true.
+  repeated TagFilters tagFilters = 5;
+
+  // Optional. If set to true, stream will include resource tags. Discarded when `groupByColumns` field is set to `none`.
+  bool includeTags = 6;
+
+  // Optional. If set to true, stream will include resource cost category information. Discarded when `groupByColumns` field is set to `none`.
+  bool includeCostCategories = 7;
+
+  // Optional. Set to US dollars (USD) by default (AWS CUR's default currency). You can set it to the desired three-letter currency symbol (i.e. JPY, EUR, GBP), in which case, it will use the latest exchange rates provided by https://fixer.io. If you prefer a custom exchange rate, you can append the rate to the currency's three-letter symbol. For example, `JPY:110.622` for the Japanese Yen. Note that the exchange rate should be against the US dollar (USD).
+  string toCurrency = 8;
+
+  // Optional. If set to true, always get the up-to-date calculation results. This data isn't necessarily in-sync with your invoice data as AWS could still have updated your CUR files even after you created your invoices. By default, returned data are those that are always in-sync with your invoices.
+  //
+  // This field is discarded for Wave(Pro) users. You will always get the latest data that is in-sync with your invoices.
+  bool forceLatest = 9;
+
+  // If true, force API to not use cached data.
+  bool noCache = 10;
+
+  // Optional. If set, only return data list tags.
+  repeated string tagIds = 11;
+}
+
+// Request message for the Cost.ReadTagCosts rpc.
+message ReadTagCostsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. The billing internal id to stream.
+  string billingInternalId = 2;
+
+  // Optional. Timestamp to start streaming data from. If not set, the first day of the current month will be used. Format: `yyyymmdd`.
+  string startTime = 3;
+
+  // Optional. Timestamp to end the streaming data. If not set, current date will be used. Format: `yyyymmdd`.
+  string endTime = 4;
+
+  // Optional. Group services and costs by months in the range of `startTime` and `endTime`. If not set, daily data will be returned.
+  bool groupByMonths = 5;
+
+  // Optional. Valid only for the `aws` vendor. AWS-specific options.
+  ReadTagCostsRequestAwsOptions awsOptions = 6;
+}
+
+// Request message for the Cost.ReadNonTagCosts rpc.
+message ReadNonTagCostsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. The billing internal id to stream.
+  string billingInternalId = 2;
+
+  // Optional. Timestamp to start streaming data from. If not set, the first day of the current month will be used. Format: `yyyymmdd`.
+  string startTime = 3;
+
+  // Optional. Timestamp to end the streaming data. If not set, current date will be used. Format: `yyyymmdd`.
+  string endTime = 4;
+
+  // Optional. Group services and costs by months in the range of `startTime` and `endTime`. If not set, daily data will be returned.
+  bool groupByMonths = 5;
+}
+
+// Request message for GetForecasts per billing group.
+message GetForecastsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+  
+  // Optional. Company Id of Billing Group to retrieve. Default value is user's Company Id
+  string billingInternalId = 2;
+  
+  // Optional. Forecast frequency. Valid values are `daily` and `monthly`. 
+  // Default value is `daily`.
+  string frequency = 3;
+  
+  // Optional. Forecast granularity. Valid values are `account`, `category` and `product`. Default value is `account`.
+  string level = 4;
+  
+  // Optional. Start date to get cost forecast. If from_date is less than current date, historical costs are included. If from_date is greater than current date, only forecasted costs are returned. Format: `yyyy-mm-dd`.
+  string fromDate = 5; 
+ 
+  // Optional. End date to get cost forecast. Currently, we only support 90 days forecasting from the first day of current month. Format: `yyyy-mm-dd`.
+  string toDate = 6;
+}
+
+// Response message for GetForecasts per billing group.
+message GetForecastsResponse {
+  api.BillingGroupForecast data = 1;
+}
+
+// Request message for GetMonthlyCostForecast
+message GetMonthlyCostForecastRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+  
+  // Required. 'account' or 'acctgroup'
+  string level = 2;
+
+  // Required. Account or AccountGroup Id
+  string id = 3;
+
+  // Optional. Start month to get cost forecast. Format: `yyyymm`.
+  string fromDate = 4; 
+
+  // Optional. Last month to get cost forecast. Format: `yyyymm`.
+  string toDate = 5; 
+}
+
+// Response message for GetMonthlyCostForecast
+message GetMonthlyCostForecastResponse {
+  string id = 1;
+  repeated api.MonthlyCostForecast data = 2;
+  string timestamp = 3;
+}
+
+// Request message for GetMonthOnMonthCostForecast
+message GetMonthOnMonthCostForecastRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+  
+  // Required. 'account' or 'acctgroup'
+  string level = 2;
+
+  // Required. Account or AccountGroup Id
+  string id = 3;
+
+  //Optional. Default is current month. Format: `yyyymm`.
+  string date = 4;
+}
+
+// Response message for GetMonthOnMonthCostForecast
+message GetMonthOnMonthCostForecastResponse {
+  string id = 1;
+  repeated api.MonthOnMonthCostForecast data = 2;
+  string timestamp = 3;
+}
+
+// Request message for GetMonthToDateCostForecast
+message GetMonthToDateCostForecastRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+  
+  // Required. 'account' or 'acctgroup'
+  string level = 2;
+
+  // Required. Account or AccountGroup Id
+  string id = 3;
+
+  //Optional. Default is current month. Format: `yyyymm`.
+  string date = 4;
+}
+
+// Response message for GetMonthToDateCostForecast
+message GetMonthToDateCostForecastResponse {
+  string id = 1;
+  double budget = 2;
+  repeated api.MonthToDateCostForecast data = 3;
+  string timestamp = 4;
+}
+
+// Request message for GetAccountBudget
+message GetAccountBudgetRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+  
+  // Required. 'account' or 'acctgroup'
+  string level = 2;
+
+  // Required. Account or AccountGroup Id
+  string id = 3; 
+
+  // Optional. Default is current year. Format: `yyyy`.
+  string year = 4;
+}
+
+// Response message for GetAccountBudget
+message GetAccountBudgetResponse {
+  api.Budget data = 1;
+}
+
+// Request message for CreateAccountBudget
+message CreateAccountBudgetRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+  
+  // Required. 'account' or 'acctgroup'
+  string level = 2;
+
+  // Required. Account or AccountGroup Id
+  string id = 3;
+
+  api.Budget data = 4;
+}
+
+// Response message for CreateAccountBudget
+message CreateAccountBudgetResponse {
+  //Budget Id
+  string budgetId = 1; 
+}
+
+// Request message for UpdateAccountBudget
+message UpdateAccountBudgetRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Budget Id
+  string budgetId = 2; 
+
+  api.Budget data = 3;
+}
+
+// Request message for DeleteAccountBudget
+message DeleteAccountBudgetRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Budget Id
+  string budgetId = 2; 
+}
+
+message GetRecommendationsRequestAwsOptions {
+  // Required. Valid values: 'reservation', 'rightsizing', 'scheduling'. Only 'reservation' is supported for now.
+  string recommendationType = 1;
+
+  // For recommendationType = 'reservation'. Optional. Valid values: 'combined', 'individual'
+  // Default: 'combined'
+  string type = 2;
+
+  // For recommendationType = 'reservation'. Optional. List of Services ["AmazonEC2", "AmazonRDS", "AmazonElastiCache", "AmazonES", "AmazonRedshift"]. Default: Empty list.
+  repeated string riServices = 3;
+
+  // For recommendationType = 'reservation'. Optional. List of Services ["AmazonECS", "AmazonEKS", "AWSLambda"]. Default: Empty list.
+  repeated string spServices = 4;
+
+  // For recommendationType = 'reservation'. Optional. If set to "true", recommends EC2 Instance Savings Plan that will cover usage not covered by RI. Default: false.
+  bool purchaseEC2SavingsPlan = 5;
+
+  // For recommendationType = 'reservation'. Optional. Valid values: 'EC2Instance', 'Compute'. Default: 'EC2Instance'.
+  string ec2SpProductFamily = 6;
+
+  // For recommendationType = 'reservation'. Optional. Valid values: '1yr', '3yr'. Default: '1yr'.
+  string term = 7;
+
+  // For recommendationType = 'reservation'. Optional. Valid values: 'standard', 'convertible'. Default: 'standard'.
+  string offeringClass = 8;
+
+  // For recommendationType = 'reservation'. Optional. Valid values: 'allUpfront', 'partialUpfront', 'noUpfront'. Default: 'allUpfront'.
+  string paymentOption = 9;
+
+  // For recommendationType = 'reservation'. Optional. Percentage of the usage (in NormalizedUnits) to be covered by Reserved Instance or Savings Plan. Default: 100.
+  double coveragePercentage = 10;
+}
+
+// Request message for GetRecommendations
+message GetRecommendationsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Organization Id.
+  string orgId = 2;
+
+  // Required. List of Account Ids.
+  repeated string accounts = 3;
+
+  // Required. For OCTO only.
+  string costGroupId = 4;
+
+  // Required if vendor = 'aws'
+  GetRecommendationsRequestAwsOptions awsOptions = 5;
+}
+
+// Request message for GetRecommendations
+message GetRecommendationsResponse {
+  string orgId = 1;
+  api.aws.AwsRecommendations awsRecommendations = 2;
+}
+
+// Request message for GetCostReduction
+message GetCostReductionRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Organization Id.
+  string orgId = 2;
+
+  // Required. Valid values: 'all', 'reservation', 'savingsplan'
+  string reductionDisplay = 3;
+
+  // Optional. If set to "true", details of the RI or SP list is returned. Default: false.
+	bool includeDetails = 4;
+
+  // Optional. The start date of the displayed data. If not set, the first day of the current month will be used. Format: yyyy-mm-dd.
+  string fromDate = 5;
+
+  // Optional. The end date of the displayed data. If not set, current date will be used. Format: yyyy-mm-dd.
+  string toDate = 6;
+
+  // Optional. Payer Id.
+  string payerId = 7;
+
+  // Optional. Billing group Id.
+  string billingInternalId = 8;
+
+  // Optional. Account group Id.
+  string groupId = 9;
+
+  // Optional. Cost Group Id used in octo.
+  string costGroupId = 10;
+
+  // Optional. List of Account Ids.
+  repeated string accounts = 11;
+
+  // Optional. List of services.
+  repeated string services = 12;
+}
+
+// Response message for GetCostReduction
+message GetCostReductionResponse {
+  string orgId = 1;
+  api.aws.AwsCostReductions awsCostReductions = 2;
+}
+
+message GetExportRISPRequest {  
+  // Required. For AWS, "ri" or "sp".
+  string type = 1;
+  // Usually the language of the user information is used, 
+  // but it may be a different language due to cahce.
+  // In that case, you can use this option to change the language of CSV.
+  string language = 2 [(google.api.field_behavior) = OPTIONAL];
+  // Required. Include expired
+  bool includeExpired = 3;
+}
+
+// Request message for the ExportBillingGroupInvoiceServiceDiscounts rpc.
+message GetExportRISPResponse {
+  // csv direct download link
+  // expires in 10 minutes
+  string downloadLink = 1;
+}
+
+// Request message for ExportReport.
+message ExportReportRequest {
+  // Required. Billing month in YYYY-MM format.
+  string month = 2;
+
+  // Optional. Cloud vendor.
+  // Accepted values: "aws", "gcp", "azure".
+  // If empty, defaults to "aws" for backward compatibility.
+  string vendor = 1;
+
+  // Optional. Notification channel IDs to deliver the report.
+  // If empty, the MSP default notification channel configured in DynamoDB is used.
+  repeated string notification_channel_ids = 4 [(google.api.field_behavior) = OPTIONAL];
+
+  // Optional. Valid only for the `aws` vendor. AWS export report options.
+  // Supports all registered export-report queries
+  AwsExportReportOptions aws_options = 10;
+  // Future vendor-specific options follow the same pattern (e.g. gcp_options, azure_options).
+}
+
+// AWS export report options for ExportReport.
+message AwsExportReportOptions {
+  // Per-report column filter container.
+  message Columns {
+    repeated string values = 1;
+  }
+
+  // Optional. Include expired RIs/SPs in the results. Default: false.
+  bool include_expired = 1;
+
+  // Optional. CSV header language: "en" or "ja".
+  // If empty, defaults to the MSP or login user's language.
+  string language = 2 [(google.api.field_behavior) = OPTIONAL];
+
+  // Required. Report queries to include in the export. Must contain at least 1 value.
+  repeated string queries = 3 [(google.api.field_behavior) = REQUIRED];
+
+  // Optional. Global column filter applied to all reports.
+  // Superseded per-report by columns_by_query if that key is present.
+  repeated string columns = 4 [(google.api.field_behavior) = OPTIONAL];
+
+  // Optional. Per-report column overrides.
+  // Keys must be valid query names for registered AWS export-report queries.
+  map<string, Columns> columns_by_query = 5;
+}
+
+// Request message for GetUtilization
+message GetUtilizationRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Organization Id.
+  string orgId = 2;
+
+  // Required. For AWS, "ri" or "sp".
+  string type = 3;
+
+  // Optional. The start date of the displayed data. If not set, the first day of the current month will be used. Format: yyyy-mm-dd.
+  string fromDate = 4;
+
+  // Optional. The end date of the displayed data. If not set, current date will be used. Format: yyyy-mm-dd.
+  string toDate = 5;
+
+  // Optional. Payer Id.
+  string payerId = 6;
+
+  // Optional. Billing group Id.
+  string billingInternalId = 7;
+
+  // Optional. Account group Id.
+  string groupId = 8;
+
+  // Optional. Cost Group Id used in octo.
+  string costGroupId = 9;
+}
+
+// Response message for GetUtilization
+message GetUtilizationResponse {
+  string orgId = 1;
+  repeated api.UtilizationData utilizationData = 2;
+}
+
+// Request message for GetCoverageOptions
+message GetCoverageOptionsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Organization Id.
+  string orgId = 2;
+
+  // Required. Available values: day, hour.
+  string period = 3;
+
+  // Optional. The start date of the displayed data. If not set, the first day of the current month will be used. Format: yyyy-mm-dd.
+  string fromDate = 4;
+
+  // Optional. The end date of the displayed data. If not set, current date will be used. Format: yyyy-mm-dd.
+  string toDate = 5;
+
+  // Optional. Payer Id.
+  string payerId = 6;
+
+  // Optional. Billing group Id.
+  string billingInternalId = 7;
+
+  // Optional. Account group Id.
+  string groupId = 8;
+
+  // Optional. Cost Group Id
+  string costGroupId = 9;
+
+  // Optional. List of Account Ids.
+  repeated string accounts = 10;
+
+  // Optional. List of services.
+  repeated string services = 11;
+
+  // Optional. If not set, default value is `USD`.
+  string currency = 12;
+}
+
+// Response message for GetCoverageOptions
+message GetCoverageOptionsResponse {
+  string orgId = 1;
+  repeated api.OptionsData optionsData = 2;
+}
+
+// Request message for GetCoverageOndemand
+message GetCoverageOndemandRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Organization Id.
+  string orgId = 2;
+
+  // Required. Available values: day, hour
+  string period = 3;
+
+  // Optional. The start date of the displayed data. If not set, the first day of the current month will be used. Format: yyyy-mm-dd.
+  string fromDate = 4;
+
+  // Optional. The end date of the displayed data. If not set, current date will be used. Format: yyyy-mm-dd.
+  string toDate = 5;
+
+  // Optional. Payer Id.
+  string payerId = 6;
+
+  // Optional. Billing group Id.
+  string billingInternalId = 7;
+
+  // Optional. Account group Id.
+  string groupId = 8;
+
+  // Optional. Cost Group Id, currently used in octo
+  string costGroupId = 9;
+
+  // Optional. List of Account Ids.
+  repeated string accounts = 10;
+
+  // Optional. List of services.
+  repeated string services = 11;
+}
+
+// Response message for GetCoverageOndemand
+message GetCoverageOndemandResponse {
+  string orgId = 1;
+  repeated api.OndemandData ondemandData = 2;
+}
+
+// Request message for GetBreakevenPoint
+message GetBreakevenPointRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Organization Id.
+  string orgId = 2;
+
+  // Required. For AWS, "ri" or "sp".
+  string type = 3;
+
+  // Required. RI/SP Arn.
+  string arn = 4;
+}
+
+// Response message for GetBreakevenPoint
+message GetBreakevenPointResponse {
+  string orgId = 1;
+  api.aws.AwsCostBreakeven awsCostBreakeven = 2;
+}
+
+
+// Request message for the ListCostFilters rpc.
+message ListCostFiltersRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+}
+
+// Response message for the ListCostFilters rpc.
+message ListCostFiltersResponse {
+  repeated ListCostFilters costFilters = 1;
+}
+
+// Response message for the ListCostFilters rpc.
+message ListCostFilters {
+  // Required. Filter Id.
+  string filterId = 1;
+
+  // Required. Filter Name.
+  string filterName = 2;
+
+  // Required. Vendor.
+  string vendor = 3;
+
+  // Optional. If set, reads the usage-based cost details of this group. Only valid for Ripple users. Implied as the parent billing group for Wave(Pro) users.
+  //
+  // For AWS Ripple, only billing internal ids are supported at the moment. Overriden when `accountId` is set to anything other than `*`. Set this and `accountId` to `*` to read the usage-based cost details of the whole organization. Optional for AWS Wave(Pro).
+  string groupId = 4;
+
+  // Optional. You can set it to a single account or a comma-separated list of accounts.
+  //
+  // For AWS, setting this will override `groupId`. Set this and `groupId` to `*` to read the usage-based cost details of the whole organization.
+  string accountId = 5;
+
+  // Optional. Valid only for the `aws` vendor. AWS-specific options.
+  ReadCostsRequestAwsOptions awsOptions = 6;
+}
+
+// Request message for the CreateCostFilters rpc.
+message CreateCostFiltersRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Filter Name. Specify characters between 1 ~ 100
+  string filterName = 2;
+
+  // Required. If set, reads the usage-based cost details of this group. Only valid for Ripple users. Implied as the parent billing group for Wave(Pro) users.
+  //
+  // For AWS Ripple, only billing internal ids are supported at the moment. Overriden when `accountId` is set to anything other than `*`. Set this and `accountId` to `*` to read the usage-based cost details of the whole organization. Optional for AWS Wave(Pro).
+  string groupId = 3;
+
+  // Required. You can set it to a single account or a comma-separated list of accounts.
+  //
+  // For AWS, setting this will override `groupId`. Set this and `groupId` to `*` to read the usage-based cost details of the whole organization.
+  string accountId = 4;
+
+  // Required. Valid only for the `aws` vendor. AWS-specific options.
+  ReadCostsRequestAwsOptions awsOptions = 5;
+}
+
+// Response message for the CreateCostFilters rpc.
+message CreateCostFiltersResponse {
+  // Required. Filter Id.
+  string filterId = 1;
+}
+
+// Request message for the UpdateCostFilters rpc.
+message UpdateCostFiltersRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Filter Id.
+  string filterId = 2;
+
+  // Required. Filter Name. Specify characters between 1 ~ 100
+  string filterName = 3;
+
+  // Required. If set, reads the usage-based cost details of this group. Only valid for Ripple users. Implied as the parent billing group for Wave(Pro) users.
+  //
+  // For AWS Ripple, only billing internal ids are supported at the moment. Overriden when `accountId` is set to anything other than `*`. Set this and `accountId` to `*` to read the usage-based cost details of the whole organization. Optional for AWS Wave(Pro).
+  string groupId = 4;
+
+  // Required. You can set it to a single account or a comma-separated list of accounts.
+  //
+  // For AWS, setting this will override `groupId`. Set this and `groupId` to `*` to read the usage-based cost details of the whole organization.
+  string accountId = 5;
+
+  // Required. Valid only for the `aws` vendor. AWS-specific options.
+  ReadCostsRequestAwsOptions awsOptions = 6;
+}
+
+// Response message for the UpdateCostFilters rpc.
+message UpdateCostFiltersResponse {
+  // Required. Filter Id.
+  string filterId = 1;
+}
+
+// Request message for the DeleteCostFilters rpc.
+message DeleteCostFiltersRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Filter Id to delete.
+  string filterId = 2;
+}
+
+// Request message for the ExportCostFiltersFile rpc.
+message ExportCostFiltersFileRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Filter Id.
+  string filterId = 2;
+
+  // Required. The channel ids to use for notifications.
+  repeated string notificationChannelIds = 8;
+
+  // Optional. The UTC date to start streaming data from. If not set, the first day of the current month will be used. Format: `yyyymmdd`. The oldest supported date is `20200101`.
+  string startTime = 3;
+
+  // Optional. The UTC date to end the streaming data. If not set, current date will be used. Format: `yyyymmd`.
+  string endTime = 4;
+
+  // Optional. If set to true, return data grouped by month within the date range. If you want data that is grouped per account per month, set this to `true`, then set `groupByColumns` to `none`.
+  bool groupByMonth = 5;
+
+  // Optional. A comma-separated list of columns to aggregate the data into. Valid values are `productCode`, `serviceCode`, `region`, `zone`, `usageType`, `instanceType`, `operation`, `invoiceId`, `description`, and `resourceId`. A special value of `none` is also supported, which means query by date or month per account only.
+  //
+  // For example, if you only want the services and region data, you can set this field to `productCode,region`. Your input sequence doesn't matter (although the sequence above is recommended) as the actual sequence is already fixed in the return data (see the definition in https://github.com/alphauslabs/blueapi/blob/main/api/aws/cost.proto), which is generic to specific, top to bottom. Invalid values are discarded. Excluded columns will be empty.
+  string groupByColumns = 6;
+
+  // Optional. If set to true, stream will include resource tags. 
+  bool includeTags = 7;
+}
+
+// Response message for the ExportCostFiltersFile rpc.
+message ExportCostFiltersFileResponse {
+  // Required. URL of exported file.
+  string url = 1;
+}
+
+// GCP-specific options for ReadCostsRequest.
+message ReadCostsRequestGcpOptions {
+  // Optional. A comma-separated list of columns to aggregate the data into. Valid values are `service`, `sku`, `region`, `zone`, and `usageUnit`. A special value of `none` is also supported, which means query by date or month per account only.
+  string groupByColumns = 1;
+
+  // Optional. If set to true, return data grouped by month within the date range. If you want data that is grouped per account per month, set this to `true`, then set `groupByColumns` to `none`.
+  bool groupByMonth = 2;
+
+  // Optional. If set to true, group all input accounts into one. Valid only if `groupByMonth` is true.
+  bool groupAccounts = 3;
+
+  // Optional. A list of filtering options. See [ReadCostsRequestGcpOptionsFilters] for more information on each filter item. Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc.
+  repeated ReadCostsRequestGcpOptionsFilters filters = 4;
+
+  // Optional. If set to true, stream will include invoice month. Discarded when `groupByColumns` field is set to `none`.
+  //
+  // The last usage occurrence of invoice month based on endTime is set to endTime.
+  // For example, (Assumption: Last usage start time 2022-02-01 01:00:00 UTC) If you set to "endTime:20210131", automatically set to "endTime:20220101". Ignored if the batch calculation for invoice month has not been completed.
+  bool includeInvoiceMonth = 6;
+
+  // Optional. If set to true, stream will include credits{"creditsType","creditsName"}. Discarded when `groupByColumns` field is set to `none`.
+  bool includeCredits = 7;
+
+  // Optional. If set to true, round the cost data to a rounded format. It will be rounded off in the unit specified by `groupByColumns`.
+  bool rounding = 8;
+
+  // If true, force API to not use cached data.
+  bool noCache = 5;
+
+  // Optional. Please note that this feature is currently in BETA and may not work as expected.
+  // You can set it to the desired three-letter currency symbol (i.e. JPY, USD).
+  string toCurrency = 9;
+}
+
+// A map of "key:value" column filters. Dependent on `groupByColumns` and/or `groupByMonth`. The key indicates the column name while the value is the filter value prefixed by either "eq:" (equal), "re:" (regular expressions based on https://github.com/google/re2), or "!re:" (reverse "re:"). No prefix is the same as "eq:". Multiple map items will use the logical 'and' operator, e.g. mapfilter1 && mapfilter2 && mapfilter3, etc.
+//
+// For example, if you like to filter `service` to return only `Compute Engine`, set to `{"service":"eq:Compute Engine"}` or `{"service":"Compute Engine"}`. You can also use a regular expression like `{"service":"re:Compute Engine|Cloud Storage"}`, which means return all Compute Engine or Cloud Storage lineitems. Or reverse regexp, such as `{"service":"!re:^Cloud Engine$"}`, which means return all items except `Cloud Engine`.
+message ReadCostsRequestGcpOptionsFilters {
+  map<string, string> andFilters = 1;
+}
+
+// Request message for GetAccountBudgetAlerts
+message GetAccountBudgetAlertsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+  
+  // Required. Account Id
+  string id = 2;
+}
+
+// Request message for CreateAccountBudgetAlerts
+message CreateAccountBudgetAlertsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+  
+  // Required. Account Id
+  string id = 2;
+
+  // Required. Budget alert setting.
+  api.wave.BudgetAlert budgetAlert = 3;
+}
+
+// Request message for UpdateAccountBudgetAlerts
+message UpdateAccountBudgetAlertsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+  
+  // Required. Account Id
+  string id = 2;
+
+  // Required. Budget alert setting.
+  //
+  // Set only the setting value to be changed.
+  // For example, If you want to change only daily value, set `{"budget":[{"id":"daily","value":100,"enabled":true}}` as a parameter
+  // The same goes for notification. If you want to change only email value, set `{"notification":[{"id":"email","destination":"budgetalert-example@alphaus.cloud","enabled":true}}` as a parameter
+  api.wave.BudgetAlert budgetAlert = 3;
+}
+
+// Request message for DeleteAccountBudgetAlerts
+message DeleteAccountBudgetAlertsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+  
+  // Required. Account Id
+  string id = 2;
+}
+
+// Azure-specific options for ReadCostsRequest.
+message ReadCostsRequestAzureOptions {
+  // Optional. A comma-separated list of columns to aggregate the data into. Valid values are `serviceName`, `productName`, `region`, `chargeType`, `description`, `billableQuantity`, `effectiveUnitPrice`, `timeInterval`, `billingType`, `alternateId`, `domainName` and `resourceGroup`. A special value of `none` is also supported, which means query by date or month per account only.
+  //
+  // For example, if you only want the services and region data, you can set this field to `serviceName,region`. Your input sequence doesn't matter (although the sequence above is recommended) as the actual sequence is already fixed in the return data (see the definition in https://github.com/alphauslabs/blueapi/blob/main/api/azure/cost.proto), which is generic to specific, top to bottom. Invalid values are discarded. Excluded columns will be empty.
+  string groupByColumns = 1;
+
+  // Optional. If set to true, return data grouped by month within the date range. If you want data that is grouped per account per month, set this to `true`. You can also use `groupByColumns` while setting this to true.
+  bool groupByMonth = 2;
+
+  // If true, force API to not use cached data.
+  bool noCache = 3;
+
+  // Optional. Set to US dollars (USD) by default (AWS CUR's default currency). You can set it to the desired three-letter currency symbol (i.e. JPY, EUR, GBP), in which case, it will use the latest exchange rates provided by https://fixer.io. If you prefer a custom exchange rate, you can append the rate to the currency's three-letter symbol. For example, `JPY:110.622` for the Japanese Yen. Note that the exchange rate should be against the US dollar (USD).
+  string toCurrency = 4;
+
+  // Optional. You can set it to a single resource group or a comma-separated list of resource groups.
+  string resourceGroup = 5;
+}
+
+// Request message for the BudgetAlerts rpc.
+message BudgetAlerts {
+  // Budget alert Id.
+  string id = 1;
+
+  // Vnedor. At the moment, only `aws` is supported.
+  string vendor = 2;
+
+  // Lsit of accountId.
+  repeated api.Account accounts = 3;
+
+  // Notification setting for budget alert.
+  api.BudgetAlertNotificationDetail notification = 4;
+
+  // Daily setting for budget alert.
+  api.DailyBudgetAlert daily = 5;
+
+  // Daily rate increase setting for budget alert.
+  api.DailyRateIncreaseBudgetAlert dailyRate = 7;
+
+  // Monthly setting for budget alert.
+  api.MonthlyBudgetAlert monthly = 6;
+
+  //  Custom Period setting for budget alert.
+  api.CustomPeriodBudgetAlert customPeriod = 8;
+
+  //  Custom Month setting for budget alert.
+  api.CustomMonthBudgetAlert customMonth = 9;
+}
+
+// Request message for the ReadBudgetAlerts rpc.
+message ReadBudgetAlertsRequest {
+  // Optional.
+  google.protobuf.FieldMask field_mask = 1;
+}
+
+// Request message for the GetBudgetAlerts rpc.
+message GetBudgetAlertsRequest {
+  // Required. budget alert id
+  string id = 1;
+}
+
+// Request message for the CreateBudgetAlerts rpc.
+message CreateBudgetAlertsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. Lsit of accountId. For example, you set to ["accountId1","accountId2","accountId3"].
+  repeated string accounts = 2;
+
+  // Required.
+  api.BudgetAlertNotification notification = 3;
+
+  // Optional.
+  api.DailyBudgetAlert daily = 4;
+
+  // Optional.
+  api.DailyRateIncreaseBudgetAlert dailyRate = 6;
+
+  // Optional.
+  api.MonthlyBudgetAlert monthly = 5;
+
+  // Optional.
+  api.CustomPeriodBudgetAlert customPeriod = 7;
+
+  // Optional.
+  api.CustomMonthBudgetAlert customMonth = 8;
+}
+
+// Request message for the UpdateBudgetAlerts rpc.
+message UpdateBudgetAlertsRequest {
+  // Required. budget alert id
+  string id = 1;
+
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 2;
+
+  // Required. Lsit of accountId. For example, you set to ["accountId1","accountId2","accountId3"].
+  repeated string accounts = 3;
+
+  // Required.
+  api.BudgetAlertNotification notification = 4;
+
+  // Optional.
+  api.DailyBudgetAlert daily = 5;
+
+  // Optional.
+  api.DailyRateIncreaseBudgetAlert dailyRate = 7;
+
+  // Optional.
+  api.MonthlyBudgetAlert monthly = 6;
+
+  // Optional.
+  api.CustomPeriodBudgetAlert customPeriod = 8;
+
+  // Optional.
+  api.CustomMonthBudgetAlert customMonth = 9;
+}
+
+// Request message for the DeleteBudgetAlerts rpc.
+message DeleteBudgetAlertsRequest {
+  // Required. budget alert id
+  string id = 1;
+}
+
+message CheckAccountsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+  
+  // Required. A comma-separated list of account ids. For example, you set to ["accountId1","accountId2","accountId3"].
+  repeated string accountIds = 2;
+}
+
+message CheckAccountsResponse {
+  // Map of accountIds to boolean values indicating if the account exists.
+  map<string, bool> exists = 1;
+}
+
+// Request message for the ReadInvoiceIds rpc.
+message ReadInvoiceIdsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Optional. The UTC month to query. If empty, defaults to current month. Format is `yyyymm`. For example, July 2024 will be `202407`.
+  string month = 2;
+}
+
+// Response message for the ReadInvoiceIds rpc.
+message ReadInvoiceIdsResponse {
+  // The invoice id
+  string id = 1;
+}
+
+message PeriodRange {
+  enum Unit {
+    UNIT_UNSPECIFIED = 0;
+    MONTH = 1;
+    QUARTER = 2;
+    YEAR = 3;
+  }
+
+  Unit unit = 1; // Time unit of the range
+  uint32 year = 2; // Year (e.g., 2025)
+  uint32 starting = 3; // Start month/quarter (1-based), ignored if YEAR
+  uint32 duration = 4; // Length in units of unit
+}
+
+// Request message for the ReadInvoiceOverviews rpc.
+message ReadInvoiceOverviewsRequest {
+  // Optional. The UTC date to start streaming data from. If not set, the first day of the current month will be used. Format: `yyyymmdd`. The oldest supported date is `20240101`.
+  string startTime = 1;
+
+  // Optional. The UTC date to end the streaming data. If not set, current date will be used. Format: `yyyymmdd`.
+  string endTime = 2;
+
+  // Set true to use period range as date input, startTime and endTime would be ignored
+  bool usePeriodRange = 4;
+
+  // Use when usePeriodRange range is true
+  PeriodRange periodRange = 5;
+
+  // Optional. Set to US dollars (USD) by default (AWS CUR's default currency). You can set it to the desired three-letter currency symbol (i.e. JPY, EUR, GBP), in which case, it will use the latest exchange rates provided by https://fixer.io. If you prefer a custom exchange rate, you can append the rate to the currency's three-letter symbol. For example, `JPY:110.622` for the Japanese Yen. Note that the exchange rate should be against the US dollar (USD).
+  string toCurrency = 3;
+}
+
+// Request message for the ReadInvoiceCosts rpc.
+message ReadInvoiceCostsRequest {
+  // Optional. The UTC date to start streaming data from. If not set, the first day of the current month will be used. Format: `yyyymmdd`. The oldest supported date is `20240101`.
+  string startTime = 1;
+
+  // Optional. The UTC date to end the streaming data. If not set, current date will be used. Format: `yyyymmdd`.
+  string endTime = 2;
+
+  // Optional. Set to US dollars (USD) by default (AWS CUR's default currency). You can set it to the desired three-letter currency symbol (i.e. JPY, EUR, GBP), in which case, it will use the latest exchange rates provided by https://fixer.io. If you prefer a custom exchange rate, you can append the rate to the currency's three-letter symbol. For example, `JPY:110.622` for the Japanese Yen. Note that the exchange rate should be against the US dollar (USD).
+  string toCurrency = 3;
+}
+
+// Request message for the ReadInvoiceGroupCosts rpc.
+message ReadInvoiceGroupCostsRequest {
+  // Optional. The UTC date to start streaming data from. If not set, the first day of the current month will be used. Format: `yyyymmdd`. The oldest supported date is `20240101`.
+  string startTime = 1;
+
+  // Optional. The UTC date to end the streaming data. If not set, current date will be used. Format: `yyyymmdd`.
+  string endTime = 2;
+
+  // Optional. Set to US dollars (USD) by default (AWS CUR's default currency). You can set it to the desired three-letter currency symbol (i.e. JPY, EUR, GBP), in which case, it will use the latest exchange rates provided by https://fixer.io. If you prefer a custom exchange rate, you can append the rate to the currency's three-letter symbol. For example, `JPY:110.622` for the Japanese Yen. Note that the exchange rate should be against the US dollar (USD).
+  string toCurrency = 3;
+
+  // Optional. Number of acquisitions. default:10０.
+  int32 limit = 4;
+}
+
+// Request message for the ReadAccountOriginalResources rpc.
+message ReadAccountOriginalResourcesRequest {
+  // Required. At the moment, only `aws`.`gcp`,`azure` is supported.
+  string vendor = 1; 
+}
+
+// Request message for the RegisterPayerAccountRequest rpc.
+message RegisterPayerAccountRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. The Payer/Management account Id.
+  string id = 2;
+
+  // Optional. Preferred account name, defaults to id if not provided.
+  string name = 3;
+
+  // Optional. Valid values are `legacy` and `2.0` for now. Defaults to `legacy` if not provided.
+  // Only applicable if vendor is set to `aws`. Do not provide if `gcp` or `azure`.
+  string curType = 4;
+}
+
+message UpdatePayerAccountRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. The Payer/Management account Id to update.
+  string id = 2;
+
+  // Optional. Preferred account name, defaults to id if not provided.
+  string name = 3;
+
+  // Optional. Valid values are `legacy` and `2.0` for now. Defaults to `legacy` if not provided.
+  // Only applicable if vendor is set to `aws`. Do not provide if `gcp` or `azure`.
+  string curType = 4;
+}
+
+// WORK-IN-PROGRESS: List the prerequisites for cost calculations.
+message ListCalculationPrerequisitesRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+  
+  // Required. Month in format yyyy-mm.
+  string month = 2;
+}
+
+message CalculationPrerequisite {
+  // The invoice id.
+  string invoice_id = 1;
+  
+  // The payer account id.
+  string payer_id = 2;
+  
+  // The exchange rate.
+  double exchange_rate = 3;
+  
+  // The unblended cost in CUR.
+  double unblended_cost_in_cur = 4;
+
+  // The account name.
+  string name = 5;
+
+  // The CUR type, valid values are `legacy` and `2.0`.
+  string cur_type = 6;
+}
+
+// Response message for the ListCalculationPrerequisites rpc.
+message ListCalculationPrerequisitesResponse {
+  // Repeated list of calculation prerequisites.
+  repeated CalculationPrerequisite prerequisites = 1;
+}
+
+// Request message for SetupPayerAccountBillingTransfer
+message SetupPayerAccountBillingTransferRequest {
+  // Required. The vendor. Only 'aws' is supported for now.
+  string vendor = 1;
+  
+  // Required. The Payer account ID
+  string id = 2;
+
+  // Required. The billing transfer month.
+  string month = 3;
+
+  // Required. The s3 bucket where the cost and usage report can be downloaded.
+  string s3_bucket = 4;
+  
+  // Required. The actual name of the cost and usage report.
+  string report_name = 5;
+  
+  // Required. The Role ARN needed to access the s3 bucket.
+  string role_arn = 6;
+
+  // Required. The type of cur. Valid values are: 'legacy' and '2.0'
+  string cur_type = 7;
+  
+  // Optional. Prefix of the report inside the bucket
+  string prefix = 8;
+}

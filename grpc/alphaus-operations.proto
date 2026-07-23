@@ -1,0 +1,126 @@
+// Copied from {root}/google/longrunning/operations.proto
+
+syntax = "proto3";
+
+package blueapi.operations.v1;
+
+import "protos/operation.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/alphauslabs/blueapi/operations";
+option java_package = "cloud.alphaus.api.operations";
+option java_outer_classname = "OperationsProto";
+
+// Manages long-running operations with an API service.
+//
+// When an API method normally takes long time to complete, it can be designed
+// to return [Operation][google.longrunning.Operation] to the client, and the client can use this
+// interface to receive the real response asynchronously by polling the
+// operation resource, or pass the operation resource to another API (such as
+// Google Cloud Pub/Sub API) to receive the response.  Any API service that
+// returns long-running operations should implement the `Operations` interface
+// so developers can have a consistent client experience.
+service Operations {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+    description: "(BETA) Long operations API. Base URL: https://api.alphaus.cloud/m/blue"
+    external_docs: {
+      url: "https://github.com/alphauslabs/blueapi/tree/main/operations/";
+      description: "Service definition";
+    }
+  };
+
+  // Lists long-running operations.
+  rpc ListOperations(ListOperationsRequest) returns (stream protos.Operation) {
+    option (google.api.http) = {
+      get: "/ops/v1"
+    };
+  }
+
+  // Gets the latest state of a long-running operation. You can use this method to
+  // poll the operation result at intervals.
+  rpc GetOperation(GetOperationRequest) returns (protos.Operation) {
+    option (google.api.http) = {
+      get: "/ops/v1/{name}"
+    };
+  }
+
+  // Deletes a long-running operation. This method indicates that the client is no
+  // longer interested in the operation result. It does not cancel the operation.
+  rpc DeleteOperation(DeleteOperationRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/ops/v1/{name}"
+    };
+  }
+
+  // Starts asynchronous cancellation on a long-running operation. The server makes
+  // a best effort to cancel the operation, but success is not guaranteed. On successful
+  // cancellation, the operation is not deleted; instead, it becomes an operation with
+  // a value of [google.rpc.Status.code][google.rpc.Status.code] 1, corresponding
+  // to `Code.CANCELLED`.
+  rpc CancelOperation(CancelOperationRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/ops/v1/{name}:cancel"
+      body: "*"
+    };
+  }
+
+  // Waits for the specified long-running operation until it is done or reaches
+  // at most a specified timeout, returning the latest state. If the operation
+  // is already done, the latest state is immediately returned. If the timeout
+  // specified is greater than the default HTTP/RPC timeout, the HTTP/RPC
+  // timeout is used. If the server does not support this method, it returns
+  // `google.rpc.Code.UNIMPLEMENTED`.
+  // Note that this method is on a best-effort basis. It may return the latest
+  // state before the specified timeout (including immediately), meaning, even an
+  // immediate response is no guarantee that the operation is done.
+  // At the moment, Blue's default RPC timeout is around one hour.
+  rpc WaitOperation(WaitOperationRequest) returns (protos.Operation) {
+  }
+}
+
+// Request message for the Operations.ListOperations rpc.
+message ListOperationsRequest {
+  // Optional. The name of the operation's parent resource. Not used at the moment.
+  string parent = 1;
+
+  // Optional. List operations on and after this date. Format is yyyymmdd. For example,
+  // if you want to list all operations starting from June 01, 2021, set to `20210601`.
+  // If not set, defaults to the first day of the current UTC month.
+  string asOf = 2;
+
+  // Optional. If true, include all operations that are marked as done. Exclude by
+  // default.
+  bool includeDone = 3;
+}
+
+// Request message for the Operations.GetOperation rpc.
+message GetOperationRequest {
+  // The name of the operation resource.
+  string name = 1;
+}
+
+// Request message for the Operations.DeleteOperation rpc.
+message DeleteOperationRequest {
+  // The name of the operation resource to be deleted.
+  string name = 1;
+}
+
+// Request message for the Operations.CancelOperation rpc.
+message CancelOperationRequest {
+  // The name of the operation resource to be cancelled.
+  string name = 1;
+}
+
+// The request message for the Operations.WaitOperation rpc.
+message WaitOperationRequest {
+  // The name of the operation resource to wait on.
+  string name = 1;
+
+  // The maximum duration to wait before timing out. If left blank, the wait
+  // will be at most the time permitted by the underlying HTTP/RPC protocol.
+  // If RPC context deadline is also specified, the shorter one will be used.
+  google.protobuf.Duration timeout = 2;
+}

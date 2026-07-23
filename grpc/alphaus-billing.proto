@@ -1,0 +1,4115 @@
+syntax = "proto3";
+
+package blueapi.billing.v1;
+
+import "api/account.proto";
+import "api/invoice.proto";
+import "api/costtag.proto";
+import "api/ripple/accessgroup.proto";
+import "api/ripple/billinggroup.proto";
+import "api/ripple/reseller.proto";
+import "api/ripple/yearmonth.proto";
+import "api/ripple/rounding.proto";
+import "api/ripple/invoicelayout.proto";
+import "api/ripple/duedate.proto";
+import "api/ripple/exchangerate.proto";
+import "api/ripple/untaggedgroup.proto";
+import "api/ripple/customizedbillingservice.proto";
+import "api/ripple/v1/invoiceservicediscounts.proto";
+import "api/ripple/v1/accountsupportplan.proto";
+import "api/ripple/v1/adjustmententry.proto";
+import "api/adjustment.proto";
+import "api/wave/adjustment.proto";
+import "protos/operation.proto";
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/field_mask.proto";
+
+option go_package = "github.com/alphauslabs/blueapi/billing";
+option java_package = "cloud.alphaus.api.billing";
+option java_outer_classname = "BillingProto";
+
+// Billing service definition.
+service Billing {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+    description: "(BETA) Billing API. Base URL: https://api.alphaus.cloud/m/blue/billing"
+    external_docs: {
+      url: "https://github.com/alphauslabs/blueapi/tree/main/billing/";
+      description: "Service definition";
+    }
+  };
+
+  // Lists all billing groups (streamed).
+  rpc ListBillingGroups(ListBillingGroupsRequest) returns (stream BillingGroup) {
+    option (google.api.http) = {
+      get: "/v1/billinggroups"
+    };
+  }
+
+  // Lists all billing groups with pagination support.
+  rpc ListBillingGroupsPaginated(ListBillingGroupsPaginatedRequest) returns (ListBillingGroupsPaginatedResponse) {
+    option (google.api.http) = {
+      get: "/v1/billinggroups:paginated"
+    };
+  }
+
+  // Registers a billing group.
+  rpc CreateBillingGroup(CreateBillingGroupRequest) returns (BillingGroup) {
+    option (google.api.http) = {
+      post: "/v1/billinggroups"
+      body: "*"
+    };
+  }
+
+  // Registers a billing group with Merged Endpoints. Only available in Ripple. WORK IN PROGRESS
+  rpc CreateBillingGroupMerged(CreateBillingGroupMergedRequest) returns (BillingGroup) {
+    option (google.api.http) = {
+      post: "/v1/billinggroups/merged"
+      body: "*"
+    };
+  }
+
+  // Delete a billing group.
+  rpc DeleteBillinGroup(DeleteBillingGroupRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/billinggroup/{id}"
+    };
+  }
+
+  // Add a vendor account to a billing group.
+  rpc AddAccountToBillingGroup(AddAccountToBillingGroupRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/billinggroup/account"
+      body: "*"
+    };
+  }
+
+  // Gets a billing group.
+  rpc GetBillingGroup(GetBillingGroupRequest) returns (GetBillingGroupResponse) {
+    option (google.api.http) = {
+      get: "/v1/billinggroups/{billingInternalId}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Gets an access group.
+  rpc GetAccessGroup(GetAccessGroupRequest) returns (GetAccessGroupResponse) {
+    option (google.api.http) = {
+      get: "/v1/accessgroups/{accessGroupId}"
+    };
+  }
+
+  // Reads the daily calculation history of all accounts in your billing groups. Only available in Ripple.
+  rpc ListAwsDailyRunHistory(ListAwsDailyRunHistoryRequest) returns (stream AwsDailyRunHistory) {
+    option (google.api.http) = {
+      post: "/v1/aws/dailyrunhistory:read"
+      body: "*"
+    };
+  }
+
+  // Returns a list of accounts that have been updated after invoice along with the differences in costs, if any. Only available in Ripple.
+  rpc ListUsageCostsDrift(ListUsageCostsDriftRequest) returns (stream UsageCostsDrift) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/usagecostsdrift:read"
+      body: "*"
+    };
+  }
+  
+  // Creates an invoice. Only available in Ripple.
+  rpc CreateInvoice(CreateInvoiceRequest) returns (api.InvoiceMessage) {
+    option (google.api.http) = {
+      post: "/v1/invoice/{date}:create"
+      body: "*"
+    };
+  }
+
+  // Creates an invoice and add settings. Only available in Ripple.
+  rpc CreateInvoiceWithSettings(SaveInvoiceSettingsRequest) returns (api.InvoiceMessage) {
+    option (google.api.http) = {
+      post: "/v1/invoice/{date}:create&savesettings"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Save invoice settings for the month
+  rpc SaveInvoiceSettings(SaveInvoiceSettingsRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/invoice/{date}:savesettings"
+      body: "*"
+    };
+  }
+
+ // WORK-IN-PROGRESS: Convert invoice to pdf 
+  rpc ConvertInvoiceToPdf(ConvertInvoiceToPdfRequest) returns (ConvertInvoiceToPdfResponse) {
+    option (google.api.http) = {
+      post: "/v1/invoice/{date}:converttopdf"
+      body: "*"
+    };
+  }
+
+  // Gets an invoice. Only available in Ripple.
+  rpc GetInvoiceStatus(GetInvoiceStatusRequest) returns (api.InvoiceMessage) {
+    option (google.api.http) = {
+      get: "/v1/invoice/status/{id}"
+    };
+  }
+
+  // Reads an invoice status. Only available in Ripple.
+  rpc ListInvoiceStatus(ListInvoiceStatusRequest) returns (stream api.InvoiceMessage) {
+    option (google.api.http) = {
+      post: "/v1/invoice/status/{date}:read"
+      body: "*"
+    };
+  }
+
+  // Gets an invoice.
+  rpc GetInvoice(GetInvoiceRequest) returns (api.Invoice) {
+    option (google.api.http) = {
+      post: "/v1/invoice/{date}:read"
+      body: "*"
+    };
+  }
+
+  // Reads list of the invoice.
+  rpc ListInvoice(ListInvoiceRequest) returns (stream ListInvoiceResponse) {
+    option (google.api.http) = {
+      post: "/v1/invoice:read"
+      body: "*"
+    };
+  }
+
+  // Updates an invoice preview. Only available in Ripple.
+  rpc UpdateInvoicePreviews(UpdateInvoicePreviewsRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/invoice/{date}:preview"
+      body: "*"
+    };
+  }
+
+  // Exports an invoice.
+  rpc ExportInvoiceFile(ExportInvoiceFileRequest) returns (ExportInvoiceFileResponse) {
+    option (google.api.http) = {
+      post: "/v1/invoice/{date}:export"
+      body: "*"
+    };
+  }
+
+    // Lists Invoice Template. Only available in Ripple.
+    rpc ListInvoiceTemplate(ListInvoiceTemplateRequest) returns (stream ListInvoiceTemplateResponse) {
+    option (google.api.http) = {
+      get: "/v1/invoice/template"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Gets the invoice display settings for invoice-ui
+  rpc GetInvoiceDisplaySettings(GetInvoiceDisplaySettingsRequest) returns (GetInvoiceDisplaySettingsResponse) {
+    option (google.api.http) = {
+      get: "/v1/invoice/displaysettings"
+    };
+  }
+
+  // Creates/Updates an invoice display settings. Only available in Ripple.
+  rpc UpdateInvoiceDisplaySettings(UpdateInvoiceDisplaySettingsRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/invoice/displaysettings"
+      body: "*"
+    };
+  }
+
+  // Update invoice exchangerate for the month 
+  rpc UpdateInvoiceExchangeRate(UpdateInvoiceExchangeRateRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/invoice/exchangerate/{month}"
+      body: "*"
+    };
+  }
+
+  // Creates/Updates a billing group's invoice template. Only available in Ripple.
+  rpc UpdateBillingGroupInvoiceTemplate(UpdateBillingGroupInvoiceTemplateRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/billinggroups/{id}/invoicetemplate"
+      body: "*"
+    };
+  }
+
+  // Reads the service relate to the service discounts. Only available in Ripple.
+  rpc ReadServiceDiscountsServices(ReadServiceDiscountsServicesRequest) returns (stream api.ripple.v1.Service) {
+    option (google.api.http) = {
+      post: "/v1/servicediscounts/{vendor}/services:read"
+      body: "*"
+    };
+  }
+
+  // Creates the invoice service discounts. Only available in Ripple.
+  rpc CreateInvoiceServiceDiscounts(CreateInvoiceServiceDiscountsRequest) returns (api.ripple.v1.InvoiceServiceDiscounts) {
+    option (google.api.http) = {
+      post: "/v1/servicediscounts"
+      body: "*"
+    };
+  }
+
+  // Updates the invoice service discounts. Only available in Ripple.
+  rpc UpdateInvoiceServiceDiscounts(UpdateInvoiceServiceDiscountsRequest) returns (api.ripple.v1.InvoiceServiceDiscounts) {
+    option (google.api.http) = {
+      put: "/v1/servicediscounts/{id}"
+      body: "*"
+    };
+  }
+
+  // Deletes the invoice service discounts. Only available in Ripple.
+  rpc DeleteInvoiceServiceDiscounts(DeleteInvoiceServiceDiscountsRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/servicediscounts/{id}"
+    };
+  }
+
+  // Reads the invoice service discounts. Only available in Ripple.
+  rpc ListInvoiceServiceDiscounts(ListInvoiceServiceDiscountsRequest) returns (stream InvoiceServiceDiscounts) {
+    option (google.api.http) = {
+      post: "/v1/servicediscounts:read"
+      body: "*"
+    };
+  }
+
+  // Gets the invoice service discounts. Only available in Ripple.
+  rpc GetInvoiceServiceDiscounts(GetInvoiceServiceDiscountsRequest) returns (api.ripple.v1.InvoiceServiceDiscounts) {
+    option (google.api.http) = {
+      get: "/v1/servicediscounts/{id}"
+    };
+  }
+
+  // Exports service discounts. Only available in Ripple.
+  rpc ExportServiceDiscounts(ExportServiceDiscountsRequest) returns (api.ripple.v1.ServiceDiscountsExport) {
+    option (google.api.http) = {
+      post: "/v1/servicediscounts:export"
+      body: "*"
+    };
+  }
+
+  // Registers the billing group invoice service discounts. Only available in Ripple.
+  rpc CreateBillingGroupInvoiceServiceDiscounts(CreateBillingGroupInvoiceServiceDiscountsRequest) returns (CreateBillingGroupInvoiceServiceDiscountsResponse) {
+    option (google.api.http) = {
+      post: "/v1/servicediscounts/{groupId}/billinggroup"
+      body: "*"
+    };
+  }
+
+  // Updates the billing group invoice service discounts. Only available in Ripple.
+  rpc UpdateBillingGroupInvoiceServiceDiscounts(UpdateBillingGroupInvoiceServiceDiscountsRequest) returns (UpdateBillingGroupInvoiceServiceDiscountsResponse) {
+    option (google.api.http) = {
+      put: "/v1/servicediscounts/{groupId}/billinggroup"
+      body: "*"
+    };
+  }
+
+  // Deletes the billing group invoice service discounts. Only available in Ripple.
+  rpc DeleteBillingGroupInvoiceServiceDiscounts(DeleteBillingGroupInvoiceServiceDiscountsRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/servicediscounts/{groupId}/billinggroup"
+    };
+  }
+
+  // Reads the account invoice service discounts. Only available in Ripple.
+  rpc ListAccountInvoiceServiceDiscounts(ListAccountInvoiceServiceDiscountsRequest) returns (stream AccountInvoiceServiceDiscounts) {
+    option (google.api.http) = {
+      post: "/v1/servicediscounts/{groupId}/account:read"
+      body: "*"
+    };
+  }
+
+  // Registers the account invoice service discounts. Only available in Ripple.
+  rpc CreateAccountInvoiceServiceDiscounts(CreateAccountInvoiceServiceDiscountsRequest) returns (CreateAccountInvoiceServiceDiscountsResponse) {
+    option (google.api.http) = {
+      post: "/v1/servicediscounts/{groupId}/account"
+      body: "*"
+    };
+  }
+
+  // Updates the account invoice service discounts. Only available in Ripple.
+  rpc UpdateAccountInvoiceServiceDiscounts(UpdateAccountInvoiceServiceDiscountsRequest) returns (UpdateAccountInvoiceServiceDiscountsResponse) {
+    option (google.api.http) = {
+      put: "/v1/servicediscounts/{groupId}/account"
+      body: "*"
+    };
+  }
+
+  // Removes the account invoice service discounts. Only available in Ripple.
+  rpc RemoveAccountInvoiceServiceDiscounts(RemoveAccountInvoiceServiceDiscountsRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/servicediscounts/{groupId}/account:remove"
+      body: "*"
+    };
+  }
+
+  // Deletes the account invoice service discounts. Only available in Ripple.
+  rpc DeleteAccountInvoiceServiceDiscounts(DeleteAccountInvoiceServiceDiscountsRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/servicediscounts/{groupId}/account"
+    };
+  }
+
+  // Exports service discounts for account in billing group. Only available in Ripple.
+  rpc ExportAccountInvoiceServiceDiscounts(ExportAccountInvoiceServiceDiscountsRequest) returns (api.ripple.v1.AccountServiceDiscountsExport) {
+    option (google.api.http) = {
+      post: "/v1/servicediscounts/account:export"
+      body: "*"
+    };
+  }
+
+  // Exports service discounts for billing group. Only available in Ripple.
+  rpc ExportBillingGroupInvoiceServiceDiscounts(ExportBillingGroupInvoiceServiceDiscountsRequest) returns (api.ripple.v1.GroupServiceDiscountsExport) {
+    option (google.api.http) = {
+      post: "/v1/servicediscounts/billinggroup:export"
+      body: "*"
+    };
+  }
+
+ // Returns the service discount associated with the billing group id
+ rpc GetBillingGroupInvoiceServiceDiscounts(GetBillingGroupInvoiceServiceDiscountsRequest) returns (GetBillingGroupInvoiceServiceDiscountsResponse) {
+    option (google.api.http) = {
+      get: "/v1/servicediscounts/{groupId}/billinggroup"
+    };
+  }
+
+  // Registers the reseller account. Only available in Ripple.
+  rpc CreateReseller(CreateResellerRequest) returns (api.ripple.Reseller) {
+    option (google.api.http) = {
+      post: "/v1/resellers"
+      body: "*"
+    };
+  }
+
+  // ListResellers
+  //
+  // **Lists all the reseller accounts.**
+  // > **Only available in Ripple.**
+  rpc ListResellers(ListResellersRequest) returns (stream api.ripple.Reseller) {
+    option (google.api.http) = {
+      get: "/v1/resellers"
+    };
+  }
+
+  // Gets the reseller account. Only available in Ripple.
+  rpc GetReseller(GetResellerRequest) returns (api.ripple.Reseller) {
+    option (google.api.http) = {
+      get: "/v1/resellers/{id}"
+    };
+  }
+
+  // Updates the reseller account. Only available in Ripple.
+  rpc UpdateReseller(UpdateResellerRequest) returns (api.ripple.Reseller) {
+    option (google.api.http) = {
+      put: "/v1/resellers/{id}"
+      body: "*"
+    };
+  }
+
+  // Deletes the reseller account. Only available in Ripple.
+  rpc DeleteReseller(DeleteResellerRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/resellers/{id}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Gets all billing settings.
+  rpc GetBillingSetting(GetBillingSettingRequest) returns (GetBillingSettingResponse) {
+    option (google.api.http) = {
+      get: "/v1/settings"
+    };
+  }
+
+  // ListExchangeRates
+  // 
+  // Lists all exchange rate.
+  // > Only available in Ripple.
+  rpc ListExchangeRates(ListExchangeRatesRequest) returns (ListExchangeRatesResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/exchangerate/{month}"
+    };
+  }
+
+   // Set global exchangerate. Only available in Ripple.
+  rpc SetGlobalExchangeRate(SetGlobalExchangeRateRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/exchangerate/global/{vendor}/{month}"
+      body: "*"
+    };
+  } 
+
+   // Set payer exchangerate. Only available in Ripple.
+  rpc SetPayerExchangeRate(SetPayerExchangeRateRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/exchangerate/payer/{month}"
+      body: "*"
+    };
+  } 
+
+   // Set billing group exchangerate. Only available in Ripple.
+  rpc SetBillingGroupExchangeRate(SetBillingGroupExchangeRateRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/exchangerate/billinggroup/{month}"
+      body: "*"
+    };
+  }
+
+  // Lists access group. Only available in Ripple.
+  rpc ListAccessGroups(ListAccessGroupsRequest) returns (stream api.ripple.AccessGroup) {
+    option (google.api.http) = {
+      get: "/v1/accessgroups"
+    };
+  }
+
+  // Registers the access group. Only available in Ripple.
+  rpc CreateAccessGroup(CreateAccessGroupRequest) returns (api.ripple.AccessGroup) {
+    option (google.api.http) = {
+      post: "/v1/accessgroups"
+      body: "*"
+    };
+  }
+
+  // Updates the access group. Only available in Ripple.
+  rpc UpdateAccessGroup(UpdateAccessGroupRequest) returns (api.ripple.AccessGroup) {
+    option (google.api.http) = {
+      put: "/v1/accessgroups/{id}"
+      body: "*"
+    };
+  }
+
+  // Deletes the access group. Only available in Ripple.
+  rpc DeleteAccessGroup(DeleteAccessGroupRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/accessgroups/{id}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Gets all Billing Groups in AWS Billing Conductor(ABC) for specific payer id.
+  rpc ListAbcBillingGroups(ListAbcBillingGroupsRequest) returns (stream AbcBillingGroup) {
+    option (google.api.http) = {
+      get: "/v1/billinggroups/billingconductor/{id}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Gets all accounts associated to AWS Billing Conductor(ABC) Billing group
+  rpc ListAbcBillingGroupAccounts(ListAbcBillingGroupAccountsRequest) returns (stream AbcAccount){
+    option (google.api.http) = {
+      get: "/v1/billinggroups/billingconductor/{payerId}/accounts"
+    };
+  }
+
+  // Reads the adjustment details involved in invoicing of an organization billing group (Wave).
+  rpc ReadInvoiceAdjustments(ReadInvoiceAdjustmentsRequest) returns (stream api.wave.Adjustment) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/invoiceadjustments:read"
+      body: "*"
+    };
+  }
+
+  // Reads the adjustment entries. Only available in Ripple.
+  rpc ReadAdjustmentEntries(ReadAdjustmentEntriesRequest) returns (stream api.ripple.v1.AdjustmentEntry) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/adjustmententries:read"
+      body: "*"
+    };
+  }
+
+  // Gets the adjustment entry. Only available in Ripple.
+  rpc GetAdjustmentEntry(GetAdjustmentEntryRequest) returns (api.ripple.v1.AdjustmentEntry) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/adjustmententries/{id}"
+    };
+  }
+
+  // Applies the adjustment entry item. Only available in Ripple.
+  rpc ApplyAdjustmentEntry(ApplyAdjustmentEntryRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/adjustmententries:apply"
+      body: "*"
+    };
+  }
+
+  // Restores the adjustment entry item. Only available in Ripple.
+  rpc RestoreAdjustmentEntry(RestoreAdjustmentEntryRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/adjustmententries:restore"
+      body: "*"
+    };
+  }
+
+  // Splits the adjustment entry item. Only available in Ripple.
+  rpc SplitAdjustmentEntry(SplitAdjustmentEntryRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/adjustmententries/{id}/split"
+      body: "*"
+    };
+  }
+
+  // Allocates the adjustment entry item. Only available in Ripple.
+  rpc AllocateAdjustmentEntry(AllocateAdjustmentEntryRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/adjustmententries/{id}/allocate"
+      body: "*"
+    };
+  }
+
+  // Restores the splitted adjustment entry item. Only available in Ripple.
+  rpc RestoreSplitAdjustmentEntry(RestoreSplitAdjustmentEntryRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/adjustmententries/{id}/split:restore"
+      body: "*"
+    };
+  }
+
+  // Restores the allocate adjustment entry item. Only available in Ripple.
+  rpc RestoreAllocateAdjustmentEntry(RestoreAllocateAdjustmentEntryRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/adjustmententries/{id}/allocate:restore"
+      body: "*"
+    };
+  }
+
+  // Creates custom fee entries in the RIPPLE_FEES table.
+  // Used to write Guaranteed Commitment entries and Custom Fee entries directly to the fee table. Only available in Ripple.
+  rpc CreateCustomFee(CreateCustomFeeRequest) returns (CreateCustomFeeResponse) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/adjustmententries/customfees"
+      body: "*"
+    };
+  }
+
+  // Lists adjustment entry items from the fee table.
+  // Reads fee entries from the RIPPLE_FEES table, optionally filtered by mobingi_type.
+  // Note: Commitment entries (mobingi_type="COMMITMENT") are excluded from ReadAdjustmentEntries to avoid duplication with the Adjusting Entries UI. Only available in Ripple.
+  rpc ListAdjustmentEntryItems(ListAdjustmentEntryItemsRequest) returns (stream AdjustmentEntryItem) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/adjustmententryitems:read"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Returns all registered accounts that are not associated to any billing groups and accounts found in CUR for the specified month. For Ripple only
+  rpc ListAccountResources(ListAccountResourcesRequest) returns (stream ResourceAccount) {
+    option (google.api.http) = {
+      get: "/v1/resources/accounts/{vendor}"
+    };
+  }
+
+  // Gets adjustment config
+  rpc GetAdjustmentConfig(GetAdjustmentConfigRequest) returns (api.AdjustmentConfig) {
+    option (google.api.http) = {
+      get: "/v1/adjustmentconfig/{vendor}"
+    };
+  }
+
+  // Creates adjustment config
+  //
+  //[ERRORS] 
+  //- InvalidArgument:
+  //  - the AdjustmentConfig is already exists.
+  //- NotFound:
+  //  - the AdjustmentConfig is not found.
+  rpc CreateAdjustmentConfig(CreateAdjustmentConfigRequest) returns (api.AdjustmentConfig) {
+    option (google.api.http) = {
+      post: "/v1/adjustmentconfig/{vendor}"
+      body: "*"
+    };
+  }
+
+  // Updates adjustment config
+  rpc UpdateAdjustmentConfig(UpdateAdjustmentConfigRequest) returns (api.AdjustmentConfig) {
+    option (google.api.http) = {
+      put: "/v1/adjustmentconfig/{vendor}"
+      body: "*"
+    };
+  }
+
+  // Deletes adjustment config
+  rpc DeleteAdjustmentConfig(DeleteAdjustmentConfigRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/adjustmentconfig/{vendor}"
+    };
+  }
+
+  // Reads the untagged group. Only available in Ripple.
+  rpc ReadUntaggedGroups(ReadUntaggedGroupsRequest) returns (stream api.ripple.UntaggedGroup) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/untaggedgroups:read"
+      body: "*"
+    };
+  }
+
+  // Reads the customized billing service. Only available in Ripple.
+  rpc ReadCustomizedBillingServices(ReadCustomizedBillingServicesRequest) returns (stream api.ripple.CustomizedBillingService) {
+    option (google.api.http) = {
+      post: "/v1/customizedbillingservices:read"
+      body: "*"
+    };
+  }
+
+  // Gets the customized billing service. Only available in Ripple.
+  rpc GetCustomizedBillingService(GetCustomizedBillingServiceRequest) returns (api.ripple.CustomizedBillingService) {
+    option (google.api.http) = {
+      get: "/v1/customizedbillingservices/{id}"
+    };
+  }
+
+  // Creates the customized billing service. Only available in Ripple.
+  rpc CreateCustomizedBillingService(CreateCustomizedBillingServiceRequest) returns (api.ripple.CustomizedBillingService) {
+    option (google.api.http) = {
+      post: "/v1/customizedbillingservices"
+      body: "*"
+    };
+  }
+
+  // Updates the customized billing service by updating the fields specified in the update mask. Only available in Ripple.
+  rpc UpdateCustomizedBillingService(UpdateCustomizedBillingServiceRequest) returns (api.ripple.CustomizedBillingService) {
+    option (google.api.http) = {
+      put: "/v1/customizedbillingservices/{id}"
+      body: "*"
+    };
+  }
+
+  // Deletes the customized billing service. Only available in Ripple.
+  rpc DeleteCustomizedBillingService(DeleteCustomizedBillingServiceRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/customizedbillingservices/{id}"
+    };
+  }
+
+  // Gets the customized billing service in billing group. Only available in Ripple.
+  rpc GetCustomizedBillingServiceBillingGroup(GetCustomizedBillingServiceBillingGroupRequest) returns (stream GetCustomizedBillingServiceBillingGroupResponse) {
+    option (google.api.http) = {
+      get: "/v1/customizedbillingservices/billinggroup/{groupId}/{vendor}"
+    };
+  }
+
+  // Sets the customized billing service in billing group. Only available in Ripple.
+  rpc SetCustomizedBillingServiceBillingGroup(SetCustomizedBillingServiceBillingGroupRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/customizedbillingservices/billinggroup/{groupId}/{vendor}"
+      body: "*"
+    };
+  }
+
+  // Deletes the customized billing service in billing group. Only available in Ripple.
+  rpc DeleteCustomizedBillingServiceBillingGroup(DeleteCustomizedBillingServiceBillingGroupRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/customizedbillingservices/billinggroup/{groupId}/{vendor}"
+    };
+  }
+
+  // Returns the customer details and its tags. 
+  // Port for: m/ripple/tags/vendor/{vendor}?type={type}
+  rpc GetTags(GetTagsRequest) returns (stream TagData) {
+    option (google.api.http) = {
+      get: "/v1/tags"
+    };
+  }
+
+  // Creates new customfield
+  rpc CreateCustomField(CreateCustomFieldRequest) returns (CustomField) {
+    option (google.api.http) = {
+      post: "/v1/customfield"
+      body: "*"
+    };
+  }
+
+  // Returns all registered customfields
+  rpc ListCustomField(ListCustomFieldRequest) returns (stream CustomField) {
+    option (google.api.http) = {
+      post: "/v1/customfield:read"
+      body: "*"
+    };
+  }
+
+
+  // Add  a custom field into a billing group
+  rpc AddBillingGroupCustomField(AddBillingGroupCustomFieldRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/billinggroup/customfield"
+      body: "*"
+    };
+  }
+
+  // Show all the billing groups custom fields
+  rpc ListBillingGroupCustomField(ListBillingGroupCustomFieldRequest) returns (stream ListBillingGroupCustomFieldResponse) {
+    option (google.api.http) = {
+      post: "/v1/billinggroup/customfield:read"
+      body: "*"
+    };
+  }
+
+  // Add Tags to the billing group
+  rpc AddTagsToBillingGroup (AddTagsToBillingGroupRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/billinggroup/tags"
+      body: "*"
+    };
+  }
+
+   // Sets non-tag group settings for a billing group.
+  rpc UpdateNonTagGroupToBillingGroup(UpdateNonTagGroupToBillingGroupRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/billinggroup/{id}/{vendor}/untaggedgroups"
+      body: "*"
+    };
+  }
+
+  // Remove a custom field from a billing group
+  rpc DeleteBillingGroupCustomField(DeleteBillingGroupCustomFieldRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/billinggroup/customfield/{groupId}/{customFieldId}"
+    };
+  }
+
+  // Update the `customField` specified id, modifying its key and description
+  rpc UpdateCustomField(UpdateCustomFieldRequest) returns (CustomField) {
+    option (google.api.http) = {
+      put: "/v1/customfield/{id}"
+      body: "*"
+    };
+  }
+
+  // Deletes the customfield
+  rpc DeleteCustomField(DeleteCustomFieldRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/customfield/{id}"
+    };
+  }
+
+  // Creates new billing group free format item (miscellaneous)
+  rpc CreateFreeFormat(CreateFreeFormatRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/freeformat"
+      body: "*"
+    };
+  }
+
+  // Delete billing group free format item (miscellaneous)
+  rpc DeleteFreeFormat(DeleteFreeFormatRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/freeformat/{groupId}"
+    };
+  }
+
+  // Get billing group free format item (miscellaneous)
+  rpc GetFreeFormat(GetFreeFormatRequest) returns (stream GetFreeFormatResponse) {
+    option (google.api.http) = {
+      get: "/v1/freeformat/{groupId}"
+    };
+  }
+
+  rpc GetTagsAddingSetting(GetTagsAddingSettingRequest) returns (stream TagsAddingSetting) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/tagsaddingsetting/{groupId}"
+    };
+  }
+
+  rpc UpdateTagsAddingSetting(UpdateTagsAddingSettingRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/{vendor}/tagsaddingsetting/{groupId}"
+      body: "*"
+    };
+  }
+
+  // Export the billing groups into csv format
+  rpc ExportBillingGroupCsv(ExportBillingGroupCsvRequest) returns (ExportBillingGroupCsvResponse) {
+    option (google.api.http) = {
+      get: "/v1/exportcsv/billing-group"
+    };
+  }
+
+  // Exports the invoice settings into csv format
+  rpc ExportInvoiceSettingCsv(ExportInvoiceSettingCsvRequest) returns (ExportInvoiceSettingCsvResponse) {
+    option (google.api.http) = {
+      get: "/v1/exportcsv/invoice-setting"
+    };
+  }
+
+  // Update billing group basic information
+  rpc UpdateBillingGroupBasicInformation(UpdateBillingGroupBasicInformationRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/billinggroup/{id}:basicInfo"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Update billing group custom fields information
+  rpc UpdateBillingGroupCustomFields(UpdateBillingGroupCustomFieldsRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/billinggroup/{id}:customFields"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Update billing group custom fields information
+  rpc UpdateBillingGroupFreeFormat(UpdateBillingGroupFreeFormatRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/billinggroup/{id}:freeFormat"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Update linked resources for a billing group
+  rpc UpdateBillingGroupLinkedResources(UpdateBillingGroupLinkedResourcesRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/billinggroup/{id}:resources"
+      body: "*"
+    };
+  } 
+
+  // WORK-IN-PROGRESS: Update invoice settings for a billing group
+  rpc UpdateBillingGroupInvoiceSettings(UpdateBillingGroupInvoiceSettingsRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/billinggroup/{id}:invoiceSettings"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Update reseller charges for a billing group
+  rpc UpdateBillingGroupResellerCharges(UpdateBillingGroupResellerChargesRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/billinggroup/{id}:resellerCharges"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Update  additonal charges for a billing group
+  rpc UpdateBillingGroupAdditionalCharges(UpdateBillingGroupAdditionalChargesRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/billinggroup/{id}:additionalCharges"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Gets the account support plan in billing group. Only available in Ripple.
+  rpc GetBillingGroupAccountSupportPlan(GetBillingGroupAccountSupportPlanRequest) returns (GetBillingGroupAccountSupportPlanResponse) {
+    option (google.api.http) = {
+      get: "/v1/billinggroup/{id}/{vendor}/supportplan"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Updates the account support plan in billing group. Only available in Ripple.
+  rpc UpdateBillingGroupAccountSupportPlan(UpdateBillingGroupAccountSupportPlanRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/billinggroup/{id}/{vendor}/supportplan"
+      body: "*"
+    };
+  }
+
+   // Creates new announcement for wave users
+  rpc CreateAnnouncement(CreateAnnouncementRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/reseller/announcement"
+      body: "*"
+    };
+  }
+
+  // Full update existing announcement 
+  rpc UpdateAnnouncement(UpdateAnnouncementRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/reseller/announcement/{announcementId}"
+      body: "*"
+    };
+  }
+
+  // Update multiple announcements status 
+  rpc UpdateAnnouncementsStatus(UpdateAnnouncementsStatusRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      patch: "/v1/reseller/announcements/bulk/status"
+      body: "*"
+    };
+  }
+
+  // Update announcement date
+  rpc UpdateAnnouncementDate(UpdateAnnouncementDateRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      patch: "/v1/reseller/announcements/{announcementId}/date"
+      body: "*"
+    };
+  }
+
+  rpc DeleteAnnouncement(DeleteAnnouncementRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/reseller/announcement/{announcementId}"
+    };
+  }
+
+  // Gets the announcement list.
+  rpc GetAnnouncements(GetAnnouncementsRequest) returns (stream Announcement) {
+    option (google.api.http) = {
+      get: "/billing/v1/reseller/announcements/{announcementId}"
+    };
+  }
+
+  // Gets the announcement list for billing group
+  rpc GetBillingGroupAnnouncements(GetBillingGroupAnnouncementsRequest) returns (stream GetBillingGroupAnnouncementsResponse) {
+    option (google.api.http) = {
+      get: "/v1/billinggroup/reseller/announcements/{groupId}"
+    };
+  }
+  
+ // Gets the credits
+  rpc GetCredits(GetCreditsRequest) returns (stream Credit) {
+    option (google.api.http) = {
+      get: "/v1/credits"
+    };
+  }
+
+  // Gets the csv column settings
+  rpc GetCsvSettings(GetCsvSettingsRequest) returns (stream CsvSetting) {
+    option (google.api.http) = {
+      get: "/v1/csvsettings"
+    };
+  }
+
+  // Creates a child billing group under a parent billing group
+  rpc CreateChildBillingGroup(CreateChildBillingGroupRequest) returns (CreateChildBillingGroupResponse) {
+    option (google.api.http) = {
+      post: "/v1/billinggroups/children"
+      body: "*"
+    };
+  }
+
+  // Gets child billing group info
+  rpc GetChildBillingGroup(GetChildBillingGroupRequest) returns (GetChildBillingGroupResponse) {
+    option (google.api.http) = {
+      get: "/v1/billinggroups/children/{internalId}"
+    };
+  }
+
+  // Lists child billing groups under a specific filter
+  rpc ReadChildBillingGroups(ReadChildBillingGroupsRequest) returns (stream ChildBillingGroup) {
+    option (google.api.http) = {
+      post: "/v1/billinggroups/children:read"
+      body: "*"
+    };
+  }
+
+  // Updates child billing group's basic info
+  rpc UpdateChildBillingGroup(UpdateChildBillingGroupRequest) returns (UpdateChildBillingGroupResponse) {
+    option (google.api.http) = {
+      put: "/v1/billinggroups/children/{internalId}"
+      body: "*"
+    };
+  }
+
+  // Deletes all child billing group info
+  rpc DeleteChildBillingGroup(DeleteChildBillingGroupRequest) returns (DeleteChildBillingGroupResponse) {
+    option (google.api.http) = {
+      delete: "/v1/billinggroups/children/{internalId}"
+    };
+  }
+
+  // Updates child billing group's invoice settings
+  rpc UpdateChildBillingGroupInvoiceSettings(UpdateChildBillingGroupInvoiceSettingsRequest) returns (UpdateChildBillingGroupInvoiceSettingsResponse) {
+    option (google.api.http) = {
+      put: "/v1/billinggroups/children/{internalId}/invoiceSettings"
+      body: "*"
+    };
+  }
+
+  // Sets the child billing group invoice service discounts. Only available in Ripple.
+  rpc SetChildBillingGroupInvoiceServiceDiscounts(SetChildBillingGroupInvoiceServiceDiscountsRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/billinggroups/children/{internalId}/serviceDiscounts"
+      body: "*"
+    };
+  }
+
+  // Sets the child billing group's account invoice service discounts. Only available in Ripple.
+  rpc SetChildBillingGroupAccountInvoiceServiceDiscounts(SetChildBillingGroupAccountInvoiceServiceDiscountsRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/billinggroups/children/{internalId}/serviceDiscounts/accounts:set"
+      body: "*"
+    };
+  }
+
+  // Sets the customized billing service in child billing group. Only available in Ripple.
+  rpc SetChildBillingGroupCustomizedBillingService(SetChildBillingGroupCustomizedBillingServiceRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/{vendor}/billinggroups/children/{internalId}/customizedBillingService"
+      body: "*"
+    };
+  }
+
+  // Gets the customized billing service in child billing group. Only available in Ripple.
+  rpc GetChildBillingGroupCustomizedBillingService(GetChildBillingGroupCustomizedBillingServiceRequest) returns (stream GetChildBillingGroupCustomizedBillingServiceResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/billinggroups/children/{internalId}/customizedBillingService"
+    };
+  }
+
+  // Returns the service discount associated with the billing group id
+  rpc GetChildBillingGroupInvoiceServiceDiscounts(GetChildBillingGroupInvoiceServiceDiscountsRequest) returns (GetChildBillingGroupInvoiceServiceDiscountsResponse) {
+    option (google.api.http) = {
+      get: "/v1/billinggroups/children/{internalId}/serviceDiscounts"
+    };
+  }
+
+  // Returns the account's service discounts associated with the child billing group id
+  rpc ReadChildBillingGroupAccountInvoiceServiceDiscounts(ReadChildBillingGroupAccountInvoiceServiceDiscountsRequest) returns (stream AccountInvoiceServiceDiscounts) {
+    option (google.api.http) = {
+      get: "/v1/billinggroups/children/{internalId}/serviceDiscounts/accounts:read"
+    };
+  }
+
+  // Create billing group in bulk from CSV file.
+  // Returns a long-running operation. Poll status via the Operations service (GET /ops/v1/{name}).
+  rpc BulkCreateBillingGroup(BulkCreateBillingGroupRequest) returns (protos.Operation) {
+    option (google.api.http) = {
+      post: "/v1/billinggroups:bulkCreate"
+      body: "*"
+    };
+  }
+
+  // Create Exclude Service Entry
+  rpc CreateExcludeServiceEntry(CreateExcludeServiceEntryRequest) returns (CreateExcludeServiceEntryResponse) {
+    option (google.api.http) = {
+      post: "/v1/billinggroups/exclude-service-settings"
+      body: "*"
+    };
+  }
+
+  // Update Exclude Service Entry
+  rpc UpdateExcludeServiceEntry(UpdateExcludeServiceEntryRequest) returns (UpdateExcludeServiceEntryResponse) {
+    option (google.api.http) = {
+      put: "/v1/billinggroups/exclude-service-settings"
+      body: "*"
+    };
+  }
+
+  // Delete Exclude Service Entry
+  rpc DeleteExcludeServiceEntry(DeleteExcludeServiceEntryRequest) returns (DeleteExcludeServiceEntryResponse) {
+    option (google.api.http) = {
+      delete: "/v1/billinggroups/exclude-service-settings"
+    };
+  }
+
+  // List Exclude Service Entries
+  rpc ListExcludeServices(ListExcludeServicesRequest) returns (ListExcludeServicesResponse) {
+    option (google.api.http) = {
+      get: "/v1/billinggroups/exclude-service-settings"
+    };
+  }
+
+  // Lists available cloud services and their associated SKUs for a given vendor.
+  // Use this to retrieve service codes and names that can be referenced in exclude service settings.
+  rpc ListServices(ListServicesRequest) returns (ListServicesResponse) {
+    option (google.api.http) = {
+      get: "/v1/{vendor}/services"
+    };
+  }
+
+  // Link accounts to a billing group in bulk from a CSV file.
+  // Returns a long-running operation. Poll status via the Operations service (GET /ops/v1/{name}).
+  rpc BulkLinkAccount(BulkLinkAccountRequest) returns (protos.Operation) {
+    option (google.api.http) = {
+      post: "/v1/billinggroups:bulkLinkAccount"
+      body: "*"
+    };
+  }
+
+  // Bulk-tag multiple billing groups from a CSV file.
+  // Supports add, delete, and dry-run modes.
+  // Returns a long-running operation. Poll status via the Operations service (GET /ops/v1/{name}).
+  rpc BulkTagBillingGroup(BulkTagBillingGroupRequest) returns (protos.Operation) {
+    option (google.api.http) = {
+      post: "/v1/billinggroups:bulkTag"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS. Gets the billing group invoice layout configs, used for overriding MSP level configs.
+  rpc GetBillingGroupInvoiceLayoutConfig(GetBillingGroupInvoiceLayoutConfigRequest) returns (GetBillingGroupInvoiceLayoutConfigResponse) {
+    option (google.api.http) = {
+      get: "/v1/billinggroups/{id}/invoicelayoutconfig"
+    };
+  }
+
+  // WORK-IN-PROGRESS. Sets the billing group invoice layout configs.
+  rpc SetBillingGroupInvoiceLayoutConfig(SetBillingGroupInvoiceLayoutConfigRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/billinggroups/{id}/invoicelayoutconfig"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS. Creates an invoice layout config.
+  rpc CreateInvoiceLayoutConfig(CreateInvoiceLayoutConfigRequest) returns (CreateInvoiceLayoutConfigResponse) {
+    option (google.api.http) = {
+      post: "/v1/invoicelayoutconfig"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS. Updates an invoice layout config.
+  rpc UpdateInvoiceLayoutConfig(UpdateInvoiceLayoutConfigRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/invoicelayoutconfig/{id}"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS. Reads all invoice layout config under an msp.
+  rpc ReadInvoiceLayoutConfig(ReadInvoiceLayoutConfigRequest) returns (stream ReadInvoiceLayoutConfigResponse) {
+    option (google.api.http) = {
+      post: "/v1/invoicelayoutconfig:read"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS. Unsets the billing group invoice layout config.
+  rpc DeleteBillingGroupInvoiceLayoutConfig(DeleteBillingGroupInvoiceLayoutConfigRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/billinggroups/{id}/invoicelayoutconfig"
+    };
+  }
+  
+  // WORK-IN-PROGRESS. Delete an invoice layout config.
+  rpc DeleteInvoiceLayoutConfig(DeleteInvoiceLayoutConfigRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/invoicelayoutconfig/{id}"
+    };
+  }
+}
+
+message BillingGroup {
+  // The billing group's internal id.
+  string billingInternalId = 1;
+
+  // The billing group id.
+  string billingGroupId = 2;
+
+  // The billing group name.
+  string billingGroupName = 3;
+
+  // The company’s name.
+  string companyName = 7;
+
+  // For aws only: `default` or `imported`
+  string type = 12;
+
+  // Indicates if this billing group has child billing groups. AWS only for now.
+  bool hasChild = 13;
+
+  // The billing group info
+  api.ripple.BillingGroupInfo billingGroupInfo = 10;
+
+  // The account options.
+  AccountOptions accountOptions = 8;
+
+  // List of all accounts
+  repeated api.Account accounts = 4;
+
+  // List of all tags
+  repeated api.CostTag tags = 6;
+
+  // The invoice settings for this billing group.
+  BillingGroupInvoiceSettings invoiceSettings = 5;
+
+  // List of all additionalItems
+  BillingGroupAdditionalItems additionalItems = 11;
+
+  // AWS-specific options
+  AwsOptions awsOptions = 9;
+}
+
+// Additional items for a billing group.
+message BillingGroupAdditionalItems {
+  // AWS additional items
+  repeated api.AdditionalItems aws = 1;
+
+  // Azure additional items
+  repeated api.AdditionalItems azure = 2;
+
+  // GCP additional items
+  repeated api.AdditionalItems gcp = 3;
+}
+
+// Invoice settings for a billing group.
+message BillingGroupInvoiceSettings {
+  
+  // AWS invoice settings
+  BillingGroupVendoredInvoiceSetting aws = 1;
+
+  // Azure invoice settings
+  BillingGroupVendoredInvoiceSetting azure = 2;
+
+  // GCP invoice settings
+  BillingGroupVendoredInvoiceSetting gcp = 3;
+}
+
+// Invoice settings that are vendor-specific for each billing group.
+message BillingGroupVendoredInvoiceSetting {
+  string calcType = 1;
+  double discountRate = 2;
+  string substitutionFee = 3;
+  double substitutionFix = 4;
+  double substitutionRate = 5;
+  string supportFee = 6;
+  double supportRate = 7;
+  double supportFix = 8;
+  double taxRate = 9;
+  string currency = 10;
+  string discountTargetUsage = 11;
+  string substitutionFeeTargetUsage = 12;
+  string discountCalcLogic = 13;
+  string substitutionFeeCalcTarget = 14;
+  string substitutionFeeCalcType = 15;
+  string supportAmountTarget = 16;
+  string supportFeeCalcTarget = 17;
+  double supportFeeAdjustment = 18;
+}
+
+// Request message for the Billing.ListBillingGroups rpc.
+message ListBillingGroupsRequest {
+  // Optional. Get only the value that set fieldMask.
+  //
+  // see more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto
+  google.protobuf.FieldMask field_mask = 1;
+
+  // Optional. Filter vendor accounts included in BillingGroup. Format: vendors=vendor1,vendor2,vendor3.
+  // For example, When Aws and Gcp to be filtered vendors=aws,gcp
+  // If you want to get all vendors, not set parameter.
+  string vendors = 2;
+
+  // Optional. Filter by calcType. Format: calType=account
+  // Valid values: account, tag
+  string calcType = 3;
+
+  // Optional. Filter by displayCost. Format: displayCost=unblended_cost
+  // valid values: unblended_cost, true_unblended_cost
+  string displayCost = 4;
+    
+  // Optional. For aws only, filter will be ignored for other vendors.
+  // Valid values: default, imported
+  string bgType = 5;
+}
+
+// Request message for the Billing.CreateBillingGroup rpc.
+message CreateBillingGroupRequest {
+   // Required. The billing group's id.
+  string billingGroupId = 1;
+
+  // Required. The billing group's name.
+  string billingGroupName = 2;
+
+  // Required. Company’s name
+  string companyName = 3;
+
+  // Optional. The title of the billing
+  string billingTitle = 4;
+
+  // Optional. Company’s phone number
+  string phoneNumber = 5;
+
+  // Optional. Company’s postal code
+  string postalCode = 6;
+
+  // Optional. Company’s address
+  string address = 7;
+
+  // Optional. Addressee
+  string personal = 8;
+
+  // Optional. Any remarks about the billing group
+  string remarks = 9;
+
+  // Optional. Project code
+  string projectId = 10;
+
+  // Optional. Invoice language
+  string language = 11;
+
+  // Optional. Calculation type, true unblended or unblended
+  string displayCost = 12;
+
+  // Optional. Exchange rate type, payer or billing group
+  string exchangeRateType = 13;
+
+  // Optional. Account options.
+  AccountOptions accountOptions = 15;
+
+  // Invoice settings
+  CreateBillingGroupRequestInvoice invoices = 14;
+
+  // Optional. AWS-specific options
+  AwsOptions awsOptions = 16;
+
+  // Optional. Company's city
+  string city = 17;
+
+  // Optional. Company's prefecture
+  string prefecture = 18;
+
+  // Optional. Company's country
+  string country = 19;
+
+  // Optional. Invoice Layout Config Id.
+  string invoiceLayoutConfigId = 20;
+}
+
+message AwsOptions {
+  bool useProFormaCur = 1;
+
+  // Must not be empty if useProFormaCur is true.
+  string payerId = 2;
+}
+
+// Account options definition.
+message AccountOptions {
+  // AWS register accounts
+  RegisterAccounts aws = 1;
+  // GCP register accounts
+  RegisterAccounts gcp = 2;
+  // Azure register accounts
+  RegisterAccounts azure = 3;
+}
+
+// Register Accounts definition
+message RegisterAccounts {
+  // Optional.
+  // If enabled, any additional accounts will be automatically enrolled into the billing group.
+  // If disabled, register the account manually.
+  // 
+  // For GCP, Register projectId under the specific Sub billing account.
+  // For AWS, Register accountId under the specific payer account into the billing group
+  bool enabled = 1;
+
+  // Optional. AccountIds to be used for registration into the billing group.
+  // Accepts multiple accountIds separated by a comma.
+  // Comma separated accountId are only available for aws.
+  string accountId = 2;
+
+  // Optional. Only available for aws.
+  // If true all link accounts under the previously registered payer that are no longer included in the accountId field
+  // will be also removed from this billing group.
+  // This field is only applicable for RPC request not on response.
+  bool unLinkOnRemove = 3;
+}
+
+// Optional. Vendor accounts to add to the billing group
+message VendorAccounts {
+  // Required. (aws, azure, gcp)
+  string vendor = 1;
+
+  // Required. List of accounts to be added to the billing group
+  repeated AccountToAdd accounts = 2;
+}
+
+// Optional. Azure-specific options
+message AzureOptions {
+  // Whether to use resource groups
+  bool resourceGroup = 1;
+  
+  // Whether to apply partner-earned credit
+  bool applyPcEarnedCredit = 2;
+  
+  // Whether to apply campaign pricing
+  bool applyCampaignPricing = 3;
+}
+
+// Request message for the CreateBillingGroupMerged rpc.
+message CreateBillingGroupMergedRequest {
+  // Required. The billing group's id.
+  string billingGroupId = 1;
+
+  // Required. The billing group's name.
+  string billingGroupName = 2;
+
+  // Required. Company's name
+  string companyName = 3;
+
+  // Optional. The title of the billing
+  string billingTitle = 4;
+
+  // Optional. Company's phone number
+  string phoneNumber = 5;
+
+  // Optional. Company's postal code
+  string postalCode = 6;
+
+  // Optional. Company's address
+  string address = 7;
+
+  // Optional. Addressee
+  string personal = 8;
+
+  // Optional. Any remarks about the billing group
+  string remarks = 9;
+
+  // Optional. Project code
+  string projectId = 10;
+
+  // Optional. Invoice language
+  string language = 11;
+
+  // Optional. Calculation type, true unblended or unblended
+  string displayCost = 12;
+
+  // Optional. Exchange rate type, payer or billing group
+  string exchangeRateType = 13;
+
+  // Optional. Account options.
+  AccountOptions accountOptions = 15;
+
+  // Invoice settings
+  CreateBillingGroupRequestInvoice invoices = 14;
+
+  // Optional. AWS-specific options
+  AwsOptions awsOptions = 16;
+
+  // Optional. Company's city
+  string city = 17;
+
+  // Optional. Company's prefecture
+  string prefecture = 18;
+
+  // Optional. Company's country
+  string country = 19;
+
+  // Optional. Invoice template ID to associate with the billing group
+  string invoiceTemplateId = 20;
+
+  // Optional. Tag settings for the billing group
+  repeated TagSetting tagSettings = 21;
+
+  // Optional. Non-tag setting for the billing group
+  NonTagSetting nonTagSetting = 22;
+
+  repeated VendorAccounts vendorAccounts = 23;
+
+  // Optional. Custom fields to add to the billing group
+  map<string, string> customFields = 24;
+
+  AzureOptions azureOptions = 25;
+}
+
+// Vendor invoice setttings
+message CreateBillingGroupRequestInvoice {
+  // AWS invoice settings
+  CreateBillingGroupRequestInvoiceVendor aws = 1;
+
+  // Azure invoice settings
+  CreateBillingGroupRequestInvoiceVendor azure = 2;
+
+  // GCP invoice settings
+  CreateBillingGroupRequestInvoiceVendor gcp = 3;
+}
+
+// Specific settings per vendor
+message CreateBillingGroupRequestInvoiceVendor {
+  string calcType = 1;
+  double discountRate = 2;
+  string substitutionFee = 3;
+  double substitutionFix = 4;
+  double substitutionRate = 5;
+  string supportFee = 6;
+  double supportRate = 7;
+  double supportFix = 8;
+  double taxRate = 9;
+  string currency = 10;
+  string discountTargetUsage = 11;
+  string substitutionFeeTargetUsage = 12;
+  string discountCalcLogic = 13;
+  string substitutionFeeCalcTarget = 14;
+  string substitutionFeeCalcType = 15;
+  string supportAmountTarget = 16;
+  string supportFeeCalcTarget = 17;
+  double supportFeeAdjustment = 18;
+}
+
+// Request message for the Billing.GetBillingGroup rpc.
+message GetBillingGroupRequest {
+  string billingInternalId = 1; 
+
+  // Optional. Get only the value that set fieldMask.
+  //
+  // see more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto
+  google.protobuf.FieldMask field_mask = 2;
+}
+
+// Response message for the Billing.GetBillingGroup rpc.
+message GetBillingGroupResponse {
+  BillingGroup billingGroup = 1; 
+}
+
+// Defines the fields associated with a Wave access group.
+message AccessGroup {
+
+  // The ID of the access group.
+  string accessGroupId = 1;
+
+  // The name of the access group.
+  string accessGroupName = 2;
+
+  // A description of the access group.
+  string accessGroupDescription = 3;
+
+  // A list of billing groups contained in the access group.
+  repeated BillingGroup billingGroups = 4;
+}
+
+// Request message for the Billing.GetAccessGroup rpc.
+message GetAccessGroupRequest {
+  string accessGroupId = 1;
+
+  // Optional. Get only the value that set fieldMask.
+  //
+  // see more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto
+  google.protobuf.FieldMask field_mask = 2;
+}
+
+// Response message for the Billing.GetAccessGroup rpc.
+message GetAccessGroupResponse {
+  AccessGroup accessGroup = 1;
+}
+
+// Streaming response message for the Billing.ListAwsDailyRunHistory rpc.
+message AwsDailyRunHistory {
+  string billingInternalId = 1;
+  string billingGroupId = 2;
+  string month = 3;
+
+  message Account {
+    string accountId = 1;
+
+    message History {
+      // Calculation timestamp in UTC, RFC3339.
+      string timestamp = 1;
+
+      // Calculation trigger. Either `invoice` or `cur`.
+      string trigger = 2;
+    }
+
+    repeated History history = 2;
+  }
+
+  repeated Account accounts = 4;
+}
+
+// Request message for the Billing.ListAwsCalculationHistory rpc.
+message ListAwsDailyRunHistoryRequest {
+  // Optional. If empty, defaults to current UTC month. Format: yyyymm.
+  string month = 1;
+
+  // Optional. If not empty, query for this group. At the moment, only `billingInternalId`s are supported.
+  string groupId = 2;
+}
+
+// Request message for the Billing.ListUsageCostsDrift rpc.
+message ListUsageCostsDriftRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Optional. If empty, returns all billing groups.
+  string billingInternalId = 2;
+
+  // Optional. If empty, defaults to current UTC month. Format: yyyymm.
+  string month = 3;
+}
+
+// Streaming response message for the Billing.ListUsageCostsDrift rpc.
+message UsageCostsDrift {
+  string billingInternalId = 1;
+  string billingGroupId = 2;
+  string account = 3;
+
+  // The total costs saved in your invoice.
+  double snapshot = 4;
+
+  // The current total costs.
+  double current = 5;
+
+  double diff = 6;
+}
+
+// Request message for the Cost.GetInvoiceRequest rpc.
+message GetInvoiceRequest {
+  // Required. Month to get invoice. Format: `yyyymm`.
+  string date = 1;
+
+  // Required.
+  //
+  // For Ripple, only billing internal ids are supported at the moment. You can set it to a single group
+  //
+  // Implied as the parent billing group for Wave(Pro) users.
+  string groupId = 2;
+}
+
+// Request message for the ExportCostFiltersFile rpc.
+message ExportInvoiceFileRequest {
+  // Required. Month to get invoice. Format: `yyyymm`.
+  string date = 1;
+
+  // Optional.
+  //
+  // For Ripple, only billing internal ids are supported at the moment. You can set it to a single group or a comma-separated list of groups. ex) `group1,group2`. if want to set all group, set `*`. 
+  //
+  // Implied as the parent billing group for Wave(Pro) users.
+  string groupId = 2;
+}
+
+// Response message for the ExportInvoiceFile rpc.
+message ExportInvoiceFileResponse {
+  // Required. URL of exported file.
+  //
+  // csv columns set `group vendor resourceId resourceName type serviceName currency cost`
+  string url = 1;
+}
+
+// Request message for the ReadServiceDiscountsServices rpc.
+message ReadServiceDiscountsServicesRequest {
+  // Required. At the moment, only `aws`,`azure`,`gcp` is supported.
+  string vendor = 1;
+}
+
+// Request message for the ListInvoiceServiceDiscounts rpc.
+message ListInvoiceServiceDiscountsRequest {}
+
+// Request message for the GetInvoiceServiceDiscounts rpc.
+message GetInvoiceServiceDiscountsRequest {
+  // Required. [blueapi.api.ripple.v1.InvoiceServiceDiscounts.id].
+  string id = 1;
+
+  // Optional. Get only the value that set fieldMask.
+  //
+  // see more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto
+  google.protobuf.FieldMask fieldMask = 2;
+}
+
+// Streaming response message for the InvoiceServiceDiscounts rpc.
+message InvoiceServiceDiscounts {
+  // Service discount id.
+  string id = 1;
+
+  // Service discount name.
+  string name = 2;
+
+  // Service discount description.
+  string description = 3;
+
+  // create timestamp.
+  string created = 4;
+
+  // update timestamp.
+  string updated = 5;
+}
+// Request message for ListInvoiceTemplate rpc.
+message ListInvoiceTemplateRequest {}
+
+// Request a message to update/create a billing group's invoice template
+message UpdateBillingGroupInvoiceTemplateRequest {
+  // Required. The billing internal ID
+  string id = 1 [(google.api.field_behavior) = REQUIRED];
+  
+  // Required. The invoice template ID to associate with the billing group
+  string invoiceTemplateId = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for ListInvoiceTemplate rpc.
+message ListInvoiceTemplateResponse {
+
+  string id = 1;
+
+  string name = 2;
+
+  string description = 3;
+
+  string created = 4;
+
+  string updated = 5;
+
+  int32 numberOfConnected = 6;
+
+  repeated InvoiceConnectedBillingGroups connectedBillingGroup = 7;
+  
+  BillingGroupInvoiceSettings invoices = 8;
+  
+}
+
+message GetInvoiceDisplaySettingsRequest {}
+
+// Response message for GetInvoiceDisplaySettings rpc.
+message GetInvoiceDisplaySettingsResponse {
+  bool showRISPUpfrontTimeInterval = 1;
+}
+
+// Request message for UpdateInvoiceDisplaySettings rpc.
+message UpdateInvoiceDisplaySettingsRequest {
+  map<string, bool> setting = 1;
+}
+
+// Response message to be used for ListInvoiceTemplateResponse
+message InvoiceConnectedBillingGroups {
+  string billingInternalId = 1;
+
+  string billingGroupId = 2;
+
+  string billingGroupName = 3;
+
+}
+
+// Request message for the ListAccountInvoiceServiceDiscounts rpc.
+message ListAccountInvoiceServiceDiscountsRequest {
+  // Required.
+  //
+  // For Ripple, only billing internal ids are supported at the moment. You can set it to a single group
+  //
+  // Implied as the parent billing group for Wave(Pro) users.
+  string groupId = 1;
+}
+
+// Streaming response message for the AccountInvoiceServiceDiscounts rpc.
+message AccountInvoiceServiceDiscounts {
+  // Service discount id.
+  string id = 1;
+
+  // Account id.
+  string account = 2;
+
+  // service discount infomation.
+  api.ripple.v1.InvoiceServiceDiscounts serviceDiscounts = 3;
+}
+
+
+message AccountServiceDiscounts {
+  // Service discount id.
+  string id = 1;
+  // Account id.
+  string accountId = 2;
+}
+
+// Request message for the CreateAccountInvoiceServiceDiscounts rpc.
+message CreateAccountInvoiceServiceDiscountsRequest {
+  // Required.
+  //
+  // For Ripple, only billing internal ids are supported at the moment. You can set it to a single group
+  //
+  // Implied as the parent billing group for Wave(Pro) users.
+  string groupId = 1;
+
+  // Required.
+  repeated AccountServiceDiscounts accounts = 4;
+}
+
+// Response message for the CreateAccountInvoiceServiceDiscounts rpc.
+message CreateAccountInvoiceServiceDiscountsResponse {
+  repeated AccountServiceDiscounts accounts = 4;
+}
+
+// Request message for the UpdateAccountInvoiceServiceDiscounts rpc.
+message UpdateAccountInvoiceServiceDiscountsRequest {
+  // Required.
+  //
+  // For Ripple, only billing internal ids are supported at the moment. You can set it to a single group
+  //
+  // Implied as the parent billing group for Wave(Pro) users.
+  string groupId = 1;
+
+  // Required.
+  repeated AccountServiceDiscounts accounts = 4;
+}
+
+// Response message for the UpdateAccountInvoiceServiceDiscounts rpc.
+message UpdateAccountInvoiceServiceDiscountsResponse {
+  repeated AccountServiceDiscounts accounts = 4;
+}
+
+// Request message for the DeleteAccountInvoiceServiceDiscounts rpc.
+message DeleteAccountInvoiceServiceDiscountsRequest {
+  // Required.
+  //
+  // For Ripple, only billing internal ids are supported at the moment. You can set it to a single group
+  //
+  // Implied as the parent billing group for Wave(Pro) users.
+  string groupId = 1;
+}
+
+message RemoveAccountInvoiceServiceDiscountsRequest {
+  // Required.
+  //
+  // For Ripple, only billing internal ids are supported at the moment. You can set it to a single group
+  //
+  // Implied as the parent billing group for Wave(Pro) users.
+  string groupId = 1;
+
+  // Required.
+  repeated AccountServiceDiscounts accounts = 4;
+}
+
+// Request message for the CreateBillingGroupInvoiceServiceDiscounts rpc.
+message CreateBillingGroupInvoiceServiceDiscountsRequest {
+  // Required.
+  //
+  // For Ripple, only billing internal ids are supported at the moment. You can set it to a single group
+  //
+  // Implied as the parent billing group for Wave(Pro) users.
+  string groupId = 1;
+
+  // Required.
+  //
+  // Service discount id.
+  string id = 2;
+}
+
+// Response message for the CreateBillingGroupInvoiceServiceDiscounts rpc.
+message CreateBillingGroupInvoiceServiceDiscountsResponse {
+  // Service discount id.
+  string id = 1;
+}
+
+// Request message for the UpdateBillingGroupInvoiceServiceDiscounts rpc.
+message UpdateBillingGroupInvoiceServiceDiscountsRequest {
+  // Required.
+  //
+  // For Ripple, only billing internal ids are supported at the moment. You can set it to a single group
+  //
+  // Implied as the parent billing group for Wave(Pro) users.
+  string groupId = 1;
+
+  // Required.
+  //
+  // Service discount id.
+  string id = 2;
+}
+
+// Response message for the UpdateBillingGroupInvoiceServiceDiscounts rpc.
+message UpdateBillingGroupInvoiceServiceDiscountsResponse {
+  // Service discount id.
+  string id = 1;
+}
+
+// Request message for the DeleteBillingGroupInvoiceServiceDiscounts rpc.
+message DeleteBillingGroupInvoiceServiceDiscountsRequest {
+  // Required.
+  //
+  // For Ripple, only billing internal ids are supported at the moment. You can set it to a single group
+  //
+  // Implied as the parent billing group for Wave(Pro) users.
+  string groupId = 1;
+}
+
+// Request message for the CreateInvoice rpc.
+message CreateInvoiceRequest {
+  // Required. Month to get invoice. Format: `yyyymm`.
+  string date = 4;
+  
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Optional. You can set all billing groups.
+  //
+  // If this parameter is not set, The list set to `groups` is used.
+  bool allGroups = 2;
+
+  // Optional. You can set it to a list of billing internal group id
+  repeated string groups = 3;
+}
+
+// Request message for the GetInvoiceStatus rpc.
+message GetInvoiceStatusRequest {
+  // Required. invoice generate request id.
+  string id = 1;
+}
+
+// Request message for the ListInvoiceStatus rpc.
+message ListInvoiceStatusRequest {
+  // Required. Month to get invoice status. Format: `yyyymm`.
+  string date = 1;
+}
+
+// Request message for the UpdateInvoicePreviews rpc.
+message UpdateInvoicePreviewsRequest {
+  // Required. Month to get invoice. Format: `yyyymm`.
+  string date = 1;
+
+  // Optional. You can set all billing groups.
+  //
+  // If this parameter is not set, The list set to `groups` is used.
+  bool allGroups = 2;
+
+  // Optional. You can set it to a list of billing internal group id
+  repeated string groups = 3;
+
+  // Required. You can set display or hiding.
+  //
+  // If true, Hiding Invoice. If false, Display Invoice.
+  bool enabled = 4;
+}
+
+// Request message for the CreateReseller rpc.
+message CreateResellerRequest {
+  // Required. You can set billing internal id or access group id.
+  string groupId = 1;
+
+  // Required.
+  string email = 2;
+
+  // Required.
+  //
+  // We recommend a password length of 8~32 characters. If you send 0 characters, a password will be generated automatically.
+  string password = 3;
+
+  // Required. If valid, you will be notified via email address.
+  bool notification = 4;
+
+  // Optional. Feature Config. If not set config value, use default config
+  repeated api.ripple.ResellerConfig waveConfig = 5;
+
+  // Optional. Feature Config. If not set config value, use default config
+  repeated api.ripple.ResellerConfig aquaConfig = 6;
+}
+
+// Request message for the ListResellers rpc.
+message ListResellersRequest {
+  // Optional. Get only the value that set fieldMask.
+  //
+  // see more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto
+  google.protobuf.FieldMask field_mask = 1;
+}
+
+// Request message for the GetReseller rpc.
+message GetResellerRequest {
+  // Required. reseller id.
+  string id = 1;
+
+  // Optional. Get only the value that set fieldMask.
+  //
+  // see more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto
+  google.protobuf.FieldMask field_mask = 2;
+}
+
+// Request message for the UpdateReseller rpc.
+message UpdateResellerRequest {
+  // Required. reseller id.
+  string id = 1
+    [(google.api.field_behavior) = REQUIRED];
+
+  // Optional.
+  string email = 2
+    [(google.api.field_behavior) = OPTIONAL];
+
+  // Optional.
+  //
+  // We recommend a password length of 8~32 characters. If you send 0 characters, a password will be generated automatically.
+  string password = 3 [
+    (google.api.field_behavior) = INPUT_ONLY,
+    (google.api.field_behavior) = OPTIONAL];
+
+  // Optional. wave feature config
+  //
+  // Set only the config to be changed.
+  // For example, If you want to change only dashboardGraph, set `{"waveConfig": [{"key": "dashboardGraph","value": true}]}` as a parameter
+  repeated api.ripple.ResellerConfig waveConfig = 4
+    [(google.api.field_behavior) = OPTIONAL];
+
+  // Optional. aqua feature config
+  //
+  // Set only the config to be changed.
+  // For example, If you want to change only aqRiManagement, set `{"waveConfig": [{"key": "aqRiManagement","value": true}]}` as a parameter
+  repeated api.ripple.ResellerConfig aquaConfig = 5
+    [(google.api.field_behavior) = OPTIONAL];
+
+  // Optional.
+  //
+  // If valid when email or password is updated, you will be notified via email address.
+  // If only waveConfig or aquaConfig is changed, it is ignored.
+  bool notification = 6 [
+    (google.api.field_behavior) = INPUT_ONLY,
+    (google.api.field_behavior) = OPTIONAL];
+
+  // Required.
+  google.protobuf.FieldMask updateMask = 7
+      [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the DeleteReseller rpc.
+message DeleteResellerRequest {
+  // Required. reseller id.
+  string id = 1; 
+}
+
+// Request message for the GetBillingSetting rpc.
+message GetBillingSettingRequest {
+  // Optional. Get only the value that set fieldMask.
+  //
+  // see more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto
+  google.protobuf.FieldMask field_mask = 1;
+}
+
+// Response message for the GetBillingSetting rpc.
+message GetBillingSettingResponse {
+  // List of available yearmonth.
+  repeated api.ripple.YearMonth yearMonth = 1;
+
+  // Rounding method.
+  api.ripple.Rounding roundingMethod = 2;
+
+  // Rounding method for Export CSV.
+  api.ripple.Rounding exportRoundingMethod = 3;
+
+  // Invoice layout.
+  api.ripple.InvoiceLayout invoiceLayout = 4;
+
+  // Invoice due date.
+  api.ripple.DueDate invoiceDueDate = 5;
+
+  // List of available currency.
+  repeated string supportCurrency = 6;
+}
+
+// Request message for the ListExchangeRates rpc.
+message ListExchangeRatesRequest {
+  // Required. vendor.
+  string vendor = 1;
+
+  // Required. month. Format: `yyyymm`.
+  string month = 2;
+}
+
+// Request message for SetGlobalExchangeRate rpc.
+message SetGlobalExchangeRateRequest {
+  // Required. vendor.
+  string vendor = 1;
+
+  // Required. month. Format: `yyyymm`.
+  string month = 2;
+
+  // Required. currency. (e.g. usd, jpy, myr, idr)
+  string currency = 3;
+
+  // Required. exchangerate. the value of 1 usd per currency above
+  // Example: If the invoice currency is "jpy" and 1 USD = 150 jpy, exchangeRate = 150
+  double exchangeRate = 4;
+}
+
+// Request message for SetPayerExchangeRate rpc.
+message SetPayerExchangeRateRequest {
+  // Required. vendor.
+  string vendor = 1;
+
+  // Required. account(payer) id.
+  string accountId = 2;
+
+  // Required. month. Format: `yyyymm`.
+  string month = 3;
+
+  // Required. currency. (e.g. usd, jpy, myr, idr)
+  string currency = 4;
+
+  // Required. exchangerate. the value of 1 usd per currency above
+  // Example: If the invoice currency is "jpy" and 1 USD = 150 jpy, exchangeRate = 150
+  double exchangeRate = 5;
+}
+
+// Request message for SetBillingGroupExchangeRate rpc.
+message SetBillingGroupExchangeRateRequest {
+  // Required. account(payer) id.
+  string groupId = 1;
+
+  // Required. month. Format: `yyyymm`.
+  string month = 2;
+
+  // Required. currency. (e.g. usd, jpy, myr, idr)
+  string currency = 3;
+
+  // Required. exchangerate. the value of 1 usd per currency above
+  // Example: If the invoice currency is "jpy" and 1 USD = 150 jpy, exchangeRate = 150
+  double exchangeRate = 4;
+}
+
+// Response message for the ListExchangeRates rpc.
+message ListExchangeRatesResponse {
+  // The Month.
+  string month = 1;
+
+  // The common exchange rate.
+  api.ripple.CommonExchangeRate common = 2;
+
+  // The billing group exchange rate.
+  repeated api.ripple.BillingGroupExchangeRate billingGroup = 3;
+
+  // The payer exchange rate.
+  api.ripple.VendorPayerExchangeRate payer = 4;
+}
+
+// Request message for the ListAccessGroups rpc.
+message ListAccessGroupsRequest {
+  // Optional. Get only the value that set fieldMask.
+  //
+  // see more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto
+  google.protobuf.FieldMask field_mask = 1;
+}
+
+// Request message for the CreateAccessGroup rpc.
+message CreateAccessGroupRequest {
+  // Required. access group name.
+  //
+  // We recommend the name length of 1~60 characters.
+  string name = 1;
+
+  // Required. access group description.
+  //
+  // We recommend the description length of 0~150 characters.
+  string description = 2;
+
+  // Required. Billing group to be included in the access group.
+  //
+  // You can only include billing groups with the same calculation type and currency type.
+  // Specify the billingInternalIds. For example: [`billingInternalId1`,`billingInternalId2`,`billingInternalId3`]
+  repeated string billingGroups = 3;
+}
+
+// Request message for the UpdateAccessGroup rpc.
+message UpdateAccessGroupRequest {
+  // Required. access group id.
+  string id = 1;
+
+  // Optional. access group name. Set only the name to be changed.
+  //
+  // We recommend the name length of 1~60 characters.
+  string name = 2;
+
+  // Optional. access group description. Set only the description to be changed.
+  //
+  // We recommend the description length of 0~150 characters.
+  string description = 3;
+
+  // Optional. Billing group to be included in the access group.
+  //
+  // You can only include billing groups with the same calculation type and currency type.
+  // Set only the billingGroups to be changed.
+  // Specify the billingInternalIds. For example: [`billingInternalId1`,`billingInternalId2`,`billingInternalId3`]
+  repeated string billingGroups = 4;
+}
+
+// Request message for the DeleteAccessGroup rpc.
+message DeleteAccessGroupRequest {
+  // Required. access group id.
+  string id = 1;
+}
+
+// Request message for the ListInvoice rpc.
+message ListInvoiceRequest {
+  // YYYYMM format (e.g 202412, 202501)
+  string date = 1;
+ 
+  // OPTIONAL: vendor (aws, azure, gcp)
+  string vendor = 2;
+
+  // Optional. If set, return only child invoices for this billing group.
+  string billingInternalId = 3;
+
+  // Optional. Get only the value that set fieldMask.
+  //
+  // see more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto
+  google.protobuf.FieldMask field_mask = 4;
+}
+
+// Response message for the ListInvoice rpc.
+message ListInvoiceResponse {
+  // The billing internal id.
+  string billingInternalId = 1;
+
+  // The billing group id.
+  string billingGroupId = 2;
+
+  // The billing group name. Used as invoice name on ripple v2
+  string billingGroupName = 3;
+
+  string companyName = 4;
+
+  string finalizationStatus = 5;
+  // invoice creation status 
+  bool isCreated = 6;
+  bool isSettingModified = 7;
+  string createdDate = 8;
+  string updatedDate = 9;
+
+  repeated string createdVendors = 10;
+
+  // wave publish status
+  bool isPublished = 11;
+
+  // In progress || Done
+  
+  // map of vendor to billingAmount Formated in $8,000.12
+  map <string, string> vendorBillingAmount = 12;
+  string billingAmountTotal = 13;
+
+  // The currency of the invoice (usd, jpy, ...)
+  string currency = 14;
+
+  string urlId = 15;
+
+  // setting used in invoice creation
+  map<string, InvoiceSettings> createdVendorInvoiceSetting = 16;
+ 
+  // saved invoice setting for the month
+  map<string, InvoiceSettings> savedVendorInvoiceSetting = 17;
+
+  // billinggroup's default invoice setting
+  map<string, InvoiceSettings> defaultVendorInvoiceSetting = 18;
+
+  // True if this invoice/company has a child.
+  bool hasChild = 19;
+}
+
+// request message for ListAbcBillingGroups
+message ListAbcBillingGroupsRequest {
+  // Required. Payer Id.
+  string id = 1;
+}
+
+// request message for ListAbcBillingGroupAccounts
+message ListAbcBillingGroupAccountsRequest {
+  // Required. Payer Id.
+  string payerId = 1;
+
+  // Required. BillingGroup Id.
+  string billingGroupArn = 2;
+}
+
+message AbcBillingGroup {
+  string arn = 1;
+
+  string name = 2;
+
+  string creationTime = 3;
+
+  string description = 4;
+
+  string primaryAccountId = 5;
+
+  string size = 6;
+
+  string status = 7;
+}
+
+message AbcAccount {
+  string accountId = 1;
+
+  string accountName = 2;
+
+}
+
+// Request message for the Billing.ReadInvoiceAdjustments rpc.
+message ReadInvoiceAdjustmentsRequest {
+  // Required. At the moment, only `aws`,`azure`,`gcp` is supported.
+  string vendor = 1;
+
+  // Required.
+  string accountId = 2;
+
+  // Optional. The UTC month to query. If empty, defaults to current month. Format is `yyyymm`. For example, June 2021 will be `202106`.
+  string month = 3;
+
+  // Optional. If empty, defaults to all fee type. At the moment, only `Fee`,`Refund`,`Credit`,`SppDiscount`,`EdpDiscount`,`BundledDiscount` is supported.
+  string feeType = 4;
+}
+
+// Request message for the Billing.ReadAdjustmentEntries rpc.
+message ReadAdjustmentEntriesRequest {
+  // Required. At the moment, only `aws`,`azure`,`gcp` is supported.
+  string vendor = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Optional. The UTC month to query. If empty, defaults to current month. Format is `yyyymm`. For example, June 2021 will be `202106`.
+  string month = 2 [(google.api.field_behavior) = OPTIONAL];
+
+  // Optional.
+  message AdjustmentEntriesRequestAwsOptions {
+    bool sppDiscount = 1;
+    bool edpDiscount = 2;
+  }
+}
+
+// Request message for the Billing.GetAdjustmentEntryRequest rpc.
+message GetAdjustmentEntryRequest {
+  // Required. At the moment, only `aws`,`azure`,`gcp` is supported.
+  string vendor = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. The adjustment entry id. [blueapi.api.ripple.v1.AdjustmentEntry.id]
+  string id = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the Billing.ApplyAdjustmentEntry rpc.
+message ApplyAdjustmentEntryRequest {
+  // Required. At the moment, only `aws`,`azure`,`gcp` is supported.
+  string vendor = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // AdjustmentSetting
+  message ApplySetting {
+    // Optional. apply to month. The UTC month to query. If empty, defaults to current month. Format is `yyyymm`. For example, June 2021 will be `202106`.
+    string month = 1 [(google.api.field_behavior) = OPTIONAL];
+
+    // Optional. tax free setting.
+    bool taxFree = 2 [(google.api.field_behavior) = OPTIONAL];
+
+    // Optional. exchange rate. 
+    // 
+    // At the moment, only `jpy`,`idr`,`myr`,`sgd`,`inr` is supported.
+    // It will be configured according to the currency type of the billing group associated with the account.
+    // For example: {"jpy":150.01, "idr":16580,"myr":4.4,"sgd":1.33,"inr":85.3}
+    map<string, double> exchangeRate = 3 [(google.api.field_behavior) = OPTIONAL];
+
+    // Optional. apply to billing internal ID.
+    // When you specify billing internal ID, the invoicing will be applied to the target Billing Group.
+    // At the moment, only `aws` is supported.
+    string billingInternalId = 4 [(google.api.field_behavior) = OPTIONAL];
+  } 
+
+  // Required. ApplySetting. root setting.
+  ApplySetting setting = 2 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. List of id.
+  // 
+  // Regarding entries that can be included.
+  // - Regular entry
+  // - Splitted entry
+  // - Allocated entry
+  // Regarding entries that cannot be included.
+  // - Original entry before being split
+  // - Original entry before being allocate
+  repeated string entries = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the Billing.RestoreAdjustmentEntry rpc.
+message RestoreAdjustmentEntryRequest {
+  // Required. At the moment, only `aws`,`azure`,`gcp` is supported.
+  string vendor = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. List of AdjustmentEntry IDs.
+  repeated string entries = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+
+// Request message for the Billing.SplitAdjustmentEntry rpc.
+message SplitAdjustmentEntryRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. AdjustmentEntry ID.
+  string id = 2 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. The UTC month to query. If empty, defaults to current month. Format is `yyyymmdd`. For example, June 2021 will be `20210601`.
+  string startMonth = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the Billing.AllocateAdjustmentEntry rpc.
+message AllocateAdjustmentEntryRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. AdjustmentEntry ID.
+  string id = 2 [(google.api.field_behavior) = REQUIRED];
+
+  // AccountConfig
+  message AccountConfig {
+    // Required. accountId
+    string id = 1 [(google.api.field_behavior) = REQUIRED];
+
+    // Required.
+    double amount = 2 [(google.api.field_behavior) = REQUIRED];
+  }
+
+  // Required.
+  repeated AccountConfig config = 3 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. accountId
+  string accountForRemaining = 4 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the Billing.RestoreSplitAdjustmentEntry rpc.
+message RestoreSplitAdjustmentEntryRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. AdjustmentEntry ID.
+  string id = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the Billing.RestoreAllocateAdjustmentEntry rpc.
+message RestoreAllocateAdjustmentEntryRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. AdjustmentEntry ID.
+  string id = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the Billing.CreateCustomFee rpc.
+message CreateCustomFeeRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. The billing month. Format is `yyyymm`.
+  string month = 2 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. The fee entries to create.
+  repeated CustomFeeEntry entries = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+// A single custom fee entry to write to the adjustments table.
+message CustomFeeEntry {
+  // Required. The linked account ID (customer_id in the fee table sort key).
+  string accountId = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. The payer account ID (account_id in the fee table sort key).
+  string payerAccountId = 2 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. The fee type for the sort key type segment.
+  // Determines the main Type column value in Adjusting Entries (e.g., "Fee").
+  string feeType = 3 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. The entry type stored in the mobingi_type column.
+  // Used for filtering and categorization (e.g., "COMMITMENT" for Guaranteed Commitments, "CUSTOM" for Custom Fees).
+  // Accepted values: UPFRONT, SUPPORT, REGISTRAR, OTHERS, CREDIT, REFUND, COMMITMENT, CUSTOM.
+  string mobingiType = 4 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. The fee amount (cost). Positive for charges, negative for rebates.
+  double amount = 5 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. The currency code (e.g., "USD").
+  string currencyCode = 6 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. Human-readable description of the fee.
+  // For commitment entries: e.g., "Guaranteed Compute Savings Plan - Premium".
+  string description = 7 [(google.api.field_behavior) = REQUIRED];
+
+  // Optional. The product/service code (e.g., "aws/savingsplan").
+  string productCode = 8 [(google.api.field_behavior) = OPTIONAL];
+
+  // Optional. The product/service display name (e.g., "Compute Savings Plan").
+  string productName = 9 [(google.api.field_behavior) = OPTIONAL];
+
+  // Optional. The usage start time in RFC 3339 format.
+  string usageStart = 10 [(google.api.field_behavior) = OPTIONAL];
+
+  // Optional. The time interval in ISO 8601 interval format.
+  string timeInterval = 11 [(google.api.field_behavior) = OPTIONAL];
+
+  // Optional. Additional metadata as key-value pairs.
+  // For Guaranteed Commitment entries, may contain: commitment_id, invoice_id,
+  // contract_term, fee_rate, monthly_commitment, monthly_savings, net_savings,
+  // utilization, billing_account_id, commitment_display_name,
+  // commitment_leased_name, provider, commitment_type.
+  map<string, string> meta = 12 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Response message for the Billing.CreateCustomFee rpc.
+message CreateCustomFeeResponse {
+  // The number of entries successfully created.
+  int32 created = 1;
+}
+
+// Request message for the Billing.ListAdjustmentEntryItems rpc.
+message ListAdjustmentEntryItemsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. The billing month. Format is `yyyymm`.
+  string month = 2 [(google.api.field_behavior) = REQUIRED];
+
+  // Optional. Filter by entry type (mobingi_type column).
+  // If not specified, returns all adjustment entry items.
+  string mobingiType = 3 [(google.api.field_behavior) = OPTIONAL];
+
+  // Optional. Filter by apply status.
+  // "applied" returns entries where apply=true, "pending" returns entries where apply=false.
+  // If empty, returns all entries regardless of status.
+  string status = 4 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// An adjustment entry item with additional metadata for the Guaranteed Commitment Entries UI.
+message AdjustmentEntryItem {
+  // The standard adjustment entry fields (id, account info, entry info, settings).
+  api.ripple.v1.AdjustmentEntry entry = 1;
+
+  // Additional metadata as key-value pairs.
+  map<string, string> meta = 2;
+}
+
+//Request message for the Billing.ListAccountResources rpc.
+message ListAccountResourcesRequest {
+  // Required. At the moment, only `aws`,`azure`,`gcp` is supported.
+  string vendor = 1;
+
+  //Optional. The UTC month to query. If empty, defaults to current month. Format is `yyyymm`.
+  string month = 2;
+}
+
+message ResourceAccount {
+  string payerId = 1;
+
+  string customerId = 2;
+
+  bool registered = 3;
+}
+
+//Request message for the Billing.GetAdjustmentConfig rpc.
+message GetAdjustmentConfigRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+  bool includeSPPDiscount = 2;
+}
+
+//Request message for the Billing.CreateAdjustmentConfig rpc.
+message CreateAdjustmentConfigRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Required. 
+  // A list of filtering options. See [api.ConfigFilters] for more information on each filter item. Multiple filter items will use the logical 'or' operator, e.g. filter1 || filter2 || filter3, etc.
+  repeated api.ConfigFilters config = 2;
+
+  // Optional. 
+  repeated api.ManagementAccount accounts = 3;
+}
+
+//Request message for the Billing.UpdateAdjustmentConfig rpc.
+message UpdateAdjustmentConfigRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+
+  // Optional. 
+  repeated api.ConfigFilters config = 2;
+
+  // Optional. 
+  repeated api.ManagementAccount accounts = 3;
+}
+
+//Request message for the Billing.DeleteAdjustmentConfig rpc.
+message DeleteAdjustmentConfigRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1;
+}
+
+// Request message for the Billing.ReadUntaggedGroups rpc.
+message ReadUntaggedGroupsRequest {
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Optional. Get only the value that set fieldMask.
+  //
+  // see more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto
+  google.protobuf.FieldMask field_mask = 2 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Request message for the Billing.ReadCustomizedBillingServices rpc.
+message ReadCustomizedBillingServicesRequest {
+  // Optional. Get only the value that set fieldMask.
+  //
+  // see more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto
+  google.protobuf.FieldMask field_mask = 1 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Request message for the Billing.GetCustomizedBillingService rpc.
+message GetCustomizedBillingServiceRequest {
+  // Required. [blueapi.api.ripple.CustomizedBillingService.id]
+  string id = 1;
+
+  // Optional. Get only the value that set fieldMask.
+  //
+  // see more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto
+  google.protobuf.FieldMask field_mask = 2 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Request message for the Billing.CreateCustomizedBillingService rpc.
+message CreateCustomizedBillingServiceRequest {
+  // Required. [blueapi.api.ripple.CustomizedBillingService.name]
+  string name = 1;
+
+  // Optional. [blueapi.api.ripple.CustomizedBillingService.description]
+  string description = 2;
+
+  // Required. [blueapi.api.ripple.CustomizedBillingService.MethodConfig]
+  api.ripple.MethodConfig config = 3;
+}
+
+// Request message for the Billing.UpdateCustomizedBillingService rpc.
+message UpdateCustomizedBillingServiceRequest {
+  // Required. [blueapi.api.ripple.CustomizedBillingService.id]
+  string id = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. The updated customized billing service object.
+  api.ripple.CustomizedBillingService customizedBillingService = 2
+      [(google.api.field_behavior) = REQUIRED];
+
+  // Required. Indicates which fields in the provided CustomizedBillingService to update. Must be
+  // specified and non-empty. 
+  google.protobuf.FieldMask updateMask = 3
+      [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the Billing.DeleteCustomizedBillingService rpc.
+message DeleteCustomizedBillingServiceRequest {
+  // Required. [blueapi.api.ripple.CustomizedBillingService.id]
+  string id = 1;
+}
+
+// Request message for the Billing.GetCustomizedBillingServiceBillingGroup rpc.
+message GetCustomizedBillingServiceBillingGroupRequest {
+  // Required. billing internal id in billing group.
+  string groupId = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. At the moment, `aws`,`azure`,`gcp` is supported.
+  string vendor = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for the Billing.GetCustomizedBillingServiceBillingGroup rpc.
+// 
+// If there is no account information, it indicates that it is applied to BillingGroup.
+message GetCustomizedBillingServiceBillingGroupResponse {
+  // Required. [blueapi.api.ripple.CustomizedBillingService.id]
+  string id = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. vendor that applied to the CustomizedBillingService　config.
+  string vendor = 2 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. [blueapi.api.ripple.ChargingTarget]
+  api.ripple.ChargingTarget chargingTarget = 3 [(google.api.field_behavior) = REQUIRED];
+
+  // Optional. accounts that applied to the CustomizedBillingService　config.
+  repeated api.Account accounts = 4 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Request message for the Billing.SetCustomizedBillingServiceBillingGroup rpc.
+message SetCustomizedBillingServiceBillingGroupRequest {
+  // Required. billing internal id in billing group.
+  string groupId = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. At the moment, `aws`,`azure`,`gcp` is supported.
+  string vendor = 2 [(google.api.field_behavior) = REQUIRED];
+
+  // CustomizedBillingServiceBillingSetting
+  message CustomizedBillingServiceBillingSetting {
+    // Required. [blueapi.api.ripple.CustomizedBillingService.id]
+    string id = 1 [(google.api.field_behavior) = REQUIRED];
+
+    // Required. [blueapi.api.ripple.ChargingTarget]
+    api.ripple.ChargingTarget chargingTarget = 2 [(google.api.field_behavior) = REQUIRED];
+
+    // Optional. if chargingTarget is BILLINGGROUP, `accounts` is set emptty.
+    //
+    // Specify the accountIds. For example: [`accountId1`,`accountId2`,`accountId3`]
+    repeated string accounts = 3 [(google.api.field_behavior) = OPTIONAL];
+  }
+
+  // Required. customized billing service setting.
+  repeated CustomizedBillingServiceBillingSetting setting = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the Billing.DeleteCustomizedBillingServiceBillingGroup rpc.
+message DeleteCustomizedBillingServiceBillingGroupRequest {
+  // Required. billing internal id in billing group.
+  string groupId = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. At the moment, `aws`,`azure`,`gcp` is supported.
+  string vendor = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the Billing.CreateInvoiceServiceDiscounts rpc.
+message CreateInvoiceServiceDiscountsRequest {
+  // Required. [blueapi.api.ripple.v1.InvoiceServiceDiscounts.name]
+  string name = 1;
+
+  // Optional. [blueapi.api.ripple.v1.InvoiceServiceDiscounts.description]
+  string description = 2;
+
+  // Required. [blueapi.api.ripple.v1.InvoiceServiceDiscounts.InvoiceServiceDiscountsSetting]
+  api.ripple.v1.InvoiceServiceDiscountsSetting setting = 3;
+}
+
+// Request message for the Billing.UpdateInvoiceServiceDiscounts rpc.
+message UpdateInvoiceServiceDiscountsRequest {
+  // Required. [blueapi.api.ripple.v1.InvoiceServiceDiscounts.id]
+  string id = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. The updated invoice service discounts object.
+  api.ripple.v1.InvoiceServiceDiscounts invoiceServiceDiscounts = 2
+      [(google.api.field_behavior) = REQUIRED];
+
+  // Required. Indicates which fields in the provided InvoiceServiceDiscounts to update. Must be
+  // specified and non-empty. 
+  google.protobuf.FieldMask updateMask = 3
+      [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the Billing.DeleteInvoiceServiceDiscounts rpc.
+message DeleteInvoiceServiceDiscountsRequest {
+  // Required. [blueapi.api.ripple.v1.InvoiceServiceDiscounts.id]
+  string id = 1;
+}
+
+// Response for tag request
+message TagData {
+  string customerId = 1;
+  string accountId = 2;
+  string customerName = 3;
+  repeated Tags tags = 4;
+}
+message Tags {
+  string key = 1;
+  repeated string values = 2;
+}
+
+message GetTagsRequest {
+  string vendor = 1;
+  string type = 2;
+}
+
+message CustomField {
+  // Unique identifier for the custom field, automatically generated and immutable.
+  string id = 1;
+
+  // Descriptive name of the custom field
+  string key = 2;
+
+  // Detailed description of the custom field
+  string description = 3;
+}
+
+message BillingGroupCustomField {
+  string value = 1;
+  CustomField customField = 2;
+}
+
+message ListBillingGroupCustomFieldRequest {
+  // billing group InternalID
+  // leave empty to get all group id custom field
+  string groupId = 1;
+}
+
+message ListBillingGroupCustomFieldResponse {
+  string groupId = 1;
+  repeated BillingGroupCustomField billingGroupCustomFields = 2;
+}
+
+message CreateCustomFieldRequest {
+  string key = 1;
+  string description = 2;
+}
+
+message UpdateCustomFieldRequest {
+  string id = 1;
+  string key = 2;
+  string description = 3;
+}
+
+message DeleteCustomFieldRequest {
+  string id = 1;
+}
+
+message ListCustomFieldRequest {
+
+}
+
+// BillingGroup FreeFormat: Also known as miscellaneous
+message CreateFreeFormatRequest {
+  string groupId = 1;
+  string vendor = 2;
+  repeated FreeFormItem items = 3;
+}
+
+message FreeFormItem {
+  string label = 1;
+  int64 unitCost = 2;
+  int64 total = 5;
+  uint32 quantity = 3;
+  bool enabled = 4;
+}
+
+message DeleteFreeFormatRequest {
+  string groupId = 1;
+  string vendor = 2;
+}
+
+message GetFreeFormatRequest {
+  // set empty to get all the freeformat of the MSP
+  string groupId = 1;
+
+  // this setting is ignored if groupId is not empty
+  // set true to return only the free format associated to a BG
+  bool isAssociated = 2;
+}
+
+message GetFreeFormatResponse {
+  string groupId = 3;
+  string vendor = 1;
+  repeated FreeFormItem freeFormat = 2;
+}
+
+// BillingGroup tags adding setting
+message UpdateTagsAddingSettingRequest {
+  string vendor = 1;
+  string groupId = 2;
+  repeated TagsAddingSetting items = 3;
+}
+
+message GetTagsAddingSettingRequest {
+  string vendor = 1;
+  string groupId = 2;
+}
+
+message TagsAddingSetting {
+  string groupId = 1;
+  string customerId = 2;
+  repeated string tagKeys = 3;
+}
+
+// Request message for the ExportServiceDiscounts rpc.
+message ExportServiceDiscountsRequest {
+  // Required. At the moment, `CSV` is supported.
+  string format = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Optional. At the moment, `ja`,`en` is supported.
+  //
+  // Usually the language of the user information is used, 
+  // but it may be a different language due to cahce.
+  // In that case, you can use this option to change the language of CSV.
+  string language = 2 [(google.api.field_behavior) = OPTIONAL];
+
+  // Required.
+  // repeated string serviceDiscountsIds = 2 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Request message for the ExportAccountInvoiceServiceDiscounts rpc.
+message ExportAccountInvoiceServiceDiscountsRequest {
+  // Required. At the moment, `CSV` is supported.
+  string format = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Optional. At the moment, `ja`,`en` is supported.
+  //
+  // Usually the language of the user information is used, 
+  // but it may be a different language due to cahce.
+  // In that case, you can use this option to change the language of CSV.
+  string language = 2 [(google.api.field_behavior) = OPTIONAL];
+  
+  // Returns a directLink if set to true
+  bool directLink = 3;
+}
+
+// Request message for the ExportBillingGroupInvoiceServiceDiscounts rpc.
+message ExportBillingGroupInvoiceServiceDiscountsRequest {
+  // Required. At the moment, `CSV` is supported.
+  string format = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Optional. At the moment, `ja`,`en` is supported.
+  //
+  // Usually the language of the user information is used, 
+  // but it may be a different language due to cahce.
+  // In that case, you can use this option to change the language of CSV.
+  string language = 2 [(google.api.field_behavior) = OPTIONAL];
+  
+  // Returns a directLink if set to true
+  bool directLink = 3;
+}
+
+// Request message for the ExportBillingGroupCsv rpc.
+// port from m/ripple/exportcsv/billing-group
+message ExportBillingGroupCsvRequest {
+  // Usually the language of the user information is used, 
+  // but it may be a different language due to cahce.
+  // In that case, you can use this option to change the language of CSV.
+  string language = 2 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Response message for the ExportBillingGroupCsv rpc.
+message ExportBillingGroupCsvResponse {
+  // csv direct download link
+  // expires in 10 minutes
+  string downloadLink = 1;
+}
+
+// port from m/ripple/exportcsv/billing-group-setting
+message ExportInvoiceSettingCsvRequest {
+  // Usually the language of the user information is used, 
+  // but it may be a different language due to cahce.
+  // In that case, you can use this option to change the language of CSV.
+  string language = 2 [(google.api.field_behavior) = OPTIONAL];
+
+  // Optional. If true, include miscellaneous items in the settings export.
+  bool includeMiscellaneous = 3 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Response message for the ExportBillingGroupCsv rpc.
+message ExportInvoiceSettingCsvResponse {
+  // csv direct download link
+  // expires in 10 minutes
+  string downloadLink = 1;
+}
+
+message GetBillingGroupInvoiceServiceDiscountsRequest {
+  string groupId = 1;
+}
+
+message GetBillingGroupInvoiceServiceDiscountsResponse {
+  // Service discount id
+  string id = 1;
+}
+
+message AddBillingGroupCustomFieldRequest {
+  // Required. BillingGroupInternalId
+  string groupId = 1;
+ 
+  // map of customField id to it's key (description)
+  map<string, string> idToKey = 2;
+}
+
+message DeleteBillingGroupCustomFieldRequest {
+  // Required. Billing group internal Id
+  string groupId = 1;
+
+  // Required. The id of customfield from get customfield
+  string customFieldId = 2;
+}
+
+message AddAccountToBillingGroupRequest {
+  // Required. BillingGroupInternalId
+  string groupId = 1;
+
+  // Required. (aws, azure, gcp)
+  string vendor = 2;
+
+  // Required. List of accounts to be added to the billing group
+  repeated AccountToAdd accounts = 3;
+}
+
+// New message for account details
+message AccountToAdd {
+  // Required. account id of the customer
+  string customerId = 1;
+
+  // Required. Payer account id
+  string accountId = 2;
+
+  // Required. Descriptive name
+  string name = 3;
+
+  // Optional. Addition description or notes
+  string note = 4;
+}
+
+message AddTagsToBillingGroupRequest {
+  // Required. Billing group internal Id
+  string groupId = 1;
+  
+  // Required. Vendor (aws, azure, gcp)
+  string vendor = 2;
+  
+  // Tag settings for different customer accounts
+  repeated TagSetting settings = 3;
+  
+  // Non-tag settings for the billing group
+  NonTagSetting nonTagSetting = 4;
+}
+
+// Settings for a specific customer account for AddTagsToBillingGroup
+message TagSetting {
+  // Customer ID
+  string customerId = 1;
+  
+  // Tags associated with this customer
+  repeated Tag tags = 2;
+}
+
+// Individual tag definition for AddTagsToBillingGroup
+message Tag {
+  // Tag key
+  string key = 1;
+  
+  // Tag value
+  string value = 2;
+  
+  // Assignment percentage (only used for non-tag assignments)
+  int32 assign = 3;
+}
+
+// Non-tag settings for a billing group for AddTagsToBillingGroup
+message NonTagSetting {
+  // Whether non-tag settings are included
+  bool include = 1;
+  
+  // Type of non-tag setting ("percentage" or "fixed")
+  string type = 2;
+  
+  // Amount value (percentage or fixed amount)
+  double amount = 3;
+}
+
+// Response message for tag invoice setting operation for AddTagsToBillingGroup
+message SaveTagInvoiceSettingResponse {
+  // Status of the operation
+  string status = 1;
+  
+  // Optional error message if operation failed
+  string error = 2;
+}
+
+// Request message for updating non-tag group settings for a billing group for UpdateNonTagGroupToBillingGroup
+message UpdateNonTagGroupToBillingGroupRequest {
+  // Required. The billing group's internal id
+  string id = 1;
+
+  // Required. The vendor (aws, azure, etc)
+  string vendor = 2;
+
+  // Required. The settings to update
+  repeated NonTagGroupSetting settings = 3;
+}
+
+// Individual non-tag group setting for UpdateNonTagGroupToBillingGroup
+message NonTagGroupSetting {
+  // Required. The non-tag group ID
+  string id = 1;
+  
+  // Required. The type of setting (percentage or fixed)
+  string type = 2;
+  
+  // Required. The amount value for either percentage or fixed amount
+  double amount = 3;
+}
+
+message SaveInvoiceSettingsRequest {
+  // Required. Invoice month. Format: `yyyymm`.
+  string date = 1;
+  
+  // Required. At the moment, only `aws` is supported.
+  string vendor = 2;
+
+  // Optional. You can set all billing groups.
+  //
+  // If true the setting would be apply to all group.
+  bool allGroups = 3;
+
+  // Optional. groups to apply the invoices setting
+  // this is ignored if allGroups is true.
+  repeated string groups = 4;
+
+  // Required. Invoice setting.
+  InvoiceSettings invoiceSetting = 5;
+}
+
+message InvoiceSettings {
+  string invoiceNo = 2;
+  double discountRate = 4;
+
+  // e.g., cloudpaywithfee, ...
+  string discountTargetUsage = 5;
+
+  // e.g., usageamount, ... 
+  string discountCalcLogic = 6;
+  double taxRate = 7;
+
+  // e.g., percent, fix, aws_developer, aws_business, aws_enterprise
+  string supportFee = 8;
+  double supportRate = 9;
+
+  // e.g., nondiscount, ...
+  string supportFeeCalcTarget = 10;
+  double supportFix = 11;
+
+  // e.g., percent, fix, automatic, usagetable
+  string substitutionFee = 12;
+  double substitutionRate = 13;
+
+  double substitutionFix = 14;
+
+  // e.g., nondiscount, ...
+  string substitutionFeeCalcTarget = 15;
+
+  // e.g., cloudpayonly, cloudpaywithfee
+  string substitutionFeeTargetUsage = 16;
+
+  // e.g., allsum, account 
+  string substitutionFeeCalcType = 17;
+
+  // Currency used for the invoice (e.g., "jpy", "inr")
+  string currency = 3;
+
+  // Exchange rate from USD to the invoice currency
+  // Example: If the invoice currency is "jpy" and 1 USD = 150 jpy, exchangeRate = 150
+  double exchangeRate = 18;
+
+  string memo = 19;
+
+  // e.g., account, tag
+  string calcType = 20;
+  repeated FreeFormItem additionalItems = 21;
+
+  double supportFeeAdjustment = 22;
+}
+
+message BasicInformation {
+  string billingGroupName = 2;
+  string billingGroupId = 3;
+  string companyName = 4;
+  optional string addressee = 5;
+  optional string country = 6;
+  optional string postalCode = 7;
+  optional string city = 8;
+  optional string phoneNumber = 9;
+  optional string addressLine1 = 10;
+  optional string addressLine2 = 11;
+  optional string state = 12;
+  optional string prefecture = 13;
+}
+
+message UpdateBillingGroupBasicInformationRequest {
+  string id = 1;
+  BasicInformation basicInformation = 2;
+}
+
+message UpdateBillingGroupCustomFieldsRequest {
+  string id = 1;
+  map<string, string> idToKey = 2;
+}
+
+message UpdateBillingGroupFreeFormatRequest {
+  string id = 1;
+  string vendor = 2;
+  repeated FreeFormItem items = 3;
+}
+
+message UpdateBillingGroupLinkedResourcesRequest {
+  string id = 1;
+  string vendor = 2;
+  string selectionMethod = 3;
+
+  // Account settings
+  repeated AccountToAdd accounts = 4;
+
+  // Tag settings for different customer accounts
+  repeated TagSetting settings = 5;
+  
+  // Non-tag settings for the billing group
+  optional NonTagSetting nonTagSetting = 6;
+
+  optional AccountOptions accountOptions = 7;
+}
+
+message UpdateBillingGroupInvoiceSettingsRequest {
+  string id = 1;
+  optional string billingTitle = 2;
+  optional string calculationType = 3;
+  optional string language = 4;
+
+  // Optional. Invoice Layout Config Id.
+  optional string invoiceLayoutConfigId = 5;
+}
+
+message UpdateBillingGroupResellerChargesRequest {
+  string id = 1;
+  optional string invoiceTemplate = 2;
+  CreateBillingGroupRequestInvoice invoice = 3;
+}
+
+message UpdateBillingGroupAdditionalChargesRequest {
+  string id = 1;
+
+  // CustomizedBillingServiceBillingSetting
+  message CustomizedBillingServiceBillingSetting {
+    // Required. [blueapi.api.ripple.CustomizedBillingService.id]
+    string id = 1 [(google.api.field_behavior) = REQUIRED];
+
+    // Required. [blueapi.api.ripple.ChargingTarget]
+    api.ripple.ChargingTarget chargingTarget = 2 [(google.api.field_behavior) = REQUIRED];
+
+    // Optional. if chargingTarget is BILLINGGROUP, `accounts` is set emptty.
+    //
+    // Specify the accountIds. For example: [`accountId1`,`accountId2`,`accountId3`]
+    repeated string accounts = 3 [(google.api.field_behavior) = OPTIONAL];
+  }
+
+  // Required. customized billing service setting.
+  repeated CustomizedBillingServiceBillingSetting aws = 2 [(google.api.field_behavior) = REQUIRED];
+  repeated CustomizedBillingServiceBillingSetting azure = 3 [(google.api.field_behavior) = REQUIRED];
+  repeated CustomizedBillingServiceBillingSetting gcp = 4 [(google.api.field_behavior) = REQUIRED];
+}
+
+message DeleteBillingGroupRequest {
+  string id = 1;
+}
+
+// Request message for the GetBillingGroupAccountSupportPlan rpc.
+message GetBillingGroupAccountSupportPlanRequest {
+  // Required. The billing internal id.
+  string id = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. At the moment, `aws` is supported.
+  string vendor = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for the GetBillingGroupAccountSupportPlan rpc.
+message GetBillingGroupAccountSupportPlanResponse {
+  // The billing internal id.
+  string id = 1;
+
+  // At the moment, `aws` is supported.
+  string vendor = 2;
+
+  // The enabled indicates whether the account support plan is enabled or disabled.
+  bool enabled = 3;
+
+  // The support plan setting. [blueapi.api.ripple.v1.BillingGroupAccountSupportPlan].
+  repeated api.ripple.v1.BillingGroupAccountSupportPlan setting = 4;
+}
+
+// Request message for the UpdateBillingGroupAccountSupportPlan rpc.
+message UpdateBillingGroupAccountSupportPlanRequest {
+  // Required. The billing internal id.
+  string id = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. At the moment, `aws` is supported.
+  string vendor = 2 [(google.api.field_behavior) = REQUIRED];
+
+  // Optional. The enabled indicates whether the account support plan is enabled or disabled.
+  bool enabled = 3 [(google.api.field_behavior) = OPTIONAL];
+
+  // Optional. The support plan setting. [blueapi.api.ripple.v1.BillingGroupAccountSupportPlan].
+  repeated api.ripple.v1.BillingGroupAccountSupportPlan setting = 4 [(google.api.field_behavior) = OPTIONAL];
+  
+  // Required.
+  // If the `enabled` is set, only the `enabled` will be updated. If you want to update all values, please set both `enabled` and `setting`.
+  google.protobuf.FieldMask updateMask = 5
+      [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetAnnouncementsRequest {
+  // Optional. Set empty to return all
+  string announcementId = 1;
+}
+
+message CreateAnnouncementRequest {
+  // Optional. Label description for the announcement
+  string label = 1;
+
+  // Required. Announcement type (eg. "info", "urgent")
+  string type = 2;
+
+  // Required. Announcement message (HTML format)
+  string contents = 3;
+
+  // Optional. Group Id that the announcement will apply
+  repeated string billingGroups = 4;
+
+  // Optional. Apply the announcement to all billing groups
+  bool allBillingGroups = 5;
+
+  // Required. Start time for the announcement (epoch time)
+  int64 start = 6;
+
+  // Required. End time for the announcement (epoch time)
+  int64 end = 7;
+
+  // Required. Announcement status ("enabled", "disabled")
+  string status = 8;
+}
+
+message UpdateAnnouncementRequest {
+  // Required
+  string announcementId = 1;
+  CreateAnnouncementRequest announcement = 2;
+}
+
+message UpdateAnnouncementsStatusRequest {
+  repeated string announcementId = 1;
+  string status = 2;
+}
+
+message UpdateAnnouncementDateRequest {
+  repeated string announcementId = 1;
+  // Required. Announcement date (epoch time)
+  int64 date = 2;
+}
+
+message DeleteAnnouncementRequest {
+  // Required
+  string announcementId = 1;
+}
+
+message Announcement {
+  string id = 1;
+  string label = 2;
+  string type = 3;
+  string message = 4;
+  repeated string billingGroups = 5;
+  bool allBillingGroups = 13;
+  string start = 6;
+  string end = 7;
+  string date = 8;
+  string status = 9;
+  string userStatus = 10;
+  string created = 11;
+  string updated = 12;
+}
+
+message GetBillingGroupAnnouncementsRequest{
+  // Optional. Set empty to return all
+  string groupId = 1;
+}
+
+message GetBillingGroupAnnouncementsResponse {
+  string groupId = 1;
+  string groupName = 2;
+  string companyId = 3;
+  repeated Announcement announcements = 4;
+}
+
+message GetCreditsRequest{}
+
+message Credit {
+  string id = 1;
+  string customerId = 2;
+  string customerName = 3;
+  double creditAmount = 4;
+  string term = 5;
+  string description = 6;
+  string created = 7;
+  double initialFee = 8;
+  double creditBalance = 9;
+  bool applied = 10;
+}
+
+message GetCsvSettingsRequest{}
+
+message CsvSetting {
+  string id = 1;
+  string name = 2;
+
+  message Column {
+    string name = 1;
+    string id = 2;
+    string description = 3;
+    bool enabled = 4;
+  }
+  repeated Column col = 3;
+}
+
+message UpdateInvoiceExchangeRateRequest {
+  // Required. Format: yyyymm.
+  string month = 1;
+
+  // Required. vendor (aws, gcp, or azure)
+  string vendor = 2;
+
+  // Required. Map of currency code to exchange rate value per USD
+  // ex. jpy:100 
+  map<string, double> exchangeRate = 3;
+
+  // Required. Billing group id to apply
+  repeated string groupIds = 4;
+}
+
+message ConvertInvoiceToPdfRequest{
+  // Required. Format: yyyymm.
+  string date = 1;
+
+  // billingInternalId of invoice to download
+  // ignored if allBillingGroups is set to true
+  repeated string billinggroups = 2;
+
+  // If true, download all created invoice
+  bool allBillingGroups = 3;
+
+}
+
+message ConvertInvoiceToPdfResponse {
+  string progress = 1;
+
+  // returns "" when not ready
+  // returns the direct download link
+  string downloadUrl = 2;
+}
+
+// ============================================================================
+// Paginated Billing Groups API Messages
+// ============================================================================
+
+// Request message for the Billing.ListBillingGroupsPaginated rpc.
+message ListBillingGroupsPaginatedRequest {
+  // Optional. Get only the value that set fieldMask.
+  //
+  // see more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto
+  google.protobuf.FieldMask field_mask = 1;
+
+  // Optional. Filter vendor accounts included in BillingGroup. Format: vendors=vendor1,vendor2,vendor3.
+  // For example, When Aws and Gcp to be filtered vendors=aws,gcp
+  // If you want to get all vendors, not set parameter.
+  string vendors = 2;
+
+  // Optional. Filter by calcType. Format: calType=account
+  // Valid values: account, tag
+  string calcType = 3;
+
+  // Optional. Filter by displayCost. Format: displayCost=unblended_cost
+  // valid values: unblended_cost, true_unblended_cost
+  string displayCost = 4;
+    
+  // Optional. For aws only, filter will be ignored for other vendors.
+  // Valid values: default, imported
+  string bgType = 5;
+
+  // Optional. Filter by company name.
+  string companyName = 6;
+
+  // Optional. Filter by billing group name.
+  string billingGroupName = 7;
+
+  // Optional. Filter by billing group id.
+  string billingGroupId = 8;
+
+  // Optional. Page size for pagination. Default is 50, maximum is 1000.
+  int32 pageSize = 9;
+
+  // Optional. Page number for pagination. Starts from 1. Default is 1.
+  int32 pageNumber = 10;
+}
+
+// Response row for paginated billing groups table.
+message BillingGroupListItem {
+  // Billing group display name.
+  string billingGroupName = 1;
+
+  // Billing group internal identifier.
+  string billingGroupId = 2;
+
+  // Company name tied to the billing group.
+  string companyName = 3;
+
+  // Billing group classification (e.g., ACCOUNT, TAG).
+  string billingGroupType = 4;
+
+  // Vendor availability entries.
+  message BillingGroupVendor {
+    // Vendor identifier, e.g., aws, azure, gcp.
+    string vendor = 1;
+
+    // Indicates whether the billing group has this vendor active.
+    bool enabled = 2;
+  }
+
+  // Per-vendor availability list.
+  repeated BillingGroupVendor vendors = 5;
+
+  // Billing group's internal id reference.
+  string billingInternalId = 6;
+}
+
+// Response message for the Billing.ListBillingGroupsPaginated rpc.
+message ListBillingGroupsPaginatedResponse {
+  // Flattened rows for the billing groups table.
+  repeated BillingGroupListItem billingGroups = 1;
+
+  // Total count of billing groups matching the filters.
+  int32 totalCount = 2;
+
+  // Current page number (1-based).
+  int32 currentPage = 3;
+
+  // Current page size.
+  int32 pageSize = 4;
+
+  // Total number of pages.
+  int32 totalPages = 5;
+}
+
+
+message ChildBillingGroupBasicInformation {
+  // Required. Child billing group id that is created by the client.
+  string id = 1;
+
+  // Child billing group internal Id. Required for get and list, optional for create and update.
+  string internalId = 6;
+
+  // Required. Parent internal Id.
+  string parentId = 2;
+
+  // Required. Root parent internal Id. If parentId and rootParentId are the same, it means this child is the 1st level after root.
+  string rootParentId = 5;
+ 
+  // Required. Child billing group name.
+  string name = 3;
+
+  // Required. Company name.
+  string companyName = 4;
+}
+
+
+message CustomizedBillingServiceBillingGroup {
+  // Required. [blueapi.api.ripple.CustomizedBillingService.id]
+  string id = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. vendor that applied to the CustomizedBillingService　config.
+  string vendor = 2 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. [blueapi.api.ripple.ChargingTarget]
+  api.ripple.ChargingTarget chargingTarget = 3 [(google.api.field_behavior) = REQUIRED];
+
+  // Optional. accounts that applied to the CustomizedBillingService　config.
+  repeated api.Account accounts = 4 [(google.api.field_behavior) = OPTIONAL];
+}
+
+
+// Contains basic information and invoice settings related data.
+message ChildBillingGroup {
+  // Required. Basic information for the child billing group.
+  ChildBillingGroupBasicInformation basicInformation = 1; 
+  
+  // Required. Invoice settings for the child billing group.
+  ChildBillingGroupInvoiceSettings invoiceSettings = 2;
+
+  // Required. Billing info for the child billing group.
+  api.ripple.BillingGroupInfo billingInfo = 3; 
+
+  // Indicates whether this child billing group has another child under it.
+  bool hasChild = 4; 
+  // AccountInvoiceServiceDiscounts serviceDiscounts = 3;
+  
+  // CustomizedBillingServiceBillingGroup customizedBillingServices = 4;
+}
+
+message ChildBillingGroupInvoiceSettings {
+  // AWS invoice settings
+  BillingGroupVendoredInvoiceSetting aws = 1;
+  
+  bool accountSupportPlanEnabled = 2;
+
+  // Optional. Only required when accountSupportPlanEnabled is true.
+  repeated api.ripple.v1.BillingGroupAccountSupportPlan accountSupportPlanSettings = 3;
+
+  // Azure invoice settings
+  // BillingGroupVendoredInvoiceSetting azure = 2;
+
+  // GCP invoice settings
+  // BillingGroupVendoredInvoiceSetting gcp = 3;
+}
+
+
+message CreateChildBillingGroupRequest {
+  // Required. Basic information for the child billing group.
+  ChildBillingGroupBasicInformation basicInformation = 1;
+  
+  // Optional. If fields are not set, will use values from root billing group.
+  blueapi.api.ripple.BillingGroupInfo billingInfo = 3;
+
+  // Required. Invoice settings for the child billing group.
+  ChildBillingGroupInvoiceSettings invoiceSettings = 2;
+
+  // Optional. Invoice layout config id to attach.
+  string invoiceLayoutConfigId = 4;
+
+  // AccountInvoiceServiceDiscounts serviceDiscounts = 3;
+  // CustomizedBillingServiceBillingGroup customizedBillingServices = 4;
+}
+
+message CreateChildBillingGroupResponse {}
+
+
+message GetChildBillingGroupRequest {
+  // Required. Internal Id
+  string internalId = 1;
+}
+
+message GetChildBillingGroupResponse {
+  ChildBillingGroup details = 1;
+}
+
+message ReadChildBillingGroupsRequest {
+  // Root parent Id. If not empty return all child billing group under the root parent.
+  // If both root and parent are empty returns all child billing groups under the MSP.
+  string rootId = 1;
+
+  // Parent Id. If not empty return all child billing group under the parent only, 
+  // If both root and parent are empty returns all child billing groups under the MSP.
+  string parentId = 2;
+}
+
+message UpdateChildBillingGroupRequest {
+  // Required. Internal Id
+  string internalId = 1;
+ 
+  // Required. Basic information for the child billing group.
+  ChildBillingGroupBasicInformation basicInformation = 2;
+
+  // Required. Billing info for the child billing group.
+  api.ripple.BillingGroupInfo billingInfo = 3;
+}
+
+message UpdateChildBillingGroupResponse {}
+
+message DeleteChildBillingGroupRequest {
+  // Required. Child billing group's internal Id
+  string internalId = 1;
+}
+
+message DeleteChildBillingGroupResponse {}
+
+message UpdateChildBillingGroupInvoiceSettingsRequest {
+  // Required. Internal Id
+  string internalId = 1;
+
+  // Required. Invoice settings for the child billing group.
+  ChildBillingGroupInvoiceSettings invoiceSettings = 2;
+
+  // Optional. Invoice layout config id to attach.
+  optional string invoiceLayoutConfigId = 3;
+}
+
+message UpdateChildBillingGroupInvoiceSettingsResponse {}
+
+
+message SetChildBillingGroupCustomizedBillingServiceRequest {
+  // Required. internal id of the child billing group.
+  string internalId = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. At the moment, `aws` is supported.
+  string vendor = 2 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. Root parent Id.
+  string rootId = 3 [(google.api.field_behavior) = REQUIRED];
+
+  // CustomizedBillingServiceBillingSetting
+  message CustomizedBillingServiceBillingSetting {
+    // Required. [blueapi.api.ripple.CustomizedBillingService.id]
+    string id = 1 [(google.api.field_behavior) = REQUIRED];
+
+    // Required. [blueapi.api.ripple.ChargingTarget]
+    api.ripple.ChargingTarget chargingTarget = 2 [(google.api.field_behavior) = REQUIRED];
+
+    // Optional. if chargingTarget is BILLINGGROUP, `accounts` is set emptty.
+    //
+    // Specify the accountIds. For example: [`accountId1`,`accountId2`,`accountId3`]
+    repeated string accounts = 3 [(google.api.field_behavior) = OPTIONAL];
+  }
+
+  // Required. customized billing service setting.
+  repeated CustomizedBillingServiceBillingSetting setting = 4 [(google.api.field_behavior) = REQUIRED];
+}
+
+
+message SetChildBillingGroupInvoiceServiceDiscountsRequest {
+  // Required. Internal Id of the child billing group.
+  string internalId = 1;
+
+  // Required.
+  //
+  // Service discount id.
+  string id = 2;
+}
+
+
+message SetChildBillingGroupAccountInvoiceServiceDiscountsRequest {
+  // Required. child billing group's internal Id.
+  string internalId = 1;
+
+  // Required.
+  repeated AccountServiceDiscounts accounts = 2;
+}
+
+message GetChildBillingGroupCustomizedBillingServiceRequest {
+  // Required. Internal Id
+  string internalId = 1;
+
+  // Required. At the moment, `aws` is supported.
+  string vendor = 2;
+}
+
+message GetChildBillingGroupCustomizedBillingServiceResponse {
+  // Required. [blueapi.api.ripple.CustomizedBillingService.id]
+  string id = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. vendor that applied to the CustomizedBillingService　config.
+  string vendor = 2 [(google.api.field_behavior) = REQUIRED];
+
+  // Required. [blueapi.api.ripple.ChargingTarget]
+  api.ripple.ChargingTarget chargingTarget = 3 [(google.api.field_behavior) = REQUIRED];
+
+  // Optional. accounts that applied to the CustomizedBillingService　config.
+  repeated api.Account accounts = 4 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message GetChildBillingGroupInvoiceServiceDiscountsRequest {
+  // Required. Child Billing Group Internal Id
+  string internalId = 1;
+}
+
+message GetChildBillingGroupInvoiceServiceDiscountsResponse {
+  // Service discount id
+  string id = 1;
+}
+
+message ReadChildBillingGroupAccountInvoiceServiceDiscountsRequest {
+  // Required. Child Billing Group Internal Id
+  string internalId = 1;
+}
+
+
+message BulkCreateBillingGroupRequest {
+  // Required. The cloud vendor for all billing groups in this CSV.
+  // Must be one of: aws, azure, gcp.
+  string vendor = 5;
+
+  // Required. The CSV file content as bytes.
+  bytes csvContent = 1;
+
+  // Optional. The delimiter used in the CSV file. Defaults to comma (,).
+  string delimiter = 2;
+
+  // Optional. Whether the CSV file has a header row. Defaults to true.
+  bool hasHeader = 3;
+
+  // Optional. If true, validate the CSV and check for errors without actually creating billing groups.
+  // Useful for validating CSV format and data before performing the actual bulk creation.
+  bool dryRun = 4;
+}
+
+message BulkCreateBillingGroupError {
+  // The index of the row that failed (zero-based).
+  int32 index = 1;
+
+  // The billing group ID that failed to create.
+  string billingGroupId = 2;
+
+  // Error message.
+  string message = 3;
+}
+
+// Metadata for the BulkCreateBillingGroup long-running operation.
+// Stored in protos.Operation.metadata.
+message BulkCreateBillingGroupMetadata {
+  // The current status: "pending", "processing", "completed", "partial_failed", "failed".
+  string status = 1;
+
+  // Total number of billing groups to create.
+  int32 totalCount = 2;
+
+  // Number of billing groups processed so far.
+  int32 processedCount = 3;
+
+  // Number of billing groups successfully created.
+  int32 successCount = 4;
+
+  // Number of billing groups that failed.
+  int32 failureCount = 5;
+
+  // Details of failed billing groups.
+  repeated BulkCreateBillingGroupError errors = 6;
+
+  // Job start timestamp (RFC 3339).
+  string startTime = 7;
+
+  // Job end timestamp. Empty if still running.
+  string endTime = 8;
+}
+
+message ExcludeServiceEntry {
+  // MSP (Managed Service Provider) ID.
+  string msp_id = 1;
+  // Cloud vendor (e.g., "aws", "gcp").
+  string vendor = 2;
+  // Payer/account ID.
+  string payer_id = 3;
+  // Cloud service name.
+  string service = 4;
+  // Product or SKU code.
+  string product = 5;
+  // List of payer IDs excepted from exclusion.
+  repeated string except_payer_id = 6;
+  // Action performed (e.g., "added", "updated", "deleted").
+  string action = 7;
+  // Operation status (e.g., "success", "error").
+  string status = 8;
+  // Optional error message if operation failed.
+  string error_message = 9;
+}
+message CreateExcludeServiceEntryRequest {
+  // MSP (Managed Service Provider) ID. Partition key for the exclude service entry.
+  string msp_id = 1;
+  // Cloud vendor (e.g., "aws", "gcp").
+  string vendor = 2;
+  // Payer/account ID to exclude. Use "all" or "*" to apply to all accounts.
+  string payer_id = 3;
+  // Cloud service name (e.g., "EC2", "BigQuery").
+  string service = 4;
+  // Product or SKU code (used for GCP or detailed exclusions).
+  string product = 5;
+  // List of payer IDs to be excepted from exclusion (used when payer_id is "all").
+  repeated string except_payer_id = 6;
+}
+message CreateExcludeServiceEntryResponse {
+  // The created exclude service entry.
+  ExcludeServiceEntry entry = 1;
+}
+message UpdateExcludeServiceEntryRequest {
+  // MSP (Managed Service Provider) ID. Partition key for the exclude service entry.
+  string msp_id = 1;
+  // Cloud vendor (e.g., "aws", "gcp").
+  string vendor = 2;
+  // Payer/account ID to update. Use "all" or "*" to apply to all accounts.
+  string payer_id = 3;
+  // Cloud service name (e.g., "EC2", "BigQuery").
+  string service = 4;
+  // Product or SKU code (used for GCP or detailed exclusions).
+  string product = 5;
+  // List of payer IDs to be excepted from exclusion (used when payer_id is "all").
+  repeated string except_payer_id = 6;
+}
+message UpdateExcludeServiceEntryResponse {
+  // The updated exclude service entry.
+  ExcludeServiceEntry entry = 1;
+}
+message DeleteExcludeServiceEntryRequest {
+  // MSP (Managed Service Provider) ID. Partition key for the exclude service entry.
+  string msp_id = 1;
+  // Cloud vendor (e.g., "aws", "gcp").
+  string vendor = 2;
+  // Payer/account ID to delete. Use "all" or "*" to apply to all accounts.
+  string payer_id = 3;
+  // Cloud service name (e.g., "EC2", "BigQuery").
+  string service = 4;
+  // Product or SKU code (used for GCP or detailed exclusions).
+  string product = 5;
+}
+message DeleteExcludeServiceEntryResponse {
+  // The deleted exclude service entry (or just status).
+  ExcludeServiceEntry entry = 1;
+}
+message ListExcludeServicesRequest {
+  // MSP (Managed Service Provider) ID. Partition key for the exclude service entries.
+  string msp_id = 1;
+  // Cloud vendor (e.g., "aws", "gcp"). If empty, returns all vendors for the MSP.
+  string vendor = 2;
+}
+message ListExcludeServicesResponse {
+  // List of all exclude service entries for the request.
+  repeated ExcludeServiceEntry entries = 1;
+}
+
+// Represents a single service with its associated names and SKUs.
+message ServiceItem {
+  // Service ID.
+  string id = 1;
+
+  // Service code.
+  string code = 2;
+
+  // List of display names for this service.
+  repeated string names = 3;
+
+  // List of SKU codes under this service.
+  repeated string skus = 4;
+}
+
+message ListServicesRequest {
+  // Required. Cloud vendor (e.g., "gcp"). Bound from the URL path.
+  string vendor = 1;
+
+  // Optional. Service code to filter by.
+  // Example values: "6F81-5844-456A" (Cloud Storage), "95FF-2EF5-5EA1" (Compute Engine),
+  // "152E-C115-5142" (Cloud SQL).
+  // Use ListServices without this field to retrieve all available service codes.
+  string code = 2;
+}
+
+message ListServicesResponse {
+  // List of services.
+  repeated ServiceItem data = 1;
+}
+
+message BulkLinkAccountRequest {
+  // Required. The cloud vendor for all accounts in this CSV.
+  // Must be one of: aws, azure, gcp.
+  string vendor = 5;
+
+  // Required. The CSV file content as bytes.
+  bytes csvContent = 1;
+
+  // Optional. The delimiter used in the CSV file. Defaults to comma (,).
+  string delimiter = 2;
+
+  // Optional. Whether the CSV file has a header row. Defaults to true.
+  bool hasHeader = 3;
+
+  // Optional. If true, validate the CSV and check for errors without actually linking accounts.
+  // Useful for validating CSV format and data before performing the actual bulk operation.
+  bool dryRun = 4;
+}
+
+message BulkLinkAccountError {
+  // The row index of the failed entry in the CSV (zero-based, excluding header).
+  int32 index = 1;
+
+  // The billing group ID from the failed row.
+  string billingGroupId = 2;
+
+  // The account ID from the failed row.
+  string accountId = 3;
+
+  // Human-readable error message.
+  string message = 4;
+}
+
+// Metadata for the BulkLinkAccount long-running operation.
+// Stored in protos.Operation.metadata.
+message BulkLinkAccountMetadata {
+  // The current status: "pending", "processing", "completed", "partial_failed", "failed".
+  string status = 1;
+
+  // Total number of account-link entries to process.
+  int32 totalCount = 2;
+
+  // Number of entries processed so far.
+  int32 processedCount = 3;
+
+  // Number of entries successfully linked.
+  int32 successCount = 4;
+
+  // Number of entries that failed.
+  int32 failureCount = 5;
+
+  // Details of failed entries.
+  repeated BulkLinkAccountError errors = 6;
+
+  // Job start timestamp (RFC 3339 / ISO 8601).
+  string startTime = 7;
+
+  // Job end timestamp. Empty if still running.
+  string endTime = 8;
+}
+
+// Request for BulkTagBillingGroup.
+message BulkTagBillingGroupRequest {
+  // Required. The CSV file content as bytes.
+  // Expected columns: billing_group_id, customer_id, key, value
+  bytes csvContent = 1;
+
+  // Optional. The operation mode.
+  // One of: "add" (default), "delete", "dry-run".
+  string mode = 2;
+}
+
+// Describes a single failed row in a BulkTagBillingGroup operation.
+message BulkTagBillingGroupError {
+  // The row index of the failed entry in the CSV (zero-based, excluding header).
+  int32 index = 1;
+
+  // The billing group ID from the failed row.
+  string billingGroupId = 2;
+
+  // The customer ID from the failed row.
+  string customerId = 3;
+
+  // The tag key from the failed row.
+  string key = 4;
+
+  // The tag value from the failed row.
+  string value = 5;
+
+  // Human-readable error message.
+  string message = 6;
+}
+
+// Metadata for the BulkTagBillingGroup long-running operation.
+// Stored in protos.Operation.metadata.
+message BulkTagBillingGroupMetadata {
+  // The current status: "pending", "processing", "completed", "partial_failed", "failed".
+  string status = 1;
+
+  // Total number of tag entries to process.
+  int32 totalCount = 2;
+
+  // Number of entries processed so far.
+  int32 processedCount = 3;
+
+  // Number of entries successfully processed.
+  int32 successCount = 4;
+
+  // Number of entries that failed.
+  int32 failureCount = 5;
+
+  // Details of failed entries.
+  repeated BulkTagBillingGroupError errors = 6;
+
+  // Job start timestamp (RFC 3339).
+  string startTime = 7;
+
+  // Job end timestamp. Empty if still running.
+  string endTime = 8;
+}
+
+
+message GetBillingGroupInvoiceLayoutConfigRequest {
+  // Required. The billing group internal id.
+  string id = 1;
+}
+
+
+message GetBillingGroupInvoiceLayoutConfigResponse {
+  blueapi.api.ripple.InvoiceLayout layout = 1;
+
+  // Layout id.
+  string id = 2;
+  
+  // Layout name.
+  string name = 3;
+}
+
+message SetBillingGroupInvoiceLayoutConfigRequest {
+  // Required. The billing group internal id.
+  string id = 1;
+
+  // Required. The layout id.
+  string layout_id = 2;
+}
+
+message CreateInvoiceLayoutConfigRequest {
+  // Required. The name of the invoice layout.
+  string name = 1;
+
+  // Required. The actual invoice layout configs.
+  blueapi.api.ripple.InvoiceLayout layout = 2;
+}
+
+message CreateInvoiceLayoutConfigResponse {
+  // The id assigned for this layout.
+  string layout_id = 1;
+}
+
+
+message UpdateInvoiceLayoutConfigRequest {
+  // Required. The layout id to be updated
+  string id = 1;
+
+  // Required. The new layout values.
+  blueapi.api.ripple.InvoiceLayout layout = 2;
+
+  // Optional. The updated name of this invoice layout config.
+  string name = 3;
+}
+
+message ReadInvoiceLayoutConfigRequest {}
+
+
+message ReadInvoiceLayoutConfigResponse {
+  // Invoice layout config id.
+  string id = 1;
+
+  // Invoice layout config name.
+  string name = 2;
+
+
+  blueapi.api.ripple.InvoiceLayout layout = 3;
+}
+
+message DeleteBillingGroupInvoiceLayoutConfigRequest {
+  // Required. The billing group internal id.
+  string id = 1;
+}
+
+message DeleteInvoiceLayoutConfigRequest {
+  // Required. The invoice layout config id.
+  string id = 1;
+}

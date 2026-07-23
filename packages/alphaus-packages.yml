@@ -1,0 +1,39 @@
+generated: '2026-07-17'
+method: searched
+source: https://labs.alphaus.cloud/docs/blueapi/client-sdks/ + https://github.com/alphauslabs
+packages:
+  - language: go
+    registry: go-modules
+    name: github.com/alphauslabs/blue-sdk-go
+    url: https://github.com/alphauslabs/blue-sdk-go
+    install: go get github.com/alphauslabs/blue-sdk-go
+    official: true
+    note: Blue platform client library for Go (mostly generated from protobuf).
+  - language: python
+    registry: pypi
+    name: alphausblue
+    url: https://pypi.org/project/alphausblue/
+    install: pip install alphausblue
+    official: true
+    note: "Alphaus KK's Blue API for Python (blue-sdk-python)."
+  - language: typescript
+    registry: github
+    name: blue-sdk-ts
+    url: https://github.com/alphauslabs/blue-sdk-ts
+    install: null
+    official: true
+    note: Blue platform client library for TypeScript (mostly generated). Not published to npm as of this pass; consumed from the GitHub repo.
+  - language: typescript
+    registry: npm
+    name: grpc-chunk-parser
+    url: https://www.npmjs.com/package/grpc-chunk-parser
+    install: npm install grpc-chunk-parser
+    official: true
+    note: Alphaus Labs helper for parsing gRPC chunk data (supports the TS SDK, not a full API client).
+  - language: go
+    registry: homebrew
+    name: bluectl
+    url: https://github.com/alphauslabs/bluectl
+    install: brew install alphauslabs/tap/bluectl
+    official: true
+    note: Official Alphaus CLI binary (command surface catalogued in cli/alphaus-cli.yml).

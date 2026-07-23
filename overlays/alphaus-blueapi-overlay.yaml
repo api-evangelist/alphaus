@@ -1,0 +1,47 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Alphaus Blue API
+  version: 1.0.0
+extends: openapi/alphaus-blueapi-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-enrichment: '2026-07-17'
+      x-apievangelist-provider: alphaus
+      x-api-host: api.alphaus.cloud
+      x-api-base-path: /m/blue
+      x-authentication:
+        type: oauth2
+        flow: clientCredentials
+        token_urls:
+          - https://login.alphaus.cloud/ripple/access_token
+          - https://login.alphaus.cloud/access_token
+        scope: openid
+        header: 'Authorization: Bearer <token>'
+      x-transport:
+        grpc: true
+        rest-via: grpc-gateway
+        protobuf: https://github.com/alphauslabs/blueapi
+      x-services:
+        - Organization
+        - Iam
+        - Admin
+        - Flags
+        - Cost
+        - Billing
+        - Operations
+        - Cover
+        - Pricing
+        - Flow
+        - Prism
+        - Vortex
+        - GuaranteedCommitments
+        - Luster
+        - Preferences
+  - target: $
+    update:
+      x-apievangelist-note: >-
+        The published OpenAPI is grpc-gateway-generated (Swagger 2.0) and omits securityDefinitions.
+        Authentication (OAuth2 client credentials, scope=openid) is documented separately and captured
+        in authentication/alphaus-authentication.yml. This overlay records the host, base path, and auth
+        so tooling can call the REST surface without re-reading the docs.

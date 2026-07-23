@@ -1,0 +1,33 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/alphaus-blueapi-openapi-original.json + docs
+standards:
+- id: oauth2
+  conforms: true
+  evidence: Docs document OAuth2 client_credentials grant at login.alphaus.cloud.
+- id: oidc
+  conforms: true
+  evidence: Token request uses scope=openid against login.alphaus.cloud/*/access_token.
+- id: grpc
+  conforms: true
+  evidence: Service + message definitions in protobuf, gRPC implementation.
+- id: protobuf
+  conforms: true
+  evidence: proto3 definitions published per service.
+- id: openapi2
+  conforms: true
+  evidence: grpc-gateway generates OpenAPI v2 (openapiv2/apidocs.swagger.json).
+- id: grpc-gateway
+  conforms: true
+  evidence: JSON/REST proxied to gRPC via grpc-gateway.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use google.rpc.Status, not application/problem+json.
+- id: json-api
+  conforms: false
+- id: fhir-r4
+  conforms: false
+- id: scim2
+  conforms: false
+- id: fapi
+  conforms: false

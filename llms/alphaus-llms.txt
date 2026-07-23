@@ -1,0 +1,265 @@
+# Alphaus | Documentation
+
+## Wave (中文-中国)
+
+- [Mobingi Wave 官方用户指南](https://docs.alphaus.cloud/wave-chi/master.md): Mobingi Wave的官方用户指南
+- [提前准备](https://docs.alphaus.cloud/wave-chi/mobingi-wave/prep.md): 在将引进 Wave 前的准备
+- [Mobingi Wave 概述](https://docs.alphaus.cloud/wave-chi/mobingi-wave/about-wave.md)
+- [帐单的确认方法](https://docs.alphaus.cloud/wave-chi/mobingi-wave/detail-check.md): 帐户每的利用额的查看方式。
+- [掌握标签的使用量](https://docs.alphaus.cloud/wave-chi/mobingi-wave/tag-report.md): 介绍标签功能的利用方法
+- [报告和CSV的看法](https://docs.alphaus.cloud/wave-chi/mobingi-wave/report-csv.md): 控制面板上的报告和CSV报告的比较说明。
+- [折扣和货币兑换的适用](https://docs.alphaus.cloud/wave-chi/mobingi-wave/apply-jpy.md): 如果您想要每月报告显示日元和想适用折扣时可利用的功能
+- [各种设置](https://docs.alphaus.cloud/wave-chi/mobingi-wave/settings.md): 设置画面的说明。
+
+## Mobingi CLI
+
+- [Overview](https://docs.alphaus.cloud/cli-en/master.md): Mobingi Documentation
+- [Global flags](https://docs.alphaus.cloud/cli-en/global-flags.md)
+- [Commands](https://docs.alphaus.cloud/cli-en/commands.md)
+
+## ALM v3.0
+
+- [What is ALM?](https://docs.alphaus.cloud/v3.0-english/master.md): Mobingi Documentation
+- [Getting started](https://docs.alphaus.cloud/v3.0-english/getting-started.md)
+- [Login for the first time](https://docs.alphaus.cloud/v3.0-english/getting-started/login-for-the-first-time.md)
+- [Adding AWS account](https://docs.alphaus.cloud/v3.0-english/getting-started/adding-aws-account.md)
+- [Adding Azure account](https://docs.alphaus.cloud/v3.0-english/getting-started/adding-azure-account.md)
+- [Adding Alibaba account](https://docs.alphaus.cloud/v3.0-english/getting-started/adding-alibaba-account.md)
+- [Adding GCP account](https://docs.alphaus.cloud/v3.0-english/getting-started/adding-gcp-account.md)
+- [Adding Fujitsu K5 account](https://docs.alphaus.cloud/v3.0-english/getting-started/adding-fujitsu-k5-account.md)
+- [ALM Template](https://docs.alphaus.cloud/v3.0-english/alm-template.md)
+- [What is ALM Template?](https://docs.alphaus.cloud/v3.0-english/alm-template/what-is-alm-template.md)
+- [Reference (2017-03-03)](https://docs.alphaus.cloud/v3.0-english/alm-template/reference-2017-03-03.md)
+- [ALM Template Language](https://docs.alphaus.cloud/v3.0-english/alm-template/alm-template-language.md)
+- [Example ALM Templates](https://docs.alphaus.cloud/v3.0-english/alm-template/example-alm-templates.md)
+- [ALM Agent](https://docs.alphaus.cloud/v3.0-english/alm-agent.md)
+- [Overview](https://docs.alphaus.cloud/v3.0-english/alm-agent/overview.md)
+- [Getting Started](https://docs.alphaus.cloud/v3.0-english/alm-agent/getting-started.md)
+- [Agent](https://docs.alphaus.cloud/v3.0-english/alm-agent/agent.md)
+- [Commands](https://docs.alphaus.cloud/v3.0-english/alm-agent/commands.md)
+- [Add-ons](https://docs.alphaus.cloud/v3.0-english/alm-agent/add-ons.md)
+- [Contributing](https://docs.alphaus.cloud/v3.0-english/alm-agent/contributing.md)
+- [RBAC](https://docs.alphaus.cloud/v3.0-english/rbac.md)
+- [Overview](https://docs.alphaus.cloud/v3.0-english/rbac/overview.md)
+- [What is RBAC?](https://docs.alphaus.cloud/v3.0-english/rbac/what-is-rbac.md)
+- [Getting started](https://docs.alphaus.cloud/v3.0-english/rbac/getting-started.md)
+- [Working with RBAC](https://docs.alphaus.cloud/v3.0-english/rbac/working-with-rbac.md)
+- [Release history](https://docs.alphaus.cloud/v3.0-english/rbac/release-history.md)
+- [Example RBAC roles](https://docs.alphaus.cloud/v3.0-english/rbac/example-rbac-roles.md)
+
+## Users/RBAC
+
+- [Overview](https://docs.alphaus.cloud/ur-en/master.md)
+- [Permissions](https://docs.alphaus.cloud/ur-en/permissions.md)
+
+## Ripple
+
+- [Mobingi Ripple Help Center](https://docs.alphaus.cloud/ripple-en/master.md)
+- [What is Mobingi Ripple?](https://docs.alphaus.cloud/ripple-en/mobingi-ripple/mobingi-ripple-toha.md)
+- [Ripple settings](https://docs.alphaus.cloud/ripple-en/mobingi-ripple/ripplenosettoappu.md)
+- [Preparation](https://docs.alphaus.cloud/ripple-en/mobingi-ripple/ripplenosettoappu/introduction.md)
+- [Invoice setting](https://docs.alphaus.cloud/ripple-en/mobingi-ripple/ripplenosettoappu/qiu-ding.md)
+- [Monthly Invoicing Procedure](https://docs.alphaus.cloud/ripple-en/mobingi-ripple/routine.md)
+- [1. Notification of confirmation of billing data](https://docs.alphaus.cloud/ripple-en/mobingi-ripple/routine/click-button.md)
+- [2. Exchange rate setting](https://docs.alphaus.cloud/ripple-en/mobingi-ripple/routine/2.-exchange-rate-setting.md)
+- [3. Include the cost of the shot in the bill](https://docs.alphaus.cloud/ripple-en/mobingi-ripple/routine/3.-include-the-cost-of-the-shot-in-the-bill.md)
+- [4. Create invoice](https://docs.alphaus.cloud/ripple-en/mobingi-ripple/routine/4-no.md)
+- [5. Check the invoice data](https://docs.alphaus.cloud/ripple-en/mobingi-ripple/routine/5-shitanotodaunrdo.md)
+- [6. Present invoice details to end user](https://docs.alphaus.cloud/ripple-en/mobingi-ripple/routine/6-endoyzniwo.md)
+- [Invoice](https://docs.alphaus.cloud/ripple-en/search-by-features/qiu.md)
+- [Reserved Instance](https://docs.alphaus.cloud/ripple-en/search-by-features/reserved-instance.md)
+- [Account and Group](https://docs.alphaus.cloud/ripple-en/search-by-features/account-and-group-1.md)
+- [Preferences](https://docs.alphaus.cloud/ripple-en/search-by-features/account-and-group.md)
+- [Add a new customer](https://docs.alphaus.cloud/ripple-en/in-detail/add-a-new-customer.md)
+- [Change RI allocation](https://docs.alphaus.cloud/ripple-en/in-detail/change-ri-allocation.md)
+- [Create Billing data with tags](https://docs.alphaus.cloud/ripple-en/in-detail/create-billing-data-with-tags.md)
+- [What is Wave for Reseller?](https://docs.alphaus.cloud/ripple-en/in-detail/what-is-wave-for-reseller.md)
+- [Setting of discounts and premium for each service](https://docs.alphaus.cloud/ripple-en/in-detail/setting-of-discounts-and-premium-for-each-service.md)
+- [Contents of CSV data](https://docs.alphaus.cloud/ripple-en/in-detail/contents-of-csv-data.md)
+- [Frequently asked Questions](https://docs.alphaus.cloud/ripple-en/in-detail/frequently-asked-questions.md)
+
+## API Reference
+
+- [Overview](https://docs.alphaus.cloud/api-reference/master.md)
+- [Endpoint limits](https://docs.alphaus.cloud/api-reference/endpoint-limits.md)
+- [Authentication](https://docs.alphaus.cloud/api-reference/authentication.md)
+- [Users](https://docs.alphaus.cloud/api-reference/users.md)
+- [API clients](https://docs.alphaus.cloud/api-reference/api-clients.md)
+- [Authorization (RBAC)](https://docs.alphaus.cloud/api-reference/authorization.md)
+- [Ripple](https://docs.alphaus.cloud/api-reference/ripple.md)
+- [User](https://docs.alphaus.cloud/api-reference/ripple/user.md)
+- [ExchangeRate](https://docs.alphaus.cloud/api-reference/ripple/exchangerate.md)
+- [BillingGroup](https://docs.alphaus.cloud/api-reference/ripple/billinggroup.md)
+- [Account](https://docs.alphaus.cloud/api-reference/ripple/account.md)
+- [Wave for Reseller](https://docs.alphaus.cloud/api-reference/ripple/reseller.md)
+- [OriginalCost](https://docs.alphaus.cloud/api-reference/ripple/original-cost.md)
+- [RI management](https://docs.alphaus.cloud/api-reference/ripple/ri-management.md)
+- [Recalculation](https://docs.alphaus.cloud/api-reference/ripple/recalculation.md)
+- [Invoice](https://docs.alphaus.cloud/api-reference/ripple/invoice.md)
+- [Export](https://docs.alphaus.cloud/api-reference/ripple/export.md)
+- [Project](https://docs.alphaus.cloud/api-reference/ripple/project.md)
+- [Wave](https://docs.alphaus.cloud/api-reference/wave-open-api.md)
+- [Pre-request](https://docs.alphaus.cloud/api-reference/wave-open-api/prerequest.md)
+- [Report](https://docs.alphaus.cloud/api-reference/wave-open-api/report.md)
+- [Status](https://docs.alphaus.cloud/api-reference/status.md)
+- [Ocean](https://docs.alphaus.cloud/api-reference/ocean.md)
+- [Credentials](https://docs.alphaus.cloud/api-reference/ocean/credentials.md)
+- [Deployments](https://docs.alphaus.cloud/api-reference/ocean/deployments.md)
+- [ALM (v3)](https://docs.alphaus.cloud/api-reference/alm-v3.md)
+
+## Ocean
+
+- [Overview](https://docs.alphaus.cloud/ocean-en/master.md)
+- [Template (v20180702)](https://docs.alphaus.cloud/ocean-en/template-2018-07-02.md)
+
+## Ripple (日本語)
+
+- [Ripple ヘルプセンター](https://docs.alphaus.cloud/ripple/master.md)
+- [Ripple とは？](https://docs.alphaus.cloud/ripple/guide/about-mobingi-ripple.md)
+- [Ripple のセットアップ](https://docs.alphaus.cloud/ripple/guide/set-up.md)
+- [Hourlyレポート解析の有効化](https://docs.alphaus.cloud/ripple/guide/set-up/prepare.md): Ripple の利用を開始するにあたり、事前に必要な設定をご説明します。
+- [顧客登録](https://docs.alphaus.cloud/ripple/guide/set-up/register-customer.md)
+- [請求書設定](https://docs.alphaus.cloud/ripple/guide/set-up/invoice-setting.md)
+- [毎月の請求書発行の手順](https://docs.alphaus.cloud/ripple/guide/routine.md)
+- [1. 請求データ確定の連絡](https://docs.alphaus.cloud/ripple/guide/routine/click-button.md)
+- [2. 為替レートの登録](https://docs.alphaus.cloud/ripple/guide/routine/set-conversion-rate.md)
+- [3. ショットの費用を請求に含める](https://docs.alphaus.cloud/ripple/guide/routine/add-fee.md)
+- [4. 請求書の作成](https://docs.alphaus.cloud/ripple/guide/routine/issue-invoice.md)
+- [5. 発行した請求明細の確認とダウンロード](https://docs.alphaus.cloud/ripple/guide/routine/download-csv.md)
+- [6. エンドユーザーに請求明細を提示](https://docs.alphaus.cloud/ripple/guide/routine/show-billing-statement.md)
+- [請求書](https://docs.alphaus.cloud/ripple/features/invoice.md)
+- [リザーブドインスタンス](https://docs.alphaus.cloud/ripple/features/ri.md)
+- [アカウントとグループ](https://docs.alphaus.cloud/ripple/features/account.md)
+- [ツール](https://docs.alphaus.cloud/ripple/features/tools.md)
+- [環境設定](https://docs.alphaus.cloud/ripple/features/preference.md)
+- [新規顧客を追加する](https://docs.alphaus.cloud/ripple/more-info/add-new-customer.md)
+- [請求書作成済みの請求書設定を変更する](https://docs.alphaus.cloud/ripple/more-info/invoice-created.md)
+- [請求書のマスタ設定を変更する](https://docs.alphaus.cloud/ripple/more-info/invoice-master.md)
+- [請求書に項目を追加する](https://docs.alphaus.cloud/ripple/more-info/free-format.md)
+- [プロジェクト単位で収支管理する](https://docs.alphaus.cloud/ripple/more-info/project-manage.md)
+- [RI のアロケーション変更](https://docs.alphaus.cloud/ripple/more-info/change-ri.md)
+- [タグでの請求データ作成](https://docs.alphaus.cloud/ripple/more-info/tag-invoice.md)
+- [Wave for Reseller とは](https://docs.alphaus.cloud/ripple/more-info/wave-for-reseller.md)
+- [サービス毎の割引・割増の設定](https://docs.alphaus.cloud/ripple/more-info/setting-per-service.md)
+- [CSVデータの中身](https://docs.alphaus.cloud/ripple/more-info/csv-data.md)
+- [各ページ情報をダウンロードする](https://docs.alphaus.cloud/ripple/more-info/download-pageinfo.md)
+- [請求書の英語表示/ドル請求](https://docs.alphaus.cloud/ripple/more-info/english-support.md)
+- [原価データを出力する](https://docs.alphaus.cloud/ripple/more-info/export-original-cost.md)
+- [よくあるお問い合わせ](https://docs.alphaus.cloud/ripple/more-info/faq.md)
+
+## ALM v2.0
+
+- [Mobingi Documentation (v2.0)](https://docs.alphaus.cloud/v2.0-english/master.md): Mobingi Documentation
+- [Getting started](https://docs.alphaus.cloud/v2.0-english/getting-started.md)
+- [Stack lifecycle](https://docs.alphaus.cloud/v2.0-english/guides-and-tutorials/stack-lifecycle.md)
+- [Deploy stack](https://docs.alphaus.cloud/v2.0-english/guides-and-tutorials/stack-lifecycle/deploy-stack.md)
+- [Manage stack](https://docs.alphaus.cloud/v2.0-english/guides-and-tutorials/stack-lifecycle/manage-stack.md)
+- [Docker](https://docs.alphaus.cloud/v2.0-english/guides-and-tutorials/docker.md)
+- [Custom Docker containers](https://docs.alphaus.cloud/v2.0-english/guides-and-tutorials/docker/custom-docker-containers.md)
+- [Others](https://docs.alphaus.cloud/v2.0-english/guides-and-tutorials/others.md)
+- [Blue-green deployment](https://docs.alphaus.cloud/v2.0-english/guides-and-tutorials/others/blue-green-deployment.md)
+- [How to use RDS](https://docs.alphaus.cloud/v2.0-english/guides-and-tutorials/others/how-to-use-rds.md)
+- [Environment variables](https://docs.alphaus.cloud/v2.0-english/guides-and-tutorials/others/environment-variables.md)
+- [Custom installation script](https://docs.alphaus.cloud/v2.0-english/guides-and-tutorials/others/custom-installation-script.md)
+- [SSH into your container](https://docs.alphaus.cloud/v2.0-english/guides-and-tutorials/others/ssh-into-your-container.md)
+- [FAQ](https://docs.alphaus.cloud/v2.0-english/guides-and-tutorials/faq.md)
+- [Overview](https://docs.alphaus.cloud/v2.0-english/api-reference/overview.md)
+- [Stacks](https://docs.alphaus.cloud/v2.0-english/api-reference/stacks.md)
+- [List stacks](https://docs.alphaus.cloud/v2.0-english/api-reference/stacks/list-stacks.md)
+- [Create stack](https://docs.alphaus.cloud/v2.0-english/api-reference/stacks/create-stack.md)
+- [Describe stack](https://docs.alphaus.cloud/v2.0-english/api-reference/stacks/describe-stack.md)
+- [Update stack](https://docs.alphaus.cloud/v2.0-english/api-reference/stacks/update-stack.md)
+- [Delete stack](https://docs.alphaus.cloud/v2.0-english/api-reference/stacks/delete-stack.md)
+- [Deploy code](https://docs.alphaus.cloud/v2.0-english/api-reference/stacks/deploy-code.md)
+- [Put lifecycle hook](https://docs.alphaus.cloud/v2.0-english/api-reference/stacks/put-lifecycle-hook.md)
+- [Get lifecycle hook](https://docs.alphaus.cloud/v2.0-english/api-reference/stacks/get-lifecycle-hook.md)
+- [Restart instance](https://docs.alphaus.cloud/v2.0-english/api-reference/stacks/restart-instance.md)
+- [Describe ServiceConfig](https://docs.alphaus.cloud/v2.0-english/api-reference/stacks/describe-serviceconfig.md)
+- [Update ServerConfig](https://docs.alphaus.cloud/v2.0-english/api-reference/stacks/update-serverconfig.md)
+- [Vendor credentials](https://docs.alphaus.cloud/v2.0-english/api-reference/vendor-credentials.md)
+- [List credentials](https://docs.alphaus.cloud/v2.0-english/api-reference/vendor-credentials/list-credentials.md)
+- [Save credentials](https://docs.alphaus.cloud/v2.0-english/api-reference/vendor-credentials/save-credentials.md)
+- [Delete credentials](https://docs.alphaus.cloud/v2.0-english/api-reference/vendor-credentials/delete-credentials.md)
+
+## Wave (日本語)
+
+- [Wave 公式ユーザーガイド](https://docs.alphaus.cloud/wave/master.md)
+- [Wave for AWS 概要](https://docs.alphaus.cloud/wave/alphaus-wave-aws/about-wave-aws.md): Alphaus Waveにログインする
+- [ダッシュボード](https://docs.alphaus.cloud/wave/alphaus-wave-aws/about-wave-aws/dashboard.md): ダッシュボードについての説明です。
+- [レポート](https://docs.alphaus.cloud/wave/alphaus-wave-aws/about-wave-aws/usage-reports.md): Waveのレポートページについての説明です。
+- [リザーブドインスタンス](https://docs.alphaus.cloud/wave/alphaus-wave-aws/about-wave-aws/reserved-instances.md)
+- [Savings Plans](https://docs.alphaus.cloud/wave/alphaus-wave-aws/about-wave-aws/savings-plans.md)
+- [ご利用明細](https://docs.alphaus.cloud/wave/alphaus-wave-aws/about-wave-aws/invoice.md)
+- [AWS - 機能詳細](https://docs.alphaus.cloud/wave/alphaus-wave-aws/aws-detail.md)
+- [予算・通知設定](https://docs.alphaus.cloud/wave/alphaus-wave-aws/aws-detail/budget.md): レポートページから各AWSアカウントに設定できる予算通知の使用・設定方法について記載しています。
+- [その他明細情報の確認](https://docs.alphaus.cloud/wave/alphaus-wave-aws/aws-detail/fee.md)
+- [タグ機能の有効化](https://docs.alphaus.cloud/wave/alphaus-wave-aws/aws-detail/tag.md)
+- [レポートとCSVの比較](https://docs.alphaus.cloud/wave/alphaus-wave-aws/aws-detail/reportcsv.md)
+- [Wave for Azure 概要](https://docs.alphaus.cloud/wave/alphaus-wave-azure/about-wave-azure.md)
+- [ダッシュボード](https://docs.alphaus.cloud/wave/alphaus-wave-azure/about-wave-azure/dashboard.md)
+- [レポート](https://docs.alphaus.cloud/wave/alphaus-wave-azure/about-wave-azure/reoport.md)
+- [リザーブドインスタンス](https://docs.alphaus.cloud/wave/alphaus-wave-azure/about-wave-azure/reservedinstance.md)
+- [ご利用明細](https://docs.alphaus.cloud/wave/alphaus-wave-azure/about-wave-azure/invoice.md)
+- [Wave for GCP 概要](https://docs.alphaus.cloud/wave/alphaus-wave-gcp/about-wave-gcp.md)
+- [ダッシュボード](https://docs.alphaus.cloud/wave/alphaus-wave-gcp/about-wave-gcp/dashboard.md)
+- [レポート](https://docs.alphaus.cloud/wave/alphaus-wave-gcp/about-wave-gcp/report.md)
+- [ご利用明細](https://docs.alphaus.cloud/wave/alphaus-wave-gcp/about-wave-gcp/invoice.md)
+- [各種設定・変更](https://docs.alphaus.cloud/wave/for-all/settings.md)
+- [ユーザーの管理](https://docs.alphaus.cloud/wave/for-all/rbac.md)
+
+## Wave
+
+- [Mobingi Wave Documentation](https://docs.alphaus.cloud/wave-eng/master.md): Alphaus Documentation
+- [Preparation](https://docs.alphaus.cloud/wave-eng/mobingi-wave/introduction.md): You only define your architecture requirements, plus where application code is hosted, then Mobingi ALM automates the rest for you
+
+## Wave PRO (日本語)
+
+- [Wave PRO 公式ユーザーガイド](https://docs.alphaus.cloud/projp/readme.md): Alphaus Documentation
+- [Wave PRO for AWS 概要](https://docs.alphaus.cloud/projp/wave-pro-for-aws/wave-pro-for-aws.md): Wave for AWS 概要
+- [ダッシュボード](https://docs.alphaus.cloud/projp/wave-pro-for-aws/wave-pro-for-aws/dashboard.md)
+- [レポート](https://docs.alphaus.cloud/projp/wave-pro-for-aws/wave-pro-for-aws/repto.md): レポート
+- [レポート- コスト](https://docs.alphaus.cloud/projp/wave-pro-for-aws/wave-pro-for-aws/budget-and-forecast.md): 予算設定・予測機能について
+- [レポート - 予算通知設定](https://docs.alphaus.cloud/projp/wave-pro-for-aws/wave-pro-for-aws/notification.md): レポート - 通知設定
+- [レポート - 分析](https://docs.alphaus.cloud/projp/wave-pro-for-aws/wave-pro-for-aws/repto-1.md): グラフについて
+- [レポート-レポート](https://docs.alphaus.cloud/projp/wave-pro-for-aws/wave-pro-for-aws/repto-repto.md): レポート
+- [レポートフィルター](https://docs.alphaus.cloud/projp/wave-pro-for-aws/wave-pro-for-aws/reportfilter.md): レポートのフィルタリング機能について
+- [API アクセストークンの発行](https://docs.alphaus.cloud/projp/wave-pro-for-aws/wave-pro-for-aws/api.md)
+- [SAMLベースのフェデレーション認証](https://docs.alphaus.cloud/projp/wave-pro-for-aws/wave-pro-for-aws/saml.md)
+- [サブユーザーの設定](https://docs.alphaus.cloud/projp/wave-pro-for-aws/wave-pro-for-aws/saml/subuser.md): Wave PROのサブユーザーで認証設定する手順
+- [Wave Pro for Azure 概要](https://docs.alphaus.cloud/projp/wave-pro-for-azure/wave-pro-for-azure.md): Azureの利用料をWave Proで可視化
+- [パスワードの変更](https://docs.alphaus.cloud/projp/settings/password.md)
+- [サブユーザーの管理 (RBAC)](https://docs.alphaus.cloud/projp/settings/rbac.md): Wave PROで利用できるサブユーザーの作成方法と権限の設定方法について記載しています。
+- [権限について](https://docs.alphaus.cloud/projp/settings/rbac/about-role.md)
+- [操作方法](https://docs.alphaus.cloud/projp/settings/rbac/how-to-use.md): サブユーザーの作成方法と権限の設定方法を記載しています。
+- [CSVの形式について](https://docs.alphaus.cloud/projp/csvnonitsuite.md)
+- [Aqua](https://docs.alphaus.cloud/projp/aqua.md)
+
+## Users/RBAC (日本語)
+
+- [概要](https://docs.alphaus.cloud/ur-jp/master.md)
+- [権限](https://docs.alphaus.cloud/ur-jp/permissions.md)
+- [RBACを使う](https://docs.alphaus.cloud/ur-jp/rbacwou.md): RBACページの利用方法を解説します。
+
+## Home
+
+- [Getting started](https://docs.alphaus.cloud/master.md): Alphaus Documentation
+- [Release notes](https://docs.alphaus.cloud/release-notes.md)
+- [2020-02-19](https://docs.alphaus.cloud/release-notes/2020-02-19.md)
+- [2020-02-14](https://docs.alphaus.cloud/release-notes/2020-02-14.md)
+- [2020-01-10](https://docs.alphaus.cloud/release-notes/2020-01-10.md)
+- [2019-12-30](https://docs.alphaus.cloud/release-notes/2019-12-30.md)
+- [2019-12-13](https://docs.alphaus.cloud/release-notes/tbd-2019-11-22.md)
+
+## Wave PRO (English)
+
+- [Wave PRO User Guide](https://docs.alphaus.cloud/wave-pro-english/wave-pro-user-guide.md): User Guide
+
+## Aqua (日本語)
+
+- [Aqua公式ユーザーガイド](https://docs.alphaus.cloud/aqua/aqua-user-guide.md)
+- [ダッシュボード](https://docs.alphaus.cloud/aqua/exp/dashboard.md): ダッシュボード
+- [インスタンス使用状況](https://docs.alphaus.cloud/aqua/exp/utilization.md)
+- [インスタンス予約管理](https://docs.alphaus.cloud/aqua/exp/ri-sp.md)
+- [RI/SP レコメンデーション](https://docs.alphaus.cloud/aqua/exp/recommendation.md): レコメンデーション
+- [サイズ最適化](https://docs.alphaus.cloud/aqua/exp/right-sizing.md)
+- [スケジュール](https://docs.alphaus.cloud/aqua/exp/scheduling.md)

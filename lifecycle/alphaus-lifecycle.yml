@@ -1,0 +1,23 @@
+generated: '2026-07-17'
+method: searched
+source: https://status.alphaus.cloud/ + https://labs.alphaus.cloud/docs/ + github.com/alphauslabs/blueapi
+versioning:
+  scheme: uri-path
+  current: v1
+  base_path: /m/blue
+  note: proto packages are versioned blueapi.<service>.v1; REST base path is /m/blue on api.alphaus.cloud.
+status_page: https://status.alphaus.cloud/
+support:
+  knowledgebase: https://help.alphaus.cloud/en/
+  email: support@alphaus.cloud
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No formal deprecation/sunset policy or RFC 8594 header support found in docs or spec.
+sla:
+  url: null
+  note: Endpoint limits documented under the (legacy) API reference; no public uptime SLA found.
+deprecated_operations: []
+note: >-
+  Status page confirmed live (HTTP 200). Deprecation policy and SLA not published on the public
+  developer surface as of this pass.

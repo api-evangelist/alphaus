@@ -1,0 +1,21 @@
+generated: '2026-07-17'
+method: searched
+source: https://labs.alphaus.cloud/docs/blueapi/authentication/
+docs: https://labs.alphaus.cloud/docs/blueapi/authentication/
+schemes:
+  - name: OAuth2ClientCredentials
+    flow: clientCredentials
+    token_urls:
+      - https://login.alphaus.cloud/ripple/access_token
+      - https://login.alphaus.cloud/access_token
+scopes:
+  - scope: openid
+    description: >-
+      OpenID Connect scope requested in the client_credentials token exchange. Blue API documents
+      scope=openid for the access-token request; fine-grained authorization beyond the token is
+      enforced by the Iam service (RBAC roles/permissions), not by additional OAuth scopes.
+    flows: [clientCredentials]
+    sources: [https://labs.alphaus.cloud/docs/blueapi/authentication/]
+note: >-
+  Blue API uses OAuth2 client credentials with a single openid scope; authorization granularity is
+  handled by RBAC (Iam service), not a published OAuth scope catalog.

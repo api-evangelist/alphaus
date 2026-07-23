@@ -1,0 +1,43 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/alphaus-blueapi-openapi-original.json
+format: grpc-status
+envelope:
+  schema: rpcStatus
+  fields:
+  - code
+  - message
+  - details
+  note: Blue API is gRPC + grpc-gateway; REST errors surface the standard google.rpc.Status envelope.
+    gRPC status codes map to HTTP via grpc-gateway.
+source_operation_count: 586
+problems:
+- grpc_code: INVALID_ARGUMENT
+  http: 400
+  meaning: Client specified an invalid argument or malformed request.
+- grpc_code: UNAUTHENTICATED
+  http: 401
+  meaning: Missing, invalid, or expired OAuth2 bearer token.
+- grpc_code: PERMISSION_DENIED
+  http: 403
+  meaning: Authenticated caller lacks RBAC permission for the operation.
+- grpc_code: NOT_FOUND
+  http: 404
+  meaning: Requested resource does not exist.
+- grpc_code: ALREADY_EXISTS
+  http: 409
+  meaning: Resource being created already exists.
+- grpc_code: RESOURCE_EXHAUSTED
+  http: 429
+  meaning: Rate limit or quota exceeded.
+- grpc_code: FAILED_PRECONDITION
+  http: 400
+  meaning: System not in a state required for the operation.
+- grpc_code: INTERNAL
+  http: 500
+  meaning: Internal server error.
+- grpc_code: UNAVAILABLE
+  http: 503
+  meaning: Service temporarily unavailable; retry with backoff.
+note: Every operation declares a default response of type rpcStatus (google.rpc.Status). HTTP mappings
+  from standard grpc-gateway status mapping.

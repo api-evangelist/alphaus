@@ -1,0 +1,69 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/alphaus-blueapi-openapi-original.json
+note: 'Derived from Blue API OpenAPI (1169 message defs across 15 services): service/entity overview plus
+  id-reference fields linking resources.'
+services:
+- name: Organization
+  operation_count: 7
+  proto: null
+- name: Iam
+  operation_count: 39
+  proto: grpc/alphaus-iam.proto
+- name: Admin
+  operation_count: 29
+  proto: grpc/alphaus-admin.proto
+- name: Flags
+  operation_count: 2
+  proto: null
+- name: Cost
+  operation_count: 73
+  proto: grpc/alphaus-cost.proto
+- name: Billing
+  operation_count: 146
+  proto: grpc/alphaus-billing.proto
+- name: Operations
+  operation_count: 4
+  proto: grpc/alphaus-operations.proto
+- name: Cover
+  operation_count: 164
+  proto: grpc/alphaus-cover.proto
+- name: Pricing
+  operation_count: 3
+  proto: grpc/alphaus-pricing.proto
+- name: Flow
+  operation_count: 18
+  proto: grpc/alphaus-flow.proto
+- name: Prism
+  operation_count: 32
+  proto: grpc/alphaus-prism.proto
+- name: Vortex
+  operation_count: 6
+  proto: grpc/alphaus-vortex.proto
+- name: GuaranteedCommitments
+  operation_count: 43
+  proto: null
+- name: Luster
+  operation_count: 19
+  proto: grpc/alphaus-luster.proto
+- name: Preferences
+  operation_count: 1
+  proto: grpc/alphaus-preferences.proto
+id_reference_fields:
+- field: groupId
+  refers_to: account group / billing group
+- field: costGroupId
+  refers_to: Cover cost group
+- field: orgId
+  refers_to: organization
+- field: payerId
+  refers_to: AWS/vendor payer account
+- field: billingInternalId
+  refers_to: Ripple billing group
+- field: viewId
+  refers_to: Cover cost view
+- field: spaceId
+  refers_to: Luster space
+- field: companyId
+  refers_to: Ripple company
+definition_count: 1169

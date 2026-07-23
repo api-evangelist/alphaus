@@ -1,0 +1,40 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/alphaus-blueapi-openapi-original.json + https://labs.alphaus.cloud/docs/blueapi/
+authentication:
+  style: oauth2-client-credentials
+  header: 'Authorization: Bearer <token>'
+  token_urls:
+  - https://login.alphaus.cloud/ripple/access_token
+  - https://login.alphaus.cloud/access_token
+  ref: authentication/alphaus-authentication.yml
+protocols:
+  grpc: true
+  rest: true
+  transport_note: protobuf + gRPC with grpc-gateway JSON/REST proxy; OpenAPI v2 generated from proto.
+idempotency:
+  supported: false
+  note: No idempotency-key header or parameter documented in the OpenAPI or the docs.
+pagination:
+  style: unknown
+  note: No global pageToken/pageSize parameters detected; many list operations stream results (gRPC server-streaming
+    exposed as REST).
+error_envelope:
+  schema: google.rpc.Status (rpcStatus)
+  fields:
+  - code
+  - message
+  - details
+  ref: errors/alphaus-problem-types.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  base_path: /m/blue
+  note: proto packages versioned blueapi.<service>.v1.
+field_mask:
+  supported: true
+  param: fieldMask
+  note: Update operations accept google.protobuf.FieldMask (fieldMask) for partial updates.
+multi_vendor:
+  param: vendor
+  note: Many cost/billing operations take a vendor path param (aws, azure, gcp).

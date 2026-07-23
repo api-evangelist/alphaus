@@ -1,25 +1,293 @@
 aid: alphaus
 name: Alphaus
-description: Alphaus is a company surfaced as a portfolio company of 500-global and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Alphaus is a Tokyo-based cloud FinOps company (No. 1 in Japan) whose platform helps enterprises,
+  managed service providers, and cloud resellers manage and optimize multi-cloud spend across AWS,
+  Azure, and GCP. Its products include Octo (cost visibility and optimization), Ripple and WavePro
+  (reseller billing automation and invoicing), and Cover (cost anomaly detection and recommendation
+  intelligence). Developers integrate through the Blue API — a unified protobuf/gRPC surface with a
+  grpc-gateway JSON/REST proxy and generated OpenAPI — spanning 15 services and nearly 600 operations,
+  complemented by the bluectl CLI and Go, Python, and TypeScript SDKs.
 url: https://raw.githubusercontent.com/api-evangelist/alphaus/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://cdn.prod.website-files.com/657180a2db5e5db9774cd4a3/65ba1d60bf395fcd9cbb3bdb_home.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - 500-global
-x-tier: stub
+x-tier: enriched
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
 modified: '2026-07-17'
 tags:
 - Company
-apis: []
+- FinOps
+- Cloud Cost Management
+- Cloud
+- Billing
+- Multi-Cloud
+- AWS
+- Azure
+- GCP
+- gRPC
+- Cost Optimization
+- Reseller Billing
+- API
+apis:
+- aid: alphaus:alphaus-admin-api
+  name: Alphaus Admin API
+  description: 'Admin API. Base URL: https://api.alphaus.cloud/m/blue'
+  humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
+  baseURL: https://api.alphaus.cloud/m/blue
+  tags:
+  - Admin
+  properties:
+  - type: OpenAPI
+    url: openapi/alphaus-admin-api-openapi.yml
+  - type: Protobuf
+    url: grpc/alphaus-cost.proto
+- aid: alphaus:alphaus-billing-api
+  name: Alphaus Billing API
+  description: '(BETA) Billing API. Base URL: https://api.alphaus.cloud/m/blue/billing'
+  humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
+  baseURL: https://api.alphaus.cloud/m/blue
+  tags:
+  - Billing
+  properties:
+  - type: OpenAPI
+    url: openapi/alphaus-billing-api-openapi.yml
+  - type: Protobuf
+    url: grpc/alphaus-cost.proto
+- aid: alphaus:alphaus-cost-api
+  name: Alphaus Cost API
+  description: 'Cost API. Base URL: https://api.alphaus.cloud/m/blue/cost'
+  humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
+  baseURL: https://api.alphaus.cloud/m/blue
+  tags:
+  - Cost
+  properties:
+  - type: OpenAPI
+    url: openapi/alphaus-cost-api-openapi.yml
+  - type: Protobuf
+    url: grpc/alphaus-cost.proto
+- aid: alphaus:alphaus-cover-api
+  name: Alphaus Cover API
+  description: '(BETA) Cover API. Base URL: https://api.alphaus.cloud/m/blue/cover'
+  humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
+  baseURL: https://api.alphaus.cloud/m/blue
+  tags:
+  - Cover
+  properties:
+  - type: OpenAPI
+    url: openapi/alphaus-cover-api-openapi.yml
+  - type: Protobuf
+    url: grpc/alphaus-cost.proto
+- aid: alphaus:alphaus-flags-api
+  name: Alphaus Flags API
+  description: '(ALPHA) Flag API. Base URL: https://api.alphaus.cloud/m/blue'
+  humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
+  baseURL: https://api.alphaus.cloud/m/blue
+  tags:
+  - Flags
+  properties:
+  - type: OpenAPI
+    url: openapi/alphaus-flags-api-openapi.yml
+  - type: Protobuf
+    url: grpc/alphaus-cost.proto
+- aid: alphaus:alphaus-flow-api
+  name: Alphaus Flow API
+  description: '(ALPHA) Flow API. Base URL: https://api.alphaus.cloud/m/blue/flow'
+  humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
+  baseURL: https://api.alphaus.cloud/m/blue
+  tags:
+  - Flow
+  properties:
+  - type: OpenAPI
+    url: openapi/alphaus-flow-api-openapi.yml
+  - type: Protobuf
+    url: grpc/alphaus-cost.proto
+- aid: alphaus:alphaus-guaranteedcommitments-api
+  name: Alphaus GuaranteedCommitments API
+  description: '(Alpha) GuaranteedCommitments API. Base URL: https://api.alphaus.cloud/m/blue/gc'
+  humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
+  baseURL: https://api.alphaus.cloud/m/blue
+  tags:
+  - GuaranteedCommitments
+  properties:
+  - type: OpenAPI
+    url: openapi/alphaus-guaranteedcommitments-api-openapi.yml
+  - type: Protobuf
+    url: grpc/alphaus-cost.proto
+- aid: alphaus:alphaus-iam-api
+  name: Alphaus Iam API
+  description: '(BETA) IAM API. Base URL: https://api.alphaus.cloud/m/blue'
+  humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
+  baseURL: https://api.alphaus.cloud/m/blue
+  tags:
+  - Iam
+  properties:
+  - type: OpenAPI
+    url: openapi/alphaus-iam-api-openapi.yml
+  - type: Protobuf
+    url: grpc/alphaus-cost.proto
+- aid: alphaus:alphaus-luster-api
+  name: Alphaus Luster API
+  description: '(ALPHA) Luster API. Base URL: https://api.alphaus.cloud/m/blue/luster'
+  humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
+  baseURL: https://api.alphaus.cloud/m/blue
+  tags:
+  - Luster
+  properties:
+  - type: OpenAPI
+    url: openapi/alphaus-luster-api-openapi.yml
+  - type: Protobuf
+    url: grpc/alphaus-cost.proto
+- aid: alphaus:alphaus-operations-api
+  name: Alphaus Operations API
+  description: '(BETA) Long operations API. Base URL: https://api.alphaus.cloud/m/blue'
+  humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
+  baseURL: https://api.alphaus.cloud/m/blue
+  tags:
+  - Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/alphaus-operations-api-openapi.yml
+  - type: Protobuf
+    url: grpc/alphaus-cost.proto
+- aid: alphaus:alphaus-organization-api
+  name: Alphaus Organization API
+  description: '(BETA) Organization API. Base URL: https://api.alphaus.cloud/m/blue'
+  humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
+  baseURL: https://api.alphaus.cloud/m/blue
+  tags:
+  - Organization
+  properties:
+  - type: OpenAPI
+    url: openapi/alphaus-organization-api-openapi.yml
+  - type: Protobuf
+    url: grpc/alphaus-cost.proto
+- aid: alphaus:alphaus-preferences-api
+  name: Alphaus Preferences API
+  description: '(BETA) Preferences API. Base URL: https://api.alphaus.cloud/m/blue'
+  humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
+  baseURL: https://api.alphaus.cloud/m/blue
+  tags:
+  - Preferences
+  properties:
+  - type: OpenAPI
+    url: openapi/alphaus-preferences-api-openapi.yml
+  - type: Protobuf
+    url: grpc/alphaus-cost.proto
+- aid: alphaus:alphaus-pricing-api
+  name: Alphaus Pricing API
+  description: '(BETA) Pricing API. Base URL: https://api.alphaus.cloud/m/blue/pricing'
+  humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
+  baseURL: https://api.alphaus.cloud/m/blue
+  tags:
+  - Pricing
+  properties:
+  - type: OpenAPI
+    url: openapi/alphaus-pricing-api-openapi.yml
+  - type: Protobuf
+    url: grpc/alphaus-cost.proto
+- aid: alphaus:alphaus-prism-api
+  name: Alphaus Prism API
+  description: '(Alpha) Prism API. Base URL: https://api.alphaus.cloud/m/blue/prism'
+  humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
+  baseURL: https://api.alphaus.cloud/m/blue
+  tags:
+  - Prism
+  properties:
+  - type: OpenAPI
+    url: openapi/alphaus-prism-api-openapi.yml
+  - type: Protobuf
+    url: grpc/alphaus-cost.proto
+- aid: alphaus:alphaus-vortex-api
+  name: Alphaus Vortex API
+  description: '(Alpha) Vortex API. Base URL: https://api.alphaus.cloud/m/blue/vortex'
+  humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
+  baseURL: https://api.alphaus.cloud/m/blue
+  tags:
+  - Vortex
+  properties:
+  - type: OpenAPI
+    url: openapi/alphaus-vortex-api-openapi.yml
+  - type: Protobuf
+    url: grpc/alphaus-cost.proto
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/alphaus-agentic-access.yml
+- type: DomainSecurity
+  url: security/alphaus-domain-security.yml
 - type: Website
   url: https://alphaus.cloud
+- type: DeveloperPortal
+  url: https://labs.alphaus.cloud/docs/blueapi/overview/
+- type: Documentation
+  url: https://labs.alphaus.cloud/docs/
+- type: APIReference
+  url: https://labs.alphaus.cloud/blueapidocs/
+- type: GettingStarted
+  url: https://labs.alphaus.cloud/docs/blueapi/overview/
+- type: Authentication
+  url: authentication/alphaus-authentication.yml
+- type: OAuthScopes
+  url: scopes/alphaus-scopes.yml
+- type: Support
+  url: https://help.alphaus.cloud/en/
+- type: Blog
+  url: https://labs.alphaus.cloud/blog/
+- type: GitHubOrganization
+  url: https://github.com/alphauslabs
+- type: Login
+  url: https://login.alphaus.cloud/
+- type: TermsOfService
+  url: https://www.alphaus.cloud/en/ripple-wave-terms-of-services
+- type: PrivacyPolicy
+  url: https://www.alphaus.cloud/en/privacy
+- type: StatusPage
+  url: https://status.alphaus.cloud/
+- type: Lifecycle
+  url: lifecycle/alphaus-lifecycle.yml
+- type: Packages
+  url: packages/alphaus-packages.yml
+- type: SDKs
+  url: packages/alphaus-packages.yml
+- type: CLI
+  url: cli/alphaus-cli.yml
+- type: Conventions
+  url: conventions/alphaus-conventions.yml
+- type: ErrorCatalog
+  url: errors/alphaus-problem-types.yml
+- type: Conformance
+  url: conformance/alphaus-conformance.yml
+- type: DataModel
+  url: data-model/alphaus-data-model.yml
+- type: MCPServer
+  url: mcp/alphaus-mcp.yml
+- type: LLMsTxt
+  url: llms/alphaus-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

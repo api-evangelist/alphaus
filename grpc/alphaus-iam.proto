@@ -1,0 +1,755 @@
+syntax = "proto3";
+
+package blueapi.iam.v1;
+
+import "api/user.proto";
+import "api/grouprootuser.proto";
+import "api/apiclient.proto";
+import "api/rbac.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/alphauslabs/blueapi/iam";
+option java_package = "cloud.alphaus.api.iam";
+option java_outer_classname = "IamProto";
+
+// IAM service definition.
+service Iam {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+    description: "(BETA) IAM API. Base URL: https://api.alphaus.cloud/m/blue"
+    external_docs: {
+      url: "https://github.com/alphauslabs/blueapi/tree/main/iam/";
+      description: "Service definition";
+    }
+  };
+
+  // Gets user information about the caller. This call includes all of the user metadata.
+  // See [https://alphauslabs.github.io/blueapi/] for the list of supported attributes.
+  rpc WhoAmI(WhoAmIRequest) returns (api.User) {
+    option (google.api.http) = {
+      get: "/iam/v1/whoami"
+    };
+  }
+
+  // Lists all subusers.
+  rpc ListUsers(ListUsersRequest) returns (stream api.User) {
+    option (google.api.http) = {
+      get: "/iam/v1/users"
+    };
+  }
+
+  // Gets subuser information. This call includes all of the subuser metadata. See
+  // [https://alphauslabs.github.io/blueapi/] for the list of supported attributes.
+  // If the `{name}` parameter is `me` or `-`, returns the caller information, which
+  // is equivalent to `WhoAmI()` or `GET:/iam/v*/whoami`.
+  rpc GetUser(GetUserRequest) returns (api.User) {
+    option (google.api.http) = {
+      get: "/iam/v1/users/{id}"
+    };
+  }
+
+  // Creates a subuser.
+  rpc CreateUser(CreateUserRequest) returns (api.User) {
+    option (google.api.http) = {
+      post: "/iam/v1/users"
+      body: "*"
+    };
+  }
+
+  // Deletes a subuser.
+  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/iam/v1/users/{id}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Creates a new root user for a billing group or access group.
+  rpc CreateGroupRootUser(CreateGroupRootUserRequest) returns (api.GroupRootUser) {
+    option (google.api.http) = {
+      post: "/iam/v1/grouprootusers"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Retrieves all the existing group root users asscoiated with the organization.
+  rpc ListGroupRootUsers(ListGroupRootUsersRequest) returns (stream api.GroupRootUser) {
+    option (google.api.http) = {
+      get: "/iam/v1/grouprootusers"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Retrieves a group root user.
+  rpc GetGroupRootUser(GetGroupRootRequest) returns (api.GroupRootUser) {
+    option (google.api.http) = {
+      get: "/iam/v1/grouprootusers/{id}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Deletes an existing group root user.
+  rpc DeleteGroupRootUser(DeleteGroupRootUserRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/iam/v1/grouprootusers/{id}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Retrieves the features available to a user on an Alphaus product.
+  // 
+  // For a list of valid feature flags, see our documentation at https://labs.alphaus.cloud/docs/blueapi/apis/iam/.
+  rpc GetFeatureFlags(GetFeatureFlagsRequest) returns (api.FeatureFlags) {
+    option (google.api.http) = {
+      get: "/iam/v1/grouprootusers/{id}/features"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Updates the features available to a user on an Alphaus product.
+  // 
+  // For a list of valid feature flags, see our documentation at https://labs.alphaus.cloud/docs/blueapi/apis/iam/.
+  rpc UpdateFeatureFlags(UpdateFeatureFlagsRequest) returns (api.FeatureFlags) {
+    option (google.api.http) = {
+      put: "/iam/v1/grouprootusers/{id}/features"
+      body: "*"
+    };
+  }
+
+  // Lists all API clients belonging to the caller.
+  rpc ListApiClients(ListApiClientsRequest) returns (stream api.ApiClient) {
+    option (google.api.http) = {
+      get: "/iam/v1/apiclients"
+    };
+  }
+
+  // Creates an API client for the caller.
+  rpc CreateApiClient(CreateApiClientRequest) returns (api.ApiClient) {
+    option (google.api.http) = {
+      post: "/iam/v1/apiclients"
+      body: "*"
+    };
+  }
+
+  // Deletes an API client belonging to the caller.
+  rpc DeleteApiClient(DeleteApiClientRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/iam/v1/apiclients/{id}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Lists all permissions based on the input's scope. For reference, supported permissions can be found on [https://github.com/mobingi/rbac-permissions].
+  rpc ListPermissions(ListPermissionsRequest) returns (ListPermissionsResponse) {
+    option (google.api.http) = {
+      get: "/iam/v1/permissions"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Lists all available roles.
+  rpc ListRoles(ListRolesRequest) returns (ListRolesResponse) {
+    option (google.api.http) = {
+      get: "/iam/v1/roles"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Creates a role. If your `permissions` list contains an `Admin` entry, all other entries will be discarded except `Admin`. Roles are root user-level. That means all roles created by the root user, or any subuser that has permissions to create roles, are available to all subusers.
+  rpc CreateRole(CreateRoleRequest) returns (api.Role) {
+    option (google.api.http) = {
+      post: "/iam/v1/roles"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Updates a role. If role name is different, rename mapped role name.
+  rpc UpdateRole(UpdateRoleRequest) returns (api.Role) {
+    option (google.api.http) = {
+      put: "/iam/v1/roles/{namespace}/{name}"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Deletes a role. Deleting a role will also remove all mappings.
+  rpc DeleteRole(DeleteRoleRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/iam/v1/roles/{namespace}/{name}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Lists roles attached to the caller or the input.
+  rpc ListUserRoleMappings(ListUserRoleMappingsRequest) returns (ListUserRoleMappingsResponse) {
+    option (google.api.http) = {
+      get: "/iam/v1/userroles"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Maps roles to a subuser. You can only map (or attach) up to 5 roles to a user per namespace. There is no limit for filtering rules per user.
+  rpc CreateUserRoleMapping(CreateUserRoleMappingRequest) returns (CreateUserRoleMappingResponse) {
+    option (google.api.http) = {
+      post: "/iam/v1/userroles"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Updates user-to-role mappings. You can only map (or attach) up to 5 roles to a user per namespace. There is no limit for filtering rules per user.
+  rpc UpdateUserRoleMapping(UpdateUserRoleMappingRequest) returns (UpdateUserRoleMappingResponse) {
+    option (google.api.http) = {
+      put: "/iam/v1/userroles"
+      body: "*"
+    };
+  }
+
+  // Lists all SSO Identity Providers (IdP).
+  rpc ListIdentityProviders(ListIdentityProvidersRequest) returns (ListIdentityProvidersResponse) {
+    option (google.api.http) = {
+      get: "/iam/v1/idps"
+    };
+  }
+
+  // Registers an SSO Identity Provider (IdP).
+  rpc CreateIdentityProvider(CreateIdentityProviderRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/iam/v1/idps"
+      body: "*"
+    };
+  }
+
+  // Deletes an SSO Identity Provider (IdP).
+  rpc DeleteIdentityProvider(DeleteIdentityProviderRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/iam/v1/idps/{id}"
+    };
+  }
+
+  // Lists all IP filters. At the moment, this API is only available to root users.
+  rpc ListIpFilters(ListIpFiltersRequest) returns (stream IpFilter) {
+    option (google.api.http) = {
+      get: "/iam/v1/ipfilters"
+    };
+  }
+
+  // Creates an IP filter item for IP blacklisting or whitelisting. At the moment, this API is only available to root users.
+  rpc CreateIpFilter(CreateIpFilterRequest) returns (IpFilter) {
+    option (google.api.http) = {
+      post: "/iam/v1/ipfilters"
+      body: "*"
+    };
+  }
+
+  // Deletes an IP filter item. At the moment, this API is only available to root users.
+  rpc DeleteIpFilter(DeleteIpFilterRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/iam/v1/ipfilters/{id}"
+    };
+  }
+
+  // BETA: Creates a partner token for custom integrations. Available only to Ripple and Cover users.
+  rpc CreatePartnerToken(CreatePartnerTokenRequest) returns (PartnerToken) {
+    option (google.api.http) = {
+      post: "/iam/v1/partners/{id}/token"
+      body: "*"
+    };
+  }
+
+  // BETA: Refreshes an expired partner token. Only partners are expected to call this API.
+  rpc RefreshPartnerToken(RefreshPartnerTokenRequest) returns (PartnerToken) {
+    option (google.api.http) = {
+      post: "/iam/v1/partners/{id}/token:refresh"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Verify User Input For Reset Password
+  rpc VerifyUserForResetPassword(VerifyUserForResetPasswordRequest) returns (VerifyUserForResetPasswordResponse) {
+    option (google.api.http) = {
+      post: "/iam/v1/{user}/password:verify"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Get Sub User Metadata for login user's organization based on user identity
+  rpc GetSubUserMetadata(GetSubUserRequest) returns (api.SubUser) {
+    option (google.api.http) = {
+      get: "/iam/v1/metadata/{id}"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Validate reset password link and proceed to update password
+  rpc ValidateResetPasswordLinkAndChangePassword(ValidateResetPasswordLinkAndChangePasswordRequest) returns (ValidateResetPasswordLinkAndChangePasswordResponse) {
+    option(google.api.http) = {
+      post: "/iam/v1/password:reset"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: List MFA users info for login user's organization based on status.
+  rpc GetMFAUsers(MFAUsersInfoRequest) returns (MFAUsersInfoResponse) {
+    option (google.api.http) = {
+      get: "/iam/v1/mfausers"
+    };
+  }  
+
+  // WORK-IN-PROGRESS: Send an email reset code
+  rpc SendRipplePasswordResetCode(SendRipplePasswordResetCodeRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/iam/v1/ripple/password:requestresetcode"
+      body: "*"
+    };
+  } 
+
+  // WORK-IN-PROGRESS: Reset ripple password using code from email
+  rpc ResetRipplePassword(ResetRipplePasswordRequest) returns (ResetRipplePasswordResponse) {
+    option (google.api.http) = {
+      post: "/iam/v1/ripple/password:reset"
+      body: "*"
+    };
+  }
+
+  // Gets experimental UI preferences for the authenticated MSP.
+  rpc GetExperimentalUIPreferences(GetExperimentalUIPreferencesRequest) returns (GetExperimentalUIPreferencesResponse) {
+    option (google.api.http) = {
+      get: "/iam/v1/experimentalui/preferences"
+    };
+  }
+
+  // Creates or updates an experimental UI preference for a specific component.
+  rpc UpsertExperimentalUIPreference(UpsertExperimentalUIPreferenceRequest) returns (UpsertExperimentalUIPreferenceResponse) {
+    option (google.api.http) = {
+      put: "/iam/v1/experimentalui/preferences/{component_id}"
+      body: "*"
+    };
+  }
+
+  // WORK-IN-PROGRESS: Unlocks ripple or wave user account.
+  rpc UnlockUserAccount(UnlockUserAccountRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/iam/v1/{domain}/account:unlock"
+      body: "*"
+    };
+  }
+}
+
+// Request message for the Iam.WhoAmI rpc.
+message WhoAmIRequest {}
+
+// Request message for the Iam.ListUsers rpc.
+message ListUsersRequest {}
+
+// Request message for the Iam.GetUser rpc.
+message GetUserRequest {
+  string id = 1;
+}
+
+// Request message for the Iam.CreateUser rpc.
+message CreateUserRequest {
+  // Required. Min: 4, max: 18, allowed characters: letters, numbers, `_` (underscore), `.` (period) and `-` (hyphen) characters.
+  string name = 1;
+
+  // Required. Minimum of 8 characters.
+  string password = 2;
+
+  // Optional. Email address of the subuser.
+  string email = 3;
+
+  // Optional. Nickname or description. It is set to 'name' if empty.
+  string nickName = 4;
+}
+
+// Request message for the Iam.DeleteUser rpc.
+message DeleteUserRequest {
+  // Required. The subuser name to delete.
+  string id = 1;
+}
+
+// Request message for the Iam.CreateGroupRootUser rpc
+message CreateGroupRootUserRequest {
+  // The email address of the user being created.
+  string email = 1;
+
+  // The password of the user being created. A value will be generated if not is provided for this field
+  string password = 2;
+
+  // The ID of the group to which the user will be added. This must either be a billing group ID or an access group ID.
+  string groupId = 3;
+
+  // The type of group which is represented by the group ID. Valid values include "billing_group" or "access_group".
+  string groupType = 4;
+
+  // This value determines whether the password should be auto-generated or if the plaintext value received with the request should be used. A value of "Auto" will result in an auto-generated password whereas a value of "Custom" will result in the password included with the request being used.
+  string inputType = 5;
+
+  // The plan associated with the root-user account. Valid values include "trial", "limited3" and "limited4".
+  string plan = 6;
+
+  // Whether or not a notification should be sent to the provided email after the user has been created.
+  bool emailNotification = 7;
+
+  // A collection of feature flags and whether or not they should be enabled. For a full list of such flags, see https://labs.alphaus.cloud/docs/blueapi/apis/iam/.
+  api.FeatureFlags meta = 8;
+}
+
+// Request message for the Iam.ListGroupRootUsers rpc.
+message ListGroupRootUsersRequest {}
+
+// Request message for the Iam.GetGroupRootUser rpc.
+message GetGroupRootRequest {
+  string id = 1;
+}
+
+// Request message for the Iam.DeleteGroupRootUser rpc.
+message DeleteGroupRootUserRequest {
+  string id = 1;
+}
+
+// Request message for the Iam.GetUpdateFeatureFlags rpc.
+message GetFeatureFlagsRequest {
+  string id = 1;
+}
+
+// Request message for the Iam.UpdateFeatureFlags rpc.
+message UpdateFeatureFlagsRequest {
+  string id = 1;
+  api.FeatureFlags featureFlags = 2;
+}
+
+// Request message for the Iam.ListApiClients rpc.
+message ListApiClientsRequest {}
+
+// Request message for the Iam.CreateApiClient rpc.
+message CreateApiClientRequest {
+  // Required. The descriptive name of the API client to create.
+  string name = 1;
+}
+
+// Request message for the Iam.DeleteApiClient rpc.
+message DeleteApiClientRequest {
+  // Required. The client id to delete.
+  string id = 1;
+}
+
+// Request message for the Iam.ListPermissions rpc.
+message ListPermissionsRequest {
+  // Optional. The subuser to query. If empty (default), query all available permissions. If set to a valid subuser, query that subuser's permissions, if allowed. You can also set this field to `me` to query your own permissions.
+  string subUser = 1;
+}
+
+// Response message for the Iam.ListPermissions rpc.
+message ListPermissionsResponse {
+  repeated api.Permission permissions = 1;
+}
+
+// Request message for the Iam.ListRoles rpc.
+message ListRolesRequest {
+  // Optional. If not set, all roles will be returned.
+  string namespace = 1;
+}
+
+// Response message for the Iam.ListRoles rpc.
+message ListRolesResponse {
+  repeated api.Role roles = 1;
+}
+
+// Request message for the Iam.CreateRole rpc.
+message CreateRoleRequest {
+  // Required. The name of the role to create. Role names should have at least 6 characters in length and 32 characters maximum. It should also be alphanumeric. Hyphens and underscores are allowed in between. The regular expression used for validation is `^[A-Za-z0-9][A-Za-z0-9_-]*[A-Za-z0-9]$`.
+  string name = 1;
+
+  // Required. The namespace where this role will belong.
+  string namespace = 2;
+
+  // Required. The list of permissions to attach to this role.
+  repeated string permissions = 3;
+}
+
+// Request message for the Iam.UpdateRole rpc.
+message UpdateRoleRequest {
+  // Required. The new namespace.
+  string namespace = 1;
+
+  // Required. The role name to update.
+  string name = 2;
+
+  // Optional. If set, update the current name to this.
+  string newName = 3;
+
+  // Required. The list of permissions to attach to this role.
+  repeated string permissions = 4;
+}
+
+// Request message for the Iam.DeleteRole rpc.
+message DeleteRoleRequest {
+  // Required. The parent namespace.
+  string namespace = 1;
+
+  // Required. The role name to delete.
+  string name = 2;
+}
+
+// Request message for the Iam.ListUserRoleMappings rpc.
+message ListUserRoleMappingsRequest {
+  // Optional. The subuser to query. Defaults to caller if not set.
+  string subUser = 1;
+}
+
+// Response message for the Iam.ListUserRoleMappings rpc.
+message ListUserRoleMappingsResponse {
+  repeated api.UserRoleMapping userRoleMappings = 1;
+}
+
+message MapRole {
+  string namespace = 1;
+  string role = 2;
+}
+
+// Request message for the Iam.CreateUserRoleMapping rpc.
+message CreateUserRoleMappingRequest {
+  // Optional. The subuser to map the roles. Defaults to caller if not set.
+  string subUser = 1;
+
+  // Required. The roles to map to the user. Limited to 5 items.
+  repeated MapRole roles = 2;
+}
+
+// Response message for the Iam.CreateUserRoleMapping rpc.
+message CreateUserRoleMappingResponse {
+  repeated string success = 1;
+  repeated string failed = 2;
+  repeated string filters = 3;
+}
+
+// Request message for the Iam.UpdateUserRoleMapping rpc.
+message UpdateUserRoleMappingRequest {
+  // Optional. The subuser to map the roles. Defaults to caller if not set.
+  string subUser = 1;
+
+  // Required. The roles to map to the user. Limited to 5 items. Setting `role` to empty will remove the mapping.
+  repeated MapRole roles = 2;
+}
+
+// Response message for the Iam.UpdateUserRoleMapping rpc.
+message UpdateUserRoleMappingResponse {
+  repeated string success = 1;
+  repeated string failed = 2;
+  repeated string filters = 3;
+}
+
+// Request message for the Iam.ListIdentityProviders rpc.
+message ListIdentityProvidersRequest {}
+
+// Response message for the Iam.ListIdentityProviders rpc.
+message ListIdentityProvidersResponse {
+  message IdentityProvider {
+    string id = 1;
+    string name = 2;
+    string type = 3;
+
+    message samlInfo {
+      string metadata = 1;
+    }
+
+    samlInfo saml = 4;
+  }
+
+  repeated IdentityProvider data = 1;
+}
+
+// Request message for the Iam.CreateIdentityProvider rpc.
+message CreateIdentityProviderRequest {
+  // Required. The IdP name.
+  string name = 1;
+
+  // Required. Value is `saml`.
+  string type = 2;
+
+  // Required. The contents of the metadata file from your IdP.
+  string metadata = 3;
+}
+
+// Request message for the Iam.DeleteIdentityProvider rpc.
+message DeleteIdentityProviderRequest {
+  // Required. The IdP id to delete.
+  string id = 1;
+}
+
+message IpFilter {
+  // IP filter item id. Note that this name is transcient and is not fixed. However, you can use any of its permutations to endpoints that accept it, such as the `DELETE:/iam/v?/ipfilters/{id}` endpoint, without issues.
+  string id = 1;
+
+  // Can be `global`, `rootuser`, or `subuser`.
+  string scope = 2;
+
+  // The target of the filter. If global scope, this is usually empty. Rootuser name for rootuser scope, and subuser name for subuser scope. For subuser targets, format is `rootuser/subuser`.
+  string target = 3;
+
+  // The type of IP filter. It could be `whitelist` or `blacklist`.
+  string type = 4;
+
+  // The IP filter value. Should be in CIDR format.
+  string value = 5;
+}
+
+// Request message for the Iam.ListIpFilters rpc.
+message ListIpFiltersRequest {}
+
+// Request message for the Iam.CreateIpFilter rpc.
+message CreateIpFilterRequest {
+  // Required. The IP input to filter, either blacklist or whitelist. Should be in CIDR format (i.e. `1.2.3.4/32`).
+  string value = 1;
+
+  // Optional. Can be `whitelist` or `blacklist`. Defaults to `blacklist` if empty.
+  string type = 2;
+
+  // Optional. If `rootUser` is valid and `subUser` is empty, filter is for this rootuser. If both `rootUser` and `subUser` inputs are empty, filter is at global scope.
+  string rootUser = 3;
+
+  // Optional. If `subuser` is valid, filter is for this subuser; `rootUser` value is discarded. If both `rootUser` and `subUser` inputs are empty, filter is at global scope.
+  string subUser = 4;
+}
+
+// Request message for the Iam.DeleteIpFilter rpc.
+message DeleteIpFilterRequest {
+  // The IP filter id to delete.
+  string id = 1;
+}
+
+message PartnerToken {
+  string token = 1;
+}
+
+// Request message for the Iam.CreatePartnerToken rpc.
+message CreatePartnerTokenRequest {
+  // Required. Partner id or audience for the token.
+  string id = 1;
+}
+
+// Request message for the Iam.RefreshPartnerToken rpc.
+message RefreshPartnerTokenRequest {
+  // Required. Partner id or audience for the token.
+  string id = 1;
+
+  // Required. The previous (old) token to be refreshed.
+  string token = 2;
+}
+
+// Request message for Iam.VerifyUserForResetPassword rpc.
+message VerifyUserForResetPasswordRequest {
+  string user = 1;
+}
+// Response message for Iam.VerifyUserForResetPassword rpc.
+message VerifyUserForResetPasswordResponse {
+  bool doesUserExists = 1;
+}
+
+//Request for message Iam.ValidateVerificationCode rpc.
+message ValidateResetPasswordLinkAndChangePasswordRequest {
+  string originalEncodedCode = 1;
+  string userInputEncodedCode = 2;
+}
+
+//Response for message Iam.ValidateVerificationCode rpc.
+message ValidateResetPasswordLinkAndChangePasswordResponse {
+  bool isPasswordUpdated = 1;
+  bool isResetPasswordLinkValid = 2;
+  string errorMessage = 3;
+}
+
+// Request message for the Iam.MFAUsersInfoRequest rpc.
+message MFAUsersInfoRequest {
+  // Optional. If non empty: list users by status. Otherwise will list all MFA users.
+  string status = 1;
+}
+
+message MFAUser {
+  string id = 1;
+  string name = 2;
+  string type = 3;
+  string status = 4;
+  string createdAt = 5;
+}
+
+// Response message for the MFAUsersInfoResponse rpc.
+message MFAUsersInfoResponse {
+  repeated MFAUser users = 1;
+}
+
+
+// Request message for the Iam.GetSubUserMetadata rpc.
+message GetSubUserRequest {
+  // Required. The parent ID
+  string id = 1; 
+  // Optional. The sub-user ID
+  string subId = 2;
+}
+
+// Request message for ripple account password recovery
+message SendRipplePasswordResetCodeRequest {
+  // Required. Ripple account email address
+  string email = 1;
+}
+
+// Request message for resetting ripple password
+message ResetRipplePasswordRequest {
+  // Required. Reset code from email 
+  string resetCode = 1;
+
+  // Required. Atleast 8 characters
+  string newPassword = 2;
+}
+
+message ResetRipplePasswordResponse {
+  // Ripple account information of the reseted password
+  string userName = 1;
+  string email = 2;
+}
+
+// ExperimentalUIPreference holds the UI version preference and banner state for a single component.
+message ExperimentalUIPreference {
+  // The component identifier this preference applies to.
+  string component_id = 1;
+
+  // The selected UI version for the component (e.g. "v1" or "v2").
+  string version = 2;
+
+  // Whether the experimental banner has been dismissed for this component.
+  bool banner_dismissed = 3;
+
+  // The timestamp of the last update.
+  google.protobuf.Timestamp updated_at = 4;
+}
+
+// Request message for the Iam.GetExperimentalUIPreferences rpc.
+// The MSP identity is derived from the auth token server-side.
+message GetExperimentalUIPreferencesRequest {}
+
+// Response message for the Iam.GetExperimentalUIPreferences rpc.
+message GetExperimentalUIPreferencesResponse {
+  // The list of experimental UI preferences for the authenticated MSP.
+  repeated ExperimentalUIPreference preferences = 1;
+}
+
+// Request message for the Iam.UpsertExperimentalUIPreference rpc.
+message UpsertExperimentalUIPreferenceRequest {
+  // The component identifier to create or update a preference for.
+  string component_id = 1;
+
+  // The selected UI version for the component (e.g. "v1" or "v2").
+  string version = 2;
+
+  // Whether the experimental banner has been dismissed for this component.
+  bool banner_dismissed = 3;
+}
+
+// Response message for the Iam.UpsertExperimentalUIPreference rpc.
+message UpsertExperimentalUIPreferenceResponse {
+  // The created or updated preference.
+  ExperimentalUIPreference preference = 1;
+}
+
+message UnlockUserAccountRequest {
+  // Required. Valid values are 'ripple' and 'wave'
+  string domain = 1;
+
+  // Required. The email of the user account to unlock.
+  string email = 2;
+
+  // IsRoot is true if Ripple or Wave root user, false if sub user.
+  bool is_root = 3;
+
+  // Required if wave sub user.
+  string user_name = 4;
+}

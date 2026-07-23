@@ -1,0 +1,145 @@
+syntax = "proto3";
+
+package blueapi.pricing.v1;
+
+import "api/pricing/details.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/alphauslabs/blueapi/pricing";
+option java_package = "cloud.alphaus.api.pricing";
+option java_outer_classname = "PricingProto";
+
+// Pricing service definition.
+service Pricing {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+    description: "(BETA) Pricing API. Base URL: https://api.alphaus.cloud/m/blue/pricing"
+    external_docs: {
+      url: "https://github.com/alphauslabs/blueapi/tree/main/pricing/";
+      description: "Service definition";
+    }
+  };
+
+  // Test endpoint only.
+  rpc GetInfo(GetInfoRequest) returns (GetInfoResponse) {
+    option (google.api.http) = {
+      get: "/v0/info"
+    };
+  }
+
+  //WORK-IN-PROGRESS: Get cloud pricing information
+  rpc GetPricing(GetPricingRequest) returns (GetPricingResponse) {
+    option (google.api.http) = {
+      post: "/v0/{vendor}/pricing"
+      body: "*"
+    };
+  }
+
+  //WORK-IN-PROGRESS: Get list of supported services, regions, attributes, and columns for filtering
+  rpc GetSupportedServices(GetSupportedServicesRequest) returns (GetSupportedServicesResponse) {
+    option (google.api.http) = {
+      get: "/v0/{vendor}/services"
+    };
+  }
+}
+
+// Request message for the Pricing.GetInfo rpc.
+message GetInfoRequest {}
+
+// Response message for the Pricing.GetInfo rpc.
+message GetInfoResponse {
+  string response = 1;
+}
+
+// Request message for Pricing.GetPricing rpc.
+message GetPricingRequest {
+
+  //Required. Cloud vendor, only `aws` and `azure` are currently supported.
+  string vendor = 1;
+
+  // Required. Cloud vendor service. 
+  // Supported services can be listed using `/{vendor}/services` endpoint. For usage information visit https://labs.alphaus.cloud/blueapidocs/#/Pricing/Pricing_GetSupportedServices.
+  string service = 2;
+
+  // Required. Region code.
+  // Supported regions can be listed using `/{vendor}/services` endpoint. For usage information visit https://labs.alphaus.cloud/blueapidocs/#/Pricing/Pricing_GetSupportedServices.
+  // View all available AWS services by region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.
+  // View all available Azure services by region at https://azure.microsoft.com/en-us/explore/global-infrastructure/products-by-region/.
+  string region = 3;
+
+  // Optional. Supply token that is included in the latest response to continue fetching the remaining chunks of data. No further data can be retrieved once the token returned is empty.
+  string token = 4;
+
+  // Optional. Filters to apply to the pricing data.
+  // This is a map of column names and values to filter pricing items. Each key-value pair in the map represents a filter condition.
+  // Supported filter key-value pairs can be listed using `/{vendor}/services` endpoint. For usage information visit https://labs.alphaus.cloud/blueapidocs/#/Pricing/Pricing_GetSupportedServices.
+  // 
+  // For example, if you want to return AWS EC2 items that has All Upfront purchase option, add `"purchaseOption": "All Upfront"` to the filters.
+  //
+  // Multiple key-value pairs are supported but keys should not be duplicated.
+  // For example, for AWS EC2, the following is valid,
+  // ```
+  // "filters": {
+  //   "purchaseOption": "All Upfront",
+  //   "operatingSystem": "Windows"
+  // }
+  // ```
+  // but not the following,
+  // ```
+  // "filters": {
+  //   "purchaseOption": "All Upfront",
+  //   "purchaseOption": "Partial Upfront"
+  // }
+  // ```
+  map<string, string> filters = 6;
+
+  // Optional. Only specified columns will be returned, if provided.
+  // All columns will be returned if this array is empty.
+  // Supported columns can be listed using `/{vendor}/services` endpoint. For usage information visit https://labs.alphaus.cloud/blueapidocs/#/Pricing/Pricing_GetSupportedServices.
+  repeated string columns = 5;
+}
+
+// Response message for Pricing.GetPricing rpc.
+message GetPricingResponse {
+  // Use token to retrieve next set of pricing items. An empty string means there are no more items to retrieve.
+  string token = 1;
+
+  // Array of pricing items details. Maximum number of items returned per call is 1000.
+  repeated api.pricing.PricingData pricingData = 2;
+}
+
+// Request message for Pricing.GetSupportedServices rpc.
+message GetSupportedServicesRequest{
+  // Required. Cloud vendor, only `aws` and `azure` are currently supported.
+  string vendor = 1;
+}
+
+// Response message for Pricing.GetSupportedServices rpc.
+message GetSupportedServicesResponse {
+  // Suported services, regions, and attributes that can be used to specify which pricing data to retrieve from `/{vendor}/pricing`.
+  // For usage information, visit https://labs.alphaus.cloud/blueapidocs/#/Pricing/Pricing_GetPricing.
+  repeated SupportedService supportedServices = 1;
+}
+
+message SupportedService {
+  // AWS or Azure services only as of now.
+  string service = 1;
+
+  // Array of regions supported for the specific service.
+  repeated string regions = 2;
+
+  // Array of attributes that can be used as key-value pairs for filtering.
+  repeated Attribute attributes = 3;
+
+  // Array of column names that can be used to specify what columns should `/{vendor}/pricing` return.
+  // For usage information, visit https://labs.alphaus.cloud/blueapidocs/#/Pricing/Pricing_GetPricing.
+  repeated string columns = 4;
+}
+
+message Attribute {
+  // Filter key.
+  string key = 1;
+
+  // Array of filter values.
+  repeated string values = 2;
+}

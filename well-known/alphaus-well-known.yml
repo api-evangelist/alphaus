@@ -1,0 +1,38 @@
+generated: '2026-07-17'
+method: searched
+host: https://api.alphaus.cloud
+result: none
+note: >-
+  api.alphaus.cloud returns an 8-byte "healthy" health-check stub for EVERY /.well-known/* path
+  (security.txt, openid-configuration, oauth-authorization-server, api-catalog all HTTP 200 with the
+  same body). These are a catch-all health responder, NOT genuine discovery documents, so none are
+  saved and no WellKnown/SecurityTxt pointer is wired. www.alphaus.cloud/.well-known/security.txt is
+  404. The real OpenID discovery for the token service (login.alphaus.cloud) returns 403 to
+  unauthenticated probes.
+documents:
+  - path: /.well-known/security.txt
+    host: api.alphaus.cloud
+    status: 200
+    valid: false
+    reason: returns "healthy" health-check stub, not an RFC 9116 document
+  - path: /.well-known/openid-configuration
+    host: api.alphaus.cloud
+    status: 200
+    valid: false
+    reason: returns "healthy" health-check stub, not OIDC discovery JSON
+  - path: /.well-known/oauth-authorization-server
+    host: api.alphaus.cloud
+    status: 200
+    valid: false
+    reason: returns "healthy" health-check stub
+  - path: /.well-known/api-catalog
+    host: api.alphaus.cloud
+    status: 200
+    valid: false
+    reason: returns "healthy" health-check stub
+  - path: /.well-known/security.txt
+    host: www.alphaus.cloud
+    status: 404
+  - path: /.well-known/openid-configuration
+    host: login.alphaus.cloud
+    status: 403

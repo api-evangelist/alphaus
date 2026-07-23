@@ -1,0 +1,20 @@
+generated: '2026-07-17'
+method: generated
+source: openapi/alphaus-blueapi-openapi-original.json (operationIds verified in spec)
+skills:
+  - file: alphaus-authenticate-and-provision.md
+    name: Authenticate to Blue API and provision an API client
+    api: openapi/alphaus-blueapi-openapi-original.json
+    operations: [Iam_CreateApiClient, Iam_ListApiClients, Iam_DeleteApiClient]
+  - file: alphaus-query-cloud-costs.md
+    name: Query and export cloud costs
+    api: openapi/alphaus-blueapi-openapi-original.json
+    operations: [Cost_ListAccounts, Cost_ReadInvoiceCosts, Cost_ReadInvoiceGroupCosts, Cost_ExportReport]
+  - file: alphaus-manage-billing-groups.md
+    name: Manage reseller billing and access groups
+    api: openapi/alphaus-blueapi-openapi-original.json
+    operations: [Billing_ListAccessGroups, Billing_CreateAccessGroup, Billing_AddAccountToBillingGroup, Billing_AddBillingGroupCustomField]
+  - file: alphaus-cost-anomaly-alerts.md
+    name: Configure cost anomaly alerts
+    api: openapi/alphaus-blueapi-openapi-original.json
+    operations: [Cover_RegisterDataAccess, Cover_CreateAnomalyAlert, Cover_ListAnomalyAlert, Cover_GetAnomalyAlert, Cover_DeleteAnomalyAlert]

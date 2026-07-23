@@ -1,0 +1,42 @@
+{
+  "provider": "alphaus",
+  "sources": [
+    "alphaus-admin-api-openapi.yml",
+    "alphaus-billing-api-openapi.yml",
+    "alphaus-cost-api-openapi.yml",
+    "alphaus-cover-api-openapi.yml",
+    "alphaus-flags-api-openapi.yml",
+    "alphaus-flow-api-openapi.yml",
+    "alphaus-guaranteedcommitments-api-openapi.yml",
+    "alphaus-iam-api-openapi.yml",
+    "alphaus-luster-api-openapi.yml",
+    "alphaus-operations-api-openapi.yml",
+    "alphaus-organization-api-openapi.yml",
+    "alphaus-preferences-api-openapi.yml",
+    "alphaus-pricing-api-openapi.yml",
+    "alphaus-prism-api-openapi.yml",
+    "alphaus-vortex-api-openapi.yml"
+  ],
+  "outputs": [
+    "alphaus-admin-api-openapi.yml",
+    "alphaus-billing-api-openapi.yml",
+    "alphaus-cost-api-openapi.yml",
+    "alphaus-cover-api-openapi.yml",
+    "alphaus-flags-api-openapi.yml",
+    "alphaus-flow-api-openapi.yml",
+    "alphaus-guaranteedcommitments-api-openapi.yml",
+    "alphaus-iam-api-openapi.yml",
+    "alphaus-luster-api-openapi.yml",
+    "alphaus-operations-api-openapi.yml",
+    "alphaus-organization-api-openapi.yml",
+    "alphaus-preferences-api-openapi.yml",
+    "alphaus-pricing-api-openapi.yml",
+    "alphaus-prism-api-openapi.yml",
+    "alphaus-vortex-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

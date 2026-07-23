@@ -1,0 +1,1883 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/alphaus-blueapi-openapi-original.json
+status: candidate
+server:
+  name: alphaus-blue
+  transport: http
+  note: No official hosted MCP server found (searched docs + github.com/alphauslabs + npm @modelcontextprotocol).
+    Tool list DERIVED from Blue API OpenAPI operations.
+tool_count: 586
+tools:
+- name: Admin_ListAccountGroups
+  description: Lists all account groups.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_ListAccountGroups
+- name: Admin_GetAccountGroup
+  description: Gets an account group.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_GetAccountGroup
+- name: Admin_ExportAuditLogs
+  description: 'WORK-IN-PROGRESS: Exports audit logs for login user''s organization.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_ExportAuditLogs
+- name: Admin_CreateProformaCur
+  description: 'WORK-IN-PROGRESS: Configure AWS Proforma Cost and Usage Report.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_CreateProformaCur
+- name: Admin_GetCloudWatchMetricsStreamTemplateUrl
+  description: 'WORK-IN-PROGRESS: Gets a CloudFormation launch URL for enabling CloudWatch metrics streaming
+    on a target account.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_GetCloudWatchMetricsStreamTemplateUrl
+- name: Admin_CreateCloudWatchMetricsStream
+  description: 'WORK-IN-PROGRESS: Starts validation of a CloudWatch Metrics streaming stack deployment.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_CreateCloudWatchMetricsStream
+- name: Admin_GetDefaultCostAccessTemplateUrl
+  description: Gets a CloudFormation launch URL for enabling the default cross-account access to your
+    account's cost information based on type. See comment
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_GetDefaultCostAccessTemplateUrl
+- name: Admin_CreateDefaultCostAccess
+  description: Starts validation of a default cross-account access stack deployment. If successful, the
+    IAM role created from the CloudFormation stack will
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_CreateDefaultCostAccess
+- name: Admin_ListDefaultCostAccess
+  description: Lists the default cross-account access role(s) attached to accounts under caller.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_ListDefaultCostAccess
+- name: Admin_GetDefaultCostAccess
+  description: Gets the current default cross-account role attached to the input target.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_GetDefaultCostAccess
+- name: Admin_DeleteDefaultCostAccess
+  description: Deletes the current default cross-account access role attached to this target account.
+    This does not delete the CloudFormation deployment in
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_DeleteDefaultCostAccess
+- name: Admin_UpdateDefaultCostAccess
+  description: Starts an update to an existing default cross-account access CloudFormation stack for template
+    changes, if any. Only call this API if the st
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_UpdateDefaultCostAccess
+- name: Admin_UpdateMSPDefaultMeta
+  description: 'WORK-IN-PROGRESS: Set the default meta saved per organization'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_UpdateMSPDefaultMeta
+- name: Admin_GetMSPDefaultMeta
+  description: 'WORK-IN-PROGRESS: Fetch the default meta saved per organization'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_GetMSPDefaultMeta
+- name: Admin_ListNotificationChannels
+  description: Lists all notification channels for login user's organization or group.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_ListNotificationChannels
+- name: Admin_CreateNotificationChannel
+  description: 'WORK-IN-PROGRESS: Creates notification settings for login user''s organization or group.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_CreateNotificationChannel
+- name: Admin_GetNotificationChannel
+  description: Gets notification channel for login user's organization or group.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_GetNotificationChannel
+- name: Admin_DeleteNotificationChannel
+  description: Deletes notification settings for login user's organization or group.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_DeleteNotificationChannel
+- name: Admin_UpdateNotificationChannel
+  description: 'WORK-IN-PROGRESS: Updates notification settings for login user''s organization or group.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_UpdateNotificationChannel
+- name: Admin_CreateDefaultNotificationChannel
+  description: Creates a default notification channel of type email based on the caller's primary email
+    address.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_CreateDefaultNotificationChannel
+- name: Admin_GetNotificationSettings
+  description: Get notification settings for login user's organization or group.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_GetNotificationSettings
+- name: Admin_SaveNotificationSettings
+  description: Creates or updates notification settings for login user's organization or group.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_SaveNotificationSettings
+- name: Admin_ListNotifications
+  description: 'WORK-IN-PROGRESS: List all notification for login user''s organization.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_ListNotifications
+- name: Admin_CreateNotification
+  description: 'WORK-IN-PROGRESS: Creates notification for login user''s organization.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_CreateNotification
+- name: Admin_GetNotification
+  description: 'WORK-IN-PROGRESS: Get notifications for login user''s organization.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_GetNotification
+- name: Admin_DeleteNotification
+  description: 'WORK-IN-PROGRESS: Deletes notification for login user''s organization.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_DeleteNotification
+- name: Admin_UpdateNotification
+  description: 'WORK-IN-PROGRESS: Updates notification for login user''s organization.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_UpdateNotification
+- name: Admin_GetWaveFeatures
+  description: 'WORK-IN-PROGRESS: Get settings value for wave features management per organization'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_GetWaveFeatures
+- name: Admin_UpdateWaveFeatureSetting
+  description: 'WORK-IN-PROGRESS: Updates the wave feature management default value per organization'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Admin_UpdateWaveFeatureSetting
+- name: Billing_GetAnnouncements
+  description: Gets the announcement list.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetAnnouncements
+- name: Flags_EvaluateBooleanFlag
+  description: EvaluateBooleanFlag returns the boolean value of a flag for a given namespace.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flags_EvaluateBooleanFlag
+- name: Flags_EvaluateVariantFlag
+  description: EvaluateVariantFlag returns the variant value of a flag for a given namespace.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flags_EvaluateVariantFlag
+- name: Iam_ListApiClients
+  description: Lists all API clients belonging to the caller.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_ListApiClients
+- name: Iam_CreateApiClient
+  description: Creates an API client for the caller.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_CreateApiClient
+- name: Iam_DeleteApiClient
+  description: Deletes an API client belonging to the caller.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_DeleteApiClient
+- name: Iam_GetExperimentalUIPreferences
+  description: Gets experimental UI preferences for the authenticated MSP.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_GetExperimentalUIPreferences
+- name: Iam_UpsertExperimentalUIPreference
+  description: Creates or updates an experimental UI preference for a specific component.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_UpsertExperimentalUIPreference
+- name: Iam_ListGroupRootUsers
+  description: 'WORK-IN-PROGRESS: Retrieves all the existing group root users asscoiated with the organization.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_ListGroupRootUsers
+- name: Iam_CreateGroupRootUser
+  description: 'WORK-IN-PROGRESS: Creates a new root user for a billing group or access group.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_CreateGroupRootUser
+- name: Iam_GetGroupRootUser
+  description: 'WORK-IN-PROGRESS: Retrieves a group root user.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_GetGroupRootUser
+- name: Iam_DeleteGroupRootUser
+  description: 'WORK-IN-PROGRESS: Deletes an existing group root user.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_DeleteGroupRootUser
+- name: Iam_GetFeatureFlags
+  description: 'WORK-IN-PROGRESS: Retrieves the features available to a user on an Alphaus product.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_GetFeatureFlags
+- name: Iam_UpdateFeatureFlags
+  description: 'WORK-IN-PROGRESS: Updates the features available to a user on an Alphaus product.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_UpdateFeatureFlags
+- name: Iam_ListIdentityProviders
+  description: Lists all SSO Identity Providers (IdP).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_ListIdentityProviders
+- name: Iam_CreateIdentityProvider
+  description: Registers an SSO Identity Provider (IdP).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_CreateIdentityProvider
+- name: Iam_DeleteIdentityProvider
+  description: Deletes an SSO Identity Provider (IdP).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_DeleteIdentityProvider
+- name: Iam_ListIpFilters
+  description: Lists all IP filters. At the moment, this API is only available to root users.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_ListIpFilters
+- name: Iam_CreateIpFilter
+  description: Creates an IP filter item for IP blacklisting or whitelisting. At the moment, this API
+    is only available to root users.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_CreateIpFilter
+- name: Iam_DeleteIpFilter
+  description: Deletes an IP filter item. At the moment, this API is only available to root users.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_DeleteIpFilter
+- name: Iam_GetSubUserMetadata
+  description: 'WORK-IN-PROGRESS: Get Sub User Metadata for login user''s organization based on user identity'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_GetSubUserMetadata
+- name: Iam_GetMFAUsers
+  description: 'WORK-IN-PROGRESS: List MFA users info for login user''s organization based on status.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_GetMFAUsers
+- name: Iam_CreatePartnerToken
+  description: 'BETA: Creates a partner token for custom integrations. Available only to Ripple and Cover
+    users.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_CreatePartnerToken
+- name: Iam_RefreshPartnerToken
+  description: 'BETA: Refreshes an expired partner token. Only partners are expected to call this API.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_RefreshPartnerToken
+- name: Iam_ValidateResetPasswordLinkAndChangePassword
+  description: 'WORK-IN-PROGRESS: Validate reset password link and proceed to update password'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_ValidateResetPasswordLinkAndChangePassword
+- name: Iam_ListPermissions
+  description: 'WORK-IN-PROGRESS: Lists all permissions based on the input''s scope. For reference, supported
+    permissions can be found on [https://github.com'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_ListPermissions
+- name: Iam_SendRipplePasswordResetCode
+  description: 'WORK-IN-PROGRESS: Send an email reset code'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_SendRipplePasswordResetCode
+- name: Iam_ResetRipplePassword
+  description: 'WORK-IN-PROGRESS: Reset ripple password using code from email'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_ResetRipplePassword
+- name: Iam_ListRoles
+  description: 'WORK-IN-PROGRESS: Lists all available roles.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_ListRoles
+- name: Iam_CreateRole
+  description: 'WORK-IN-PROGRESS: Creates a role. If your `permissions` list contains an `Admin` entry,
+    all other entries will be discarded except `Admin`. '
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_CreateRole
+- name: Iam_DeleteRole
+  description: 'WORK-IN-PROGRESS: Deletes a role. Deleting a role will also remove all mappings.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_DeleteRole
+- name: Iam_UpdateRole
+  description: 'WORK-IN-PROGRESS: Updates a role. If role name is different, rename mapped role name.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_UpdateRole
+- name: Iam_ListUserRoleMappings
+  description: 'WORK-IN-PROGRESS: Lists roles attached to the caller or the input.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_ListUserRoleMappings
+- name: Iam_CreateUserRoleMapping
+  description: 'WORK-IN-PROGRESS: Maps roles to a subuser. You can only map (or attach) up to 5 roles
+    to a user per namespace. There is no limit for filteri'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_CreateUserRoleMapping
+- name: Iam_UpdateUserRoleMapping
+  description: 'WORK-IN-PROGRESS: Updates user-to-role mappings. You can only map (or attach) up to 5
+    roles to a user per namespace. There is no limit for f'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_UpdateUserRoleMapping
+- name: Iam_ListUsers
+  description: Lists all subusers.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_ListUsers
+- name: Iam_CreateUser
+  description: Creates a subuser.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_CreateUser
+- name: Iam_GetUser
+  description: 'Gets subuser information. This call includes all of the subuser metadata. See
+
+    [https://alphauslabs.github.io/blueapi/] for the list of suppo'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_GetUser
+- name: Iam_DeleteUser
+  description: Deletes a subuser.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_DeleteUser
+- name: Iam_WhoAmI
+  description: 'Gets user information about the caller. This call includes all of the user metadata.
+
+    See [https://alphauslabs.github.io/blueapi/] for the li'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_WhoAmI
+- name: Iam_UnlockUserAccount
+  description: 'WORK-IN-PROGRESS: Unlocks ripple or wave user account.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_UnlockUserAccount
+- name: Iam_VerifyUserForResetPassword
+  description: 'WORK-IN-PROGRESS: Verify User Input For Reset Password'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Iam_VerifyUserForResetPassword
+- name: Operations_ListOperations
+  description: Lists long-running operations.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Operations_ListOperations
+- name: Operations_GetOperation
+  description: 'Gets the latest state of a long-running operation. You can use this method to
+
+    poll the operation result at intervals.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Operations_GetOperation
+- name: Operations_DeleteOperation
+  description: 'Deletes a long-running operation. This method indicates that the client is no
+
+    longer interested in the operation result. It does not cancel '
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Operations_DeleteOperation
+- name: Operations_CancelOperation
+  description: 'Starts asynchronous cancellation on a long-running operation. The server makes
+
+    a best effort to cancel the operation, but success is not gua'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Operations_CancelOperation
+- name: Organization_GetOrg
+  description: Gets information about the caller's organization.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Organization_GetOrg
+- name: Organization_DeleteOrg
+  description: 'WORK-IN-PROGRESS: Deletes the organization.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Organization_DeleteOrg
+- name: Organization_CreateOrg
+  description: Creates the organization account.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Organization_CreateOrg
+- name: Organization_UpdateMetadata
+  description: 'WORK-IN-PROGRESS: Updates organization metadata. See [https://alphauslabs.github.io/blueapi/]
+
+    for the list of supported attributes.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Organization_UpdateMetadata
+- name: Organization_UpdatePassword
+  description: Updates the organization password.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Organization_UpdatePassword
+- name: Organization_SendVerification
+  description: 'WORK-IN-PROGRESS: Sends (or resends) the verification email. Only valid for unverified
+
+    organizations. The verification key will be valid for'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Organization_SendVerification
+- name: Organization_VerifyOrg
+  description: 'WORK-IN-PROGRESS: Verifies an organization using the key received from the verification
+    email.
+
+    The verification key is only valid for a day.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Organization_VerifyOrg
+- name: Preferences_GetPreferences
+  description: 'WORK-IN-PROGRESS: Gets current preferences.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Preferences_GetPreferences
+- name: Pricing_GetInfo
+  description: Test endpoint only.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Pricing_GetInfo
+- name: Pricing_GetPricing
+  description: 'WORK-IN-PROGRESS: Get cloud pricing information'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Pricing_GetPricing
+- name: Pricing_GetSupportedServices
+  description: 'WORK-IN-PROGRESS: Get list of supported services, regions, attributes, and columns for
+    filtering'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Pricing_GetSupportedServices
+- name: Billing_ListAccessGroups
+  description: Lists access group. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListAccessGroups
+- name: Billing_CreateAccessGroup
+  description: Registers the access group. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateAccessGroup
+- name: Billing_GetAccessGroup
+  description: 'WORK-IN-PROGRESS: Gets an access group.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetAccessGroup
+- name: Billing_DeleteAccessGroup
+  description: Deletes the access group. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteAccessGroup
+- name: Billing_UpdateAccessGroup
+  description: Updates the access group. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateAccessGroup
+- name: Cover_RegisterDataAccess
+  description: Registers GCP/Azure account.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_RegisterDataAccess
+- name: Cover_ListDataAccess
+  description: Lists Azure and GCP accounts.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListDataAccess
+- name: Cover_ListUnregisteredAccounts
+  description: Lists unregistered linked accounts
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListUnregisteredAccounts
+- name: Cover_GetDataAccess
+  description: Gets the current account. For GCP and Azure.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetDataAccess
+- name: Cover_DeleteDataAccess
+  description: Deletes GCP or Azure accounts based on the provided request.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_DeleteDataAccess
+- name: Cover_UpdateDataAccess
+  description: Update GCP/Azure account info
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateDataAccess
+- name: Cover_DeleteAccountAccess
+  description: Deletes the current account access role attached to this target account. This does not
+    delete the CloudFormation deployment in your account.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_DeleteAccountAccess
+- name: Prism_ListActivities
+  description: POST /v1/activity/all:read
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_ListActivities
+- name: Billing_GetAdjustmentConfig
+  description: Gets adjustment config
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetAdjustmentConfig
+- name: Billing_DeleteAdjustmentConfig
+  description: Deletes adjustment config
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteAdjustmentConfig
+- name: Billing_CreateAdjustmentConfig
+  description: Creates adjustment config
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateAdjustmentConfig
+- name: Billing_UpdateAdjustmentConfig
+  description: Updates adjustment config
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateAdjustmentConfig
+- name: Cover_GetAICostAndUsage
+  description: POST /v1/ai/costusage
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetAICostAndUsage
+- name: Cost_CreateBudgetAlerts
+  description: CreateBudgetAlerts
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_CreateBudgetAlerts
+- name: Cover_CreateAnomalyAlert
+  description: Create Anomaly Alert
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateAnomalyAlert
+- name: Cover_ListAnomalyAlert
+  description: List all the Anomaly Alert Data
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListAnomalyAlert
+- name: Cover_GetAnomalyAlert
+  description: Get Anomaly Alert Data
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetAnomalyAlert
+- name: Cover_DeleteAnomalyAlert
+  description: Delete Anomaly Alert
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_DeleteAnomalyAlert
+- name: Cover_UpdateAnomalyAlert
+  description: Update Anomaly Alert
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateAnomalyAlert
+- name: Cover_GetAlerts
+  description: Get Alerts under organization
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetAlerts
+- name: Cover_CreateAlert
+  description: Create Alerts under organization
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateAlert
+- name: Cover_GetAlertDetails
+  description: Get Specific Alert under organization
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetAlertDetails
+- name: Cover_DeleteAlert
+  description: Delete Specific Alert under organization
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_DeleteAlert
+- name: Cover_UpdateAlertDetails
+  description: Update Specific Alert under organization
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateAlertDetails
+- name: Cover_CreateDiscountExpirationAlert
+  description: Create discount Expiration Alert.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateDiscountExpirationAlert
+- name: Cover_ListDiscountExpirationAlert
+  description: List all discount Expiration Alert Data
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListDiscountExpirationAlert
+- name: Cover_GetDiscountExpirationAlert
+  description: Get discount Expiration Alert Data
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetDiscountExpirationAlert
+- name: Cover_DeleteDiscountExpirationAlert
+  description: Delete selected discount Expiration Alert Data
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_DeleteDiscountExpirationAlert
+- name: Cover_UpdateDiscountExpirationAlert
+  description: Update discount Expiration Alert
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateDiscountExpirationAlert
+- name: Cost_GetBudgetAlerts
+  description: GetBudgetAlerts
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetBudgetAlerts
+- name: Cost_DeleteBudgetAlerts
+  description: DeleteBudgetAlerts
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_DeleteBudgetAlerts
+- name: Cost_UpdateBudgetAlerts
+  description: UpdateBudgetAlerts
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_UpdateBudgetAlerts
+- name: Cost_ReadBudgetAlerts
+  description: ReadBudgetAlerts
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ReadBudgetAlerts
+- name: Cover_GetCostGroupAllocation
+  description: 'WORK-IN-PROGRESS: Get all available allocation items for the specified cost group'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetCostGroupAllocation
+- name: Cover_ListAllocators
+  description: 'WORK-IN-PROGRESS: Lists all the allocators'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListAllocators
+- name: Cover_CreateAllocator
+  description: 'WORK-IN-PROGRESS: Creates cost allocator item'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateAllocator
+- name: Cover_GetAllocationAttributes
+  description: Get all available attributes for the charges
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetAllocationAttributes
+- name: Cover_GetAllocationSources
+  description: Get all values of the allocation source
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetAllocationSources
+- name: Cover_DeleteAllocator
+  description: 'WORK-IN-PROGRESS: Deletes a cost allocator'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_DeleteAllocator
+- name: Cover_UpdateAllocator
+  description: 'WORK-IN-PROGRESS: Updates a cost allocator item'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateAllocator
+- name: Cover_GetAnomalyinCostGroup
+  description: Get the data of a cost group containing anomaly values
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetAnomalyinCostGroup
+- name: Cover_VerifyAPIAccess
+  description: GET /v1/apiaccess/verify
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_VerifyAPIAccess
+- name: Cover_GetAssetsSummary
+  description: 'WORK-IN-PROGRESS: Assets summary for costgroup'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetAssetsSummary
+- name: Cover_ListAssets
+  description: 'WORK-IN-PROGRESS: Lists assets for costgroup'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListAssets
+- name: Cover_GetCostGroupAttribute
+  description: 'WORK-IN-PROGRESS: Get Cost Group by Attribute Type'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetCostGroupAttribute
+- name: Cover_GetAccountAccessTemplateUrl
+  description: Gets a CloudFormation launch URL for enabling the account access.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetAccountAccessTemplateUrl
+- name: Cover_CreateAccountAccess
+  description: Starts validation of the account access stack deployment. If successful, the IAM role created
+    from the CloudFormation stack will be register
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateAccountAccess
+- name: Cover_CreateAccountAccessCur
+  description: Starts validation of the account access cur stack deployment. If successful, the IAM role
+    created from the CloudFormation stack will be regi
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateAccountAccessCur
+- name: Cover_CreateAccountAccessStackset
+  description: Starts validation of the account access stackset deployment. If successful, the IAM role
+    created from the CloudFormation stackset will be re
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateAccountAccessStackset
+- name: Cover_UpdateAccountAccess
+  description: Starts an update to an existing account access CloudFormation stack for template changes,
+    if any. Only call this API if the status of your a
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateAccountAccess
+- name: Cost_ImportCurFiles
+  description: Initiates an ondemand import of all registered CUR files.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ImportCurFiles
+- name: Billing_ListAwsDailyRunHistory
+  description: Reads the daily calculation history of all accounts in your billing groups. Only available
+    in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListAwsDailyRunHistory
+- name: Flow_GetCostExplorerAccessTemplateUrl
+  description: Gets a CloudFormation launch URL for enabling read-only cross-account access to cost explorer
+    information (API only).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_GetCostExplorerAccessTemplateUrl
+- name: Flow_CreateCostExplorerAccess
+  description: Creates a default cross-account access role for cost explorer (API only).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_CreateCostExplorerAccess
+- name: Flow_GetSPPurchaseAccessTemplateUrl
+  description: Gets a CloudFormation launch URL for Savings Plan purchase capabilities
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_GetSPPurchaseAccessTemplateUrl
+- name: Flow_CreateSPPurchaseAccess
+  description: Creates a default cross-account access role for Savings Plan (API only).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_CreateSPPurchaseAccess
+- name: Flow_GetCrossAccountAccessDetails
+  description: Returns the activated cross-account access roles of the target payerId.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_GetCrossAccountAccessDetails
+- name: Flow_GetAwsAccounts
+  description: Returns all the aws accounts and its payer of the msp id
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_GetAwsAccounts
+- name: Cover_AddMpnSetting
+  description: 'WORK-IN-PROGRESS: Adding MpnSetting for Azure'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_AddMpnSetting
+- name: Cover_AddPartnerCenterCredentials
+  description: 'WORK-IN-PROGRESS: PartnerCenterCredentials for Azure'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_AddPartnerCenterCredentials
+- name: Cover_GetCustomerSubscriptionStatus
+  description: Get the Customer Subscription status from marketplace
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetCustomerSubscriptionStatus
+- name: Cover_AddBillingAccount
+  description: Add Billing Account ID for GCP.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_AddBillingAccount
+- name: Billing_AddAccountToBillingGroup
+  description: Add a vendor account to a billing group.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_AddAccountToBillingGroup
+- name: Billing_AddBillingGroupCustomField
+  description: Add  a custom field into a billing group
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_AddBillingGroupCustomField
+- name: Billing_DeleteBillingGroupCustomField
+  description: Remove a custom field from a billing group
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteBillingGroupCustomField
+- name: Billing_ListBillingGroupCustomField
+  description: Show all the billing groups custom fields
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListBillingGroupCustomField
+- name: Billing_GetBillingGroupAnnouncements
+  description: Gets the announcement list for billing group
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetBillingGroupAnnouncements
+- name: Billing_AddTagsToBillingGroup
+  description: Add Tags to the billing group
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_AddTagsToBillingGroup
+- name: Billing_DeleteBillinGroup
+  description: Delete a billing group.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteBillinGroup
+- name: Billing_GetBillingGroupAccountSupportPlan
+  description: 'WORK-IN-PROGRESS: Gets the account support plan in billing group. Only available in Ripple.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetBillingGroupAccountSupportPlan
+- name: Billing_UpdateBillingGroupAccountSupportPlan
+  description: 'WORK-IN-PROGRESS: Updates the account support plan in billing group. Only available in
+    Ripple.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateBillingGroupAccountSupportPlan
+- name: Billing_UpdateNonTagGroupToBillingGroup
+  description: Sets non-tag group settings for a billing group.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateNonTagGroupToBillingGroup
+- name: Billing_UpdateBillingGroupAdditionalCharges
+  description: 'WORK-IN-PROGRESS: Update  additonal charges for a billing group'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateBillingGroupAdditionalCharges
+- name: Billing_UpdateBillingGroupBasicInformation
+  description: Update billing group basic information
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateBillingGroupBasicInformation
+- name: Billing_UpdateBillingGroupCustomFields
+  description: 'WORK-IN-PROGRESS: Update billing group custom fields information'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateBillingGroupCustomFields
+- name: Billing_UpdateBillingGroupFreeFormat
+  description: 'WORK-IN-PROGRESS: Update billing group custom fields information'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateBillingGroupFreeFormat
+- name: Billing_UpdateBillingGroupInvoiceSettings
+  description: 'WORK-IN-PROGRESS: Update invoice settings for a billing group'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateBillingGroupInvoiceSettings
+- name: Billing_UpdateBillingGroupResellerCharges
+  description: 'WORK-IN-PROGRESS: Update reseller charges for a billing group'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateBillingGroupResellerCharges
+- name: Billing_UpdateBillingGroupLinkedResources
+  description: 'WORK-IN-PROGRESS: Update linked resources for a billing group'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateBillingGroupLinkedResources
+- name: Billing_ListBillingGroups
+  description: Lists all billing groups (streamed).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListBillingGroups
+- name: Billing_CreateBillingGroup
+  description: Registers a billing group.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateBillingGroup
+- name: Billing_ListAbcBillingGroups
+  description: 'WORK-IN-PROGRESS: Gets all Billing Groups in AWS Billing Conductor(ABC) for specific payer
+    id.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListAbcBillingGroups
+- name: Billing_ListAbcBillingGroupAccounts
+  description: 'WORK-IN-PROGRESS: Gets all accounts associated to AWS Billing Conductor(ABC) Billing group'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListAbcBillingGroupAccounts
+- name: Billing_CreateChildBillingGroup
+  description: Creates a child billing group under a parent billing group
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateChildBillingGroup
+- name: Billing_GetChildBillingGroup
+  description: Gets child billing group info
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetChildBillingGroup
+- name: Billing_DeleteChildBillingGroup
+  description: Deletes all child billing group info
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteChildBillingGroup
+- name: Billing_UpdateChildBillingGroup
+  description: Updates child billing group's basic info
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateChildBillingGroup
+- name: Billing_UpdateChildBillingGroupInvoiceSettings
+  description: Updates child billing group's invoice settings
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateChildBillingGroupInvoiceSettings
+- name: Billing_GetChildBillingGroupInvoiceServiceDiscounts
+  description: Returns the service discount associated with the billing group id
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetChildBillingGroupInvoiceServiceDiscounts
+- name: Billing_SetChildBillingGroupInvoiceServiceDiscounts
+  description: Sets the child billing group invoice service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_SetChildBillingGroupInvoiceServiceDiscounts
+- name: Billing_ReadChildBillingGroupAccountInvoiceServiceDiscounts
+  description: Returns the account's service discounts associated with the child billing group id
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ReadChildBillingGroupAccountInvoiceServiceDiscounts
+- name: Billing_SetChildBillingGroupAccountInvoiceServiceDiscounts
+  description: Sets the child billing group's account invoice service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_SetChildBillingGroupAccountInvoiceServiceDiscounts
+- name: Billing_ReadChildBillingGroups
+  description: Lists child billing groups under a specific filter
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ReadChildBillingGroups
+- name: Billing_ListExcludeServices
+  description: List Exclude Service Entries
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListExcludeServices
+- name: Billing_DeleteExcludeServiceEntry
+  description: Delete Exclude Service Entry
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteExcludeServiceEntry
+- name: Billing_CreateExcludeServiceEntry
+  description: Create Exclude Service Entry
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateExcludeServiceEntry
+- name: Billing_UpdateExcludeServiceEntry
+  description: Update Exclude Service Entry
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateExcludeServiceEntry
+- name: Billing_CreateBillingGroupMerged
+  description: Registers a billing group with Merged Endpoints. Only available in Ripple. WORK IN PROGRESS
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateBillingGroupMerged
+- name: Billing_GetBillingGroup
+  description: Gets a billing group.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetBillingGroup
+- name: Billing_GetBillingGroupInvoiceLayoutConfig
+  description: WORK-IN-PROGRESS. Gets the billing group invoice layout configs, used for overriding MSP
+    level configs.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetBillingGroupInvoiceLayoutConfig
+- name: Billing_DeleteBillingGroupInvoiceLayoutConfig
+  description: WORK-IN-PROGRESS. Unsets the billing group invoice layout config.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteBillingGroupInvoiceLayoutConfig
+- name: Billing_SetBillingGroupInvoiceLayoutConfig
+  description: WORK-IN-PROGRESS. Sets the billing group invoice layout configs.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_SetBillingGroupInvoiceLayoutConfig
+- name: Billing_UpdateBillingGroupInvoiceTemplate
+  description: Creates/Updates a billing group's invoice template. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateBillingGroupInvoiceTemplate
+- name: Billing_BulkCreateBillingGroup
+  description: 'Create billing group in bulk from CSV file.
+
+    Returns a long-running operation. Poll status via the Operations service (GET /ops/v1/{name}).'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_BulkCreateBillingGroup
+- name: Billing_BulkLinkAccount
+  description: 'Link accounts to a billing group in bulk from a CSV file.
+
+    Returns a long-running operation. Poll status via the Operations service (GET /ops'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_BulkLinkAccount
+- name: Billing_BulkTagBillingGroup
+  description: 'Bulk-tag multiple billing groups from a CSV file.
+
+    Supports add, delete, and dry-run modes.
+
+    Returns a long-running operation. Poll status via'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_BulkTagBillingGroup
+- name: Billing_ListBillingGroupsPaginated
+  description: Lists all billing groups with pagination support.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListBillingGroupsPaginated
+- name: Cover_CreateBudget
+  description: 'WORK-IN-PROGRESS: Create Budget for specific cost group in an organization'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateBudget
+- name: Cover_GetBudget
+  description: 'WORK-IN-PROGRESS: Get specific Budget data for a cost group in an organization'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetBudget
+- name: Cover_DeleteBudget
+  description: 'WORK-IN-PROGRESS: Delete Budget for specific cost group in an organization'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_DeleteBudget
+- name: Cover_UpdateBudget
+  description: 'WORK-IN-PROGRESS: Update Budget for specific cost group in an organization'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateBudget
+- name: Cover_ListBudgets
+  description: 'WORK-IN-PROGRESS: List all Budgets in an organization or Budgets under specific cost group'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListBudgets
+- name: Cover_GetCategories
+  description: Retrieve the categories to be utilized in the creation of the cost group.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetCategories
+- name: Cover_CreateChannel
+  description: 'WORK-IN-PROGRESS: Create Channel under organization'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateChannel
+- name: Cover_GetChannelDetails
+  description: 'WORK-IN-PROGRESS: Get Specific Channel under organization'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetChannelDetails
+- name: Cover_DeleteChannel
+  description: 'WORK-IN-PROGRESS: Delete Specific Channel under organization'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_DeleteChannel
+- name: Cover_UpdateChannelDetails
+  description: 'WORK-IN-PROGRESS: Update Specific Channel under organization'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateChannelDetails
+- name: Cover_GetChannels
+  description: 'WORK-IN-PROGRESS: Get Channels under organization'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetChannels
+- name: GuaranteedCommitments_ListCommitments
+  description: 'WORK-IN-PROGRESS: Retrieves a list of commitments.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_ListCommitments
+- name: GuaranteedCommitments_CommitmentsPlanApply
+  description: 'WORK-IN-PROGRESS: Executes a commitment purchase plan, initiating the commitment purchase
+    process.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_CommitmentsPlanApply
+- name: GuaranteedCommitments_ListPurchasePlansBySegment
+  description: 'WORK-IN-PROGRESS: Retrieves purchase plan of a company.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_ListPurchasePlansBySegment
+- name: GuaranteedCommitments_GetAvailableCommitmentTypes
+  description: 'WORK-IN-PROGRESS: Only works for Alphaus for now. Retrieves the available commitment types
+    for a given provider.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_GetAvailableCommitmentTypes
+- name: GuaranteedCommitments_CreateCustomCommitmentPlan
+  description: 'WORK-IN-PROGRESS: Only works for Alphaus for now. Creates a custom (top-down) commitment
+    purchase plan.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_CreateCustomCommitmentPlan
+- name: GuaranteedCommitments_ListDraftPurchasePlans
+  description: 'WORK-IN-PROGRESS: Retrieves the drafted purchase plans'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_ListDraftPurchasePlans
+- name: GuaranteedCommitments_DeleteDraftPurchasePlan
+  description: 'WORK-IN-PROGRESS: Deletes a drafted purchase plan.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_DeleteDraftPurchasePlan
+- name: GuaranteedCommitments_SaveCommitmentsPlanAsDraft
+  description: 'WORK-IN-PROGRESS: Saves a commitment purchase plan as draft.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_SaveCommitmentsPlanAsDraft
+- name: GuaranteedCommitments_GetPurchasePlansDetails
+  description: 'WORK-IN-PROGRESS: Retrieves full details of a specific purchase plan of a company.
+
+    Includes the basic info, detailed metrics, commitment lin'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_GetPurchasePlansDetails
+- name: GuaranteedCommitments_GetUpdatedPurchasePlansBySegment
+  description: 'WORK-IN-PROGRESS: Get the updated details of the plan after the apply plan.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_GetUpdatedPurchasePlansBySegment
+- name: GuaranteedCommitments_ListReservableResources
+  description: 'WORK-IN-PROGRESS: Only works for Alphaus for now. Retrieves a paginated list of reservable
+    infrastructure resources for a segment.
+
+    Supports '
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_ListReservableResources
+- name: GuaranteedCommitments_GetCommitmentsChart
+  description: 'WORK-IN-PROGRESS: Generates time-series chart data for commitment metrics over the specified
+    time period.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_GetCommitmentsChart
+- name: GuaranteedCommitments_GetCommitmentsUtilization
+  description: 'WORK-IN-PROGRESS: Generates utilization data for commitment over the active period.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_GetCommitmentsUtilization
+- name: Cover_GetContainerCostUsage
+  description: POST /v1/containers/costusage
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetContainerCostUsage
+- name: Luster_CreateLabel
+  description: (ALPHA) [LABEL] Creates label.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_CreateLabel
+- name: Luster_DeleteLabel
+  description: (ALPHA) [LABEL] Deletes label.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_DeleteLabel
+- name: Luster_UpdateLabel
+  description: (ALPHA) [LABEL] Updates label.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_UpdateLabel
+- name: Luster_ReadLabels
+  description: (ALPHA) [LABEL] Reads labels.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_ReadLabels
+- name: Luster_CreateContext
+  description: (ALPHA) [CONTEXT] Creates context.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_CreateContext
+- name: Luster_CreateContextComment
+  description: (ALPHA) [COMMENT] Creates comment in context.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_CreateContextComment
+- name: Luster_DeleteContextComment
+  description: (ALPHA) [COMMENT] Deletes comment in context.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_DeleteContextComment
+- name: Luster_UpdateContextComment
+  description: (ALPHA) [COMMENT] Updates comment in context.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_UpdateContextComment
+- name: Luster_GetContext
+  description: (ALPHA [CONTEXT]) Gets context.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_GetContext
+- name: Luster_DeleteContext
+  description: (ALPHA) [CONTEXT] Deletes context.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_DeleteContext
+- name: Luster_UpdateContext
+  description: (ALPHA) [CONTEXT] Updates context.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_UpdateContext
+- name: Luster_ReadContexts
+  description: (ALPHA) [CONTEXT] Reads contexts.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_ReadContexts
+- name: Cover_GetCostGroups
+  description: Get all the cost groups
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetCostGroups
+- name: Cover_CreateCostGroup
+  description: Create a cost group
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateCostGroup
+- name: Cover_ResolveCostGroupCombinations
+  description: GET /v1/costgroups/resolve/{costGroupId}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ResolveCostGroupCombinations
+- name: Cover_GetCostGroupDetails
+  description: Get the details of the cost group
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetCostGroupDetails
+- name: Cover_DeleteCostGroup
+  description: Deletes a cost group
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_DeleteCostGroup
+- name: Cover_SetCostGroupAnomalyOptions
+  description: Sets Cost group's anomaly options
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_SetCostGroupAnomalyOptions
+- name: Cover_UpdateCostGroupColorTheme
+  description: Update cost group's color theme
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateCostGroupColorTheme
+- name: Cover_UpdateCostGroupCombinations
+  description: Update cost group's combinations
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateCostGroupCombinations
+- name: Cover_UpdateCostGroupDescription
+  description: Update cost group's description
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateCostGroupDescription
+- name: Cover_SetCostGroupEventIndicator
+  description: Sets Cost group's event indicator
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_SetCostGroupEventIndicator
+- name: Cover_UpdateCostGroupIcon
+  description: Update cost group's icon
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateCostGroupIcon
+- name: Cover_UpdateCostGroupImage
+  description: Update cost group's image
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateCostGroupImage
+- name: Cover_UpdateCostGroupName
+  description: Update cost group's name
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateCostGroupName
+- name: Cover_GetCostUsageV2
+  description: POST /v1/costusage
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetCostUsageV2
+- name: Cover_GetCostUsage
+  description: 'WORK-IN-PROGRESS: Get usage and usage-based costs for the specified costgroup'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetCostUsage
+- name: Billing_GetCredits
+  description: Gets the credits
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetCredits
+- name: Billing_GetCsvSettings
+  description: Gets the csv column settings
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetCsvSettings
+- name: Billing_CreateCustomField
+  description: Creates new customfield
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateCustomField
+- name: Billing_DeleteCustomField
+  description: Deletes the customfield
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteCustomField
+- name: Billing_UpdateCustomField
+  description: Update the `customField` specified id, modifying its key and description
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateCustomField
+- name: Billing_ListCustomField
+  description: Returns all registered customfields
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListCustomField
+- name: Billing_CreateCustomizedBillingService
+  description: Creates the customized billing service. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateCustomizedBillingService
+- name: Billing_GetCustomizedBillingServiceBillingGroup
+  description: Gets the customized billing service in billing group. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetCustomizedBillingServiceBillingGroup
+- name: Billing_DeleteCustomizedBillingServiceBillingGroup
+  description: Deletes the customized billing service in billing group. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteCustomizedBillingServiceBillingGroup
+- name: Billing_SetCustomizedBillingServiceBillingGroup
+  description: Sets the customized billing service in billing group. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_SetCustomizedBillingServiceBillingGroup
+- name: Billing_GetCustomizedBillingService
+  description: Gets the customized billing service. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetCustomizedBillingService
+- name: Billing_DeleteCustomizedBillingService
+  description: Deletes the customized billing service. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteCustomizedBillingService
+- name: Billing_UpdateCustomizedBillingService
+  description: Updates the customized billing service by updating the fields specified in the update mask.
+    Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateCustomizedBillingService
+- name: Billing_ReadCustomizedBillingServices
+  description: Reads the customized billing service. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ReadCustomizedBillingServices
+- name: Cover_PopulateDemoData
+  description: 'WORK-IN-PROGRESS: Populate demo data'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_PopulateDemoData
+- name: Cover_ResetDemoData
+  description: 'WORK-IN-PROGRESS: Reset demo data'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ResetDemoData
+- name: Billing_SetBillingGroupExchangeRate
+  description: Set billing group exchangerate. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_SetBillingGroupExchangeRate
+- name: Billing_SetGlobalExchangeRate
+  description: Set global exchangerate. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_SetGlobalExchangeRate
+- name: Billing_SetPayerExchangeRate
+  description: Set payer exchangerate. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_SetPayerExchangeRate
+- name: Billing_ExportBillingGroupCsv
+  description: Export the billing groups into csv format
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ExportBillingGroupCsv
+- name: Billing_ExportInvoiceSettingCsv
+  description: Exports the invoice settings into csv format
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ExportInvoiceSettingCsv
+- name: Cost_GetExportRISP
+  description: Exports RI and SP for all payers.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetExportRISP
+- name: Cover_CreateCostForecast
+  description: POST /v1/forecasts
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateCostForecast
+- name: Cover_GetCostForecastsData
+  description: POST /v1/forecasts/data:read
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetCostForecastsData
+- name: Cover_GetCostForecast
+  description: GET /v1/forecasts/{id}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetCostForecast
+- name: Cover_DeleteCostForecast
+  description: DELETE /v1/forecasts/{id}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_DeleteCostForecast
+- name: Cover_UpdateCostForecast
+  description: PUT /v1/forecasts/{id}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateCostForecast
+- name: Cover_ListForecasts
+  description: POST /v1/forecasts:read
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListForecasts
+- name: Billing_CreateFreeFormat
+  description: Creates new billing group free format item (miscellaneous)
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateFreeFormat
+- name: Billing_GetFreeFormat
+  description: Get billing group free format item (miscellaneous)
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetFreeFormat
+- name: Billing_DeleteFreeFormat
+  description: Delete billing group free format item (miscellaneous)
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteFreeFormat
+- name: Prism_ShareGDrive
+  description: POST /v1/gdrive/share
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_ShareGDrive
+- name: Luster_GetHub
+  description: (ALPHA) [HUB] Gets hub.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_GetHub
+- name: Luster_ReadHubs
+  description: (ALPHA) [HUB] Reads hubs.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_ReadHubs
+- name: Flow_GetInfo
+  description: For Testing Purposes Only.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_GetInfo
+- name: Prism_GetIntegrationStatus
+  description: GET /v1/integration/status
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_GetIntegrationStatus
+- name: Prism_ListIntegrationStatus
+  description: POST /v1/integration/status/all:read
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_ListIntegrationStatus
+- name: Vortex_InviteUser
+  description: POST /v1/invite
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Vortex_InviteUser
+- name: Vortex_VerifyInvitedUser
+  description: POST /v1/invite/verify
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Vortex_VerifyInvitedUser
+- name: Billing_GetInvoiceDisplaySettings
+  description: 'WORK-IN-PROGRESS: Gets the invoice display settings for invoice-ui'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetInvoiceDisplaySettings
+- name: Billing_UpdateInvoiceDisplaySettings
+  description: Creates/Updates an invoice display settings. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateInvoiceDisplaySettings
+- name: Billing_UpdateInvoiceExchangeRate
+  description: Update invoice exchangerate for the month
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateInvoiceExchangeRate
+- name: Billing_ListInvoiceStatus
+  description: Reads an invoice status. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListInvoiceStatus
+- name: Billing_GetInvoiceStatus
+  description: Gets an invoice. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetInvoiceStatus
+- name: Billing_ListInvoiceTemplate
+  description: Lists Invoice Template. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListInvoiceTemplate
+- name: Billing_ConvertInvoiceToPdf
+  description: 'WORK-IN-PROGRESS: Convert invoice to pdf'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ConvertInvoiceToPdf
+- name: Billing_CreateInvoice
+  description: Creates an invoice. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateInvoice
+- name: Billing_CreateInvoiceWithSettings
+  description: Creates an invoice and add settings. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateInvoiceWithSettings
+- name: Billing_ExportInvoiceFile
+  description: Exports an invoice.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ExportInvoiceFile
+- name: Billing_UpdateInvoicePreviews
+  description: Updates an invoice preview. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateInvoicePreviews
+- name: Billing_GetInvoice
+  description: Gets an invoice.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetInvoice
+- name: Billing_SaveInvoiceSettings
+  description: 'WORK-IN-PROGRESS: Save invoice settings for the month'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_SaveInvoiceSettings
+- name: Billing_ListInvoice
+  description: Reads list of the invoice.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListInvoice
+- name: Cost_ReadInvoiceCosts
+  description: 'WORK-IN-PROGRESS: Read the invoice costs. Only available in Ripple.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ReadInvoiceCosts
+- name: Cost_ReadInvoiceGroupCosts
+  description: 'WORK-IN-PROGRESS: Read the invoice group costs. Only available in Ripple.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ReadInvoiceGroupCosts
+- name: Billing_CreateInvoiceLayoutConfig
+  description: WORK-IN-PROGRESS. Creates an invoice layout config.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateInvoiceLayoutConfig
+- name: Billing_DeleteInvoiceLayoutConfig
+  description: WORK-IN-PROGRESS. Delete an invoice layout config.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteInvoiceLayoutConfig
+- name: Billing_UpdateInvoiceLayoutConfig
+  description: WORK-IN-PROGRESS. Updates an invoice layout config.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateInvoiceLayoutConfig
+- name: Billing_ReadInvoiceLayoutConfig
+  description: WORK-IN-PROGRESS. Reads all invoice layout config under an msp.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ReadInvoiceLayoutConfig
+- name: Cost_ReadInvoiceOverViews
+  description: 'WORK-IN-PROGRESS: Read the invoice overviews. Only available in Ripple.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ReadInvoiceOverViews
+- name: GuaranteedCommitments_ListPayerAccounts
+  description: 'WORK-IN-PROGRESS: Lists payer accounts associated with the organization.
+
+    Retrieves all payer accounts linked to the organization, including '
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_ListPayerAccounts
+- name: GuaranteedCommitments_GetPayerAccountStatus
+  description: GET /v1/managements/accounts/status
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_GetPayerAccountStatus
+- name: GuaranteedCommitments_SetPayerAccountEnabled
+  description: POST /v1/managements/accounts/{companyId}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_SetPayerAccountEnabled
+- name: GuaranteedCommitments_ListBillingGroups
+  description: GET /v1/managements/billinggroups
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_ListBillingGroups
+- name: GuaranteedCommitments_GetBillingGroupStatus
+  description: GET /v1/managements/billinggroups/status
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_GetBillingGroupStatus
+- name: GuaranteedCommitments_AcceptBillingGroupTerms
+  description: POST /v1/managements/billinggroups/terms:accept
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_AcceptBillingGroupTerms
+- name: GuaranteedCommitments_SetBillingGroupStatus
+  description: POST /v1/managements/billinggroups/{companyId}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_SetBillingGroupStatus
+- name: Cover_AddInfotoMarketplace
+  description: Adding orgId to marketplace customers
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_AddInfotoMarketplace
+- name: Cover_GetUserDetails
+  description: Get the details of the logged-in user
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetUserDetails
+- name: Cover_UpdateUserAppTheme
+  description: Modify user's app theme
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateUserAppTheme
+- name: Cover_UpdateUserAttributes
+  description: Modify attributes
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateUserAttributes
+- name: Cover_UpdateUserAvatar
+  description: Modify user's avatar
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateUserAvatar
+- name: Cover_UpdateUserColorTheme
+  description: Modify user's color theme
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateUserColorTheme
+- name: Cover_UpdateCostGroupCreationUI
+  description: 'WORK-IN-PROGRESS: Set user preference in cost group creation UI'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateCostGroupCreationUI
+- name: Cover_UpdateUserEmail
+  description: Modify user's email
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateUserEmail
+- name: Cover_UpdateUserIcon
+  description: Modify user's icon
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateUserIcon
+- name: Cover_UpdateUserLocale
+  description: Modify user's locale
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateUserLocale
+- name: Cover_UpdateUserMainView
+  description: Modify user's main view
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateUserMainView
+- name: Cover_UpdateUserName
+  description: Modify user's name
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateUserName
+- name: Cover_ResetUserPassword
+  description: Reset user's password
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ResetUserPassword
+- name: Cover_GetMyRoles
+  description: Lists the roles and cost groups assigned to the authenticated user.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetMyRoles
+- name: Cover_UpdateUserTimezone
+  description: Modify user's timezone
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateUserTimezone
+- name: Prism_ListTeamMembers
+  description: POST /v1/member/all:read
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_ListTeamMembers
+- name: Cover_ActivateUser
+  description: Activate the added user
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ActivateUser
+- name: Cover_ProcessAuth0User
+  description: 'WORK-IN-PROGRESS: Add or read user from Auth0'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ProcessAuth0User
+- name: Cover_ResolveAWSMarketplaceTokenForOnboarding
+  description: WORK-IN-PROGRESS:Resolve user for aws marketplace subscription integration
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ResolveAWSMarketplaceTokenForOnboarding
+- name: Cover_OnboardOrg
+  description: Onboard an organization with an admin account and default cost group
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_OnboardOrg
+- name: Cover_CreateProfiling
+  description: Profiling for new users.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateProfiling
+- name: Cover_GetUserProfile
+  description: Octo getting user profile
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetUserProfile
+- name: Cover_UpdateUserProfile
+  description: Update user profile
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateUserProfile
+- name: Cover_RegisterNewUser
+  description: Octo new user registration
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_RegisterNewUser
+- name: Cover_ResetPassword
+  description: Reset member's password
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ResetPassword
+- name: GuaranteedCommitments_GetMetrics
+  description: 'WORK-IN-PROGRESS: Do not use. Retrieves key performance metrics for cloud commitments.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_GetMetrics
+- name: GuaranteedCommitments_RegisterOrg
+  description: 'WORK-IN-PROGRESS: Registers a new child organization under the channel partner.
+
+    Creates the organization, sets up user memberships, and esta'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_RegisterOrg
+- name: GuaranteedCommitments_CreateGuaranteedCommitmentAccess
+  description: CreateGuaranteedCommitmentAccess verifies and registers a deployed guaranteed CloudFormation
+    stack.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_CreateGuaranteedCommitmentAccess
+- name: GuaranteedCommitments_GetGuaranteedCommitmentTemplateUrl
+  description: 'GetGuaranteedCommitmentTemplateUrl returns a CloudFormation launch URL for deploying
+
+    both Alphaus (Ripple) and Archera IAM roles in a single'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_GetGuaranteedCommitmentTemplateUrl
+- name: GuaranteedCommitments_GetAwsLaunchStackUrl
+  description: 'WORK-IN-PROGRESS: Generates AWS CloudFormation launch stack URL.
+
+    Creates a pre-configured URL to deploy the CloudFormation stack in the AWS '
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_GetAwsLaunchStackUrl
+- name: GuaranteedCommitments_GetAwsCloudFormationTemplate
+  description: 'WORK-IN-PROGRESS: Generates CloudFormation template for AWS integration.
+
+    Creates the necessary IAM role and policy template for setting up A'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_GetAwsCloudFormationTemplate
+- name: GuaranteedCommitments_GetAwsPrivateOffer
+  description: 'Retrieves the AWS Marketplace private offer details for a payer account.
+
+    Used by the onboarding "Accept Private Offer" step.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_GetAwsPrivateOffer
+- name: GuaranteedCommitments_StartAwsOnboarding
+  description: 'WORK-IN-PROGRESS: Starts the onboarding process for an organization.
+
+    Creates or retrieves an onboarding record and sets the provider to AWS.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_StartAwsOnboarding
+- name: GuaranteedCommitments_VerifyAwsOnboarding
+  description: 'WORK-IN-PROGRESS: Runs AWS onboarding verification process.
+
+    Creates a new CUR or uses an existing CUR and verifies AWS integration setup
+
+    and'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_VerifyAwsOnboarding
+- name: GuaranteedCommitments_CreateAzureIntegration
+  description: 'WORK-IN-PROGRESS: Creates the Azure cloud integration after all onboarding steps complete.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_CreateAzureIntegration
+- name: GuaranteedCommitments_ListAzureIntegrations
+  description: 'WORK-IN-PROGRESS: Lists Azure integrations to verify onboarding completion.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_ListAzureIntegrations
+- name: GuaranteedCommitments_StartAzureOnboarding
+  description: 'WORK-IN-PROGRESS: Starts the Azure onboarding process.
+
+    Creates an onboarding record in Archera for the given org and returns the onboardingI'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_StartAzureOnboarding
+- name: GuaranteedCommitments_ListAzureOnboardingAccounts
+  description: 'WORK-IN-PROGRESS: Lists the available Azure subscriptions or billing accounts
+
+    for the user to select during onboarding.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_ListAzureOnboardingAccounts
+- name: GuaranteedCommitments_GetAzureOnboardingAuthUrl
+  description: 'WORK-IN-PROGRESS: Returns the Azure OAuth URL the user must visit to authorize Archera.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_GetAzureOnboardingAuthUrl
+- name: GuaranteedCommitments_ValidateAzureAppInstall
+  description: 'WORK-IN-PROGRESS: Validates that the Azure app was installed and the user authorized it.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_ValidateAzureAppInstall
+- name: GuaranteedCommitments_UpdateAzureOnboarding
+  description: 'WORK-IN-PROGRESS: Updates the Azure onboarding record.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_UpdateAzureOnboarding
+- name: GuaranteedCommitments_ValidateBillingGroup
+  description: POST /v1/onboarding/billinggroup:validate
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_ValidateBillingGroup
+- name: GuaranteedCommitments_GetOnboardingStatus
+  description: 'WORK-IN-PROGRESS: Retrieves the latest onboarding status for:
+
+    - an MSP
+
+    - a company under an MSP
+
+    - a payer account under an MSP'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_GetOnboardingStatus
+- name: Prism_CreateOrganization
+  description: Creates a new organization.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_CreateOrganization
+- name: Prism_GenerateOrganizationCode
+  description: POST /v1/org/code
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_GenerateOrganizationCode
+- name: Prism_JoinOrganization
+  description: POST /v1/org/join
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_JoinOrganization
+- name: Prism_GetOrganization
+  description: Gets information about an organization by ID.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_GetOrganization
+- name: Prism_DeleteOrganization
+  description: DELETE /v1/org/{id}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_DeleteOrganization
+- name: Prism_UpdateOrganization
+  description: PUT /v1/org/{id}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_UpdateOrganization
+- name: Prism_UpdateOrgTimezone
+  description: PUT /v1/org/{id}/timezone
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_UpdateOrgTimezone
+- name: Vortex_CreateOrg
+  description: Create an org in Vortex
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Vortex_CreateOrg
+- name: Cover_GetOrgUpdateCurrency
+  description: Get Org's reference of currency exchange rate
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetOrgUpdateCurrency
+- name: Cover_SetOrgUpdateCurrency
+  description: Sets Org's reference of currency exchange rate
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_SetOrgUpdateCurrency
+- name: Cover_ListExchangeRates
+  description: Get list of exchange rates for a fixed report
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListExchangeRates
+- name: Cover_TransferOrganization
+  description: 'WORK-IN-PROGRESS: Transfer the account from the original organization to Alphaus payer
+    account'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_TransferOrganization
+- name: GuaranteedCommitments_ListOrgs
+  description: 'WORK-IN-PROGRESS: List all the registered orgs'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_ListOrgs
+- name: Prism_CreateProduct
+  description: POST /v1/product
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_CreateProduct
+- name: Prism_ListProducts
+  description: POST /v1/product/all:read
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_ListProducts
+- name: Prism_DeleteProduct
+  description: DELETE /v1/product/{id}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_DeleteProduct
+- name: Prism_CreateProject
+  description: 'WIP: Creates a new project.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_CreateProject
+- name: Prism_ListProjects
+  description: 'WIP: Lists all projects'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_ListProjects
+- name: Prism_GetProject
+  description: 'WIP: Gets information about a project by ID.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_GetProject
+- name: Prism_DeleteProject
+  description: 'WIP: Deletes a project by ID.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_DeleteProject
+- name: Prism_ListProjectToTeam
+  description: POST /v1/projecttoteam/all:read
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_ListProjectToTeam
+- name: Prism_AssignProjectToTeam
+  description: POST /v1/projecttoteam/assign
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_AssignProjectToTeam
+- name: Vortex_ListPrompts
+  description: POST /v1/prompts:read
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Vortex_ListPrompts
+- name: Cover_ExecuteRecommendationV3
+  description: POST /v1/recommendation/execute
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ExecuteRecommendationV3
+- name: Cover_GetRecommendationV3
+  description: GET /v1/recommendations
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetRecommendationV3
+- name: Cover_ListRecommendationsV2
+  description: Lists recommendations based on specified criteria.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListRecommendationsV2
+- name: Cover_GetRecommendationV2
+  description: Retrieves a specific recommendation by its ID. (Version 2)
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetRecommendationV2
+- name: Cover_ListRecommendationsV3
+  description: POST /v1/recommendations/summaries
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListRecommendationsV3
+- name: Cover_GetOrgFiscalMonth
+  description: Get Org's starting month/ fiscal month
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetOrgFiscalMonth
+- name: Cover_SetOrgFiscalMonth
+  description: Sets Org's starting month/ fiscal month
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_SetOrgFiscalMonth
+- name: Cover_GetReportSummary
+  description: Get data for insights reports summary
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetReportSummary
+- name: GuaranteedCommitments_ReadCommitmentReportAccounts
+  description: Reads per-account commitment report details for a specific month. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_ReadCommitmentReportAccounts
+- name: GuaranteedCommitments_ReadCommitmentReports
+  description: Reads monthly commitment reports for the MSP. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_ReadCommitmentReports
+- name: Cover_ListNonperformingRate
+  description: POST /v1/reports/rate/nonperforming:read
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListNonperformingRate
+- name: Cover_ListUntaggedResources
+  description: POST /v1/reports/resources/untagged:read
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListUntaggedResources
+- name: Cost_ExportReport
+  description: 'Exports a vendor report and delivers results via email notification channel.
+
+    Supports multiple report types per vendor. For AWS, this covers'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ExportReport
+- name: Prism_CreateReportSchedule
+  description: POST /v1/reportschedule
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_CreateReportSchedule
+- name: Prism_ListReportSchedules
+  description: POST /v1/reportschedule/all:read
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_ListReportSchedules
+- name: Prism_UpdateReportSchedule
+  description: PUT /v1/reportschedule/{id}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_UpdateReportSchedule
+- name: Billing_CreateAnnouncement
+  description: Creates new announcement for wave users
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateAnnouncement
+- name: Billing_DeleteAnnouncement
+  description: DELETE /v1/reseller/announcement/{announcementId}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteAnnouncement
+- name: Billing_UpdateAnnouncement
+  description: Full update existing announcement
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateAnnouncement
+- name: Billing_UpdateAnnouncementsStatus
+  description: Update multiple announcements status
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateAnnouncementsStatus
+- name: Billing_UpdateAnnouncementDate
+  description: Update announcement date
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateAnnouncementDate
+- name: Billing_ListResellers
+  description: ListResellers
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListResellers
+- name: Billing_CreateReseller
+  description: Registers the reseller account. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateReseller
+- name: Billing_GetReseller
+  description: Gets the reseller account. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetReseller
+- name: Billing_DeleteReseller
+  description: Deletes the reseller account. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteReseller
+- name: Billing_UpdateReseller
+  description: Updates the reseller account. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateReseller
+- name: GuaranteedCommitments_ListResources
+  description: 'WORK-IN-PROGRESS: Do not use. Retrieves a list of infrastructure resources for the organization.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_ListResources
+- name: Billing_ListAccountResources
+  description: 'WORK-IN-PROGRESS: Returns all registered accounts that are not associated to any billing
+    groups and accounts found in CUR for the specified '
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListAccountResources
+- name: GuaranteedCommitments_GetResourceDailyUsage
+  description: 'WORK-IN-PROGRESS: Do not use. Retrieves daily usage data for a specific resource within
+    the specified date range.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#GuaranteedCommitments_GetResourceDailyUsage
+- name: Billing_CreateInvoiceServiceDiscounts
+  description: Creates the invoice service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateInvoiceServiceDiscounts
+- name: Billing_ExportAccountInvoiceServiceDiscounts
+  description: Exports service discounts for account in billing group. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ExportAccountInvoiceServiceDiscounts
+- name: Billing_ExportBillingGroupInvoiceServiceDiscounts
+  description: Exports service discounts for billing group. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ExportBillingGroupInvoiceServiceDiscounts
+- name: Billing_DeleteAccountInvoiceServiceDiscounts
+  description: Deletes the account invoice service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteAccountInvoiceServiceDiscounts
+- name: Billing_CreateAccountInvoiceServiceDiscounts
+  description: Registers the account invoice service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateAccountInvoiceServiceDiscounts
+- name: Billing_UpdateAccountInvoiceServiceDiscounts
+  description: Updates the account invoice service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateAccountInvoiceServiceDiscounts
+- name: Billing_ListAccountInvoiceServiceDiscounts
+  description: Reads the account invoice service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListAccountInvoiceServiceDiscounts
+- name: Billing_RemoveAccountInvoiceServiceDiscounts
+  description: Removes the account invoice service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_RemoveAccountInvoiceServiceDiscounts
+- name: Billing_GetBillingGroupInvoiceServiceDiscounts
+  description: Returns the service discount associated with the billing group id
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetBillingGroupInvoiceServiceDiscounts
+- name: Billing_DeleteBillingGroupInvoiceServiceDiscounts
+  description: Deletes the billing group invoice service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteBillingGroupInvoiceServiceDiscounts
+- name: Billing_CreateBillingGroupInvoiceServiceDiscounts
+  description: Registers the billing group invoice service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateBillingGroupInvoiceServiceDiscounts
+- name: Billing_UpdateBillingGroupInvoiceServiceDiscounts
+  description: Updates the billing group invoice service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateBillingGroupInvoiceServiceDiscounts
+- name: Billing_GetInvoiceServiceDiscounts
+  description: Gets the invoice service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetInvoiceServiceDiscounts
+- name: Billing_DeleteInvoiceServiceDiscounts
+  description: Deletes the invoice service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_DeleteInvoiceServiceDiscounts
+- name: Billing_UpdateInvoiceServiceDiscounts
+  description: Updates the invoice service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateInvoiceServiceDiscounts
+- name: Billing_ReadServiceDiscountsServices
+  description: Reads the service relate to the service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ReadServiceDiscountsServices
+- name: Billing_ExportServiceDiscounts
+  description: Exports service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ExportServiceDiscounts
+- name: Billing_ListInvoiceServiceDiscounts
+  description: Reads the invoice service discounts. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListInvoiceServiceDiscounts
+- name: Billing_GetBillingSetting
+  description: 'WORK-IN-PROGRESS: Gets all billing settings.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetBillingSetting
+- name: Flow_GetSettingsHistory
+  description: Gets the settings configuration history for a user.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_GetSettingsHistory
+- name: Flow_GetRecommendationDetails
+  description: Fetch user savings plan details
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_GetRecommendationDetails
+- name: Flow_GetSettings
+  description: Fetch previous settings for a user
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_GetSettings
+- name: Flow_SetSettings
+  description: Creates or Updates the settings configuration for recommendation.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_SetSettings
+- name: Flow_SendSPToPurchaseDetailsNotification
+  description: Sends savings plan details to be purchased to a Slack channel or user email
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_SendSPToPurchaseDetailsNotification
+- name: Flow_CheckSPToPurchaseDetailsLinkExpiry
+  description: Checks the expiry of the link in the SP to purchase details notification
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_CheckSPToPurchaseDetailsLinkExpiry
+- name: Flow_GetSPToPurchaseDetails
+  description: Get savings plan details to be purchased .
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_GetSPToPurchaseDetails
+- name: Flow_CreateSPRecommendationNotification
+  description: Sends configuration and recommendation to a Slack channel
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_CreateSPRecommendationNotification
+- name: Luster_CreateSpace
+  description: (ALPHA) [SPACE] Creates space.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_CreateSpace
+- name: Luster_GetSpace
+  description: (ALPHA) [SPACE] Gets space.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_GetSpace
+- name: Luster_DeleteSpace
+  description: (ALPHA) [SPACE] Deletes space.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_DeleteSpace
+- name: Luster_UpdateSpace
+  description: (ALPHA) [SPACE] Updates space.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_UpdateSpace
+- name: Luster_ReadSpaces
+  description: (ALPHA) [SPACE] Reads spaces.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Luster_ReadSpaces
+- name: Billing_GetTags
+  description: "Returns the customer details and its tags. \nPort for: m/ripple/tags/vendor/{vendor}?type={type}"
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetTags
+- name: Prism_CreateTeam
+  description: POST /v1/team
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_CreateTeam
+- name: Prism_ListTeams
+  description: POST /v1/team/all:read
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_ListTeams
+- name: Prism_GetTeam
+  description: GET /v1/team/{id}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_GetTeam
+- name: Prism_DeleteTeam
+  description: DELETE /v1/team/{id}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_DeleteTeam
+- name: Prism_Test
+  description: Test endpoint only.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_Test
+- name: Vortex_Test
+  description: Test endpoint only
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Vortex_Test
+- name: Cover_ListUnitTypes
+  description: Lists Unit Types
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListUnitTypes
+- name: Cover_CreateUnitType
+  description: Create Unit Type
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateUnitType
+- name: Cover_ListSuggestedUnits
+  description: List Suggested Unit Types
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListSuggestedUnits
+- name: Cover_CreateUnitFromSuggested
+  description: Create Unit from Suggested Units
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateUnitFromSuggested
+- name: Cover_MergeSuggestedUnits
+  description: Merge Suggested Units
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_MergeSuggestedUnits
+- name: Cover_MergeUnits
+  description: Merge Existing Unit Types
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_MergeUnits
+- name: Cover_ListUnitMetrics
+  description: List all Unit Metrics
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListUnitMetrics
+- name: Cover_CreateUnitMetric
+  description: Create Unit Metric
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateUnitMetric
+- name: Cover_GetCloudwatchMetadata
+  description: Get Cloudwatch Metadata
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetCloudwatchMetadata
+- name: Cover_ConfirmGoogleSheetAccess
+  description: Confirm Google Sheet Access
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ConfirmGoogleSheetAccess
+- name: Cover_PreviewGoogleSheet
+  description: Preview Google Sheet Data
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_PreviewGoogleSheet
+- name: Cover_GetUnitMetric
+  description: Get Specific Unit Metric
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetUnitMetric
+- name: Cover_DeleteUnitMetric
+  description: Delete Specific Unit Metric
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_DeleteUnitMetric
+- name: Cover_UpdateUnitMetric
+  description: Update Specific Unit Metric
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateUnitMetric
+- name: Cover_ListSharedResources
+  description: List all Shared Resources
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListSharedResources
+- name: Cover_CreateSharedResource
+  description: Create Shared Resource
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateSharedResource
+- name: Cover_GetSharedResource
+  description: Get Specific Shared Resource
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetSharedResource
+- name: Cover_DeleteSharedResource
+  description: Delete Specific Shared Resource
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_DeleteSharedResource
+- name: Cover_UpdateSharedResource
+  description: Update Specific Shared Resource
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateSharedResource
+- name: Cover_GetUnitType
+  description: Get Specific Unit Type
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetUnitType
+- name: Cover_DeleteUnitType
+  description: Delete Specific Unit Type
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_DeleteUnitType
+- name: Cover_UpdateUnitType
+  description: Update Specific Unit Type
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateUnitType
+- name: Flow_GetDailyUsageCostDetails
+  description: Gets the daily cost and usage details.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_GetDailyUsageCostDetails
+- name: Flow_GetUserAccountSettings
+  description: Gets the user account settings.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_GetUserAccountSettings
+- name: Flow_SetUserAccountSettings
+  description: Create or Update the user account settings.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Flow_SetUserAccountSettings
+- name: Vortex_GetUser
+  description: GET /v1/user/{email}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Vortex_GetUser
+- name: Cover_ListUsers
+  description: Lists all users in the organization
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ListUsers
+- name: Cover_InviteUsers
+  description: Invites users to join the organization and assigns them roles.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_InviteUsers
+- name: Cover_GetUser
+  description: Retrieves a user's details by their ID.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetUser
+- name: Cover_DeleteUser
+  description: Deletes a user from the organization.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_DeleteUser
+- name: Cover_ReinviteUser
+  description: Reinvites a user to join the organization. This can be used when the user did not receive
+    or lost the original invitation email.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_ReinviteUser
+- name: Cover_UpdateUserRole
+  description: Updates a user's role and cost group access.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateUserRole
+- name: Prism_VerifyUser
+  description: POST /v1/verify
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_VerifyUser
+- name: Cover_GetViews
+  description: Get all the views
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetViews
+- name: Cover_CreateView
+  description: Create a view
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_CreateView
+- name: Cover_AddFavorite
+  description: Add to favorites
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_AddFavorite
+- name: Cover_RemoveFavorite
+  description: Remove from favorites
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_RemoveFavorite
+- name: Cover_GetFavoriteViews
+  description: Get favorite views
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetFavoriteViews
+- name: Cover_UpdateViewLayout
+  description: Updates the view's layout
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateViewLayout
+- name: Cover_UpdateViewWidget
+  description: Updates the view's widget
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateViewWidget
+- name: Cover_PublishView
+  description: Publish current view
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_PublishView
+- name: Cover_GetCurrentView
+  description: Get the details of the current view
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetCurrentView
+- name: Cover_DeleteView
+  description: Deletes a view
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_DeleteView
+- name: Cover_UpdateView
+  description: Updates the view details
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateView
+- name: Cover_UpdateViewColorTheme
+  description: Update view's color theme
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateViewColorTheme
+- name: Cover_UpdateViewCurrency
+  description: Update report's currency settings
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateViewCurrency
+- name: Cover_AddSideMenuFavorite
+  description: Add as side menu favorite
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_AddSideMenuFavorite
+- name: Cover_UpdateSideMenuState
+  description: Updates the side menu state
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_UpdateSideMenuState
+- name: Cover_RemoveSideMenuFavorite
+  description: Remove from side menu favorite
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_RemoveSideMenuFavorite
+- name: Prism_ListWorkflows
+  description: POST /v1/workflow/all:read
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_ListWorkflows
+- name: Prism_UpdateWorkflow
+  description: PUT /v1/workflow/{name}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Prism_UpdateWorkflow
+- name: Cover_AssignPayer
+  description: Assign payer to a linked account
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_AssignPayer
+- name: Cover_RegisterAccount
+  description: Registers an account
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_RegisterAccount
+- name: Cost_ListAccounts
+  description: Lists all vendor accounts.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ListAccounts
+- name: Cost_CreateAccount
+  description: Registers a vendor account.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_CreateAccount
+- name: Cost_CheckAccountsBelongToMsp
+  description: 'WORK-IN-PROGRESS: Check inputed accountIds belong to current MSP or not'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_CheckAccountsBelongToMsp
+- name: Cost_ListAccounts2
+  description: Lists all vendor accounts.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ListAccounts2
+- name: Cost_GetAccount
+  description: Gets a vendor account. This API includes all of the account's metadata. See https://alphauslabs.github.io/blueapi/
+    for the list of supported
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetAccount
+- name: Cost_DeleteAccount
+  description: 'WORK-IN-PROGRESS: Deletes a vendor account.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_DeleteAccount
+- name: Cost_UpdateAccount
+  description: 'WORK-IN-PROGRESS: Updates a vendor account. Only available in Ripple.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_UpdateAccount
+- name: Billing_CreateCustomFee
+  description: 'Creates custom fee entries in the RIPPLE_FEES table.
+
+    Used to write Guaranteed Commitment entries and Custom Fee entries directly to the fee '
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_CreateCustomFee
+- name: Billing_GetAdjustmentEntry
+  description: Gets the adjustment entry. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetAdjustmentEntry
+- name: Billing_AllocateAdjustmentEntry
+  description: Allocates the adjustment entry item. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_AllocateAdjustmentEntry
+- name: Billing_RestoreAllocateAdjustmentEntry
+  description: Restores the allocate adjustment entry item. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_RestoreAllocateAdjustmentEntry
+- name: Billing_SplitAdjustmentEntry
+  description: Splits the adjustment entry item. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_SplitAdjustmentEntry
+- name: Billing_RestoreSplitAdjustmentEntry
+  description: Restores the splitted adjustment entry item. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_RestoreSplitAdjustmentEntry
+- name: Billing_ApplyAdjustmentEntry
+  description: Applies the adjustment entry item. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ApplyAdjustmentEntry
+- name: Billing_ReadAdjustmentEntries
+  description: Reads the adjustment entries. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ReadAdjustmentEntries
+- name: Billing_RestoreAdjustmentEntry
+  description: Restores the adjustment entry item. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_RestoreAdjustmentEntry
+- name: Billing_ListAdjustmentEntryItems
+  description: 'Lists adjustment entry items from the fee table.
+
+    Reads fee entries from the RIPPLE_FEES table, optionally filtered by mobingi_type.
+
+    Note: Co'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListAdjustmentEntryItems
+- name: Cost_ReadAdjustments
+  description: Reads the non-usage-based details of an organization (Ripple) or billing group (Wave[Pro]).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ReadAdjustments
+- name: Cost_GetAccountBudgetAlerts
+  description: Get the budget alerts for the account id. Only available in Wave(Pro).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetAccountBudgetAlerts
+- name: Cost_DeleteAccountBudgetAlerts
+  description: Delete the budget alerts for the account id. Only available in Wave(Pro).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_DeleteAccountBudgetAlerts
+- name: Cost_CreateAccountBudgetAlerts
+  description: Create the budget alerts for the account id. Only available in Wave(Pro).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_CreateAccountBudgetAlerts
+- name: Cost_UpdateAccountBudgetAlerts
+  description: Update the budget alerts for the account id. Only available in Wave(Pro).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_UpdateAccountBudgetAlerts
+- name: Cost_ReadAccountOriginalResources
+  description: 'Reads all vendor account-original-resources.
+
+    Account that have not been used for one month will no longer be retrieved.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ReadAccountOriginalResources
+- name: Cost_GetBreakevenPoint
+  description: Get the breakeven point details for the RI or SP.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetBreakevenPoint
+- name: Billing_GetChildBillingGroupCustomizedBillingService
+  description: Gets the customized billing service in child billing group. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetChildBillingGroupCustomizedBillingService
+- name: Billing_SetChildBillingGroupCustomizedBillingService
+  description: Sets the customized billing service in child billing group. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_SetChildBillingGroupCustomizedBillingService
+- name: Cost_DeleteAccountBudget
+  description: Removes monthly budget for the account/acctgroup id from database.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_DeleteAccountBudget
+- name: Cost_UpdateAccountBudget
+  description: Updates monthly budget for the account/acctgroup id.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_UpdateAccountBudget
+- name: Cost_GetAccountBudget
+  description: Fetches monthly budget for the account/acctgroup id.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetAccountBudget
+- name: Cost_CreateAccountBudget
+  description: Creates monthly budget for the account/acctgroup id.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_CreateAccountBudget
+- name: Cost_ListCalculationPrerequisites
+  description: 'WORK-IN-PROGRESS: List the prerequisites for cost calculations.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ListCalculationPrerequisites
+- name: Cost_ListCalculationsHistory
+  description: Lists vendor costs calculations history and statuses.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ListCalculationsHistory
+- name: Cost_ListCalculationsSchedules
+  description: Lists the schedules of your monthly calculations. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ListCalculationsSchedules
+- name: Cost_CreateCalculationsSchedule
+  description: Creates a schedule to trigger your monthly calculations. At the moment, only one schedule
+    is allowed per account. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_CreateCalculationsSchedule
+- name: Cost_DeleteCalculationsSchedule
+  description: Deletes the schedule of your monthly calculations. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_DeleteCalculationsSchedule
+- name: Cost_GetCalculatorConfig
+  description: 'WORK-IN-PROGRESS: Gets the vendor cost calculator''s current configuration.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetCalculatorConfig
+- name: Cost_ListCalculatorCostModifiers
+  description: Lists the cost calculator's cost modifiers. At the moment, the supported {vendor} is 'aws'.
+    Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ListCalculatorCostModifiers
+- name: Cost_CreateCalculatorCostModifier
+  description: Creates a cost modifier.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_CreateCalculatorCostModifier
+- name: Cost_DeleteCalculatorCostModifier
+  description: Deletes a cost modifier. At the moment, the supported {vendor} is 'aws'. Only available
+    in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_DeleteCalculatorCostModifier
+- name: Cost_ListCalculatorRunningAccounts
+  description: Lists the vendor calculator's queued accounts for calculation.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ListCalculatorRunningAccounts
+- name: Cost_GetCostAttributes
+  description: 'WORK-IN-PROGRESS: Reads the available cost attributes of an organization (Ripple) or billing
+    group (Wave).'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetCostAttributes
+- name: Cost_ReadCostAttributes
+  description: Reads the available cost attributes of an organization (Ripple) or billing group (Wave).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ReadCostAttributes
+- name: Cost_ListCostFilters
+  description: Lists the usage-based cost filter condition. Only available in Wave(Pro).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ListCostFilters
+- name: Cost_CreateCostFilters
+  description: Creates the usage-based cost filter condition.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_CreateCostFilters
+- name: Cost_DeleteCostFilters
+  description: Deletes the usage-based cost filter condition. Only available in Wave(Pro).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_DeleteCostFilters
+- name: Cost_UpdateCostFilters
+  description: Updates the usage-based cost filter condition. Only available in Wave(Pro).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_UpdateCostFilters
+- name: Cost_ExportCostFiltersFile
+  description: Exports the usage-based cost filter condition. Only available in Wave(Pro).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ExportCostFiltersFile
+- name: Cost_CalculateCosts
+  description: Triggers monthly calculations for costs and invoices at either organization or billing
+    group level.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_CalculateCosts
+- name: Cost_ReadCosts
+  description: Reads the usage-based cost details of an organization (Ripple) or billing group (Wave).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ReadCosts
+- name: Cost_GetCoverageOndemand
+  description: Get ondemand cost details for an organization (or MSP).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetCoverageOndemand
+- name: Cost_GetCoverageOptions
+  description: Get coverage options details for an organization (or MSP).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetCoverageOptions
+- name: Cover_GetDiscountPlan
+  description: Get discount plan details for an organization (or MSP).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cover_GetDiscountPlan
+- name: Billing_ListExchangeRates
+  description: ListExchangeRates
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListExchangeRates
+- name: Cost_GetForecasts
+  description: Fetches cost forecasts for the specified billing group. Includes historical cost (up to
+    previous month) and forecasted cost (up to three mon
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetForecasts
+- name: Cost_GetMonthOnMonthCostForecast
+  description: Fetches previous month cost vs current month forecast vs current accumulated cost per category
+    for id.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetMonthOnMonthCostForecast
+- name: Cost_GetMonthToDateCostForecast
+  description: Fetches current month daily forecast vs current accumulated daily cost for id.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetMonthToDateCostForecast
+- name: Cost_GetMonthlyCostForecast
+  description: Fetches monthly accumulated costs vs forecasted cost vs budget for the id.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetMonthlyCostForecast
+- name: Billing_ReadInvoiceAdjustments
+  description: Reads the adjustment details involved in invoicing of an organization billing group (Wave).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ReadInvoiceAdjustments
+- name: Cost_ReadInvoiceIds
+  description: Read the invoice ids. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ReadInvoiceIds
+- name: Cost_ReadNonTagCosts
+  description: Reads the usage-based non tag costs of a billing group.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ReadNonTagCosts
+- name: Cost_ListPayerAccounts
+  description: Lists vendor payer accounts.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ListPayerAccounts
+- name: Cost_CreatePayerAccount
+  description: 'DEPRECATED: Registers a vendor payer account. This is now deprecated for AWS payer accounts.
+    To register an AWS payer account, check out the'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_CreatePayerAccount
+- name: Cost_RegisterPayerAccount
+  description: 'WORK-IN-PROGRES: Registers a vendor payer account with their basics details such as accountId
+    and accountName.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_RegisterPayerAccount
+- name: Cost_UpdatePayerAccount
+  description: 'WORK-IN-PROGRES: Updates a vendor payer account''s basics details.'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_UpdatePayerAccount
+- name: Cost_GetPayerAccount
+  description: Gets a vendor payer account.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetPayerAccount
+- name: Cost_DeletePayerAccount
+  description: Deletes a vendor payer account.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_DeletePayerAccount
+- name: Cost_SetupPayerAccountBillingTransfer
+  description: 'WORK-IN-PROGRESS: Setup payer''s billing transfer information'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_SetupPayerAccountBillingTransfer
+- name: Cost_GetPayerAccountImportHistory
+  description: Gets a payer account's import history.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetPayerAccountImportHistory
+- name: Cost_GetPayerProformaReports
+  description: Gets a payer account's proforma reports. Applicable for AWS payer accounts only.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetPayerProformaReports
+- name: Cost_ListPayerAccountsExtended
+  description: Lists vendor payer accounts with extended information. WORK IN PROGRESS
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ListPayerAccountsExtended
+- name: Cost_GetPayerAccountExtended
+  description: Gets a vendor payer account with extended information. WORK IN PROGRESS
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetPayerAccountExtended
+- name: Cost_GetRecommendations
+  description: 'WORK-IN-PROGRESS: Get cost opmtimization recommendations for an organization (or MSP).'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetRecommendations
+- name: Cost_GetCostReduction
+  description: Get cost reduction details for an organization (or MSP).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetCostReduction
+- name: Billing_ListServices
+  description: 'Lists available cloud services and their associated SKUs for a given vendor.
+
+    Use this to retrieve service codes and names that can be refere'
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListServices
+- name: Cost_ReadTagCosts
+  description: Reads the usage-based tag costs of a billing group.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ReadTagCosts
+- name: Cost_ListTags
+  description: Lists all vendor tags.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ListTags
+- name: Cost_ListTags2
+  description: Lists all vendor tags.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_ListTags2
+- name: Billing_GetTagsAddingSetting
+  description: GET /v1/{vendor}/tagsaddingsetting/{groupId}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_GetTagsAddingSetting
+- name: Billing_UpdateTagsAddingSetting
+  description: PUT /v1/{vendor}/tagsaddingsetting/{groupId}
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_UpdateTagsAddingSetting
+- name: Billing_ReadUntaggedGroups
+  description: Reads the untagged group. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ReadUntaggedGroups
+- name: Billing_ListUsageCostsDrift
+  description: Returns a list of accounts that have been updated after invoice along with the differences
+    in costs, if any. Only available in Ripple.
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Billing_ListUsageCostsDrift
+- name: Cost_GetUtilization
+  description: Get the utilization details for an organization (or MSP).
+  source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetUtilization

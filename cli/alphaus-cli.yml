@@ -1,0 +1,50 @@
+generated: '2026-07-17'
+method: searched
+source: https://github.com/alphauslabs/bluectl + https://labs.alphaus.cloud/docs/blueapi/bluectl/
+name: bluectl
+description: The official command line interface for Alphaus (Blue) services.
+latest_version: v0.35.6
+install:
+  - method: homebrew
+    command: brew install alphauslabs/tap/bluectl
+    platforms: [linux, macos, windows-wsl]
+  - method: binary
+    url: https://github.com/alphauslabs/bluectl/releases
+authentication:
+  docs: https://labs.alphaus.cloud/docs/blueapi/bluectl/#authentication
+  note: Uses the same OAuth2 client credentials as the Blue API; `bluectl accesstoken` mints a token.
+commands:
+  - group: accesstoken
+    summary: Obtain a Blue API OAuth2 access token.
+  - group: whoami
+    summary: Show the identity of the authenticated caller.
+  - group: iam
+    summary: Manage users, API clients, and RBAC.
+  - group: org
+    summary: Manage organizations.
+  - group: idp
+    summary: Identity-provider configuration.
+  - group: billing
+    summary: Billing operations.
+  - group: cost
+    summary: Cost data and calculations.
+    subcommands:
+      - cost aws adjustments
+      - cost aws attributes
+      - cost aws calculations
+      - cost aws calculations schedule
+      - cost aws calculator
+      - cost aws calculator costmods
+      - cost aws usage
+  - group: awspayer
+    summary: Register and manage AWS payer accounts.
+  - group: awstags
+    summary: Manage AWS cost tags.
+  - group: awsxacct
+    summary: AWS cross-account access.
+  - group: notification
+    summary: Manage notification channels.
+  - group: ops
+    summary: Long-running operations (wait/poll).
+  - group: version
+    summary: Print the bluectl version.
