@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blue API reference Admin Flags API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Flags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "EvaluateBooleanFlag returns the boolean value of a flag for a given namespace.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/flags/v1/namespace/:namespaceId/boolean/:id:eval",
+            "params": [
+              {
+                "name": "namespaceId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The namespaceId that the flag belongs to."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The flagId"
+              }
+            ]
+          },
+          "docs": "EvaluateBooleanFlag returns the boolean value of a flag for a given namespace."
+        },
+        {
+          "info": {
+            "name": "EvaluateVariantFlag returns the variant value of a flag for a given namespace.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/flags/v1/namespace/:namespaceId/variant/:id:eval",
+            "params": [
+              {
+                "name": "namespaceId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The namespaceId that the flag belongs to."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The flagId"
+              }
+            ]
+          },
+          "docs": "EvaluateVariantFlag returns the variant value of a flag for a given namespace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,301 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blue API reference Admin Flow API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Flow",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets a CloudFormation launch URL for enabling read-only cross-account access to cost explorer information (API only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/aws/xacct/cea"
+          },
+          "docs": "Gets a CloudFormation launch URL for enabling read-only cross-account access to cost explorer information (API only)."
+        },
+        {
+          "info": {
+            "name": "Creates a default cross-account access role for cost explorer (API only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/aws/xacct/cea"
+          },
+          "docs": "Creates a default cross-account access role for cost explorer (API only)."
+        },
+        {
+          "info": {
+            "name": "Gets a CloudFormation launch URL for Savings Plan purchase capabilities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/aws/xacct/spa"
+          },
+          "docs": "Gets a CloudFormation launch URL for Savings Plan purchase capabilities"
+        },
+        {
+          "info": {
+            "name": "Creates a default cross-account access role for Savings Plan (API only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/aws/xacct/spa"
+          },
+          "docs": "Creates a default cross-account access role for Savings Plan (API only)."
+        },
+        {
+          "info": {
+            "name": "Returns the activated cross-account access roles of the target payerId.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/aws/xacct/:payerId/access",
+            "params": [
+              {
+                "name": "payerId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The target payerId of the AWS account to be checked."
+              }
+            ]
+          },
+          "docs": "Returns the activated cross-account access roles of the target payerId."
+        },
+        {
+          "info": {
+            "name": "Returns all the aws accounts and its payer of the msp id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/aws/:billingInternalId/accounts",
+            "params": [
+              {
+                "name": "billingInternalId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all the aws accounts and its payer of the msp id"
+        },
+        {
+          "info": {
+            "name": "For Testing Purposes Only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/info"
+          },
+          "docs": "For Testing Purposes Only."
+        },
+        {
+          "info": {
+            "name": "Gets the settings configuration history for a user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/settings/history/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The id of the payer to fetch settings history for."
+              }
+            ]
+          },
+          "docs": "Gets the settings configuration history for a user."
+        },
+        {
+          "info": {
+            "name": "Fetch user savings plan details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/settings/recommendations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The id of the payer to fetch recommendation details for."
+              }
+            ]
+          },
+          "docs": "Fetch user savings plan details"
+        },
+        {
+          "info": {
+            "name": "Fetch previous settings for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/settings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The id of the payer to fetch settings for."
+              }
+            ]
+          },
+          "docs": "Fetch previous settings for a user"
+        },
+        {
+          "info": {
+            "name": "Creates or Updates the settings configuration for recommendation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/settings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The id of the payer."
+              }
+            ]
+          },
+          "docs": "Creates or Updates the settings configuration for recommendation."
+        },
+        {
+          "info": {
+            "name": "Sends savings plan details to be purchased to a Slack channel or user email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/sp/purchaseDetails/notification"
+          },
+          "docs": "Sends savings plan details to be purchased to a Slack channel or user email"
+        },
+        {
+          "info": {
+            "name": "Checks the expiry of the link in the SP to purchase details notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/sp/purchaseDetails/notification/link/expiry",
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "Required. The URL containing the expiry information to check.\n\nThe URL to check for expiration"
+              }
+            ]
+          },
+          "docs": "Checks the expiry of the link in the SP to purchase details notification"
+        },
+        {
+          "info": {
+            "name": "Get savings plan details to be purchased .",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/sp/purchaseDetails/:payerId/:yearMonth",
+            "params": [
+              {
+                "name": "payerId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The id of the payer account."
+              },
+              {
+                "name": "yearMonth",
+                "value": "",
+                "type": "path",
+                "description": "Required. The year and month  for which the savings plan details are requested, formatted as \"YYYYMM\"."
+              }
+            ]
+          },
+          "docs": "Get savings plan details to be purchased ."
+        },
+        {
+          "info": {
+            "name": "Sends configuration and recommendation to a Slack channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/sp/recommendation/notification"
+          },
+          "docs": "Sends configuration and recommendation to a Slack channel"
+        },
+        {
+          "info": {
+            "name": "Gets the daily cost and usage details.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/usagecost"
+          },
+          "docs": "Gets the daily cost and usage details."
+        },
+        {
+          "info": {
+            "name": "Gets the user account settings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/user/settings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The user ID of the user."
+              }
+            ]
+          },
+          "docs": "Gets the user account settings."
+        },
+        {
+          "info": {
+            "name": "Create or Update the user account settings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/user/settings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The user ID of the user."
+              }
+            ]
+          },
+          "docs": "Create or Update the user account settings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

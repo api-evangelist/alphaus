@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blue API reference Admin Vortex API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vortex",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Vortex_InviteUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invite"
+          }
+        },
+        {
+          "info": {
+            "name": "Vortex_VerifyInvitedUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invite/verify"
+          }
+        },
+        {
+          "info": {
+            "name": "Create an org in Vortex",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/organizations"
+          },
+          "docs": "Create an org in Vortex"
+        },
+        {
+          "info": {
+            "name": "Vortex_ListPrompts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/prompts:read"
+          }
+        },
+        {
+          "info": {
+            "name": "Test endpoint only",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/testing",
+            "params": [
+              {
+                "name": "message",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Test endpoint only"
+        },
+        {
+          "info": {
+            "name": "Vortex_GetUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/user/:email",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

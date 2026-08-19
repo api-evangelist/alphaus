@@ -1881,3 +1881,9 @@ tools:
 - name: Cost_GetUtilization
   description: Get the utilization details for an organization (or MSP).
   source_operation: openapi/alphaus-blueapi-openapi-original.json#Cost_GetUtilization
+deployment:
+  mode: none
+  verified: derived
+  tools: 586
+  checked: '2026-08-12'
+  source: catalog MCP census

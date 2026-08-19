@@ -1,0 +1,430 @@
+{
+  "item": [
+    {
+      "id": "11913727-ccf5-406e-8ae8-6ade243ba0ff",
+      "name": "Pricing",
+      "description": {
+        "content": "(BETA) Pricing API. Base URL: https://api.alphaus.cloud/m/blue/pricing",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ee9e380e-595c-4e77-b4e8-1e4f6713c312",
+          "name": "Test endpoint only.",
+          "request": {
+            "name": "Test endpoint only.",
+            "description": {},
+            "url": {
+              "path": [
+                "v0",
+                "info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bbc57db8-c6f0-47a4-9f1e-88654b212da8",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77941bc4-305e-4ba8-8418-34eeb16fac55",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7215,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c7d3314-8577-42f4-8320-9491b86a274f",
+          "name": "WORK-IN-PROGRESS: Get cloud pricing information",
+          "request": {
+            "name": "WORK-IN-PROGRESS: Get cloud pricing information",
+            "description": {},
+            "url": {
+              "path": [
+                "v0",
+                ":vendor",
+                "pricing"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vendor",
+                  "description": "(Required) Required. Cloud vendor, only `aws` and `azure` are currently supported."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"service\": \"<string>\",\n  \"region\": \"<string>\",\n  \"token\": \"<string>\",\n  \"filters\": {\n    \"key_0\": \"<string>\"\n  },\n  \"columns\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7fdd0c41-7d95-45c8-9bda-c9eb1d6c3e96",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    ":vendor",
+                    "pricing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vendor",
+                      "description": "(Required) Required. Cloud vendor, only `aws` and `azure` are currently supported."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service\": \"<string>\",\n  \"region\": \"<string>\",\n  \"token\": \"<string>\",\n  \"filters\": {\n    \"key_0\": \"<string>\"\n  },\n  \"columns\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"string\",\n  \"pricingData\": [\n    {\n      \"vendor\": \"string\",\n      \"service\": \"string\",\n      \"regionCode\": \"string\",\n      \"sku\": \"string\",\n      \"unit\": \"string\",\n      \"pricePerUnit\": 2510.9216975699865,\n      \"serviceDetails\": {}\n    },\n    {\n      \"vendor\": \"string\",\n      \"service\": \"string\",\n      \"regionCode\": \"string\",\n      \"sku\": \"string\",\n      \"unit\": \"string\",\n      \"pricePerUnit\": 2070.0722914510807,\n      \"serviceDetails\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72a03950-bdc0-4975-a2c1-464a0db0a9da",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    ":vendor",
+                    "pricing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vendor",
+                      "description": "(Required) Required. Cloud vendor, only `aws` and `azure` are currently supported."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service\": \"<string>\",\n  \"region\": \"<string>\",\n  \"token\": \"<string>\",\n  \"filters\": {\n    \"key_0\": \"<string>\"\n  },\n  \"columns\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4498,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b0e5247-5c78-48cb-a581-bfbf6f331706",
+          "name": "WORK-IN-PROGRESS: Get list of supported services, regions, attributes, and columns for filtering",
+          "request": {
+            "name": "WORK-IN-PROGRESS: Get list of supported services, regions, attributes, and columns for filtering",
+            "description": {},
+            "url": {
+              "path": [
+                "v0",
+                ":vendor",
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vendor",
+                  "description": "(Required) Required. Cloud vendor, only `aws` and `azure` are currently supported."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "56d3cf1d-d1fe-417e-9325-6a5360d89bcb",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    ":vendor",
+                    "services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vendor",
+                      "description": "(Required) Required. Cloud vendor, only `aws` and `azure` are currently supported."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"supportedServices\": [\n    {\n      \"service\": \"string\",\n      \"regions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"attributes\": [\n        {\n          \"key\": \"string\",\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"key\": \"string\",\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"columns\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"service\": \"string\",\n      \"regions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"attributes\": [\n        {\n          \"key\": \"string\",\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"key\": \"string\",\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"columns\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0d09266-5f55-4540-83f1-8e8a862fb446",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    ":vendor",
+                    "services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vendor",
+                      "description": "(Required) Required. Cloud vendor, only `aws` and `azure` are currently supported."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4498,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alphaus.cloud/m/blue",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a00a46ca-222a-469c-9d9d-05a057da7bbc",
+    "name": "Blue API reference Admin Pricing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Alphaus provides an API for interacting with its services. Blue API is a RESTful API that can be accessed by an HTTP client such as `curl`, or any HTTP library which is part of most modern programming languages. This API reference is autogenerated from [protocol buffers](https://developers.google.com/protocol-buffers) defined in this [repository](https://github.com/alphauslabs/blueapi), together with our supported [client libraries](https://alphauslabs.github.io/docs/blueapi/client-sdks/). See the official [documentation](https://alphauslabs.github.io/docs/blueapi/overview/) for more information.\n\nYou may encounter the following feature maturity indicators:\n- **(WORK-IN-PROGRESS)** - Development is ongoing, don't use yet;\n- **(BETA)** - New or experimental features, subject to changes; and\n- **(DEPRECATED)** - Outdated or replaced features.\n\nSome endpoints, especially those that return lists of resources, have streaming responses; newline-separated stream of “chunks”. Each chunk is an envelope that can contain either a response message or an error. Only the last chunk will include an error, if any.",
+      "type": "text/plain"
+    }
+  }
+}

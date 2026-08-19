@@ -1,0 +1,627 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blue API reference Admin Iam API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Iam",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all API clients belonging to the caller.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/apiclients"
+          },
+          "docs": "Lists all API clients belonging to the caller."
+        },
+        {
+          "info": {
+            "name": "Creates an API client for the caller.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/apiclients"
+          },
+          "docs": "Creates an API client for the caller."
+        },
+        {
+          "info": {
+            "name": "Deletes an API client belonging to the caller.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/apiclients/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The client id to delete."
+              }
+            ]
+          },
+          "docs": "Deletes an API client belonging to the caller."
+        },
+        {
+          "info": {
+            "name": "Gets experimental UI preferences for the authenticated MSP.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/experimentalui/preferences"
+          },
+          "docs": "Gets experimental UI preferences for the authenticated MSP."
+        },
+        {
+          "info": {
+            "name": "Creates or updates an experimental UI preference for a specific component.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/experimentalui/preferences/:componentId",
+            "params": [
+              {
+                "name": "componentId",
+                "value": "",
+                "type": "path",
+                "description": "The component identifier to create or update a preference for."
+              }
+            ]
+          },
+          "docs": "Creates or updates an experimental UI preference for a specific component."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Retrieves all the existing group root users asscoiated with the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/grouprootusers"
+          },
+          "docs": "WORK-IN-PROGRESS: Retrieves all the existing group root users asscoiated with the organization."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Creates a new root user for a billing group or access group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/grouprootusers"
+          },
+          "docs": "WORK-IN-PROGRESS: Creates a new root user for a billing group or access group."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Retrieves a group root user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/grouprootusers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Retrieves a group root user."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Deletes an existing group root user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/grouprootusers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Deletes an existing group root user."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Retrieves the features available to a user on an Alphaus product.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/grouprootusers/:id/features",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "For a list of valid feature flags, see our documentation at https://labs.alphaus.cloud/docs/blueapi/apis/iam/."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Updates the features available to a user on an Alphaus product.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/grouprootusers/:id/features",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "For a list of valid feature flags, see our documentation at https://labs.alphaus.cloud/docs/blueapi/apis/iam/."
+        },
+        {
+          "info": {
+            "name": "Lists all SSO Identity Providers (IdP).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/idps"
+          },
+          "docs": "Lists all SSO Identity Providers (IdP)."
+        },
+        {
+          "info": {
+            "name": "Registers an SSO Identity Provider (IdP).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/idps"
+          },
+          "docs": "Registers an SSO Identity Provider (IdP)."
+        },
+        {
+          "info": {
+            "name": "Deletes an SSO Identity Provider (IdP).",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/idps/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The IdP id to delete."
+              }
+            ]
+          },
+          "docs": "Deletes an SSO Identity Provider (IdP)."
+        },
+        {
+          "info": {
+            "name": "Lists all IP filters. At the moment, this API is only available to root users.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/ipfilters"
+          },
+          "docs": "Lists all IP filters. At the moment, this API is only available to root users."
+        },
+        {
+          "info": {
+            "name": "Creates an IP filter item for IP blacklisting or whitelisting. At the moment, this API is only available to root users.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/ipfilters"
+          },
+          "docs": "Creates an IP filter item for IP blacklisting or whitelisting. At the moment, this API is only available to root users."
+        },
+        {
+          "info": {
+            "name": "Deletes an IP filter item. At the moment, this API is only available to root users.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/ipfilters/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The IP filter id to delete."
+              }
+            ]
+          },
+          "docs": "Deletes an IP filter item. At the moment, this API is only available to root users."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Get Sub User Metadata for login user's organization based on user identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/metadata/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The parent ID"
+              },
+              {
+                "name": "subId",
+                "value": "",
+                "type": "query",
+                "description": "Optional. The sub-user ID"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Get Sub User Metadata for login user's organization based on user identity"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: List MFA users info for login user's organization based on status.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/mfausers",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Optional. If non empty: list users by status. Otherwise will list all MFA users."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: List MFA users info for login user's organization based on status."
+        },
+        {
+          "info": {
+            "name": "BETA: Creates a partner token for custom integrations. Available only to Ripple and Cover users.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/partners/:id/token",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Partner id or audience for the token."
+              }
+            ]
+          },
+          "docs": "BETA: Creates a partner token for custom integrations. Available only to Ripple and Cover users."
+        },
+        {
+          "info": {
+            "name": "BETA: Refreshes an expired partner token. Only partners are expected to call this API.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/partners/:id/token:refresh",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Partner id or audience for the token."
+              }
+            ]
+          },
+          "docs": "BETA: Refreshes an expired partner token. Only partners are expected to call this API."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Validate reset password link and proceed to update password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/password:reset"
+          },
+          "docs": "WORK-IN-PROGRESS: Validate reset password link and proceed to update password"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Lists all permissions based on the input's scope. For reference, supported permissions can be found on [https://github.com/mobingi/rbac-permissions].",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/permissions",
+            "params": [
+              {
+                "name": "subUser",
+                "value": "",
+                "type": "query",
+                "description": "Optional. The subuser to query. If empty (default), query all available permissions. If set to a valid subuser, query that subuser's permissions, if allowed. You can also set this field to `me` to query your own permissions."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Lists all permissions based on the input's scope. For reference, supported permissions can be found on [https://github.com/mobingi/rbac-permissions]."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Send an email reset code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/ripple/password:requestresetcode"
+          },
+          "docs": "WORK-IN-PROGRESS: Send an email reset code"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Reset ripple password using code from email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/ripple/password:reset"
+          },
+          "docs": "WORK-IN-PROGRESS: Reset ripple password using code from email"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Lists all available roles.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/roles",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "query",
+                "description": "Optional. If not set, all roles will be returned."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Lists all available roles."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Creates a role. If your `permissions` list contains an `Admin` entry, all other entries will be discarded except `Admin`. Roles are root user-level. That means all roles created by the root user, or any subuser that has permissions to create roles, are available to all subusers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/roles"
+          },
+          "docs": "WORK-IN-PROGRESS: Creates a role. If your `permissions` list contains an `Admin` entry, all other entries will be discarded except `Admin`. Roles are root user-level. That means all roles created by the root user, or any subuser that has permissions to create roles, are available to all subusers."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Updates a role. If role name is different, rename mapped role name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/roles/:namespace/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Required. The new namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Required. The role name to update."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Updates a role. If role name is different, rename mapped role name."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Deletes a role. Deleting a role will also remove all mappings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/roles/:namespace/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Required. The parent namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Required. The role name to delete."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Deletes a role. Deleting a role will also remove all mappings."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Lists roles attached to the caller or the input.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/userroles",
+            "params": [
+              {
+                "name": "subUser",
+                "value": "",
+                "type": "query",
+                "description": "Optional. The subuser to query. Defaults to caller if not set."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Lists roles attached to the caller or the input."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Maps roles to a subuser. You can only map (or attach) up to 5 roles to a user per namespace. There is no limit for filtering rules per user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/userroles"
+          },
+          "docs": "WORK-IN-PROGRESS: Maps roles to a subuser. You can only map (or attach) up to 5 roles to a user per namespace. There is no limit for filtering rules per user."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Updates user-to-role mappings. You can only map (or attach) up to 5 roles to a user per namespace. There is no limit for filtering rules per user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/userroles"
+          },
+          "docs": "WORK-IN-PROGRESS: Updates user-to-role mappings. You can only map (or attach) up to 5 roles to a user per namespace. There is no limit for filtering rules per user."
+        },
+        {
+          "info": {
+            "name": "Lists all subusers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/users"
+          },
+          "docs": "Lists all subusers."
+        },
+        {
+          "info": {
+            "name": "Creates a subuser.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/users"
+          },
+          "docs": "Creates a subuser."
+        },
+        {
+          "info": {
+            "name": "Gets subuser information. This call includes all of the subuser metadata. See\n[https://alphauslabs.github.io/blueapi/] for the list of supported attributes.\nIf the `{name}` parameter is `me` or `-`, returns the caller information, which\nis equivalent to `WhoAmI()` or `GET:/iam/v*/whoami`.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Gets subuser information. This call includes all of the subuser metadata. See\n[https://alphauslabs.github.io/blueapi/] for the list of supported attributes.\nIf the `{name}` parameter is `me` or `-`, returns the caller information, which\nis equivalent to `WhoAmI()` or `GET:/iam/v*/whoami`."
+        },
+        {
+          "info": {
+            "name": "Deletes a subuser.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The subuser name to delete."
+              }
+            ]
+          },
+          "docs": "Deletes a subuser."
+        },
+        {
+          "info": {
+            "name": "Gets user information about the caller. This call includes all of the user metadata.\nSee [https://alphauslabs.github.io/blueapi/] for the list of supported attributes.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/whoami"
+          },
+          "docs": "Gets user information about the caller. This call includes all of the user metadata.\nSee [https://alphauslabs.github.io/blueapi/] for the list of supported attributes."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Unlocks ripple or wave user account.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/:domain/account:unlock",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "Required. Valid values are 'ripple' and 'wave'"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Unlocks ripple or wave user account."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Verify User Input For Reset Password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/iam/v1/:user/password:verify",
+            "params": [
+              {
+                "name": "user",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Verify User Input For Reset Password"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2510 @@
+{
+  "item": [
+    {
+      "id": "64920521-79ab-4e6c-8800-478d9a808318",
+      "name": "Flow",
+      "description": {
+        "content": "(ALPHA) Flow API. Base URL: https://api.alphaus.cloud/m/blue/flow",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "99ef51ad-341f-4311-b870-4eab2b50208c",
+          "name": "Gets a CloudFormation launch URL for enabling read-only cross-account access to cost explorer information (API only).",
+          "request": {
+            "name": "Gets a CloudFormation launch URL for enabling read-only cross-account access to cost explorer information (API only).",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "aws",
+                "xacct",
+                "cea"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "43eff5b8-dab2-452c-ba09-8571f8f3e7a0",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aws",
+                    "xacct",
+                    "cea"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"launchUrl\": \"string\",\n  \"templateUrl\": \"string\",\n  \"stackName\": \"string\",\n  \"principal\": \"string\",\n  \"externalId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f52cc5d4-1ccd-4435-abdf-f4c8cc437049",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aws",
+                    "xacct",
+                    "cea"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8268,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e516418-7b2e-4350-9913-dbd0600e411b",
+          "name": "Creates a default cross-account access role for cost explorer (API only).",
+          "request": {
+            "name": "Creates a default cross-account access role for cost explorer (API only).",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "aws",
+                "xacct",
+                "cea"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"target\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0bfba350-d652-4a2c-be54-6a14c11e8a39",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aws",
+                    "xacct",
+                    "cea"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"target\": \"string\",\n  \"roleArn\": \"string\",\n  \"externalId\": \"string\",\n  \"stackId\": \"string\",\n  \"stackRegion\": \"string\",\n  \"templateUrl\": \"string\",\n  \"status\": \"string\",\n  \"lastUpdated\": \"string\",\n  \"access\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc23b3db-2880-4b99-9139-063301850105",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aws",
+                    "xacct",
+                    "cea"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "005fa609-d624-405e-bdb2-db3cf8a120ca",
+          "name": "Gets a CloudFormation launch URL for Savings Plan purchase capabilities",
+          "request": {
+            "name": "Gets a CloudFormation launch URL for Savings Plan purchase capabilities",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "aws",
+                "xacct",
+                "spa"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "351cefc7-bca4-4b43-96b6-19856ace05f2",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aws",
+                    "xacct",
+                    "spa"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"launchUrl\": \"string\",\n  \"templateUrl\": \"string\",\n  \"stackName\": \"string\",\n  \"principal\": \"string\",\n  \"externalId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3238a7c4-5c4b-48e0-87c6-0d55a9e57861",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aws",
+                    "xacct",
+                    "spa"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73f5bc87-dc2c-4637-a4c8-8bd93ba90bc7",
+          "name": "Creates a default cross-account access role for Savings Plan (API only).",
+          "request": {
+            "name": "Creates a default cross-account access role for Savings Plan (API only).",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "aws",
+                "xacct",
+                "spa"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"target\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5fb223a7-34fe-4530-bd9b-bdae4bfb287f",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aws",
+                    "xacct",
+                    "spa"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"target\": \"string\",\n  \"roleArn\": \"string\",\n  \"externalId\": \"string\",\n  \"stackId\": \"string\",\n  \"stackRegion\": \"string\",\n  \"templateUrl\": \"string\",\n  \"status\": \"string\",\n  \"lastUpdated\": \"string\",\n  \"access\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0be64338-bbf8-4846-9e95-05f0db13a5d4",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aws",
+                    "xacct",
+                    "spa"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "439dc7f8-9cd6-42c9-8628-cf684da12073",
+          "name": "Returns the activated cross-account access roles of the target payerId.",
+          "request": {
+            "name": "Returns the activated cross-account access roles of the target payerId.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "aws",
+                "xacct",
+                ":payerId",
+                "access"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payerId",
+                  "description": "(Required) Required. The target payerId of the AWS account to be checked."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0fdb403f-7acc-4700-9685-fbe87d017a36",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aws",
+                    "xacct",
+                    ":payerId",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payerId",
+                      "description": "(Required) Required. The target payerId of the AWS account to be checked."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"target\": \"string\",\n  \"details\": [\n    {\n      \"roleArn\": \"string\",\n      \"externalId\": \"string\",\n      \"stackId\": \"string\",\n      \"stackRegion\": \"string\",\n      \"templateUrl\": \"string\",\n      \"status\": \"string\",\n      \"access\": \"string\"\n    },\n    {\n      \"roleArn\": \"string\",\n      \"externalId\": \"string\",\n      \"stackId\": \"string\",\n      \"stackRegion\": \"string\",\n      \"templateUrl\": \"string\",\n      \"status\": \"string\",\n      \"access\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8063d343-7d15-43cc-8459-b44afcdce398",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aws",
+                    "xacct",
+                    ":payerId",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payerId",
+                      "description": "(Required) Required. The target payerId of the AWS account to be checked."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b064811-90ef-4ddb-84eb-ef4504164c5d",
+          "name": "Returns all the aws accounts and its payer of the msp id",
+          "request": {
+            "name": "Returns all the aws accounts and its payer of the msp id",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "aws",
+                ":billingInternalId",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "billingInternalId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "17a8f5e4-721b-4e42-949e-c01c6bf16b8b",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aws",
+                    ":billingInternalId",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billingInternalId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"groupId\": \"string\",\n  \"groupName\": \"string\",\n  \"payerAccounts\": [\n    \"string\",\n    \"string\"\n  ],\n  \"linkedAccountToPayerId\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8ecf6e3-d3aa-4102-828d-81e765f85675",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aws",
+                    ":billingInternalId",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billingInternalId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b37054e6-9c71-40a2-ad40-801d7d136bf8",
+          "name": "For Testing Purposes Only.",
+          "request": {
+            "name": "For Testing Purposes Only.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f4e676e9-dbc3-4531-9bb7-48d1a6fca9ba",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f1acf2c-7adb-41c3-8bd9-b383613cd512",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f748538e-6973-4fd8-a37d-355be3a07133",
+          "name": "Gets the settings configuration history for a user.",
+          "request": {
+            "name": "Gets the settings configuration history for a user.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "settings",
+                "history",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Required. The id of the payer to fetch settings history for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "56657aca-b010-415d-885f-74e26df6d7d0",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "settings",
+                    "history",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Required. The id of the payer to fetch settings history for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"settingsHistory\": [\n    {\n      \"id\": \"string\",\n      \"accountScope\": \"string\",\n      \"customization\": \"string\",\n      \"planTerm\": \"string\",\n      \"paymentOption\": \"string\",\n      \"lookBackPeriod\": \"string\",\n      \"instanceFamily\": \"string\",\n      \"annualBudget\": 1822.247775359106,\n      \"approval\": false,\n      \"lastUpdated\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"accountScope\": \"string\",\n      \"customization\": \"string\",\n      \"planTerm\": \"string\",\n      \"paymentOption\": \"string\",\n      \"lookBackPeriod\": \"string\",\n      \"instanceFamily\": \"string\",\n      \"annualBudget\": 1949.6791467284102,\n      \"approval\": false,\n      \"lastUpdated\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "acc4bdb8-5d3c-46c1-a6b2-253137612135",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "settings",
+                    "history",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Required. The id of the payer to fetch settings history for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c957b8c-467c-4c8b-8ed8-7b6603ab2318",
+          "name": "Fetch user savings plan details",
+          "request": {
+            "name": "Fetch user savings plan details",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "settings",
+                "recommendations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Required. The id of the payer to fetch recommendation details for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7a265bb4-a589-4da9-88fb-cb56de25d7e0",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "settings",
+                    "recommendations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Required. The id of the payer to fetch recommendation details for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"currentMonthlyOnDemandSpend\": 2538.556011655708,\n  \"estimatedMonthlySpend\": 498.0721809888011,\n  \"estimatedMonthlySavingsDerived\": 8755.690187785072,\n  \"totalDailyCost\": 2872.1896046932607,\n  \"currentSPCommitment\": 7200.128814322298,\n  \"estimatedOnDemandCost\": 5679.559245177901,\n  \"hourlyCommitment\": 6037.375018985832,\n  \"estimatedMonthlySavings\": 5464.494831874596,\n  \"estimatedSavings\": 8797.505563889155,\n  \"recommendationLevel\": \"string\",\n  \"planType\": \"string\",\n  \"planTerm\": \"string\",\n  \"paymentOption\": \"string\",\n  \"lookBackPeriod\": \"string\",\n  \"estimatedROI\": 1128.011986747135,\n  \"estimatedSPCost\": 9573.291796840895,\n  \"estimatedTotalCost\": 6166.22503059639,\n  \"lastUpdated\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62ce17aa-83e5-4c33-9589-8b66caabbd13",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "settings",
+                    "recommendations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Required. The id of the payer to fetch recommendation details for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cfaccb76-41a8-4c0e-b23d-810c73d37794",
+          "name": "Fetch previous settings for a user",
+          "request": {
+            "name": "Fetch previous settings for a user",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "settings",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Required. The id of the payer to fetch settings for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1cba8ec1-d19c-4773-ae36-daacba03ba7e",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "settings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Required. The id of the payer to fetch settings for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"accountScope\": \"string\",\n  \"customization\": \"string\",\n  \"planTerm\": \"string\",\n  \"paymentOption\": \"string\",\n  \"lookBackPeriod\": \"string\",\n  \"instanceFamily\": \"string\",\n  \"annualBudget\": 1348.0149816922703,\n  \"approval\": false,\n  \"lastUpdated\": \"string\",\n  \"payerId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d09d7d80-2deb-4ab7-b95a-185d7d7d886a",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "settings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Required. The id of the payer to fetch settings for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21114d8f-c3b7-48d6-af6f-d42108af7163",
+          "name": "Creates or Updates the settings configuration for recommendation.",
+          "request": {
+            "name": "Creates or Updates the settings configuration for recommendation.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "settings",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Required. The id of the payer."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountScope\": \"<string>\",\n  \"customization\": \"<string>\",\n  \"planTerm\": \"<string>\",\n  \"paymentOption\": \"<string>\",\n  \"lookBackPeriod\": \"<string>\",\n  \"instanceFamily\": \"<string>\",\n  \"annualBudget\": \"<double>\",\n  \"approval\": \"<boolean>\",\n  \"payerId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b892d93-1bbb-41b8-9b7d-32a3771db824",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "settings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Required. The id of the payer."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountScope\": \"<string>\",\n  \"customization\": \"<string>\",\n  \"planTerm\": \"<string>\",\n  \"paymentOption\": \"<string>\",\n  \"lookBackPeriod\": \"<string>\",\n  \"instanceFamily\": \"<string>\",\n  \"annualBudget\": \"<double>\",\n  \"approval\": \"<boolean>\",\n  \"payerId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ba4b2ba-fc8f-40be-8e1b-284e8e354cb6",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "settings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Required. The id of the payer."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountScope\": \"<string>\",\n  \"customization\": \"<string>\",\n  \"planTerm\": \"<string>\",\n  \"paymentOption\": \"<string>\",\n  \"lookBackPeriod\": \"<string>\",\n  \"instanceFamily\": \"<string>\",\n  \"annualBudget\": \"<double>\",\n  \"approval\": \"<boolean>\",\n  \"payerId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca084866-c017-4b2e-9101-0fd746a9d9b7",
+          "name": "Sends savings plan details to be purchased to a Slack channel or user email",
+          "request": {
+            "name": "Sends savings plan details to be purchased to a Slack channel or user email",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "sp",
+                "purchaseDetails",
+                "notification"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"approval\": \"<string>\",\n  \"recommendation\": {\n    \"payerId\": \"<string>\",\n    \"linkedAccounts\": \"<string>\",\n    \"accountScope\": \"<string>\",\n    \"savingsPlanType\": \"<string>\",\n    \"term\": \"<integer>\",\n    \"region\": \"<string>\",\n    \"instanceFamily\": \"<string>\",\n    \"recommendedHourlyCommitment\": \"<double>\",\n    \"paymentOption\": \"<string>\",\n    \"upfrontCost\": \"<double>\",\n    \"monthlyCost\": \"<double>\",\n    \"totalCost\": \"<double>\",\n    \"expiryDate\": \"<string>\"\n  },\n  \"purchases\": [\n    {\n      \"payerId\": \"<string>\",\n      \"linkedAccounts\": \"<string>\",\n      \"accountScope\": \"<string>\",\n      \"savingsPlanType\": \"<string>\",\n      \"term\": \"<integer>\",\n      \"region\": \"<string>\",\n      \"instanceFamily\": \"<string>\",\n      \"recommendedHourlyCommitment\": \"<double>\",\n      \"paymentOption\": \"<string>\",\n      \"upfrontCost\": \"<double>\",\n      \"monthlyCost\": \"<double>\",\n      \"totalCost\": \"<double>\",\n      \"expiryDate\": \"<string>\"\n    },\n    {\n      \"payerId\": \"<string>\",\n      \"linkedAccounts\": \"<string>\",\n      \"accountScope\": \"<string>\",\n      \"savingsPlanType\": \"<string>\",\n      \"term\": \"<integer>\",\n      \"region\": \"<string>\",\n      \"instanceFamily\": \"<string>\",\n      \"recommendedHourlyCommitment\": \"<double>\",\n      \"paymentOption\": \"<string>\",\n      \"upfrontCost\": \"<double>\",\n      \"monthlyCost\": \"<double>\",\n      \"totalCost\": \"<double>\",\n      \"expiryDate\": \"<string>\"\n    }\n  ],\n  \"mode\": \"<string>\",\n  \"userEmail\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"ondemandCostBefore\": \"<string>\",\n  \"ondemandCostAfter\": \"<string>\",\n  \"reductionRate\": \"<string>\",\n  \"approvalLink\": \"<string>\",\n  \"language\": \"<string>\",\n  \"linkExpiryDate\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "225db1f1-1c83-4479-92b9-326f4bf8c7ea",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sp",
+                    "purchaseDetails",
+                    "notification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"approval\": \"<string>\",\n  \"recommendation\": {\n    \"payerId\": \"<string>\",\n    \"linkedAccounts\": \"<string>\",\n    \"accountScope\": \"<string>\",\n    \"savingsPlanType\": \"<string>\",\n    \"term\": \"<integer>\",\n    \"region\": \"<string>\",\n    \"instanceFamily\": \"<string>\",\n    \"recommendedHourlyCommitment\": \"<double>\",\n    \"paymentOption\": \"<string>\",\n    \"upfrontCost\": \"<double>\",\n    \"monthlyCost\": \"<double>\",\n    \"totalCost\": \"<double>\",\n    \"expiryDate\": \"<string>\"\n  },\n  \"purchases\": [\n    {\n      \"payerId\": \"<string>\",\n      \"linkedAccounts\": \"<string>\",\n      \"accountScope\": \"<string>\",\n      \"savingsPlanType\": \"<string>\",\n      \"term\": \"<integer>\",\n      \"region\": \"<string>\",\n      \"instanceFamily\": \"<string>\",\n      \"recommendedHourlyCommitment\": \"<double>\",\n      \"paymentOption\": \"<string>\",\n      \"upfrontCost\": \"<double>\",\n      \"monthlyCost\": \"<double>\",\n      \"totalCost\": \"<double>\",\n      \"expiryDate\": \"<string>\"\n    },\n    {\n      \"payerId\": \"<string>\",\n      \"linkedAccounts\": \"<string>\",\n      \"accountScope\": \"<string>\",\n      \"savingsPlanType\": \"<string>\",\n      \"term\": \"<integer>\",\n      \"region\": \"<string>\",\n      \"instanceFamily\": \"<string>\",\n      \"recommendedHourlyCommitment\": \"<double>\",\n      \"paymentOption\": \"<string>\",\n      \"upfrontCost\": \"<double>\",\n      \"monthlyCost\": \"<double>\",\n      \"totalCost\": \"<double>\",\n      \"expiryDate\": \"<string>\"\n    }\n  ],\n  \"mode\": \"<string>\",\n  \"userEmail\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"ondemandCostBefore\": \"<string>\",\n  \"ondemandCostAfter\": \"<string>\",\n  \"reductionRate\": \"<string>\",\n  \"approvalLink\": \"<string>\",\n  \"language\": \"<string>\",\n  \"linkExpiryDate\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8b489b6-8d89-455a-8223-79e1e99305c4",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sp",
+                    "purchaseDetails",
+                    "notification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"approval\": \"<string>\",\n  \"recommendation\": {\n    \"payerId\": \"<string>\",\n    \"linkedAccounts\": \"<string>\",\n    \"accountScope\": \"<string>\",\n    \"savingsPlanType\": \"<string>\",\n    \"term\": \"<integer>\",\n    \"region\": \"<string>\",\n    \"instanceFamily\": \"<string>\",\n    \"recommendedHourlyCommitment\": \"<double>\",\n    \"paymentOption\": \"<string>\",\n    \"upfrontCost\": \"<double>\",\n    \"monthlyCost\": \"<double>\",\n    \"totalCost\": \"<double>\",\n    \"expiryDate\": \"<string>\"\n  },\n  \"purchases\": [\n    {\n      \"payerId\": \"<string>\",\n      \"linkedAccounts\": \"<string>\",\n      \"accountScope\": \"<string>\",\n      \"savingsPlanType\": \"<string>\",\n      \"term\": \"<integer>\",\n      \"region\": \"<string>\",\n      \"instanceFamily\": \"<string>\",\n      \"recommendedHourlyCommitment\": \"<double>\",\n      \"paymentOption\": \"<string>\",\n      \"upfrontCost\": \"<double>\",\n      \"monthlyCost\": \"<double>\",\n      \"totalCost\": \"<double>\",\n      \"expiryDate\": \"<string>\"\n    },\n    {\n      \"payerId\": \"<string>\",\n      \"linkedAccounts\": \"<string>\",\n      \"accountScope\": \"<string>\",\n      \"savingsPlanType\": \"<string>\",\n      \"term\": \"<integer>\",\n      \"region\": \"<string>\",\n      \"instanceFamily\": \"<string>\",\n      \"recommendedHourlyCommitment\": \"<double>\",\n      \"paymentOption\": \"<string>\",\n      \"upfrontCost\": \"<double>\",\n      \"monthlyCost\": \"<double>\",\n      \"totalCost\": \"<double>\",\n      \"expiryDate\": \"<string>\"\n    }\n  ],\n  \"mode\": \"<string>\",\n  \"userEmail\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"ondemandCostBefore\": \"<string>\",\n  \"ondemandCostAfter\": \"<string>\",\n  \"reductionRate\": \"<string>\",\n  \"approvalLink\": \"<string>\",\n  \"language\": \"<string>\",\n  \"linkExpiryDate\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "80968ab6-1476-4db8-a069-a99de0938da4",
+          "name": "Checks the expiry of the link in the SP to purchase details notification",
+          "request": {
+            "name": "Checks the expiry of the link in the SP to purchase details notification",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "sp",
+                "purchaseDetails",
+                "notification",
+                "link",
+                "expiry"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<string>",
+                  "description": "Required. The URL containing the expiry information to check.\n\nThe URL to check for expiration"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c30dd3e5-ce77-4ee3-8b37-36e66fdbeb1d",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sp",
+                    "purchaseDetails",
+                    "notification",
+                    "link",
+                    "expiry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"isExpired\": false,\n  \"expiryDate\": \"string\",\n  \"formattedDate\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "663708ea-b38d-4486-84c4-83f955ef2125",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sp",
+                    "purchaseDetails",
+                    "notification",
+                    "link",
+                    "expiry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6050ede6-4ced-4822-a879-3bd19e5836d1",
+          "name": "Get savings plan details to be purchased .",
+          "request": {
+            "name": "Get savings plan details to be purchased .",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "sp",
+                "purchaseDetails",
+                ":payerId",
+                ":yearMonth"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payerId",
+                  "description": "(Required) Required. The id of the payer account."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "yearMonth",
+                  "description": "(Required) Required. The year and month  for which the savings plan details are requested, formatted as \"YYYYMM\"."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "343abac4-ba62-4549-b879-f74f100dfdc2",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sp",
+                    "purchaseDetails",
+                    ":payerId",
+                    ":yearMonth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payerId",
+                      "description": "(Required) Required. The id of the payer account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "yearMonth",
+                      "description": "(Required) Required. The year and month  for which the savings plan details are requested, formatted as \"YYYYMM\"."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"recommendation\": {\n    \"payerId\": \"string\",\n    \"linkedAccounts\": \"string\",\n    \"accountScope\": \"string\",\n    \"savingsPlanType\": \"string\",\n    \"term\": 7388,\n    \"region\": \"string\",\n    \"instanceFamily\": \"string\",\n    \"recommendedHourlyCommitment\": 577.7480268176727,\n    \"paymentOption\": \"string\",\n    \"upfrontCost\": 1830.280951083869,\n    \"monthlyCost\": 8817.38441815475,\n    \"totalCost\": 5162.3860373036805,\n    \"expiryDate\": \"string\"\n  },\n  \"purchases\": [\n    {\n      \"payerId\": \"string\",\n      \"linkedAccounts\": \"string\",\n      \"accountScope\": \"string\",\n      \"savingsPlanType\": \"string\",\n      \"term\": 9860,\n      \"region\": \"string\",\n      \"instanceFamily\": \"string\",\n      \"recommendedHourlyCommitment\": 1529.9005370548125,\n      \"paymentOption\": \"string\",\n      \"upfrontCost\": 4271.332163439801,\n      \"monthlyCost\": 5240.150211694463,\n      \"totalCost\": 3937.6292942636737,\n      \"expiryDate\": \"string\"\n    },\n    {\n      \"payerId\": \"string\",\n      \"linkedAccounts\": \"string\",\n      \"accountScope\": \"string\",\n      \"savingsPlanType\": \"string\",\n      \"term\": 900,\n      \"region\": \"string\",\n      \"instanceFamily\": \"string\",\n      \"recommendedHourlyCommitment\": 7760.637177606279,\n      \"paymentOption\": \"string\",\n      \"upfrontCost\": 3482.6636479683348,\n      \"monthlyCost\": 8762.895568889875,\n      \"totalCost\": 9425.626941431665,\n      \"expiryDate\": \"string\"\n    }\n  ],\n  \"ondemandCostBefore\": \"string\",\n  \"ondemandCostAfter\": \"string\",\n  \"reductionRate\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0562e0e-126b-479d-88ae-67e3333059e1",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sp",
+                    "purchaseDetails",
+                    ":payerId",
+                    ":yearMonth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payerId",
+                      "description": "(Required) Required. The id of the payer account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "yearMonth",
+                      "description": "(Required) Required. The year and month  for which the savings plan details are requested, formatted as \"YYYYMM\"."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ecaec8a7-98bb-46d0-ac56-00e3dbea0313",
+          "name": "Sends configuration and recommendation to a Slack channel",
+          "request": {
+            "name": "Sends configuration and recommendation to a Slack channel",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "sp",
+                "recommendation",
+                "notification"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"configurations\": {\n    \"accountScope\": \"<string>\",\n    \"customization\": \"<string>\",\n    \"planTerm\": \"<string>\",\n    \"paymentOption\": \"<string>\",\n    \"lookBackPeriod\": \"<string>\",\n    \"instanceFamily\": \"<string>\",\n    \"annualBudget\": \"<double>\",\n    \"approval\": \"<boolean>\",\n    \"payerId\": \"<string>\"\n  },\n  \"recommendation\": {\n    \"id\": \"<string>\",\n    \"currentMonthlyOnDemandSpend\": \"<double>\",\n    \"estimatedMonthlySpend\": \"<double>\",\n    \"estimatedMonthlySavingsDerived\": \"<double>\",\n    \"totalDailyCost\": \"<double>\",\n    \"currentSPCommitment\": \"<double>\",\n    \"estimatedOnDemandCost\": \"<double>\",\n    \"hourlyCommitment\": \"<double>\",\n    \"estimatedMonthlySavings\": \"<double>\",\n    \"estimatedSavings\": \"<double>\",\n    \"recommendationLevel\": \"<string>\",\n    \"planType\": \"<string>\",\n    \"planTerm\": \"<string>\",\n    \"paymentOption\": \"<string>\",\n    \"lookBackPeriod\": \"<string>\",\n    \"estimatedROI\": \"<double>\",\n    \"estimatedSPCost\": \"<double>\",\n    \"estimatedTotalCost\": \"<double>\",\n    \"lastUpdated\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "26193e38-69d5-4674-9517-ef803577e9f8",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sp",
+                    "recommendation",
+                    "notification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configurations\": {\n    \"accountScope\": \"<string>\",\n    \"customization\": \"<string>\",\n    \"planTerm\": \"<string>\",\n    \"paymentOption\": \"<string>\",\n    \"lookBackPeriod\": \"<string>\",\n    \"instanceFamily\": \"<string>\",\n    \"annualBudget\": \"<double>\",\n    \"approval\": \"<boolean>\",\n    \"payerId\": \"<string>\"\n  },\n  \"recommendation\": {\n    \"id\": \"<string>\",\n    \"currentMonthlyOnDemandSpend\": \"<double>\",\n    \"estimatedMonthlySpend\": \"<double>\",\n    \"estimatedMonthlySavingsDerived\": \"<double>\",\n    \"totalDailyCost\": \"<double>\",\n    \"currentSPCommitment\": \"<double>\",\n    \"estimatedOnDemandCost\": \"<double>\",\n    \"hourlyCommitment\": \"<double>\",\n    \"estimatedMonthlySavings\": \"<double>\",\n    \"estimatedSavings\": \"<double>\",\n    \"recommendationLevel\": \"<string>\",\n    \"planType\": \"<string>\",\n    \"planTerm\": \"<string>\",\n    \"paymentOption\": \"<string>\",\n    \"lookBackPeriod\": \"<string>\",\n    \"estimatedROI\": \"<double>\",\n    \"estimatedSPCost\": \"<double>\",\n    \"estimatedTotalCost\": \"<double>\",\n    \"lastUpdated\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"success\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bb6df08-f0e1-4cab-93b4-b3eb0fd27b90",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sp",
+                    "recommendation",
+                    "notification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configurations\": {\n    \"accountScope\": \"<string>\",\n    \"customization\": \"<string>\",\n    \"planTerm\": \"<string>\",\n    \"paymentOption\": \"<string>\",\n    \"lookBackPeriod\": \"<string>\",\n    \"instanceFamily\": \"<string>\",\n    \"annualBudget\": \"<double>\",\n    \"approval\": \"<boolean>\",\n    \"payerId\": \"<string>\"\n  },\n  \"recommendation\": {\n    \"id\": \"<string>\",\n    \"currentMonthlyOnDemandSpend\": \"<double>\",\n    \"estimatedMonthlySpend\": \"<double>\",\n    \"estimatedMonthlySavingsDerived\": \"<double>\",\n    \"totalDailyCost\": \"<double>\",\n    \"currentSPCommitment\": \"<double>\",\n    \"estimatedOnDemandCost\": \"<double>\",\n    \"hourlyCommitment\": \"<double>\",\n    \"estimatedMonthlySavings\": \"<double>\",\n    \"estimatedSavings\": \"<double>\",\n    \"recommendationLevel\": \"<string>\",\n    \"planType\": \"<string>\",\n    \"planTerm\": \"<string>\",\n    \"paymentOption\": \"<string>\",\n    \"lookBackPeriod\": \"<string>\",\n    \"estimatedROI\": \"<double>\",\n    \"estimatedSPCost\": \"<double>\",\n    \"estimatedTotalCost\": \"<double>\",\n    \"lastUpdated\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f87cb8f-b981-4c60-9370-5440903b3ab1",
+          "name": "Gets the daily cost and usage details.",
+          "request": {
+            "name": "Gets the daily cost and usage details.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "usagecost"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payerId\": \"<string>\",\n  \"startDate\": \"<string>\",\n  \"endDate\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f64cfff8-c845-4f84-ac99-7b63e6c9c2b5",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "usagecost"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"<string>\",\n  \"startDate\": \"<string>\",\n  \"endDate\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payerId\": \"string\",\n  \"monthlyCosts\": {\n    \"monthlyOnDemandCost\": 8338.864043363805,\n    \"monthlyEffectiveCost\": 974.0041220238294,\n    \"monthlyTotalSavings\": 2754.7763615420686\n  },\n  \"spDetails\": [\n    {\n      \"savingsPlanType\": \"string\",\n      \"state\": \"string\",\n      \"startTime\": \"string\",\n      \"endTime\": \"string\",\n      \"returnableUntil\": \"string\",\n      \"commitment\": 8736.205696037583,\n      \"currency\": \"string\",\n      \"planTerm\": \"string\",\n      \"paymentOption\": \"string\",\n      \"productTypes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"upfrontPaymentAmount\": 5733.125400168503,\n      \"recurringPaymentAmount\": 6395.583969060551,\n      \"ec2InstanceFamily\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": \"string\",\n      \"purchasedBy\": \"string\"\n    },\n    {\n      \"savingsPlanType\": \"string\",\n      \"state\": \"string\",\n      \"startTime\": \"string\",\n      \"endTime\": \"string\",\n      \"returnableUntil\": \"string\",\n      \"commitment\": 9158.418117650626,\n      \"currency\": \"string\",\n      \"planTerm\": \"string\",\n      \"paymentOption\": \"string\",\n      \"productTypes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"upfrontPaymentAmount\": 6846.8193198327035,\n      \"recurringPaymentAmount\": 8020.734157361966,\n      \"ec2InstanceFamily\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": \"string\",\n      \"purchasedBy\": \"string\"\n    }\n  ],\n  \"usageCostDetails\": [\n    {\n      \"currentDate\": \"string\",\n      \"productCode\": \"string\",\n      \"ondemandCost\": 4505.917770116722,\n      \"reservedCost\": 6901.185071297834,\n      \"savingsPlanCostByFlow\": 2025.6452780698198,\n      \"savingsPlanCostByUser\": 1247.4234608787672,\n      \"spotCost\": 8046.430775010027,\n      \"coveragePercentage\": 3139.484981455086\n    },\n    {\n      \"currentDate\": \"string\",\n      \"productCode\": \"string\",\n      \"ondemandCost\": 8994.84046511816,\n      \"reservedCost\": 5650.926475793806,\n      \"savingsPlanCostByFlow\": 7836.045703438233,\n      \"savingsPlanCostByUser\": 1294.2724825556584,\n      \"spotCost\": 7311.613612644032,\n      \"coveragePercentage\": 7955.484993116921\n    }\n  ],\n  \"utilizationDetails\": [\n    {\n      \"savingsPlanName\": \"string\",\n      \"savingsPlanArn\": \"string\",\n      \"perDayUtilization\": [\n        {\n          \"currentDate\": \"string\",\n          \"utilizationPercentage\": 6917.996459736622\n        },\n        {\n          \"currentDate\": \"string\",\n          \"utilizationPercentage\": 7428.373608512272\n        }\n      ]\n    },\n    {\n      \"savingsPlanName\": \"string\",\n      \"savingsPlanArn\": \"string\",\n      \"perDayUtilization\": [\n        {\n          \"currentDate\": \"string\",\n          \"utilizationPercentage\": 8300.339084889189\n        },\n        {\n          \"currentDate\": \"string\",\n          \"utilizationPercentage\": 1898.5766509902091\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "350ec2c0-2551-4524-bdde-12301842deed",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "usagecost"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payerId\": \"<string>\",\n  \"startDate\": \"<string>\",\n  \"endDate\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b7af1fd1-209c-4365-907c-8ef2e1ebd7e9",
+          "name": "Gets the user account settings.",
+          "request": {
+            "name": "Gets the user account settings.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "user",
+                "settings",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Required. The user ID of the user."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88baa65f-f467-4b0c-bcd1-878a30dd556c",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user",
+                    "settings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Required. The user ID of the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"emails\": [\n    \"string\",\n    \"string\"\n  ],\n  \"theme\": \"string\",\n  \"language\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d74b2c28-9adc-43fe-ad80-527124486631",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user",
+                    "settings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Required. The user ID of the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41de599e-aac9-442b-9824-4376ad921c00",
+          "name": "Create or Update the user account settings.",
+          "request": {
+            "name": "Create or Update the user account settings.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "user",
+                "settings",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Required. The user ID of the user."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"theme\": \"<string>\",\n  \"language\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4e0c93b7-9dd4-46f5-bbab-ccf19b91b3e4",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user",
+                    "settings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Required. The user ID of the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"theme\": \"<string>\",\n  \"language\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ae24f45-fe3e-456f-9f35-9be13dba4a8c",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user",
+                    "settings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Required. The user ID of the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"theme\": \"<string>\",\n  \"language\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alphaus.cloud/m/blue",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "794dcc15-efe5-4feb-87f9-3f6cb8063050",
+    "name": "Blue API reference Admin Flow API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Alphaus provides an API for interacting with its services. Blue API is a RESTful API that can be accessed by an HTTP client such as `curl`, or any HTTP library which is part of most modern programming languages. This API reference is autogenerated from [protocol buffers](https://developers.google.com/protocol-buffers) defined in this [repository](https://github.com/alphauslabs/blueapi), together with our supported [client libraries](https://alphauslabs.github.io/docs/blueapi/client-sdks/). See the official [documentation](https://alphauslabs.github.io/docs/blueapi/overview/) for more information.\n\nYou may encounter the following feature maturity indicators:\n- **(WORK-IN-PROGRESS)** - Development is ongoing, don't use yet;\n- **(BETA)** - New or experimental features, subject to changes; and\n- **(DEPRECATED)** - Outdated or replaced features.\n\nSome endpoints, especially those that return lists of resources, have streaming responses; newline-separated stream of “chunks”. Each chunk is an envelope that can contain either a response message or an error. Only the last chunk will include an error, if any.",
+      "type": "text/plain"
+    }
+  }
+}

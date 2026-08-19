@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blue API reference Admin Operations API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists long-running operations.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/ops/v1",
+            "params": [
+              {
+                "name": "parent",
+                "value": "",
+                "type": "query",
+                "description": "Optional. The name of the operation's parent resource. Not used at the moment."
+              },
+              {
+                "name": "asOf",
+                "value": "",
+                "type": "query",
+                "description": "Optional. List operations on and after this date. Format is yyyymmdd. For example,\nif you want to list all operations starting from June 01, 2021, set to `20210601`.\nIf not set, defaults to the first day of the current UTC month."
+              },
+              {
+                "name": "includeDone",
+                "value": "",
+                "type": "query",
+                "description": "Optional. If true, include all operations that are marked as done. Exclude by\ndefault."
+              }
+            ]
+          },
+          "docs": "Lists long-running operations."
+        },
+        {
+          "info": {
+            "name": "Gets the latest state of a long-running operation. You can use this method to\npoll the operation result at intervals.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/ops/v1/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the operation resource."
+              }
+            ]
+          },
+          "docs": "Gets the latest state of a long-running operation. You can use this method to\npoll the operation result at intervals."
+        },
+        {
+          "info": {
+            "name": "Deletes a long-running operation. This method indicates that the client is no\nlonger interested in the operation result. It does not cancel the operation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/ops/v1/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the operation resource to be deleted."
+              }
+            ]
+          },
+          "docs": "Deletes a long-running operation. This method indicates that the client is no\nlonger interested in the operation result. It does not cancel the operation."
+        },
+        {
+          "info": {
+            "name": "Starts asynchronous cancellation on a long-running operation. The server makes\na best effort to cancel the operation, but success is not guaranteed. On successful\ncancellation, the operation is not deleted; instead, it becomes an operation with\na value of [google.rpc.Status.code][google.rpc.Status.code] 1, corresponding\nto `Code.CANCELLED`.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/ops/v1/:name:cancel",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the operation resource to be cancelled."
+              }
+            ]
+          },
+          "docs": "Starts asynchronous cancellation on a long-running operation. The server makes\na best effort to cancel the operation, but success is not guaranteed. On successful\ncancellation, the operation is not deleted; instead, it becomes an operation with\na value of [google.rpc.Status.code][google.rpc.Status.code] 1, corresponding\nto `Code.CANCELLED`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

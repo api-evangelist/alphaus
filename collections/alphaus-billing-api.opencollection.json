@@ -1,0 +1,2772 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blue API reference Admin Billing API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Billing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets the announcement list.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/billing/v1/reseller/announcements/:announcementId",
+            "params": [
+              {
+                "name": "announcementId",
+                "value": "",
+                "type": "path",
+                "description": "Optional. Set empty to return all"
+              }
+            ]
+          },
+          "docs": "Gets the announcement list."
+        },
+        {
+          "info": {
+            "name": "Lists access group. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/accessgroups",
+            "params": [
+              {
+                "name": "fieldMask",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Get only the value that set fieldMask.\n\nsee more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto"
+              }
+            ]
+          },
+          "docs": "Lists access group. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Registers the access group. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/accessgroups"
+          },
+          "docs": "Registers the access group. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Gets an access group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/accessgroups/:accessGroupId",
+            "params": [
+              {
+                "name": "accessGroupId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fieldMask",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Get only the value that set fieldMask.\n\nsee more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Gets an access group."
+        },
+        {
+          "info": {
+            "name": "Updates the access group. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/accessgroups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. access group id."
+              }
+            ]
+          },
+          "docs": "Updates the access group. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Deletes the access group. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/accessgroups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. access group id."
+              }
+            ]
+          },
+          "docs": "Deletes the access group. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Gets adjustment config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/adjustmentconfig/:vendor",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws` is supported."
+              },
+              {
+                "name": "includeSPPDiscount",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Gets adjustment config"
+        },
+        {
+          "info": {
+            "name": "Creates adjustment config",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/adjustmentconfig/:vendor",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws` is supported."
+              }
+            ]
+          },
+          "docs": "[ERRORS] \n- InvalidArgument:\n - the AdjustmentConfig is already exists.\n- NotFound:\n - the AdjustmentConfig is not found."
+        },
+        {
+          "info": {
+            "name": "Updates adjustment config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/adjustmentconfig/:vendor",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws` is supported."
+              }
+            ]
+          },
+          "docs": "Updates adjustment config"
+        },
+        {
+          "info": {
+            "name": "Deletes adjustment config",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/adjustmentconfig/:vendor",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws` is supported."
+              }
+            ]
+          },
+          "docs": "Deletes adjustment config"
+        },
+        {
+          "info": {
+            "name": "Reads the daily calculation history of all accounts in your billing groups. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/aws/dailyrunhistory:read"
+          },
+          "docs": "Reads the daily calculation history of all accounts in your billing groups. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Add a vendor account to a billing group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/account"
+          },
+          "docs": "Add a vendor account to a billing group."
+        },
+        {
+          "info": {
+            "name": "Add  a custom field into a billing group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/customfield"
+          },
+          "docs": "Add  a custom field into a billing group"
+        },
+        {
+          "info": {
+            "name": "Remove a custom field from a billing group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/customfield/:groupId/:customFieldId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Billing group internal Id"
+              },
+              {
+                "name": "customFieldId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The id of customfield from get customfield"
+              }
+            ]
+          },
+          "docs": "Remove a custom field from a billing group"
+        },
+        {
+          "info": {
+            "name": "Show all the billing groups custom fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/customfield:read"
+          },
+          "docs": "Show all the billing groups custom fields"
+        },
+        {
+          "info": {
+            "name": "Gets the announcement list for billing group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/reseller/announcements/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "Optional. Set empty to return all"
+              }
+            ]
+          },
+          "docs": "Gets the announcement list for billing group"
+        },
+        {
+          "info": {
+            "name": "Add Tags to the billing group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/tags"
+          },
+          "docs": "Add Tags to the billing group"
+        },
+        {
+          "info": {
+            "name": "Delete a billing group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a billing group."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Gets the account support plan in billing group. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/:id/:vendor/supportplan",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The billing internal id."
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, `aws` is supported."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Gets the account support plan in billing group. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Updates the account support plan in billing group. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/:id/:vendor/supportplan",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The billing internal id."
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, `aws` is supported."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Updates the account support plan in billing group. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Sets non-tag group settings for a billing group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/:id/:vendor/untaggedgroups",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The billing group's internal id"
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. The vendor (aws, azure, etc)"
+              }
+            ]
+          },
+          "docs": "Sets non-tag group settings for a billing group."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Update  additonal charges for a billing group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/:id:additionalCharges",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Update  additonal charges for a billing group"
+        },
+        {
+          "info": {
+            "name": "Update billing group basic information",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/:id:basicInfo",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update billing group basic information"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Update billing group custom fields information",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/:id:customFields",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Update billing group custom fields information"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Update billing group custom fields information",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/:id:freeFormat",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Update billing group custom fields information"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Update invoice settings for a billing group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/:id:invoiceSettings",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Update invoice settings for a billing group"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Update reseller charges for a billing group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/:id:resellerCharges",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Update reseller charges for a billing group"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Update linked resources for a billing group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroup/:id:resources",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Update linked resources for a billing group"
+        },
+        {
+          "info": {
+            "name": "Lists all billing groups (streamed).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups",
+            "params": [
+              {
+                "name": "fieldMask",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Get only the value that set fieldMask.\n\nsee more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto"
+              },
+              {
+                "name": "vendors",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter vendor accounts included in BillingGroup. Format: vendors=vendor1,vendor2,vendor3.\nFor example, When Aws and Gcp to be filtered vendors=aws,gcp\nIf you want to get all vendors, not set parameter."
+              },
+              {
+                "name": "calcType",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter by calcType. Format: calType=account\nValid values: account, tag"
+              },
+              {
+                "name": "displayCost",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter by displayCost. Format: displayCost=unblended_cost\nvalid values: unblended_cost, true_unblended_cost"
+              },
+              {
+                "name": "bgType",
+                "value": "",
+                "type": "query",
+                "description": "Optional. For aws only, filter will be ignored for other vendors.\nValid values: default, imported"
+              }
+            ]
+          },
+          "docs": "Lists all billing groups (streamed)."
+        },
+        {
+          "info": {
+            "name": "Registers a billing group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups"
+          },
+          "docs": "Registers a billing group."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Gets all Billing Groups in AWS Billing Conductor(ABC) for specific payer id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/billingconductor/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Payer Id."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Gets all Billing Groups in AWS Billing Conductor(ABC) for specific payer id."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Gets all accounts associated to AWS Billing Conductor(ABC) Billing group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/billingconductor/:payerId/accounts",
+            "params": [
+              {
+                "name": "payerId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Payer Id."
+              },
+              {
+                "name": "billingGroupArn",
+                "value": "",
+                "type": "query",
+                "description": "Required. BillingGroup Id."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Gets all accounts associated to AWS Billing Conductor(ABC) Billing group"
+        },
+        {
+          "info": {
+            "name": "Creates a child billing group under a parent billing group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/children"
+          },
+          "docs": "Creates a child billing group under a parent billing group"
+        },
+        {
+          "info": {
+            "name": "Gets child billing group info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/children/:internalId",
+            "params": [
+              {
+                "name": "internalId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Internal Id"
+              }
+            ]
+          },
+          "docs": "Gets child billing group info"
+        },
+        {
+          "info": {
+            "name": "Updates child billing group's basic info",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/children/:internalId",
+            "params": [
+              {
+                "name": "internalId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Internal Id"
+              }
+            ]
+          },
+          "docs": "Updates child billing group's basic info"
+        },
+        {
+          "info": {
+            "name": "Deletes all child billing group info",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/children/:internalId",
+            "params": [
+              {
+                "name": "internalId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Child billing group's internal Id"
+              }
+            ]
+          },
+          "docs": "Deletes all child billing group info"
+        },
+        {
+          "info": {
+            "name": "Updates child billing group's invoice settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/children/:internalId/invoiceSettings",
+            "params": [
+              {
+                "name": "internalId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Internal Id"
+              }
+            ]
+          },
+          "docs": "Updates child billing group's invoice settings"
+        },
+        {
+          "info": {
+            "name": "Returns the service discount associated with the billing group id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/children/:internalId/serviceDiscounts",
+            "params": [
+              {
+                "name": "internalId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Child Billing Group Internal Id"
+              }
+            ]
+          },
+          "docs": "Returns the service discount associated with the billing group id"
+        },
+        {
+          "info": {
+            "name": "Sets the child billing group invoice service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/children/:internalId/serviceDiscounts",
+            "params": [
+              {
+                "name": "internalId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Internal Id of the child billing group."
+              }
+            ]
+          },
+          "docs": "Sets the child billing group invoice service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Returns the account's service discounts associated with the child billing group id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/children/:internalId/serviceDiscounts/accounts:read",
+            "params": [
+              {
+                "name": "internalId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Child Billing Group Internal Id"
+              }
+            ]
+          },
+          "docs": "Returns the account's service discounts associated with the child billing group id"
+        },
+        {
+          "info": {
+            "name": "Sets the child billing group's account invoice service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/children/:internalId/serviceDiscounts/accounts:set",
+            "params": [
+              {
+                "name": "internalId",
+                "value": "",
+                "type": "path",
+                "description": "Required. child billing group's internal Id."
+              }
+            ]
+          },
+          "docs": "Sets the child billing group's account invoice service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Lists child billing groups under a specific filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/children:read"
+          },
+          "docs": "Lists child billing groups under a specific filter"
+        },
+        {
+          "info": {
+            "name": "List Exclude Service Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/exclude-service-settings",
+            "params": [
+              {
+                "name": "mspId",
+                "value": "",
+                "type": "query",
+                "description": "MSP (Managed Service Provider) ID. Partition key for the exclude service entries."
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query",
+                "description": "Cloud vendor (e.g., \"aws\", \"gcp\"). If empty, returns all vendors for the MSP."
+              }
+            ]
+          },
+          "docs": "List Exclude Service Entries"
+        },
+        {
+          "info": {
+            "name": "Create Exclude Service Entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/exclude-service-settings"
+          },
+          "docs": "Create Exclude Service Entry"
+        },
+        {
+          "info": {
+            "name": "Update Exclude Service Entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/exclude-service-settings"
+          },
+          "docs": "Update Exclude Service Entry"
+        },
+        {
+          "info": {
+            "name": "Delete Exclude Service Entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/exclude-service-settings",
+            "params": [
+              {
+                "name": "mspId",
+                "value": "",
+                "type": "query",
+                "description": "MSP (Managed Service Provider) ID. Partition key for the exclude service entry."
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query",
+                "description": "Cloud vendor (e.g., \"aws\", \"gcp\")."
+              },
+              {
+                "name": "payerId",
+                "value": "",
+                "type": "query",
+                "description": "Payer/account ID to delete. Use \"all\" or \"*\" to apply to all accounts."
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "Cloud service name (e.g., \"EC2\", \"BigQuery\")."
+              },
+              {
+                "name": "product",
+                "value": "",
+                "type": "query",
+                "description": "Product or SKU code (used for GCP or detailed exclusions)."
+              }
+            ]
+          },
+          "docs": "Delete Exclude Service Entry"
+        },
+        {
+          "info": {
+            "name": "Registers a billing group with Merged Endpoints. Only available in Ripple. WORK IN PROGRESS",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/merged"
+          },
+          "docs": "Registers a billing group with Merged Endpoints. Only available in Ripple. WORK IN PROGRESS"
+        },
+        {
+          "info": {
+            "name": "Gets a billing group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/:billingInternalId",
+            "params": [
+              {
+                "name": "billingInternalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fieldMask",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Get only the value that set fieldMask.\n\nsee more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto"
+              }
+            ]
+          },
+          "docs": "Gets a billing group."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS. Gets the billing group invoice layout configs, used for overriding MSP level configs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/:id/invoicelayoutconfig",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The billing group internal id."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS. Gets the billing group invoice layout configs, used for overriding MSP level configs."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS. Sets the billing group invoice layout configs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/:id/invoicelayoutconfig",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The billing group internal id."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS. Sets the billing group invoice layout configs."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS. Unsets the billing group invoice layout config.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/:id/invoicelayoutconfig",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The billing group internal id."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS. Unsets the billing group invoice layout config."
+        },
+        {
+          "info": {
+            "name": "Creates/Updates a billing group's invoice template. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups/:id/invoicetemplate",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The billing internal ID"
+              }
+            ]
+          },
+          "docs": "Creates/Updates a billing group's invoice template. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Create billing group in bulk from CSV file.\nReturns a long-running operation. Poll status via the Operations service (GET /ops/v1/{name}).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups:bulkCreate"
+          },
+          "docs": "Create billing group in bulk from CSV file.\nReturns a long-running operation. Poll status via the Operations service (GET /ops/v1/{name})."
+        },
+        {
+          "info": {
+            "name": "Link accounts to a billing group in bulk from a CSV file.\nReturns a long-running operation. Poll status via the Operations service (GET /ops/v1/{name}).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups:bulkLinkAccount"
+          },
+          "docs": "Link accounts to a billing group in bulk from a CSV file.\nReturns a long-running operation. Poll status via the Operations service (GET /ops/v1/{name})."
+        },
+        {
+          "info": {
+            "name": "Bulk-tag multiple billing groups from a CSV file.\nSupports add, delete, and dry-run modes.\nReturns a long-running operation. Poll status via the Operations service (GET /ops/v1/{name}).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups:bulkTag"
+          },
+          "docs": "Bulk-tag multiple billing groups from a CSV file.\nSupports add, delete, and dry-run modes.\nReturns a long-running operation. Poll status via the Operations service (GET /ops/v1/{name})."
+        },
+        {
+          "info": {
+            "name": "Lists all billing groups with pagination support.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billinggroups:paginated",
+            "params": [
+              {
+                "name": "fieldMask",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Get only the value that set fieldMask.\n\nsee more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto"
+              },
+              {
+                "name": "vendors",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter vendor accounts included in BillingGroup. Format: vendors=vendor1,vendor2,vendor3.\nFor example, When Aws and Gcp to be filtered vendors=aws,gcp\nIf you want to get all vendors, not set parameter."
+              },
+              {
+                "name": "calcType",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter by calcType. Format: calType=account\nValid values: account, tag"
+              },
+              {
+                "name": "displayCost",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter by displayCost. Format: displayCost=unblended_cost\nvalid values: unblended_cost, true_unblended_cost"
+              },
+              {
+                "name": "bgType",
+                "value": "",
+                "type": "query",
+                "description": "Optional. For aws only, filter will be ignored for other vendors.\nValid values: default, imported"
+              },
+              {
+                "name": "companyName",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter by company name."
+              },
+              {
+                "name": "billingGroupName",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter by billing group name."
+              },
+              {
+                "name": "billingGroupId",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter by billing group id."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Page size for pagination. Default is 50, maximum is 1000."
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Page number for pagination. Starts from 1. Default is 1."
+              }
+            ]
+          },
+          "docs": "Lists all billing groups with pagination support."
+        },
+        {
+          "info": {
+            "name": "Gets the credits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/credits"
+          },
+          "docs": "Gets the credits"
+        },
+        {
+          "info": {
+            "name": "Gets the csv column settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/csvsettings"
+          },
+          "docs": "Gets the csv column settings"
+        },
+        {
+          "info": {
+            "name": "Creates new customfield",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/customfield"
+          },
+          "docs": "Creates new customfield"
+        },
+        {
+          "info": {
+            "name": "Update the `customField` specified id, modifying its key and description",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/customfield/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update the `customField` specified id, modifying its key and description"
+        },
+        {
+          "info": {
+            "name": "Deletes the customfield",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/customfield/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the customfield"
+        },
+        {
+          "info": {
+            "name": "Returns all registered customfields",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/customfield:read"
+          },
+          "docs": "Returns all registered customfields"
+        },
+        {
+          "info": {
+            "name": "Creates the customized billing service. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/customizedbillingservices"
+          },
+          "docs": "Creates the customized billing service. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Gets the customized billing service in billing group. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/customizedbillingservices/billinggroup/:groupId/:vendor",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. billing internal id in billing group."
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, `aws`,`azure`,`gcp` is supported."
+              }
+            ]
+          },
+          "docs": "Gets the customized billing service in billing group. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Sets the customized billing service in billing group. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/customizedbillingservices/billinggroup/:groupId/:vendor",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. billing internal id in billing group."
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, `aws`,`azure`,`gcp` is supported."
+              }
+            ]
+          },
+          "docs": "Sets the customized billing service in billing group. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Deletes the customized billing service in billing group. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/customizedbillingservices/billinggroup/:groupId/:vendor",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. billing internal id in billing group."
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, `aws`,`azure`,`gcp` is supported."
+              }
+            ]
+          },
+          "docs": "Deletes the customized billing service in billing group. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Gets the customized billing service. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/customizedbillingservices/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. [blueapi.api.ripple.CustomizedBillingService.id]"
+              },
+              {
+                "name": "fieldMask",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Get only the value that set fieldMask.\n\nsee more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto"
+              }
+            ]
+          },
+          "docs": "Gets the customized billing service. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Updates the customized billing service by updating the fields specified in the update mask. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/customizedbillingservices/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. [blueapi.api.ripple.CustomizedBillingService.id]"
+              }
+            ]
+          },
+          "docs": "Updates the customized billing service by updating the fields specified in the update mask. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Deletes the customized billing service. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/customizedbillingservices/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. [blueapi.api.ripple.CustomizedBillingService.id]"
+              }
+            ]
+          },
+          "docs": "Deletes the customized billing service. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Reads the customized billing service. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/customizedbillingservices:read"
+          },
+          "docs": "Reads the customized billing service. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Set billing group exchangerate. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/exchangerate/billinggroup/:month",
+            "params": [
+              {
+                "name": "month",
+                "value": "",
+                "type": "path",
+                "description": "Required. month. Format: `yyyymm`."
+              }
+            ]
+          },
+          "docs": "Set billing group exchangerate. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Set global exchangerate. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/exchangerate/global/:vendor/:month",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. vendor."
+              },
+              {
+                "name": "month",
+                "value": "",
+                "type": "path",
+                "description": "Required. month. Format: `yyyymm`."
+              }
+            ]
+          },
+          "docs": "Set global exchangerate. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Set payer exchangerate. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/exchangerate/payer/:month",
+            "params": [
+              {
+                "name": "month",
+                "value": "",
+                "type": "path",
+                "description": "Required. month. Format: `yyyymm`."
+              }
+            ]
+          },
+          "docs": "Set payer exchangerate. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Export the billing groups into csv format",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/exportcsv/billing-group",
+            "params": [
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "Usually the language of the user information is used, \nbut it may be a different language due to cahce.\nIn that case, you can use this option to change the language of CSV."
+              }
+            ]
+          },
+          "docs": "Export the billing groups into csv format"
+        },
+        {
+          "info": {
+            "name": "Exports the invoice settings into csv format",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/exportcsv/invoice-setting",
+            "params": [
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "Usually the language of the user information is used, \nbut it may be a different language due to cahce.\nIn that case, you can use this option to change the language of CSV."
+              },
+              {
+                "name": "includeMiscellaneous",
+                "value": "",
+                "type": "query",
+                "description": "Optional. If true, include miscellaneous items in the settings export."
+              }
+            ]
+          },
+          "docs": "Exports the invoice settings into csv format"
+        },
+        {
+          "info": {
+            "name": "Creates new billing group free format item (miscellaneous)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/freeformat"
+          },
+          "docs": "Creates new billing group free format item (miscellaneous)"
+        },
+        {
+          "info": {
+            "name": "Get billing group free format item (miscellaneous)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/freeformat/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "set empty to get all the freeformat of the MSP"
+              },
+              {
+                "name": "isAssociated",
+                "value": "",
+                "type": "query",
+                "description": "this setting is ignored if groupId is not empty\nset true to return only the free format associated to a BG"
+              }
+            ]
+          },
+          "docs": "Get billing group free format item (miscellaneous)"
+        },
+        {
+          "info": {
+            "name": "Delete billing group free format item (miscellaneous)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/freeformat/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete billing group free format item (miscellaneous)"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Gets the invoice display settings for invoice-ui",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoice/displaysettings"
+          },
+          "docs": "WORK-IN-PROGRESS: Gets the invoice display settings for invoice-ui"
+        },
+        {
+          "info": {
+            "name": "Creates/Updates an invoice display settings. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoice/displaysettings"
+          },
+          "docs": "Creates/Updates an invoice display settings. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Update invoice exchangerate for the month",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoice/exchangerate/:month",
+            "params": [
+              {
+                "name": "month",
+                "value": "",
+                "type": "path",
+                "description": "Required. Format: yyyymm."
+              }
+            ]
+          },
+          "docs": "Update invoice exchangerate for the month"
+        },
+        {
+          "info": {
+            "name": "Reads an invoice status. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoice/status/:date:read",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "Required. Month to get invoice status. Format: `yyyymm`."
+              }
+            ]
+          },
+          "docs": "Reads an invoice status. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Gets an invoice. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoice/status/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. invoice generate request id."
+              }
+            ]
+          },
+          "docs": "Gets an invoice. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Lists Invoice Template. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoice/template"
+          },
+          "docs": "Lists Invoice Template. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Convert invoice to pdf",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoice/:date:converttopdf",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "Required. Format: yyyymm."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Convert invoice to pdf"
+        },
+        {
+          "info": {
+            "name": "Creates an invoice. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoice/:date:create",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "Required. Month to get invoice. Format: `yyyymm`."
+              }
+            ]
+          },
+          "docs": "Creates an invoice. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Creates an invoice and add settings. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoice/:date:create&savesettings",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "Required. Invoice month. Format: `yyyymm`."
+              }
+            ]
+          },
+          "docs": "Creates an invoice and add settings. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Exports an invoice.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoice/:date:export",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "Required. Month to get invoice. Format: `yyyymm`."
+              }
+            ]
+          },
+          "docs": "Exports an invoice."
+        },
+        {
+          "info": {
+            "name": "Updates an invoice preview. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoice/:date:preview",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "Required. Month to get invoice. Format: `yyyymm`."
+              }
+            ]
+          },
+          "docs": "Updates an invoice preview. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Gets an invoice.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoice/:date:read",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "Required. Month to get invoice. Format: `yyyymm`."
+              }
+            ]
+          },
+          "docs": "Gets an invoice."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Save invoice settings for the month",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoice/:date:savesettings",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "Required. Invoice month. Format: `yyyymm`."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Save invoice settings for the month"
+        },
+        {
+          "info": {
+            "name": "Reads list of the invoice.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoice:read"
+          },
+          "docs": "Reads list of the invoice."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS. Creates an invoice layout config.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoicelayoutconfig"
+          },
+          "docs": "WORK-IN-PROGRESS. Creates an invoice layout config."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS. Updates an invoice layout config.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoicelayoutconfig/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The layout id to be updated"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS. Updates an invoice layout config."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS. Delete an invoice layout config.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoicelayoutconfig/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The invoice layout config id."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS. Delete an invoice layout config."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS. Reads all invoice layout config under an msp.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/invoicelayoutconfig:read"
+          },
+          "docs": "WORK-IN-PROGRESS. Reads all invoice layout config under an msp."
+        },
+        {
+          "info": {
+            "name": "Creates new announcement for wave users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/reseller/announcement"
+          },
+          "docs": "Creates new announcement for wave users"
+        },
+        {
+          "info": {
+            "name": "Full update existing announcement",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/reseller/announcement/:announcementId",
+            "params": [
+              {
+                "name": "announcementId",
+                "value": "",
+                "type": "path",
+                "description": "Required"
+              }
+            ]
+          },
+          "docs": "Full update existing announcement"
+        },
+        {
+          "info": {
+            "name": "Billing_DeleteAnnouncement",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/reseller/announcement/:announcementId",
+            "params": [
+              {
+                "name": "announcementId",
+                "value": "",
+                "type": "path",
+                "description": "Required"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Update multiple announcements status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.alphaus.cloud/m/blue/v1/reseller/announcements/bulk/status"
+          },
+          "docs": "Update multiple announcements status"
+        },
+        {
+          "info": {
+            "name": "Update announcement date",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.alphaus.cloud/m/blue/v1/reseller/announcements/:announcementId/date",
+            "params": [
+              {
+                "name": "announcementId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update announcement date"
+        },
+        {
+          "info": {
+            "name": "ListResellers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/resellers",
+            "params": [
+              {
+                "name": "fieldMask",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Get only the value that set fieldMask.\n\nsee more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto"
+              }
+            ]
+          },
+          "docs": "**Lists all the reseller accounts.**\n> **Only available in Ripple.**"
+        },
+        {
+          "info": {
+            "name": "Registers the reseller account. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/resellers"
+          },
+          "docs": "Registers the reseller account. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Gets the reseller account. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/resellers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. reseller id."
+              },
+              {
+                "name": "fieldMask",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Get only the value that set fieldMask.\n\nsee more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto"
+              }
+            ]
+          },
+          "docs": "Gets the reseller account. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Updates the reseller account. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/resellers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. reseller id."
+              }
+            ]
+          },
+          "docs": "Updates the reseller account. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Deletes the reseller account. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/resellers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. reseller id."
+              }
+            ]
+          },
+          "docs": "Deletes the reseller account. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Returns all registered accounts that are not associated to any billing groups and accounts found in CUR for the specified month. For Ripple only",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/resources/accounts/:vendor",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws`,`azure`,`gcp` is supported."
+              },
+              {
+                "name": "month",
+                "value": "",
+                "type": "query",
+                "description": "Optional. The UTC month to query. If empty, defaults to current month. Format is `yyyymm`."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Returns all registered accounts that are not associated to any billing groups and accounts found in CUR for the specified month. For Ripple only"
+        },
+        {
+          "info": {
+            "name": "Creates the invoice service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts"
+          },
+          "docs": "Creates the invoice service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Exports service discounts for account in billing group. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts/account:export"
+          },
+          "docs": "Exports service discounts for account in billing group. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Exports service discounts for billing group. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts/billinggroup:export"
+          },
+          "docs": "Exports service discounts for billing group. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Registers the account invoice service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts/:groupId/account",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "Required.\n\nFor Ripple, only billing internal ids are supported at the moment. You can set it to a single group\n\nImplied as the parent billing group for Wave(Pro) users."
+              }
+            ]
+          },
+          "docs": "Registers the account invoice service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Updates the account invoice service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts/:groupId/account",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "Required.\n\nFor Ripple, only billing internal ids are supported at the moment. You can set it to a single group\n\nImplied as the parent billing group for Wave(Pro) users."
+              }
+            ]
+          },
+          "docs": "Updates the account invoice service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Deletes the account invoice service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts/:groupId/account",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "Required.\n\nFor Ripple, only billing internal ids are supported at the moment. You can set it to a single group\n\nImplied as the parent billing group for Wave(Pro) users."
+              }
+            ]
+          },
+          "docs": "Deletes the account invoice service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Reads the account invoice service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts/:groupId/account:read",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "Required.\n\nFor Ripple, only billing internal ids are supported at the moment. You can set it to a single group\n\nImplied as the parent billing group for Wave(Pro) users."
+              }
+            ]
+          },
+          "docs": "Reads the account invoice service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Removes the account invoice service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts/:groupId/account:remove",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "Required.\n\nFor Ripple, only billing internal ids are supported at the moment. You can set it to a single group\n\nImplied as the parent billing group for Wave(Pro) users."
+              }
+            ]
+          },
+          "docs": "Removes the account invoice service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Returns the service discount associated with the billing group id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts/:groupId/billinggroup",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the service discount associated with the billing group id"
+        },
+        {
+          "info": {
+            "name": "Registers the billing group invoice service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts/:groupId/billinggroup",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "Required.\n\nFor Ripple, only billing internal ids are supported at the moment. You can set it to a single group\n\nImplied as the parent billing group for Wave(Pro) users."
+              }
+            ]
+          },
+          "docs": "Registers the billing group invoice service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Updates the billing group invoice service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts/:groupId/billinggroup",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "Required.\n\nFor Ripple, only billing internal ids are supported at the moment. You can set it to a single group\n\nImplied as the parent billing group for Wave(Pro) users."
+              }
+            ]
+          },
+          "docs": "Updates the billing group invoice service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Deletes the billing group invoice service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts/:groupId/billinggroup",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "Required.\n\nFor Ripple, only billing internal ids are supported at the moment. You can set it to a single group\n\nImplied as the parent billing group for Wave(Pro) users."
+              }
+            ]
+          },
+          "docs": "Deletes the billing group invoice service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Gets the invoice service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. [blueapi.api.ripple.v1.InvoiceServiceDiscounts.id]."
+              },
+              {
+                "name": "fieldMask",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Get only the value that set fieldMask.\n\nsee more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto"
+              }
+            ]
+          },
+          "docs": "Gets the invoice service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Updates the invoice service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. [blueapi.api.ripple.v1.InvoiceServiceDiscounts.id]"
+              }
+            ]
+          },
+          "docs": "Updates the invoice service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Deletes the invoice service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. [blueapi.api.ripple.v1.InvoiceServiceDiscounts.id]"
+              }
+            ]
+          },
+          "docs": "Deletes the invoice service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Reads the service relate to the service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts/:vendor/services:read",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws`,`azure`,`gcp` is supported."
+              }
+            ]
+          },
+          "docs": "Reads the service relate to the service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Exports service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts:export"
+          },
+          "docs": "Exports service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Reads the invoice service discounts. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/servicediscounts:read"
+          },
+          "docs": "Reads the invoice service discounts. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Gets all billing settings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/settings",
+            "params": [
+              {
+                "name": "fieldMask",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Get only the value that set fieldMask.\n\nsee more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Gets all billing settings."
+        },
+        {
+          "info": {
+            "name": "Returns the customer details and its tags. \nPort for: m/ripple/tags/vendor/{vendor}?type={type}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/tags",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the customer details and its tags. \nPort for: m/ripple/tags/vendor/{vendor}?type={type}"
+        },
+        {
+          "info": {
+            "name": "Creates custom fee entries in the RIPPLE_FEES table.\nUsed to write Guaranteed Commitment entries and Custom Fee entries directly to the fee table. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/adjustmententries/customfees",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws` is supported."
+              }
+            ]
+          },
+          "docs": "Creates custom fee entries in the RIPPLE_FEES table.\nUsed to write Guaranteed Commitment entries and Custom Fee entries directly to the fee table. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Gets the adjustment entry. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/adjustmententries/:id",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws`,`azure`,`gcp` is supported."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The adjustment entry id. [blueapi.api.ripple.v1.AdjustmentEntry.id]"
+              }
+            ]
+          },
+          "docs": "Gets the adjustment entry. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Allocates the adjustment entry item. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/adjustmententries/:id/allocate",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws` is supported."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. AdjustmentEntry ID."
+              }
+            ]
+          },
+          "docs": "Allocates the adjustment entry item. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Restores the allocate adjustment entry item. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/adjustmententries/:id/allocate:restore",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws` is supported."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. AdjustmentEntry ID."
+              }
+            ]
+          },
+          "docs": "Restores the allocate adjustment entry item. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Splits the adjustment entry item. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/adjustmententries/:id/split",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws` is supported."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. AdjustmentEntry ID."
+              }
+            ]
+          },
+          "docs": "Splits the adjustment entry item. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Restores the splitted adjustment entry item. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/adjustmententries/:id/split:restore",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws` is supported."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. AdjustmentEntry ID."
+              }
+            ]
+          },
+          "docs": "Restores the splitted adjustment entry item. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Applies the adjustment entry item. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/adjustmententries:apply",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws`,`azure`,`gcp` is supported."
+              }
+            ]
+          },
+          "docs": "Applies the adjustment entry item. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Reads the adjustment entries. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/adjustmententries:read",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws`,`azure`,`gcp` is supported."
+              }
+            ]
+          },
+          "docs": "Reads the adjustment entries. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Restores the adjustment entry item. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/adjustmententries:restore",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws`,`azure`,`gcp` is supported."
+              }
+            ]
+          },
+          "docs": "Restores the adjustment entry item. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Lists adjustment entry items from the fee table.\nReads fee entries from the RIPPLE_FEES table, optionally filtered by mobingi_type.\nNote: Commitment entries (mobingi_type=\"COMMITMENT\") are excluded from ReadAdjustmentEntries to avoid duplication with the Adjusting Entries UI. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/adjustmententryitems:read",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws` is supported."
+              }
+            ]
+          },
+          "docs": "Lists adjustment entry items from the fee table.\nReads fee entries from the RIPPLE_FEES table, optionally filtered by mobingi_type.\nNote: Commitment entries (mobingi_type=\"COMMITMENT\") are excluded from ReadAdjustmentEntries to avoid duplication with the Adjusting Entries UI. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Gets the customized billing service in child billing group. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/billinggroups/children/:internalId/customizedBillingService",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, `aws` is supported."
+              },
+              {
+                "name": "internalId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Internal Id"
+              }
+            ]
+          },
+          "docs": "Gets the customized billing service in child billing group. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Sets the customized billing service in child billing group. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/billinggroups/children/:internalId/customizedBillingService",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, `aws` is supported."
+              },
+              {
+                "name": "internalId",
+                "value": "",
+                "type": "path",
+                "description": "Required. internal id of the child billing group."
+              }
+            ]
+          },
+          "docs": "Sets the customized billing service in child billing group. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "ListExchangeRates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/exchangerate/:month",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. vendor."
+              },
+              {
+                "name": "month",
+                "value": "",
+                "type": "path",
+                "description": "Required. month. Format: `yyyymm`."
+              }
+            ]
+          },
+          "docs": "Lists all exchange rate.\n> Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Reads the adjustment details involved in invoicing of an organization billing group (Wave).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/invoiceadjustments:read",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws`,`azure`,`gcp` is supported."
+              }
+            ]
+          },
+          "docs": "Reads the adjustment details involved in invoicing of an organization billing group (Wave)."
+        },
+        {
+          "info": {
+            "name": "Lists available cloud services and their associated SKUs for a given vendor.\nUse this to retrieve service codes and names that can be referenced in exclude service settings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/services",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cloud vendor (e.g., \"gcp\"). Bound from the URL path."
+              },
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Service code to filter by.\nExample values: \"6F81-5844-456A\" (Cloud Storage), \"95FF-2EF5-5EA1\" (Compute Engine),\n\"152E-C115-5142\" (Cloud SQL).\nUse ListServices without this field to retrieve all available service codes."
+              }
+            ]
+          },
+          "docs": "Lists available cloud services and their associated SKUs for a given vendor.\nUse this to retrieve service codes and names that can be referenced in exclude service settings."
+        },
+        {
+          "info": {
+            "name": "Billing_GetTagsAddingSetting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/tagsaddingsetting/:groupId",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Billing_UpdateTagsAddingSetting",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/tagsaddingsetting/:groupId",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Reads the untagged group. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/untaggedgroups:read",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws` is supported."
+              }
+            ]
+          },
+          "docs": "Reads the untagged group. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Returns a list of accounts that have been updated after invoice along with the differences in costs, if any. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/usagecostsdrift:read",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws` is supported."
+              }
+            ]
+          },
+          "docs": "Returns a list of accounts that have been updated after invoice along with the differences in costs, if any. Only available in Ripple."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,820 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blue API reference Admin GuaranteedCommitments API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GuaranteedCommitments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Retrieves a list of commitments.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/commitments"
+          },
+          "docs": "WORK-IN-PROGRESS: Retrieves a list of commitments."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Executes a commitment purchase plan, initiating the commitment purchase process.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/commitments/plan/:planId/apply",
+            "params": [
+              {
+                "name": "planId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Executes a commitment purchase plan, initiating the commitment purchase process."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Retrieves purchase plan of a company.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/commitments/purchaseplans"
+          },
+          "docs": "WORK-IN-PROGRESS: Retrieves purchase plan of a company."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Only works for Alphaus for now. Retrieves the available commitment types for a given provider.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/commitments/purchaseplans/availabletypes",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "Required. The cloud provider to query available types for.\nAcceptable values: \"aws\", \"azure\", \"gcp\"."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Only works for Alphaus for now. Retrieves the available commitment types for a given provider."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Only works for Alphaus for now. Creates a custom (top-down) commitment purchase plan.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/commitments/purchaseplans/custom"
+          },
+          "docs": "WORK-IN-PROGRESS: Only works for Alphaus for now. Creates a custom (top-down) commitment purchase plan."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Retrieves the drafted purchase plans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/commitments/purchaseplans/draft",
+            "params": [
+              {
+                "name": "isDraft",
+                "value": "",
+                "type": "query",
+                "description": "If set to true, returns plans with Draft status. If set to false, returns plans with Submitted and Executed status."
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Retrieves the drafted purchase plans"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Deletes a drafted purchase plan.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/commitments/purchaseplans/draft/:draftPlanId",
+            "params": [
+              {
+                "name": "draftPlanId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The draft plan ID to delete."
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Deletes a drafted purchase plan."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Saves a commitment purchase plan as draft.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/commitments/purchaseplans/draft/:planId",
+            "params": [
+              {
+                "name": "planId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The commitment purchase plan ID to save as draft."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Saves a commitment purchase plan as draft."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Retrieves full details of a specific purchase plan of a company.\nIncludes the basic info, detailed metrics, commitment line items, covered infrastructure resource matches, and audit history.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/commitments/purchaseplans/:planId",
+            "params": [
+              {
+                "name": "planId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Retrieves full details of a specific purchase plan of a company.\nIncludes the basic info, detailed metrics, commitment line items, covered infrastructure resource matches, and audit history."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Get the updated details of the plan after the apply plan.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/commitments/purchaseplans:update"
+          },
+          "docs": "WORK-IN-PROGRESS: Get the updated details of the plan after the apply plan."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Only works for Alphaus for now. Retrieves a paginated list of reservable infrastructure resources for a segment.\nSupports filtering, sorting, and a date range for usage aggregation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/commitments/resources",
+            "params": [
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query",
+                "description": "Required. The company ID to scope the query to.\n\n// Optional. Field to sort by. Example: \"ondemand_cost\".\n string orderBy = 2;\n // Optional. If true, sort in descending order.\n bool desc = 3;\n // Optional. URL-encoded JSON filter expression.\n // Example (decoded): {\"and\":[{\"and\":[{\"field\":\"covered_usage\",\"op\":\"<\",\"value\":1}]},{\"and\":[{\"field\":\"is_reservable\",\"op\":\"=\",\"value\":\"true\"}]}]}\n string filter = 4;\n // Required. Start of the usage lookback window (YYYY-MM-DD).\n string startDate = 5;\n // Required. End of the usage lookback window (YYYY-MM-DD).\n string endDate = 6;\n // Optional. Page number (1-based).\n int32 page = 7;\n // Optional. Number of results per page.\n int32 pageSize = 8;"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Only works for Alphaus for now. Retrieves a paginated list of reservable infrastructure resources for a segment.\nSupports filtering, sorting, and a date range for usage aggregation."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Generates time-series chart data for commitment metrics over the specified time period.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/commitments/:commitmentId/chart",
+            "params": [
+              {
+                "name": "commitmentId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The commitment id."
+              },
+              {
+                "name": "groupBy",
+                "value": "",
+                "type": "query",
+                "description": "Required. The group filter. Available filters include `region`, `service`, `instanceType`, `instanceTypeFamily`, `usageType` and `operation`."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Generates time-series chart data for commitment metrics over the specified time period."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Generates utilization data for commitment over the active period.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/commitments/:commitmentId/utilization",
+            "params": [
+              {
+                "name": "commitmentId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The commitment id."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Generates utilization data for commitment over the active period."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Lists payer accounts associated with the organization.\nRetrieves all payer accounts linked to the organization, including their status and associated segments.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/managements/accounts"
+          },
+          "docs": "WORK-IN-PROGRESS: Lists payer accounts associated with the organization.\nRetrieves all payer accounts linked to the organization, including their status and associated segments."
+        },
+        {
+          "info": {
+            "name": "GuaranteedCommitments_GetPayerAccountStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/managements/accounts/status"
+          }
+        },
+        {
+          "info": {
+            "name": "GuaranteedCommitments_SetPayerAccountEnabled",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/managements/accounts/:companyId",
+            "params": [
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "GuaranteedCommitments_ListBillingGroups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/managements/billinggroups"
+          }
+        },
+        {
+          "info": {
+            "name": "GuaranteedCommitments_GetBillingGroupStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/managements/billinggroups/status"
+          }
+        },
+        {
+          "info": {
+            "name": "GuaranteedCommitments_AcceptBillingGroupTerms",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/managements/billinggroups/terms:accept"
+          }
+        },
+        {
+          "info": {
+            "name": "GuaranteedCommitments_SetBillingGroupStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/managements/billinggroups/:companyId",
+            "params": [
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Do not use. Retrieves key performance metrics for cloud commitments.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/metrics",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Do not use. Retrieves key performance metrics for cloud commitments."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Registers a new child organization under the channel partner.\nCreates the organization, sets up user memberships, and establishes the partnership relationship.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding"
+          },
+          "docs": "WORK-IN-PROGRESS: Registers a new child organization under the channel partner.\nCreates the organization, sets up user memberships, and establishes the partnership relationship."
+        },
+        {
+          "info": {
+            "name": "CreateGuaranteedCommitmentAccess verifies and registers a deployed guaranteed CloudFormation stack.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/aws/cftemplate/guaranteed"
+          },
+          "docs": "CreateGuaranteedCommitmentAccess verifies and registers a deployed guaranteed CloudFormation stack."
+        },
+        {
+          "info": {
+            "name": "GetGuaranteedCommitmentTemplateUrl returns a CloudFormation launch URL for deploying\nboth Alphaus (Ripple) and Archera IAM roles in a single stack.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/aws/cftemplate/guaranteed:url",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "query",
+                "description": "The guaranteed-commitments-provided external ID for the guaranteed-commitments IAM role trust policy."
+              }
+            ]
+          },
+          "docs": "GetGuaranteedCommitmentTemplateUrl returns a CloudFormation launch URL for deploying\nboth Alphaus (Ripple) and Archera IAM roles in a single stack."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Generates AWS CloudFormation launch stack URL.\nCreates a pre-configured URL to deploy the CloudFormation stack in the AWS console.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/aws/cloudformation/launchstackurl",
+            "params": [
+              {
+                "name": "billingGroupId",
+                "value": "",
+                "type": "query",
+                "description": "Optional: if present => MSP customer (3rd layer), else MSP-level org (2nd layer)"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "gcOrgId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "payerAccountId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "payerAccountName",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Generates AWS CloudFormation launch stack URL.\nCreates a pre-configured URL to deploy the CloudFormation stack in the AWS console."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Generates CloudFormation template for AWS integration.\nCreates the necessary IAM role and policy template for setting up AWS access.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/aws/cloudformation/template",
+            "params": [
+              {
+                "name": "billingGroupId",
+                "value": "",
+                "type": "query",
+                "description": "Optional: if present => MSP customer (3rd layer), else MSP-level org (2nd layer)"
+              },
+              {
+                "name": "companyId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "gcOrgId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "payerAccountId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "payerAccountName",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Generates CloudFormation template for AWS integration.\nCreates the necessary IAM role and policy template for setting up AWS access."
+        },
+        {
+          "info": {
+            "name": "Retrieves the AWS Marketplace private offer details for a payer account.\nUsed by the onboarding \"Accept Private Offer\" step.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/aws/privateoffer/:payerAccountId",
+            "params": [
+              {
+                "name": "payerAccountId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The AWS payer account ID that the private offer targets."
+              },
+              {
+                "name": "recreate",
+                "value": "",
+                "type": "query",
+                "description": "Optional. If true, recreate the private offer when the existing row is\nin a retryable terminal state: FAILED, EXPIRED, or WITHDRAWN.\nACCEPTED, PENDING, and CREATING are not recreated."
+              }
+            ]
+          },
+          "docs": "Retrieves the AWS Marketplace private offer details for a payer account.\nUsed by the onboarding \"Accept Private Offer\" step."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Starts the onboarding process for an organization.\nCreates or retrieves an onboarding record and sets the provider to AWS.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/aws/start"
+          },
+          "docs": "WORK-IN-PROGRESS: Starts the onboarding process for an organization.\nCreates or retrieves an onboarding record and sets the provider to AWS."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Runs AWS onboarding verification process.\nCreates a new CUR or uses an existing CUR and verifies AWS integration setup\nand returns validation status for all required features.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/aws/verify"
+          },
+          "docs": "WORK-IN-PROGRESS: Runs AWS onboarding verification process.\nCreates a new CUR or uses an existing CUR and verifies AWS integration setup\nand returns validation status for all required features."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Creates the Azure cloud integration after all onboarding steps complete.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/azure/integration"
+          },
+          "docs": "WORK-IN-PROGRESS: Creates the Azure cloud integration after all onboarding steps complete."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Lists Azure integrations to verify onboarding completion.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/azure/integrations",
+            "params": [
+              {
+                "name": "gcOrgId",
+                "value": "",
+                "type": "query",
+                "description": "Required. Archera org ID."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Lists Azure integrations to verify onboarding completion."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Starts the Azure onboarding process.\nCreates an onboarding record in Archera for the given org and returns the onboardingId.\nStores the Ripple billingGroupId/companyId association for later use.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/azure/start"
+          },
+          "docs": "WORK-IN-PROGRESS: Starts the Azure onboarding process.\nCreates an onboarding record in Archera for the given org and returns the onboardingId.\nStores the Ripple billingGroupId/companyId association for later use."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Lists the available Azure subscriptions or billing accounts\nfor the user to select during onboarding.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/azure/:onboardingId/accounts",
+            "params": [
+              {
+                "name": "onboardingId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The onboarding ID."
+              },
+              {
+                "name": "gcOrgId",
+                "value": "",
+                "type": "query",
+                "description": "Required. Archera org ID."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Lists the available Azure subscriptions or billing accounts\nfor the user to select during onboarding."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Returns the Azure OAuth URL the user must visit to authorize Archera.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/azure/:onboardingId/authurl",
+            "params": [
+              {
+                "name": "onboardingId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The onboarding ID."
+              },
+              {
+                "name": "gcOrgId",
+                "value": "",
+                "type": "query",
+                "description": "Required. Archera org ID."
+              },
+              {
+                "name": "tenantId",
+                "value": "",
+                "type": "query",
+                "description": "Azure tenant ID."
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "query",
+                "description": "Azure management subscription ID."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Returns the Azure OAuth URL the user must visit to authorize Archera."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Validates that the Azure app was installed and the user authorized it.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/azure/:onboardingId/validate",
+            "params": [
+              {
+                "name": "onboardingId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The onboarding ID."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Validates that the Azure app was installed and the user authorized it."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Updates the Azure onboarding record.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/azure/:onboardingId:update",
+            "params": [
+              {
+                "name": "onboardingId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The onboarding ID returned from StartAzureOnboarding."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Updates the Azure onboarding record."
+        },
+        {
+          "info": {
+            "name": "GuaranteedCommitments_ValidateBillingGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/billinggroup:validate"
+          }
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Retrieves the latest onboarding status for:\n- an MSP\n- a company under an MSP\n- a payer account under an MSP",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/onboarding/status:read"
+          },
+          "docs": "WORK-IN-PROGRESS: Retrieves the latest onboarding status for:\n- an MSP\n- a company under an MSP\n- a payer account under an MSP"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: List all the registered orgs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/organizations:read"
+          },
+          "docs": "WORK-IN-PROGRESS: List all the registered orgs"
+        },
+        {
+          "info": {
+            "name": "Reads per-account commitment report details for a specific month. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/reports/invoice/:month/accounts:read",
+            "params": [
+              {
+                "name": "month",
+                "value": "",
+                "type": "path",
+                "description": "Required. The billing month. Format: `yyyymm`."
+              }
+            ]
+          },
+          "docs": "Reads per-account commitment report details for a specific month. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "Reads monthly commitment reports for the MSP. Only available in Ripple.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/reports/invoice:read"
+          },
+          "docs": "Reads monthly commitment reports for the MSP. Only available in Ripple."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Do not use. Retrieves a list of infrastructure resources for the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/resources",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "segmentId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "desc",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderBy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Do not use. Retrieves a list of infrastructure resources for the organization."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Do not use. Retrieves daily usage data for a specific resource within the specified date range.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/resources/:resourceId/dailyusage",
+            "params": [
+              {
+                "name": "resourceId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "catalogSkuId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Do not use. Retrieves daily usage data for a specific resource within the specified date range."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

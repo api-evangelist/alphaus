@@ -1,0 +1,405 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blue API reference Admin Luster API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Luster",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "(ALPHA) [LABEL] Creates label.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/contexts/label"
+          },
+          "docs": "(ALPHA) [LABEL] Creates label."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [LABEL] Updates label.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/contexts/label/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. the label id."
+              }
+            ]
+          },
+          "docs": "(ALPHA) [LABEL] Updates label."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [LABEL] Deletes label.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/contexts/label/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. the label id."
+              }
+            ]
+          },
+          "docs": "(ALPHA) [LABEL] Deletes label."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [LABEL] Reads labels.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/contexts/label:read"
+          },
+          "docs": "(ALPHA) [LABEL] Reads labels."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [CONTEXT] Creates context.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/contexts/:spaceId/context",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The space id."
+              }
+            ]
+          },
+          "docs": "(ALPHA) [CONTEXT] Creates context."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [COMMENT] Creates comment in context.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/contexts/:spaceId/context/:contextId/comment",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "Required. the space id."
+              },
+              {
+                "name": "contextId",
+                "value": "",
+                "type": "path",
+                "description": "Required. the context id."
+              }
+            ]
+          },
+          "docs": "(ALPHA) [COMMENT] Creates comment in context."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [COMMENT] Updates comment in context.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/contexts/:spaceId/context/:contextId/comment/:id",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "Required. the space id."
+              },
+              {
+                "name": "contextId",
+                "value": "",
+                "type": "path",
+                "description": "Required. the context id."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. the comment id."
+              }
+            ]
+          },
+          "docs": "(ALPHA) [COMMENT] Updates comment in context."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [COMMENT] Deletes comment in context.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/contexts/:spaceId/context/:contextId/comment/:id",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "Required. the space id."
+              },
+              {
+                "name": "contextId",
+                "value": "",
+                "type": "path",
+                "description": "Required. the context id."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. the comment id."
+              }
+            ]
+          },
+          "docs": "(ALPHA) [COMMENT] Deletes comment in context."
+        },
+        {
+          "info": {
+            "name": "(ALPHA [CONTEXT]) Gets context.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/contexts/:spaceId/context/:id",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The space id."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "the context id."
+              },
+              {
+                "name": "fieldMask",
+                "value": "",
+                "type": "query",
+                "description": "Optional. field_mask\nsee more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto"
+              }
+            ]
+          },
+          "docs": "(ALPHA [CONTEXT]) Gets context."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [CONTEXT] Updates context.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/contexts/:spaceId/context/:id",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The space id."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. the context id."
+              }
+            ]
+          },
+          "docs": "(ALPHA) [CONTEXT] Updates context."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [CONTEXT] Deletes context.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/contexts/:spaceId/context/:id",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The space id."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. the context id."
+              }
+            ]
+          },
+          "docs": "(ALPHA) [CONTEXT] Deletes context."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [CONTEXT] Reads contexts.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/contexts/:spaceId:read",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "Required. The space id."
+              }
+            ]
+          },
+          "docs": "(ALPHA) [CONTEXT] Reads contexts."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [HUB] Gets hub.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/hubs/:hubType",
+            "params": [
+              {
+                "name": "hubType",
+                "value": "",
+                "type": "path",
+                "description": "Required. the hub type."
+              },
+              {
+                "name": "fieldMask",
+                "value": "",
+                "type": "query",
+                "description": "Optional. field_mask\nsee more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto"
+              }
+            ]
+          },
+          "docs": "(ALPHA) [HUB] Gets hub."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [HUB] Reads hubs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/hubs:read"
+          },
+          "docs": "(ALPHA) [HUB] Reads hubs."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [SPACE] Creates space.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/spaces"
+          },
+          "docs": "(ALPHA) [SPACE] Creates space."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [SPACE] Gets space.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/spaces/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "the space id."
+              },
+              {
+                "name": "fieldMask",
+                "value": "",
+                "type": "query",
+                "description": "Optional. field_mask\nsee more info: https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/field_mask.proto"
+              }
+            ]
+          },
+          "docs": "(ALPHA) [SPACE] Gets space."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [SPACE] Updates space.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/spaces/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. the space id."
+              }
+            ]
+          },
+          "docs": "(ALPHA) [SPACE] Updates space."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [SPACE] Deletes space.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/spaces/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "the space id."
+              }
+            ]
+          },
+          "docs": "When deleted, contexts created within the space will also be deleted and cannot be viewed."
+        },
+        {
+          "info": {
+            "name": "(ALPHA) [SPACE] Reads spaces.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/spaces:read"
+          },
+          "docs": "(ALPHA) [SPACE] Reads spaces."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

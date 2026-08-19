@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blue API reference Admin Organization API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets information about the caller's organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/org/v1"
+          },
+          "docs": "Gets information about the caller's organization."
+        },
+        {
+          "info": {
+            "name": "Creates the organization account.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/org/v1"
+          },
+          "docs": "Creates the organization account."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Deletes the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/org/v1"
+          },
+          "docs": "WORK-IN-PROGRESS: Deletes the organization."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Updates organization metadata. See [https://alphauslabs.github.io/blueapi/]\nfor the list of supported attributes.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/org/v1/metadata"
+          },
+          "docs": "WORK-IN-PROGRESS: Updates organization metadata. See [https://alphauslabs.github.io/blueapi/]\nfor the list of supported attributes."
+        },
+        {
+          "info": {
+            "name": "Updates the organization password.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/org/v1/passwd"
+          },
+          "docs": "Updates the organization password."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Sends (or resends) the verification email. Only valid for unverified\norganizations. The verification key will be valid for a day.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/org/v1:sendVerification"
+          },
+          "docs": "WORK-IN-PROGRESS: Sends (or resends) the verification email. Only valid for unverified\norganizations. The verification key will be valid for a day."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Verifies an organization using the key received from the verification email.\nThe verification key is only valid for a day.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/org/v1:verify",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Verifies an organization using the key received from the verification email.\nThe verification key is only valid for a day."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

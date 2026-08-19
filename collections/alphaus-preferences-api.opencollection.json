@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blue API reference Admin Preferences API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Preferences",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Gets current preferences.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/prefs/v1"
+          },
+          "docs": "WORK-IN-PROGRESS: Gets current preferences."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

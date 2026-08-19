@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blue API reference Admin Pricing API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pricing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Test endpoint only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v0/info"
+          },
+          "docs": "Test endpoint only."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Get cloud pricing information",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v0/:vendor/pricing",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cloud vendor, only `aws` and `azure` are currently supported."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Get cloud pricing information"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Get list of supported services, regions, attributes, and columns for filtering",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v0/:vendor/services",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cloud vendor, only `aws` and `azure` are currently supported."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Get list of supported services, regions, attributes, and columns for filtering"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

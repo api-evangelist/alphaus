@@ -1,0 +1,432 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blue API reference Admin Prism API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Prism",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Prism_ListActivities",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/activity/all:read"
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_ShareGDrive",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/gdrive/share"
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_GetIntegrationStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/integration/status"
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_ListIntegrationStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/integration/status/all:read"
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_ListTeamMembers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/member/all:read"
+          }
+        },
+        {
+          "info": {
+            "name": "Creates a new organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/org"
+          },
+          "docs": "Creates a new organization."
+        },
+        {
+          "info": {
+            "name": "Prism_GenerateOrganizationCode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/org/code"
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_JoinOrganization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/org/join"
+          }
+        },
+        {
+          "info": {
+            "name": "Gets information about an organization by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/org/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required organization ID."
+              }
+            ]
+          },
+          "docs": "Gets information about an organization by ID."
+        },
+        {
+          "info": {
+            "name": "Prism_UpdateOrganization",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/org/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required organization ID."
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_DeleteOrganization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/org/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required organization ID."
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_UpdateOrgTimezone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/org/:id/timezone",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required organization ID."
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_CreateProduct",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/product"
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_ListProducts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/product/all:read"
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_DeleteProduct",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/product/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required product ID."
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "WIP: Creates a new project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/project"
+          },
+          "docs": "WIP: Creates a new project."
+        },
+        {
+          "info": {
+            "name": "WIP: Lists all projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/project/all:read"
+          },
+          "docs": "WIP: Lists all projects"
+        },
+        {
+          "info": {
+            "name": "WIP: Gets information about a project by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/project/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required project ID."
+              }
+            ]
+          },
+          "docs": "WIP: Gets information about a project by ID."
+        },
+        {
+          "info": {
+            "name": "WIP: Deletes a project by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/project/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required project ID."
+              }
+            ]
+          },
+          "docs": "WIP: Deletes a project by ID."
+        },
+        {
+          "info": {
+            "name": "Prism_ListProjectToTeam",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/projecttoteam/all:read"
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_AssignProjectToTeam",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/projecttoteam/assign"
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_CreateReportSchedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/reportschedule"
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_ListReportSchedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/reportschedule/all:read"
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_UpdateReportSchedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/reportschedule/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_CreateTeam",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/team"
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_ListTeams",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/team/all:read"
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_GetTeam",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/team/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required team ID."
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_DeleteTeam",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/team/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required team ID."
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Test endpoint only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/test"
+          },
+          "docs": "Test endpoint only."
+        },
+        {
+          "info": {
+            "name": "Prism_VerifyUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/verify"
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_ListWorkflows",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/workflow/all:read"
+          }
+        },
+        {
+          "info": {
+            "name": "Prism_UpdateWorkflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/workflow/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Required workflow name."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

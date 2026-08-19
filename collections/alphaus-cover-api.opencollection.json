@@ -1,0 +1,2579 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blue API reference Admin Cover API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cover",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Registers GCP/Azure account.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/account"
+          },
+          "docs": "Registers GCP/Azure account."
+        },
+        {
+          "info": {
+            "name": "Lists Azure and GCP accounts.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/account/all:read"
+          },
+          "docs": "Lists Azure and GCP accounts."
+        },
+        {
+          "info": {
+            "name": "Lists unregistered linked accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/account/unregistered:read"
+          },
+          "docs": "Lists unregistered linked accounts"
+        },
+        {
+          "info": {
+            "name": "Gets the current account. For GCP and Azure.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/account/:target",
+            "params": [
+              {
+                "name": "target",
+                "value": "",
+                "type": "path",
+                "description": "Required. (Billing ID for GCP / Account ID for Azure)"
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query",
+                "description": "Vendor (GCP/Azure)"
+              },
+              {
+                "name": "accountType",
+                "value": "",
+                "type": "query",
+                "description": "In the context of fetching account details, specifying the account type is necessary. This is because the target alone might not uniquely identify an account and could result in multiple data points."
+              }
+            ]
+          },
+          "docs": "Gets the current account. For GCP and Azure."
+        },
+        {
+          "info": {
+            "name": "Update GCP/Azure account info",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/account/:target",
+            "params": [
+              {
+                "name": "target",
+                "value": "",
+                "type": "path",
+                "description": "Billing Id for GCP, Account Id for Azure"
+              }
+            ]
+          },
+          "docs": "Update GCP/Azure account info"
+        },
+        {
+          "info": {
+            "name": "Deletes GCP or Azure accounts based on the provided request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/account/:target",
+            "params": [
+              {
+                "name": "target",
+                "value": "",
+                "type": "path",
+                "description": "Required. (Billing ID for GCP / Account ID for Azure)"
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query",
+                "description": "Vendor (GCP/Azure)"
+              },
+              {
+                "name": "accountType",
+                "value": "",
+                "type": "query",
+                "description": "In the context of fetching account details, specifying the account type is necessary. This is because the target alone might not uniquely identify an account and could result in multiple data points."
+              }
+            ]
+          },
+          "docs": "Deletes GCP or Azure accounts based on the provided request."
+        },
+        {
+          "info": {
+            "name": "Deletes the current account access role attached to this target account. This does not delete the CloudFormation deployment in your account.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/acctaccess/:target",
+            "params": [
+              {
+                "name": "target",
+                "value": "",
+                "type": "path",
+                "description": "Required. The target AWS account to delete."
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Deletes the current account access role attached to this target account. This does not delete the CloudFormation deployment in your account."
+        },
+        {
+          "info": {
+            "name": "Cover_GetAICostAndUsage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/ai/costusage"
+          }
+        },
+        {
+          "info": {
+            "name": "Create Anomaly Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/alerts/anomaly"
+          },
+          "docs": "Create Anomaly Alert"
+        },
+        {
+          "info": {
+            "name": "List all the Anomaly Alert Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/alerts/anomaly/all:read"
+          },
+          "docs": "List all the Anomaly Alert Data"
+        },
+        {
+          "info": {
+            "name": "Get Anomaly Alert Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/alerts/anomaly/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "required. Id"
+              }
+            ]
+          },
+          "docs": "Get Anomaly Alert Data"
+        },
+        {
+          "info": {
+            "name": "Update Anomaly Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/alerts/anomaly/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "required. Id"
+              }
+            ]
+          },
+          "docs": "Update Anomaly Alert"
+        },
+        {
+          "info": {
+            "name": "Delete Anomaly Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/alerts/anomaly/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "required. Id"
+              }
+            ]
+          },
+          "docs": "Delete Anomaly Alert"
+        },
+        {
+          "info": {
+            "name": "Get Alerts under organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/alerts/cost"
+          },
+          "docs": "Get Alerts under organization"
+        },
+        {
+          "info": {
+            "name": "Create Alerts under organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/alerts/cost"
+          },
+          "docs": "Create Alerts under organization"
+        },
+        {
+          "info": {
+            "name": "Get Specific Alert under organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/alerts/cost/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Alert ID."
+              }
+            ]
+          },
+          "docs": "Get Specific Alert under organization"
+        },
+        {
+          "info": {
+            "name": "Update Specific Alert under organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/alerts/cost/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Alert ID."
+              }
+            ]
+          },
+          "docs": "Update Specific Alert under organization"
+        },
+        {
+          "info": {
+            "name": "Delete Specific Alert under organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/alerts/cost/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Alert ID."
+              }
+            ]
+          },
+          "docs": "Delete Specific Alert under organization"
+        },
+        {
+          "info": {
+            "name": "Create discount Expiration Alert.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/alerts/expire/discount"
+          },
+          "docs": "Create discount Expiration Alert."
+        },
+        {
+          "info": {
+            "name": "List all discount Expiration Alert Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/alerts/expire/discount/all:read"
+          },
+          "docs": "List all discount Expiration Alert Data"
+        },
+        {
+          "info": {
+            "name": "Get discount Expiration Alert Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/alerts/expire/discount/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "required. Id"
+              }
+            ]
+          },
+          "docs": "Get discount Expiration Alert Data"
+        },
+        {
+          "info": {
+            "name": "Update discount Expiration Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/alerts/expire/discount/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "required. Id"
+              }
+            ]
+          },
+          "docs": "Update discount Expiration Alert"
+        },
+        {
+          "info": {
+            "name": "Delete selected discount Expiration Alert Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/alerts/expire/discount/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "required. Id"
+              }
+            ]
+          },
+          "docs": "Delete selected discount Expiration Alert Data"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Get all available allocation items for the specified cost group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/allocations:read"
+          },
+          "docs": "WORK-IN-PROGRESS: Get all available allocation items for the specified cost group"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Lists all the allocators",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/allocators"
+          },
+          "docs": "WORK-IN-PROGRESS: Lists all the allocators"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Creates cost allocator item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/allocators"
+          },
+          "docs": "WORK-IN-PROGRESS: Creates cost allocator item"
+        },
+        {
+          "info": {
+            "name": "Get all available attributes for the charges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/allocators/attribute",
+            "params": [
+              {
+                "name": "category",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get all available attributes for the charges"
+        },
+        {
+          "info": {
+            "name": "Get all values of the allocation source",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/allocators/source",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get all values of the allocation source"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Updates a cost allocator item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/allocators/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Updates a cost allocator item"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Deletes a cost allocator",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/allocators/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. The id of the allocator to delete."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Deletes a cost allocator"
+        },
+        {
+          "info": {
+            "name": "Get the data of a cost group containing anomaly values",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/anomaly"
+          },
+          "docs": "Get the data of a cost group containing anomaly values"
+        },
+        {
+          "info": {
+            "name": "Cover_VerifyAPIAccess",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/apiaccess/verify",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query",
+                "description": "Required: gcp"
+              },
+              {
+                "name": "target",
+                "value": "",
+                "type": "query",
+                "description": "Required: projectId"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Assets summary for costgroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/assets/summary/:costGroupId",
+            "params": [
+              {
+                "name": "costGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cost Group Id."
+              },
+              {
+                "name": "startMonth",
+                "value": "",
+                "type": "query",
+                "description": "Optional. If not set, current month will be used. Format: `yyyymm`."
+              },
+              {
+                "name": "endMonth",
+                "value": "",
+                "type": "query",
+                "description": "Optional. If not set, current month will be used. Format: `yyyymm`."
+              },
+              {
+                "name": "combineDates",
+                "value": "",
+                "type": "query",
+                "description": "Optional. If true, return the assets summary for the requested period. Else, summary per month is returned."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Assets summary for costgroup"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Lists assets for costgroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/assets:read"
+          },
+          "docs": "WORK-IN-PROGRESS: Lists assets for costgroup"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Get Cost Group by Attribute Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/attributes"
+          },
+          "docs": "WORK-IN-PROGRESS: Get Cost Group by Attribute Type"
+        },
+        {
+          "info": {
+            "name": "Gets a CloudFormation launch URL for enabling the account access.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/aws/acctaccess",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "All templates are publicly available from the reponse link (`templateUrl`) if you want to audit the included permissions."
+              }
+            ]
+          },
+          "docs": "Gets a CloudFormation launch URL for enabling the account access."
+        },
+        {
+          "info": {
+            "name": "Starts validation of the account access stack deployment. If successful, the IAM role created from the CloudFormation stack will be registered to the target.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/aws/acctaccess"
+          },
+          "docs": "Starts validation of the account access stack deployment. If successful, the IAM role created from the CloudFormation stack will be registered to the target."
+        },
+        {
+          "info": {
+            "name": "Starts validation of the account access cur stack deployment. If successful, the IAM role created from the CloudFormation stack will be registered to the target.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/aws/acctaccess/cur"
+          },
+          "docs": "Starts validation of the account access cur stack deployment. If successful, the IAM role created from the CloudFormation stack will be registered to the target."
+        },
+        {
+          "info": {
+            "name": "Starts validation of the account access stackset deployment. If successful, the IAM role created from the CloudFormation stackset will be registered to the linked accounts.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/aws/acctaccess/stackset"
+          },
+          "docs": "Starts validation of the account access stackset deployment. If successful, the IAM role created from the CloudFormation stackset will be registered to the linked accounts."
+        },
+        {
+          "info": {
+            "name": "Starts an update to an existing account access CloudFormation stack for template changes, if any. Only call this API if the status of your account access is 'outdated'.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/aws/acctaccess/:target",
+            "params": [
+              {
+                "name": "target",
+                "value": "",
+                "type": "path",
+                "description": "Required. The target AWS account to update."
+              }
+            ]
+          },
+          "docs": "Starts an update to an existing account access CloudFormation stack for template changes, if any. Only call this API if the status of your account access is 'outdated'."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Adding MpnSetting for Azure",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/azure/credentials/mpn"
+          },
+          "docs": "WORK-IN-PROGRESS: Adding MpnSetting for Azure"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: PartnerCenterCredentials for Azure",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/azure/credentials/partnercenter"
+          },
+          "docs": "WORK-IN-PROGRESS: PartnerCenterCredentials for Azure"
+        },
+        {
+          "info": {
+            "name": "Get the Customer Subscription status from marketplace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billing/status"
+          },
+          "docs": "Get the Customer Subscription status from marketplace"
+        },
+        {
+          "info": {
+            "name": "Add Billing Account ID for GCP.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/billingacct"
+          },
+          "docs": "Add Billing Account ID for GCP."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Create Budget for specific cost group in an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/budget"
+          },
+          "docs": "WORK-IN-PROGRESS: Create Budget for specific cost group in an organization"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Get specific Budget data for a cost group in an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/budget/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Budget ID."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Get specific Budget data for a cost group in an organization"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Update Budget for specific cost group in an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/budget/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Budget ID."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Update Budget for specific cost group in an organization"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Delete Budget for specific cost group in an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/budget/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Budget ID."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Delete Budget for specific cost group in an organization"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: List all Budgets in an organization or Budgets under specific cost group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/budget:read"
+          },
+          "docs": "WORK-IN-PROGRESS: List all Budgets in an organization or Budgets under specific cost group"
+        },
+        {
+          "info": {
+            "name": "Retrieve the categories to be utilized in the creation of the cost group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/categories",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve the categories to be utilized in the creation of the cost group."
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Create Channel under organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/channels"
+          },
+          "docs": "WORK-IN-PROGRESS: Create Channel under organization"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Get Specific Channel under organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/channels/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Channel ID."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Get Specific Channel under organization"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Update Specific Channel under organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/channels/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Channel ID."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Update Specific Channel under organization"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Delete Specific Channel under organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/channels/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Channel ID."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Delete Specific Channel under organization"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Get Channels under organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/channels:read"
+          },
+          "docs": "WORK-IN-PROGRESS: Get Channels under organization"
+        },
+        {
+          "info": {
+            "name": "Cover_GetContainerCostUsage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/containers/costusage"
+          }
+        },
+        {
+          "info": {
+            "name": "Get all the cost groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/costgroups"
+          },
+          "docs": "Get all the cost groups"
+        },
+        {
+          "info": {
+            "name": "Create a cost group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/costgroups"
+          },
+          "docs": "Create a cost group"
+        },
+        {
+          "info": {
+            "name": "Cover_ResolveCostGroupCombinations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/costgroups/resolve/:costGroupId",
+            "params": [
+              {
+                "name": "costGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cost Group Id."
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get the details of the cost group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/costgroups/:costGroupId",
+            "params": [
+              {
+                "name": "costGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cost Group Id."
+              }
+            ]
+          },
+          "docs": "Get the details of the cost group"
+        },
+        {
+          "info": {
+            "name": "Deletes a cost group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/costgroups/:costGroupId",
+            "params": [
+              {
+                "name": "costGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cost Group Id."
+              }
+            ]
+          },
+          "docs": "Deletes a cost group"
+        },
+        {
+          "info": {
+            "name": "Sets Cost group's anomaly options",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/costgroups/:costGroupId/anomaly",
+            "params": [
+              {
+                "name": "costGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cost Group Id."
+              }
+            ]
+          },
+          "docs": "Sets Cost group's anomaly options"
+        },
+        {
+          "info": {
+            "name": "Update cost group's color theme",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/costgroups/:costGroupId/colortheme",
+            "params": [
+              {
+                "name": "costGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cost Group Id."
+              }
+            ]
+          },
+          "docs": "Update cost group's color theme"
+        },
+        {
+          "info": {
+            "name": "Update cost group's combinations",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/costgroups/:costGroupId/combinations",
+            "params": [
+              {
+                "name": "costGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cost Group Id."
+              }
+            ]
+          },
+          "docs": "Update cost group's combinations"
+        },
+        {
+          "info": {
+            "name": "Update cost group's description",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/costgroups/:costGroupId/description",
+            "params": [
+              {
+                "name": "costGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cost Group Id."
+              }
+            ]
+          },
+          "docs": "Update cost group's description"
+        },
+        {
+          "info": {
+            "name": "Sets Cost group's event indicator",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/costgroups/:costGroupId/eventIndicator",
+            "params": [
+              {
+                "name": "costGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cost Group Id."
+              }
+            ]
+          },
+          "docs": "Sets Cost group's event indicator"
+        },
+        {
+          "info": {
+            "name": "Update cost group's icon",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/costgroups/:costGroupId/icon",
+            "params": [
+              {
+                "name": "costGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cost Group Id."
+              }
+            ]
+          },
+          "docs": "Update cost group's icon"
+        },
+        {
+          "info": {
+            "name": "Update cost group's image",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/costgroups/:costGroupId/image",
+            "params": [
+              {
+                "name": "costGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cost Group Id."
+              }
+            ]
+          },
+          "docs": "Update cost group's image"
+        },
+        {
+          "info": {
+            "name": "Update cost group's name",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/costgroups/:costGroupId/name",
+            "params": [
+              {
+                "name": "costGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cost Group Id."
+              }
+            ]
+          },
+          "docs": "Update cost group's name"
+        },
+        {
+          "info": {
+            "name": "Cover_GetCostUsageV2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/costusage"
+          }
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Get usage and usage-based costs for the specified costgroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/costusage:read"
+          },
+          "docs": "WORK-IN-PROGRESS: Get usage and usage-based costs for the specified costgroup"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Populate demo data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/demo/populate"
+          },
+          "docs": "WORK-IN-PROGRESS: Populate demo data"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Reset demo data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/demo/reset"
+          },
+          "docs": "WORK-IN-PROGRESS: Reset demo data"
+        },
+        {
+          "info": {
+            "name": "Cover_CreateCostForecast",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/forecasts"
+          }
+        },
+        {
+          "info": {
+            "name": "Cover_GetCostForecastsData",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/forecasts/data:read"
+          }
+        },
+        {
+          "info": {
+            "name": "Cover_GetCostForecast",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/forecasts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Forecast Id"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Cover_UpdateCostForecast",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/forecasts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Forecast Id"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Cover_DeleteCostForecast",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/forecasts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Forecast Id"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Cover_ListForecasts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/forecasts:read"
+          }
+        },
+        {
+          "info": {
+            "name": "Adding orgId to marketplace customers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/marketplace/info"
+          },
+          "docs": "Adding orgId to marketplace customers"
+        },
+        {
+          "info": {
+            "name": "Get the details of the logged-in user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/me"
+          },
+          "docs": "Get the details of the logged-in user"
+        },
+        {
+          "info": {
+            "name": "Modify user's app theme",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/me/apptheme"
+          },
+          "docs": "Modify user's app theme"
+        },
+        {
+          "info": {
+            "name": "Modify attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/me/attributes"
+          },
+          "docs": "Modify attributes"
+        },
+        {
+          "info": {
+            "name": "Modify user's avatar",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/me/avatar"
+          },
+          "docs": "Modify user's avatar"
+        },
+        {
+          "info": {
+            "name": "Modify user's color theme",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/me/colortheme"
+          },
+          "docs": "Modify user's color theme"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Set user preference in cost group creation UI",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/me/costgroupcreation"
+          },
+          "docs": "WORK-IN-PROGRESS: Set user preference in cost group creation UI"
+        },
+        {
+          "info": {
+            "name": "Modify user's email",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/me/email"
+          },
+          "docs": "Modify user's email"
+        },
+        {
+          "info": {
+            "name": "Modify user's icon",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/me/icon"
+          },
+          "docs": "Modify user's icon"
+        },
+        {
+          "info": {
+            "name": "Modify user's locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/me/locale"
+          },
+          "docs": "Modify user's locale"
+        },
+        {
+          "info": {
+            "name": "Modify user's main view",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/me/mainview"
+          },
+          "docs": "Modify user's main view"
+        },
+        {
+          "info": {
+            "name": "Modify user's name",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/me/name"
+          },
+          "docs": "Modify user's name"
+        },
+        {
+          "info": {
+            "name": "Reset user's password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/me/password"
+          },
+          "docs": "Reset user's password"
+        },
+        {
+          "info": {
+            "name": "Lists the roles and cost groups assigned to the authenticated user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/me/roles"
+          },
+          "docs": "Lists the roles and cost groups assigned to the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Modify user's timezone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/me/timezone"
+          },
+          "docs": "Modify user's timezone"
+        },
+        {
+          "info": {
+            "name": "Activate the added user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/members/activate"
+          },
+          "docs": "Activate the added user"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Add or read user from Auth0",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/members/auth0"
+          },
+          "docs": "WORK-IN-PROGRESS: Add or read user from Auth0"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS:Resolve user for aws marketplace subscription integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/members/aws/subscription"
+          },
+          "docs": "WORK-IN-PROGRESS:Resolve user for aws marketplace subscription integration"
+        },
+        {
+          "info": {
+            "name": "Onboard an organization with an admin account and default cost group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/members/onboard"
+          },
+          "docs": "Onboard an organization with an admin account and default cost group"
+        },
+        {
+          "info": {
+            "name": "Profiling for new users.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/members/profile"
+          },
+          "docs": "Profiling for new users."
+        },
+        {
+          "info": {
+            "name": "Octo getting user profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/members/profile/:email",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "required email"
+              }
+            ]
+          },
+          "docs": "Octo getting user profile"
+        },
+        {
+          "info": {
+            "name": "Update user profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/members/profile/:email",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "required email"
+              }
+            ]
+          },
+          "docs": "Update user profile"
+        },
+        {
+          "info": {
+            "name": "Octo new user registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/members/register"
+          },
+          "docs": "Octo new user registration"
+        },
+        {
+          "info": {
+            "name": "Reset member's password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/members/resetpassword"
+          },
+          "docs": "Reset member's password"
+        },
+        {
+          "info": {
+            "name": "Get Org's reference of currency exchange rate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/organizations/currency"
+          },
+          "docs": "Get Org's reference of currency exchange rate"
+        },
+        {
+          "info": {
+            "name": "Sets Org's reference of currency exchange rate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/organizations/currency"
+          },
+          "docs": "Sets Org's reference of currency exchange rate"
+        },
+        {
+          "info": {
+            "name": "Get list of exchange rates for a fixed report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/organizations/rates",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Required. Start date Format: \"YYYYMMDD\""
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Required. End date Format: \"YYYYMMDD\""
+              }
+            ]
+          },
+          "docs": "Get list of exchange rates for a fixed report"
+        },
+        {
+          "info": {
+            "name": "WORK-IN-PROGRESS: Transfer the account from the original organization to Alphaus payer account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/organizations/transfer/:target",
+            "params": [
+              {
+                "name": "target",
+                "value": "",
+                "type": "path",
+                "description": "Required. The target account to be transferred."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Required. The region of the target account."
+              },
+              {
+                "name": "payer",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Alphaus payer account to be used for the transfer."
+              },
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "query",
+                "description": "Optional. The org id of the payer account."
+              }
+            ]
+          },
+          "docs": "WORK-IN-PROGRESS: Transfer the account from the original organization to Alphaus payer account"
+        },
+        {
+          "info": {
+            "name": "Cover_ExecuteRecommendationV3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/recommendation/execute"
+          }
+        },
+        {
+          "info": {
+            "name": "Cover_GetRecommendationV3",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/recommendations",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Lists recommendations based on specified criteria.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/recommendations/all:read"
+          },
+          "docs": "Lists recommendations based on specified criteria."
+        },
+        {
+          "info": {
+            "name": "Retrieves a specific recommendation by its ID. (Version 2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/recommendations/details/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "costGroupId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "periodOption",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific recommendation by its ID. (Version 2)"
+        },
+        {
+          "info": {
+            "name": "Cover_ListRecommendationsV3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/recommendations/summaries"
+          }
+        },
+        {
+          "info": {
+            "name": "Get Org's starting month/ fiscal month",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/reports/fiscalmonth"
+          },
+          "docs": "Get Org's starting month/ fiscal month"
+        },
+        {
+          "info": {
+            "name": "Sets Org's starting month/ fiscal month",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/reports/fiscalmonth"
+          },
+          "docs": "Sets Org's starting month/ fiscal month"
+        },
+        {
+          "info": {
+            "name": "Get data for insights reports summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/reports/insight/summary/:costGroupId",
+            "params": [
+              {
+                "name": "costGroupId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cost Group Id."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Required. Start date Format: \"YYYYMMDD\""
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Required. End date Format: \"YYYYMMDD\""
+              },
+              {
+                "name": "reportType",
+                "value": "",
+                "type": "query",
+                "description": "Required. Report Type. Valid inputs are: \"quarterly\", \"yearly\""
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Optional. If not set, default value is `USD`."
+              }
+            ]
+          },
+          "docs": "Get data for insights reports summary"
+        },
+        {
+          "info": {
+            "name": "Cover_ListNonperformingRate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/reports/rate/nonperforming:read"
+          }
+        },
+        {
+          "info": {
+            "name": "Cover_ListUntaggedResources",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/reports/resources/untagged:read"
+          }
+        },
+        {
+          "info": {
+            "name": "Lists Unit Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost"
+          },
+          "docs": "Lists Unit Types"
+        },
+        {
+          "info": {
+            "name": "Create Unit Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost"
+          },
+          "docs": "Create Unit Type"
+        },
+        {
+          "info": {
+            "name": "List Suggested Unit Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/autosuggest"
+          },
+          "docs": "List Suggested Unit Types"
+        },
+        {
+          "info": {
+            "name": "Create Unit from Suggested Units",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/autosuggest/create"
+          },
+          "docs": "Create Unit from Suggested Units"
+        },
+        {
+          "info": {
+            "name": "Merge Suggested Units",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/autosuggest/merge"
+          },
+          "docs": "Merge Suggested Units"
+        },
+        {
+          "info": {
+            "name": "Merge Existing Unit Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/merge"
+          },
+          "docs": "Merge Existing Unit Types"
+        },
+        {
+          "info": {
+            "name": "List all Unit Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/metrics",
+            "params": [
+              {
+                "name": "aggregationMethod",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter by aggregation method."
+              },
+              {
+                "name": "dataSource",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter by data source."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter by status."
+              }
+            ]
+          },
+          "docs": "List all Unit Metrics"
+        },
+        {
+          "info": {
+            "name": "Create Unit Metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/metrics"
+          },
+          "docs": "Create Unit Metric"
+        },
+        {
+          "info": {
+            "name": "Get Cloudwatch Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/metrics/cloudwatch/metadata",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "Required. The AWS account ID to assume when querying CloudWatch."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Required. The AWS region where the metrics should be queried (e.g., \"us-east-1\")."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Required. The type of metadata to retrieve.\nValid values: \"namespace\", \"metric\", or \"dimension\"."
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "query",
+                "description": "Conditionally required.\nMust be provided when `type` is \"metric\" or \"dimension\".\nExample: \"AWS/EC2\", \"AWS/Lambda\", or a custom namespace like \"MyApp/BusinessMetrics\"."
+              },
+              {
+                "name": "metricName",
+                "value": "",
+                "type": "query",
+                "description": "Conditionally required.\nMust be provided when `type` is \"dimension\".\nExample: \"CPUUtilization\", \"Invocations\", etc."
+              }
+            ]
+          },
+          "docs": "Get Cloudwatch Metadata"
+        },
+        {
+          "info": {
+            "name": "Confirm Google Sheet Access",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/metrics/googlesheet/confirm"
+          },
+          "docs": "Confirm Google Sheet Access"
+        },
+        {
+          "info": {
+            "name": "Preview Google Sheet Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/metrics/googlesheet/preview"
+          },
+          "docs": "Preview Google Sheet Data"
+        },
+        {
+          "info": {
+            "name": "Get Specific Unit Metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/metrics/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Unit Metric Id"
+              }
+            ]
+          },
+          "docs": "Get Specific Unit Metric"
+        },
+        {
+          "info": {
+            "name": "Update Specific Unit Metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/metrics/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Unit Metric Id"
+              }
+            ]
+          },
+          "docs": "Update Specific Unit Metric"
+        },
+        {
+          "info": {
+            "name": "Delete Specific Unit Metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/metrics/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Unit Metric Id"
+              }
+            ]
+          },
+          "docs": "Delete Specific Unit Metric"
+        },
+        {
+          "info": {
+            "name": "List all Shared Resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/sharedresources"
+          },
+          "docs": "List all Shared Resources"
+        },
+        {
+          "info": {
+            "name": "Create Shared Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/sharedresources"
+          },
+          "docs": "Create Shared Resource"
+        },
+        {
+          "info": {
+            "name": "Get Specific Shared Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/sharedresources/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Shared Resource Id"
+              }
+            ]
+          },
+          "docs": "Get Specific Shared Resource"
+        },
+        {
+          "info": {
+            "name": "Update Specific Shared Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/sharedresources/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Shared Resource Id"
+              }
+            ]
+          },
+          "docs": "Update Specific Shared Resource"
+        },
+        {
+          "info": {
+            "name": "Delete Specific Shared Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/sharedresources/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Shared Resource Id"
+              }
+            ]
+          },
+          "docs": "Delete Specific Shared Resource"
+        },
+        {
+          "info": {
+            "name": "Get Specific Unit Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Unit Type Id"
+              }
+            ]
+          },
+          "docs": "Get Specific Unit Type"
+        },
+        {
+          "info": {
+            "name": "Update Specific Unit Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Unit Type Id"
+              }
+            ]
+          },
+          "docs": "Update Specific Unit Type"
+        },
+        {
+          "info": {
+            "name": "Delete Specific Unit Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/unitcost/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Required. Unit Type Id"
+              }
+            ]
+          },
+          "docs": "Delete Specific Unit Type"
+        },
+        {
+          "info": {
+            "name": "Lists all users in the organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/users"
+          },
+          "docs": "Lists all users in the organization"
+        },
+        {
+          "info": {
+            "name": "Invites users to join the organization and assigns them roles.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/users/invite"
+          },
+          "docs": "Invites users to join the organization and assigns them roles."
+        },
+        {
+          "info": {
+            "name": "Retrieves a user's details by their ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a user's details by their ID."
+        },
+        {
+          "info": {
+            "name": "Deletes a user from the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a user from the organization."
+        },
+        {
+          "info": {
+            "name": "Reinvites a user to join the organization. This can be used when the user did not receive or lost the original invitation email.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/users/:id/reinvite",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Reinvites a user to join the organization. This can be used when the user did not receive or lost the original invitation email."
+        },
+        {
+          "info": {
+            "name": "Updates a user's role and cost group access.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Updates a user's role and cost group access."
+        },
+        {
+          "info": {
+            "name": "Get all the views",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views"
+          },
+          "docs": "Get all the views"
+        },
+        {
+          "info": {
+            "name": "Create a view",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views"
+          },
+          "docs": "Create a view"
+        },
+        {
+          "info": {
+            "name": "Add to favorites",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views/favorite/add"
+          },
+          "docs": "Add to favorites"
+        },
+        {
+          "info": {
+            "name": "Remove from favorites",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views/favorite/remove"
+          },
+          "docs": "Remove from favorites"
+        },
+        {
+          "info": {
+            "name": "Get favorite views",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views/favorites"
+          },
+          "docs": "Get favorite views"
+        },
+        {
+          "info": {
+            "name": "Updates the view's layout",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views/layout/:viewId",
+            "params": [
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path",
+                "description": "Required. View Id."
+              }
+            ]
+          },
+          "docs": "Updates the view's layout"
+        },
+        {
+          "info": {
+            "name": "Updates the view's widget",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views/layout/:viewId/:widgetId",
+            "params": [
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path",
+                "description": "Required. View Id."
+              },
+              {
+                "name": "widgetId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Widget Id."
+              }
+            ]
+          },
+          "docs": "Updates the view's widget"
+        },
+        {
+          "info": {
+            "name": "Publish current view",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views/publish"
+          },
+          "docs": "Publish current view"
+        },
+        {
+          "info": {
+            "name": "Get the details of the current view",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views/:viewId",
+            "params": [
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path",
+                "description": "Required. View Id."
+              }
+            ]
+          },
+          "docs": "Get the details of the current view"
+        },
+        {
+          "info": {
+            "name": "Updates the view details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views/:viewId",
+            "params": [
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path",
+                "description": "Required. View Id."
+              }
+            ]
+          },
+          "docs": "Updates the view details"
+        },
+        {
+          "info": {
+            "name": "Deletes a view",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views/:viewId",
+            "params": [
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path",
+                "description": "Required. View Id."
+              }
+            ]
+          },
+          "docs": "Deletes a view"
+        },
+        {
+          "info": {
+            "name": "Update view's color theme",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views/:viewId/colortheme",
+            "params": [
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update view's color theme"
+        },
+        {
+          "info": {
+            "name": "Update report's currency settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views/:viewId/currency",
+            "params": [
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update report's currency settings"
+        },
+        {
+          "info": {
+            "name": "Add as side menu favorite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views/:viewId/sidemenufavorite",
+            "params": [
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path",
+                "description": "Required. View Id."
+              }
+            ]
+          },
+          "docs": "Add as side menu favorite"
+        },
+        {
+          "info": {
+            "name": "Updates the side menu state",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views/:viewId/sidemenustate",
+            "params": [
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path",
+                "description": "Required. View Id."
+              }
+            ]
+          },
+          "docs": "Updates the side menu state"
+        },
+        {
+          "info": {
+            "name": "Remove from side menu favorite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/views/:viewId/sidemenuunfavorite",
+            "params": [
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path",
+                "description": "Required. View Id."
+              }
+            ]
+          },
+          "docs": "Remove from side menu favorite"
+        },
+        {
+          "info": {
+            "name": "Assign payer to a linked account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor_1/payers",
+            "params": [
+              {
+                "name": "vendor_1",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cloud vendor."
+              }
+            ]
+          },
+          "docs": "Assign payer to a linked account"
+        },
+        {
+          "info": {
+            "name": "Registers an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/account",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. Cloud vendor."
+              }
+            ]
+          },
+          "docs": "Registers an account"
+        },
+        {
+          "info": {
+            "name": "Get discount plan details for an organization (or MSP).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alphaus.cloud/m/blue/v1/:vendor/discountplan/:orgId:read",
+            "params": [
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "path",
+                "description": "Required. At the moment, only `aws` is supported."
+              },
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Organization Id."
+              }
+            ]
+          },
+          "docs": "Get discount plan details for an organization (or MSP)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
