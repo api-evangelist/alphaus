@@ -44,6 +44,19 @@ tags:
 - gRPC
 - Cost Optimization
 - Reseller Billing
+tags_raw:
+- Company
+- FinOps
+- Cloud Cost Management
+- Cloud
+- Billing
+- Multi-Cloud
+- AWS
+- Azure
+- GCP
+- gRPC
+- Cost Optimization
+- Reseller Billing
 - API
 apis:
 - aid: alphaus:alphaus-admin-api
@@ -136,6 +149,8 @@ apis:
   humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
   baseURL: https://api.alphaus.cloud/m/blue
   tags:
+  - IAM
+  tags_raw:
   - Iam
   properties:
   - type: OpenAPI
@@ -159,7 +174,8 @@ apis:
   description: '(BETA) Long operations API. Base URL: https://api.alphaus.cloud/m/blue'
   humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
   baseURL: https://api.alphaus.cloud/m/blue
-  tags:
+  tags: []
+  tags_raw:
   - Operations
   properties:
   - type: OpenAPI
