@@ -9,6 +9,18 @@ description: >-
   grpc-gateway JSON/REST proxy and generated OpenAPI — spanning 15 services and nearly 600 operations,
   complemented by the bluectl CLI and Go, Python, and TypeScript SDKs.
 url: https://raw.githubusercontent.com/api-evangelist/alphaus/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
