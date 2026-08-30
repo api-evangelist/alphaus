@@ -161,7 +161,7 @@ apis:
   humanURL: https://labs.alphaus.cloud/docs/blueapi/overview/
   baseURL: https://api.alphaus.cloud/m/blue
   tags:
-  - IAM
+  - Iam
   tags_raw:
   - Iam
   properties:
