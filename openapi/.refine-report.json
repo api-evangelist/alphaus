@@ -1,21 +1,7 @@
 {
   "provider": "alphaus",
   "sources": [
-    "alphaus-admin-api-openapi.yml",
-    "alphaus-billing-api-openapi.yml",
-    "alphaus-cost-api-openapi.yml",
-    "alphaus-cover-api-openapi.yml",
-    "alphaus-flags-api-openapi.yml",
-    "alphaus-flow-api-openapi.yml",
-    "alphaus-guaranteedcommitments-api-openapi.yml",
-    "alphaus-iam-api-openapi.yml",
-    "alphaus-luster-api-openapi.yml",
-    "alphaus-operations-api-openapi.yml",
-    "alphaus-organization-api-openapi.yml",
-    "alphaus-preferences-api-openapi.yml",
-    "alphaus-pricing-api-openapi.yml",
-    "alphaus-prism-api-openapi.yml",
-    "alphaus-vortex-api-openapi.yml"
+    "_original/alphaus-blueapi-openapi-original.json"
   ],
   "outputs": [
     "alphaus-admin-api-openapi.yml",
@@ -37,6 +23,26 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "alphaus-blueapi-openapi-original.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "alphaus-admin-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "alphaus-billing-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "alphaus-cost-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "alphaus-cover-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "alphaus-flags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "alphaus-flow-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "alphaus-guaranteedcommitments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "alphaus-iam-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "alphaus-luster-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "alphaus-operations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "alphaus-organization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "alphaus-preferences-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "alphaus-pricing-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "alphaus-prism-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "alphaus-vortex-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
