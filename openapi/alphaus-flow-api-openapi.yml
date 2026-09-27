@@ -484,185 +484,40 @@ paths:
         required: true
 components:
   schemas:
-    v1UtilizationDetails:
+    rpcStatus:
       type: object
       properties:
-        savingsPlanName:
+        code:
+          type: integer
+          format: int32
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+        message:
           type: string
-          title: Descriptive name of the Savings Plan
-        savingsPlanArn:
-          type: string
-          title: The ARN of the Savings Plan
-        perDayUtilization:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/blueapiFlowV1DailyUtilization'
-          title: Array of daily utilization data for this Savings Plan
-      description: Utilization details for Savings Plans, including ARN and utilization percentage.
-    v1GetUserAccountSettingsResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The payer ID of the user.
-        emails:
-          type: array
-          items:
-            type: string
-          description: List of email addresses to send notifications to.
-        theme:
-          type: string
-          description: User interface preferences.
-        language:
-          type: string
-          description: Preferred language for the user interface.
-      description: Response message for the Flow.GetUserAccountSettings rpc.
-    FlowSetSettingsBody:
-      type: object
-      properties:
-        accountScope:
-          type: string
-          description: Required. Account scope determines if the account is payer or linked account. Valid values are `payer` or `linked`.
-        customization:
-          type: string
-          description: Required. Customization setting for SP. Valid values are `COMPUTE_SP` or `EC2_INSTANCE_SP`.
-        planTerm:
-          type: string
-          description: Required. Term of the SP. Valid values are `ONE_YEAR` or `THREE_YEARS`.
-        paymentOption:
-          type: string
-          description: Required. Payment option for the SP. Valid values are `ALL_UPFRONT`, `PARTIAL_UPFRONT`, or `NO_UPFRONT`.
-        lookBackPeriod:
-          type: string
-          description: Required. Lookback period for recommendation. Valid values are `SEVEN_DAYS`, `THIRTY_DAYS`, or `SIXTY_DAYS`.
-        instanceFamily:
-          type: string
-          title: Optional. If EC2 Instance SP is selected in Customization, request will include list of instance family
-        annualBudget:
-          type: number
-          format: double
-          description: Optional. Annual budget input for SP.
-        approval:
-          type: boolean
-          description: Optional. Purchase approval from the payer for the SP. Default value is `false`.
-        payerId:
-          type: string
-          title: Required. Payer account ID
-      description: Request message for the Flow.CreateSettings rpc.
-    v1CreateSPRecommendationNotificationRequest:
-      type: object
-      properties:
-        configurations:
-          $ref: '#/components/schemas/CreateSPRecommendationNotificationRequestConfigurations'
-        recommendation:
-          $ref: '#/components/schemas/CreateSPRecommendationNotificationRequestRecommendation'
-      title: Configuration and recommendation details to send to Slack
-    v1SetSettingsResponse:
-      type: object
-      properties:
-        response:
-          type: string
-      description: Response message for the Flow.CreateSettings rpc.
-    v1GetCrossAccountAccessDetailsResponse:
-      type: object
-      properties:
-        target:
-          type: string
-          description: The queried target account.
+          description: 'A developer-facing error message, which should be in English. Any
+
+            user-facing error message should be localized and sent in the
+
+            [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.'
         details:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/v1CrossAccountAccessDetail'
-          description: List of cross-access details for the target account.
-      description: Response message for the Flow.GetCrossAccountAccessDetails rpc.
-    v1SendSPToPurchaseDetailsNotificationsResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        success:
-          type: boolean
-      title: Response after sending SendSPToPurchaseDetailsNotifications to Slack
-    v1CreateSPPurchaseAccessRequest:
-      type: object
-      properties:
-        target:
-          type: string
-          description: Required. The target AWS account to validate.
-      description: Request message for the Flow.CreateSPPurchaseAccess rpc.
-    v1CreateCostExplorerAccessRequest:
-      type: object
-      properties:
-        target:
-          type: string
-          description: Required. The target AWS account to validate.
-      description: 'Request message for the Flow.CreateCostExplorerAccess rpc.
+            $ref: '#/components/schemas/protobufAny'
+          description: 'A list of messages that carry the error details.  There is a common set of
 
-        This endpoint only supports the ''apionly'' template type.'
-    v1GetSettingsResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        accountScope:
-          type: string
-        customization:
-          type: string
-        planTerm:
-          type: string
-        paymentOption:
-          type: string
-        lookBackPeriod:
-          type: string
-        instanceFamily:
-          type: string
-        annualBudget:
-          type: number
-          format: double
-        approval:
-          type: boolean
-        lastUpdated:
-          type: string
-        payerId:
-          type: string
-      description: Response message for fetching previous settings configuration of a user.
-    v1SendSPToPurchaseDetailsNotificationsRequestSavingsPlanDetailsPurchase:
-      type: object
-      properties:
-        payerId:
-          type: string
-        linkedAccounts:
-          type: string
-        accountScope:
-          type: string
-        savingsPlanType:
-          type: string
-        term:
-          type: integer
-          format: int32
-        region:
-          type: string
-        instanceFamily:
-          type: string
-        recommendedHourlyCommitment:
-          type: number
-          format: double
-        paymentOption:
-          type: string
-        upfrontCost:
-          type: number
-          format: double
-        monthlyCost:
-          type: number
-          format: double
-        totalCost:
-          type: number
-          format: double
-        expiryDate:
-          type: string
-      title: Savings plan details to be purchased
+            message types for APIs to use.'
+      description: 'The `Status` type defines a logical error model that is suitable for
+
+        different programming environments, including REST APIs and RPC APIs. It is
+
+        used by [gRPC](https://github.com/grpc). Each `Status` message contains
+
+        three pieces of data: error code, error message, and error details.
+
+
+        You can find out more about this error model and how to work with it in the
+
+        [API Design Guide](https://cloud.google.com/apis/design/errors).'
     v1SendSPToPurchaseDetailsNotificationsRequest:
       type: object
       properties:
@@ -701,292 +556,6 @@ components:
           type: string
           title: ISO8601 formatted date when the approval link expires (3 days from sending)
       description: Request message for the Flow.SendSPToPurchaseDetailsNotifications rpc.
-    v1SendSPToPurchaseDetailsNotificationsRequestSavingsPlanRecommendation:
-      type: object
-      properties:
-        payerId:
-          type: string
-        linkedAccounts:
-          type: string
-        accountScope:
-          type: string
-        savingsPlanType:
-          type: string
-        term:
-          type: integer
-          format: int32
-        region:
-          type: string
-        instanceFamily:
-          type: string
-        recommendedHourlyCommitment:
-          type: number
-          format: double
-        paymentOption:
-          type: string
-        upfrontCost:
-          type: number
-          format: double
-        monthlyCost:
-          type: number
-          format: double
-        totalCost:
-          type: number
-          format: double
-        expiryDate:
-          type: string
-      title: Savings plan recommendation details
-    v1GetCostExplorerAccessTemplateUrlResponse:
-      type: object
-      properties:
-        launchUrl:
-          type: string
-          description: The CloudFormation launch url. Open it in your browser.
-        templateUrl:
-          type: string
-          description: The latest CloudFormation template. The version is included in the filename.
-        stackName:
-          type: string
-          description: The default stack name used. Can be modified.
-        principal:
-          type: string
-          description: The AWS account that will receive the access. Do not change.
-        externalId:
-          type: string
-          description: The external id for this role. Do not change.
-      description: Response message for the Flow.GetCostExplorerAccessTemplateUrl rpc.
-    v1GetSettingsHistoryResponse:
-      type: object
-      properties:
-        settingsHistory:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1SettingsHistory'
-      description: Response message for the Flow.GetSettingsHistory rpc.
-    v1UsageCostDetails:
-      type: object
-      properties:
-        currentDate:
-          type: string
-          description: The specific date this entry represents, corresponding to one day within the requested date range.
-        productCode:
-          type: string
-          description: The product code for which the usage and cost details are provided.
-        ondemandCost:
-          type: number
-          format: double
-          description: Total On-Demand cost in USD for the date.
-        reservedCost:
-          type: number
-          format: double
-          description: Total Reserved Instance cost in USD for the date.
-        savingsPlanCostByFlow:
-          type: number
-          format: double
-          description: Total Savings Plan cost in USD for the date purchased by Flow.
-        savingsPlanCostByUser:
-          type: number
-          format: double
-          description: Total Savings Plan cost in USD for the date purchased by user.
-        spotCost:
-          type: number
-          format: double
-          description: Total Spot Instance cost in USD for the date.
-        coveragePercentage:
-          type: number
-          format: double
-          description: Percentage of Savings Plan coverage for the date.
-      description: Usage and Cost Details to be used in the GetDailyUsageCostDetailsResponse.
-    rpcStatus:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-        message:
-          type: string
-          description: 'A developer-facing error message, which should be in English. Any
-
-            user-facing error message should be localized and sent in the
-
-            [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.'
-        details:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/protobufAny'
-          description: 'A list of messages that carry the error details.  There is a common set of
-
-            message types for APIs to use.'
-      description: 'The `Status` type defines a logical error model that is suitable for
-
-        different programming environments, including REST APIs and RPC APIs. It is
-
-        used by [gRPC](https://github.com/grpc). Each `Status` message contains
-
-        three pieces of data: error code, error message, and error details.
-
-
-        You can find out more about this error model and how to work with it in the
-
-        [API Design Guide](https://cloud.google.com/apis/design/errors).'
-    flowV1SavingsPlanDetailsPurchase:
-      type: object
-      properties:
-        payerId:
-          type: string
-        linkedAccounts:
-          type: string
-        accountScope:
-          type: string
-        savingsPlanType:
-          type: string
-        term:
-          type: integer
-          format: int32
-        region:
-          type: string
-        instanceFamily:
-          type: string
-        recommendedHourlyCommitment:
-          type: number
-          format: double
-        paymentOption:
-          type: string
-        upfrontCost:
-          type: number
-          format: double
-        monthlyCost:
-          type: number
-          format: double
-        totalCost:
-          type: number
-          format: double
-        expiryDate:
-          type: string
-      title: Savings plan details to be purchased
-    v1CreateSPPurchaseAccessResponse:
-      type: object
-      properties:
-        target:
-          type: string
-          description: The queried target account.
-        roleArn:
-          type: string
-          description: The role ARN that provides the cross-account access permissions.
-        externalId:
-          type: string
-          description: The external id for this role.
-        stackId:
-          type: string
-          description: The id of the CloudFormation stack deployed in the target account.
-        stackRegion:
-          type: string
-          description: The region where the stack is deployed.
-        templateUrl:
-          type: string
-          description: The latest template used to deploy the stack.
-        status:
-          type: string
-          description: This can be `latest`, `outdated`, or some error information.
-        lastUpdated:
-          type: string
-          description: The last updated timestamp, RFC3339 UTC.
-        access:
-          type: string
-          title: 'The access type- full access to view simulation and purchase saving plan: "savings_plan_access"'
-      description: Response message for the Flow.CreateSPPurchaseAccess rpc.
-    v1GetSPToPurchaseDetailsResponse:
-      type: object
-      properties:
-        recommendation:
-          $ref: '#/components/schemas/flowV1SavingsPlanRecommendation'
-          title: Recommendation details
-        purchases:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/flowV1SavingsPlanDetailsPurchase'
-          title: List of purchase items
-        ondemandCostBefore:
-          type: string
-          title: On-demand cost before savings plan
-        ondemandCostAfter:
-          type: string
-          title: On-demand cost after savings plan
-        reductionRate:
-          type: string
-          title: Cost reduction percentage
-      description: Response message for the Flow.GetSPToPurchaseDetails rpc.
-    v1MonthlyCosts:
-      type: object
-      properties:
-        monthlyOnDemandCost:
-          type: number
-          format: double
-          description: Actual monthly on-demand cost for the payer account.
-        monthlyEffectiveCost:
-          type: number
-          format: double
-          description: Actual monthly effective cost after applying Savings Plans.
-        monthlyTotalSavings:
-          type: number
-          format: double
-          description: Actual total monthly savings from Savings Plan usage.
-      description: Summary of monthly cost values associated with a single Savings Plan.
-    flowV1SavingsPlanRecommendation:
-      type: object
-      properties:
-        payerId:
-          type: string
-        linkedAccounts:
-          type: string
-        accountScope:
-          type: string
-        savingsPlanType:
-          type: string
-        term:
-          type: integer
-          format: int32
-        region:
-          type: string
-        instanceFamily:
-          type: string
-        recommendedHourlyCommitment:
-          type: number
-          format: double
-        paymentOption:
-          type: string
-        upfrontCost:
-          type: number
-          format: double
-        monthlyCost:
-          type: number
-          format: double
-        totalCost:
-          type: number
-          format: double
-        expiryDate:
-          type: string
-      title: Savings plan recommendation details
-    v1CreateSPRecommendationNotificationResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        success:
-          type: boolean
-      title: Response after sending to Slack
-    protobufAny:
-      type: object
-      properties:
-        '@type':
-          type: string
-          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
-      additionalProperties: {}
-      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
     v1SpDetails:
       type: object
       properties:
@@ -1043,6 +612,114 @@ components:
           type: string
           description: The user or Flow that purchased the Savings Plan.
       description: Savings Plan Details to be used in the GetDailyUsageCostDetailsResponse.
+    CreateSPRecommendationNotificationRequestConfigurations:
+      type: object
+      properties:
+        accountScope:
+          type: string
+        customization:
+          type: string
+        planTerm:
+          type: string
+        paymentOption:
+          type: string
+        lookBackPeriod:
+          type: string
+        instanceFamily:
+          type: string
+        annualBudget:
+          type: number
+          format: double
+        approval:
+          type: boolean
+        payerId:
+          type: string
+      title: Configurations for the Savings Plan
+    v1CrossAccountAccessDetail:
+      type: object
+      properties:
+        roleArn:
+          type: string
+          description: The role ARN that provides the cross-account access permissions.
+        externalId:
+          type: string
+          description: The external id for this role.
+        stackId:
+          type: string
+          description: The id of the CloudFormation stack deployed in the target account.
+        stackRegion:
+          type: string
+          description: The region where the stack is deployed.
+        templateUrl:
+          type: string
+          description: The latest template used to deploy the stack.
+        status:
+          type: string
+          description: This can be `latest`, `outdated`, or some error information.
+        access:
+          type: string
+          title: 'The access type:  "savings_plan_access" or "cost_explorer_access"'
+      description: Individual cross-access detail record.
+    v1CreateCostExplorerAccessResponse:
+      type: object
+      properties:
+        target:
+          type: string
+          description: The queried target account.
+        roleArn:
+          type: string
+          description: The role ARN that provides the cross-account access permissions.
+        externalId:
+          type: string
+          description: The external id for this role.
+        stackId:
+          type: string
+          description: The id of the CloudFormation stack deployed in the target account.
+        stackRegion:
+          type: string
+          description: The region where the stack is deployed.
+        templateUrl:
+          type: string
+          description: The latest template used to deploy the stack.
+        status:
+          type: string
+          description: This can be `latest`, `outdated`, or some error information.
+        lastUpdated:
+          type: string
+          description: The last updated timestamp, RFC3339 UTC.
+        access:
+          type: string
+          title: 'The access type- partial access to view simulation only: "cloud_explorer_access"'
+      description: Response message for the Flow.CreateCostExplorerAccess rpc.
+    v1GetDailyUsageCostDetailsRequest:
+      type: object
+      properties:
+        payerId:
+          type: string
+          description: Required. The id of the payer to fetch savings plan details for.
+        startDate:
+          type: string
+          description: Required. The start date of the range for the savings plan details.
+        endDate:
+          type: string
+          description: Required. The end date of the range for the savings plan details.
+      description: Request message for the Flow.GetDailyUsageCostDetailsRequest rpc.
+    v1CheckSPToPurchaseDetailsLinkExpiryResponse:
+      type: object
+      properties:
+        isExpired:
+          type: boolean
+          title: Whether the link has expired
+        expiryDate:
+          type: string
+          title: The raw expiry date from the URL (ISO8601 format)
+        formattedDate:
+          type: string
+          title: User-friendly formatted date
+        message:
+          type: string
+          title: Human-readable status message
+      title: Response message for the Flow.CheckSPToPurchaseDetailsLinkExpiryRequest RPC
     v1GetRecommendationDetailsResponse:
       type: object
       properties:
@@ -1115,69 +792,57 @@ components:
         lastUpdated:
           type: string
           title: Savings plan last updated
-    v1GetAwsAccountsResponse:
-      type: object
-      properties:
-        groupId:
-          type: string
-        groupName:
-          type: string
-        payerAccounts:
-          type: array
-          items:
-            type: string
-          title: all payers registered on billing group
-        linkedAccountToPayerId:
-          type: object
-          additionalProperties:
-            type: string
-          title: map of aws accountid to its payer id
-      description: Response message for the Flow.GetAwsAccounts rpc.
-    v1GetSPPurchaseAccessTemplateUrlResponse:
-      type: object
-      properties:
-        launchUrl:
-          type: string
-          description: The CloudFormation launch url. Open it in your browser.
-        templateUrl:
-          type: string
-          description: The latest CloudFormation template. The version is included in the filename.
-        stackName:
-          type: string
-          description: The default stack name used. Can be modified.
-        principal:
-          type: string
-          description: The AWS account that will receive the access. Do not change.
-        externalId:
-          type: string
-          description: The external id for this role. Do not change.
-      description: Response message for the Flow.GetSPPurchaseAccessTemplateUrl rpc.
-    v1SetUserAccountSettingsResponse:
+    blueapiFlowV1GetInfoResponse:
       type: object
       properties:
         response:
           type: string
-      description: Response message for the Flow.SetUserAccountSettings rpc.
-    v1CheckSPToPurchaseDetailsLinkExpiryResponse:
+      description: Response message for the Flow.GetInfo rpc.
+    v1GetSettingsHistoryResponse:
       type: object
       properties:
-        isExpired:
-          type: boolean
-          title: Whether the link has expired
+        settingsHistory:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1SettingsHistory'
+      description: Response message for the Flow.GetSettingsHistory rpc.
+    v1SendSPToPurchaseDetailsNotificationsRequestSavingsPlanDetailsPurchase:
+      type: object
+      properties:
+        payerId:
+          type: string
+        linkedAccounts:
+          type: string
+        accountScope:
+          type: string
+        savingsPlanType:
+          type: string
+        term:
+          type: integer
+          format: int32
+        region:
+          type: string
+        instanceFamily:
+          type: string
+        recommendedHourlyCommitment:
+          type: number
+          format: double
+        paymentOption:
+          type: string
+        upfrontCost:
+          type: number
+          format: double
+        monthlyCost:
+          type: number
+          format: double
+        totalCost:
+          type: number
+          format: double
         expiryDate:
           type: string
-          title: The raw expiry date from the URL (ISO8601 format)
-        formattedDate:
-          type: string
-          title: User-friendly formatted date
-        message:
-          type: string
-          title: Human-readable status message
-      title: Response message for the Flow.CheckSPToPurchaseDetailsLinkExpiryRequest RPC
-    FlowGetAwsAccountsBody:
-      type: object
-      description: Response message for the Flow.GetAwsAccounts rpc.
-    v1CreateCostExplorerAccessResponse:
+      title: Savings plan details to be purchased
+    v1CreateSPPurchaseAccessResponse:
       type: object
       properties:
         target:
@@ -1206,77 +871,88 @@ components:
           description: The last updated timestamp, RFC3339 UTC.
         access:
           type: string
-          title: 'The access type- partial access to view simulation only: "cloud_explorer_access"'
-      description: Response message for the Flow.CreateCostExplorerAccess rpc.
-    blueapiFlowV1GetInfoResponse:
+          title: 'The access type- full access to view simulation and purchase saving plan: "savings_plan_access"'
+      description: Response message for the Flow.CreateSPPurchaseAccess rpc.
+    v1GetAwsAccountsResponse:
+      type: object
+      properties:
+        groupId:
+          type: string
+        groupName:
+          type: string
+        payerAccounts:
+          type: array
+          items:
+            type: string
+          title: all payers registered on billing group
+        linkedAccountToPayerId:
+          type: object
+          additionalProperties:
+            type: string
+          title: map of aws accountid to its payer id
+      description: Response message for the Flow.GetAwsAccounts rpc.
+    v1SetUserAccountSettingsResponse:
       type: object
       properties:
         response:
           type: string
-      description: Response message for the Flow.GetInfo rpc.
-    v1GetDailyUsageCostDetailsResponse:
+      description: Response message for the Flow.SetUserAccountSettings rpc.
+    v1SetSettingsResponse:
       type: object
       properties:
-        payerId:
+        response:
           type: string
-          description: The payer account ID for which the savings plan details are fetched.
-        monthlyCosts:
-          $ref: '#/components/schemas/v1MonthlyCosts'
-          description: Monthly aggregated cost summary for the Savings Plan.
-        spDetails:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1SpDetails'
-          description: Purchased Savings Plan details for the payer account.
-        usageCostDetails:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1UsageCostDetails'
-          description: Daily Savings Plan usage and cost details.
-        utilizationDetails:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1UtilizationDetails'
-          description: Percentage of Savings Plan utilization per ARN.
-      description: A single entry containing Savings Plan, monthly cost summary, and usage breakdown.
-    v1SettingsHistory:
+      description: Response message for the Flow.CreateSettings rpc.
+    v1GetUserAccountSettingsResponse:
       type: object
       properties:
         id:
           type: string
-          description: Payer account ID.
+          description: The payer ID of the user.
+        emails:
+          type: array
+          items:
+            type: string
+          description: List of email addresses to send notifications to.
+        theme:
+          type: string
+          description: User interface preferences.
+        language:
+          type: string
+          description: Preferred language for the user interface.
+      description: Response message for the Flow.GetUserAccountSettings rpc.
+    FlowSetSettingsBody:
+      type: object
+      properties:
         accountScope:
           type: string
-          description: Account scope determines if the account is payer or linked account.
+          description: Required. Account scope determines if the account is payer or linked account. Valid values are `payer` or `linked`.
         customization:
           type: string
-          description: Customization setting for SP.
+          description: Required. Customization setting for SP. Valid values are `COMPUTE_SP` or `EC2_INSTANCE_SP`.
         planTerm:
           type: string
-          description: Term of the SP.
+          description: Required. Term of the SP. Valid values are `ONE_YEAR` or `THREE_YEARS`.
         paymentOption:
           type: string
-          description: Payment option for the SP.
+          description: Required. Payment option for the SP. Valid values are `ALL_UPFRONT`, `PARTIAL_UPFRONT`, or `NO_UPFRONT`.
         lookBackPeriod:
           type: string
-          description: Lookback period for recommendation.
+          description: Required. Lookback period for recommendation. Valid values are `SEVEN_DAYS`, `THIRTY_DAYS`, or `SIXTY_DAYS`.
         instanceFamily:
           type: string
-          title: If EC2 Instance SP is selected in Customization, request will include list of instance family
+          title: Optional. If EC2 Instance SP is selected in Customization, request will include list of instance family
         annualBudget:
           type: number
           format: double
-          description: Annual budget input for SP.
+          description: Optional. Annual budget input for SP.
         approval:
           type: boolean
-          description: Purchase approval from the payer for the SP.
-        lastUpdated:
+          description: Optional. Purchase approval from the payer for the SP. Default value is `false`.
+        payerId:
           type: string
-          description: Last updated timestamp of the settings configuration.
-      description: Settings history message.
+          title: Required. Payer account ID
+      description: Request message for the Flow.CreateSettings rpc.
     CreateSPRecommendationNotificationRequestRecommendation:
       type: object
       properties:
@@ -1331,9 +1007,395 @@ components:
         lastUpdated:
           type: string
       title: Recommendation details for the Savings Plan
-    CreateSPRecommendationNotificationRequestConfigurations:
+    v1GetSPToPurchaseDetailsResponse:
       type: object
       properties:
+        recommendation:
+          $ref: '#/components/schemas/flowV1SavingsPlanRecommendation'
+          title: Recommendation details
+        purchases:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/flowV1SavingsPlanDetailsPurchase'
+          title: List of purchase items
+        ondemandCostBefore:
+          type: string
+          title: On-demand cost before savings plan
+        ondemandCostAfter:
+          type: string
+          title: On-demand cost after savings plan
+        reductionRate:
+          type: string
+          title: Cost reduction percentage
+      description: Response message for the Flow.GetSPToPurchaseDetails rpc.
+    v1GetCrossAccountAccessDetailsResponse:
+      type: object
+      properties:
+        target:
+          type: string
+          description: The queried target account.
+        details:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1CrossAccountAccessDetail'
+          description: List of cross-access details for the target account.
+      description: Response message for the Flow.GetCrossAccountAccessDetails rpc.
+    v1MonthlyCosts:
+      type: object
+      properties:
+        monthlyOnDemandCost:
+          type: number
+          format: double
+          description: Actual monthly on-demand cost for the payer account.
+        monthlyEffectiveCost:
+          type: number
+          format: double
+          description: Actual monthly effective cost after applying Savings Plans.
+        monthlyTotalSavings:
+          type: number
+          format: double
+          description: Actual total monthly savings from Savings Plan usage.
+      description: Summary of monthly cost values associated with a single Savings Plan.
+    v1SendSPToPurchaseDetailsNotificationsResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        success:
+          type: boolean
+      title: Response after sending SendSPToPurchaseDetailsNotifications to Slack
+    flowV1SavingsPlanDetailsPurchase:
+      type: object
+      properties:
+        payerId:
+          type: string
+        linkedAccounts:
+          type: string
+        accountScope:
+          type: string
+        savingsPlanType:
+          type: string
+        term:
+          type: integer
+          format: int32
+        region:
+          type: string
+        instanceFamily:
+          type: string
+        recommendedHourlyCommitment:
+          type: number
+          format: double
+        paymentOption:
+          type: string
+        upfrontCost:
+          type: number
+          format: double
+        monthlyCost:
+          type: number
+          format: double
+        totalCost:
+          type: number
+          format: double
+        expiryDate:
+          type: string
+      title: Savings plan details to be purchased
+    v1SendSPToPurchaseDetailsNotificationsRequestSavingsPlanRecommendation:
+      type: object
+      properties:
+        payerId:
+          type: string
+        linkedAccounts:
+          type: string
+        accountScope:
+          type: string
+        savingsPlanType:
+          type: string
+        term:
+          type: integer
+          format: int32
+        region:
+          type: string
+        instanceFamily:
+          type: string
+        recommendedHourlyCommitment:
+          type: number
+          format: double
+        paymentOption:
+          type: string
+        upfrontCost:
+          type: number
+          format: double
+        monthlyCost:
+          type: number
+          format: double
+        totalCost:
+          type: number
+          format: double
+        expiryDate:
+          type: string
+      title: Savings plan recommendation details
+    v1SettingsHistory:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Payer account ID.
+        accountScope:
+          type: string
+          description: Account scope determines if the account is payer or linked account.
+        customization:
+          type: string
+          description: Customization setting for SP.
+        planTerm:
+          type: string
+          description: Term of the SP.
+        paymentOption:
+          type: string
+          description: Payment option for the SP.
+        lookBackPeriod:
+          type: string
+          description: Lookback period for recommendation.
+        instanceFamily:
+          type: string
+          title: If EC2 Instance SP is selected in Customization, request will include list of instance family
+        annualBudget:
+          type: number
+          format: double
+          description: Annual budget input for SP.
+        approval:
+          type: boolean
+          description: Purchase approval from the payer for the SP.
+        lastUpdated:
+          type: string
+          description: Last updated timestamp of the settings configuration.
+      description: Settings history message.
+    v1CreateCostExplorerAccessRequest:
+      type: object
+      properties:
+        target:
+          type: string
+          description: Required. The target AWS account to validate.
+      description: 'Request message for the Flow.CreateCostExplorerAccess rpc.
+
+        This endpoint only supports the ''apionly'' template type.'
+    v1CreateSPPurchaseAccessRequest:
+      type: object
+      properties:
+        target:
+          type: string
+          description: Required. The target AWS account to validate.
+      description: Request message for the Flow.CreateSPPurchaseAccess rpc.
+    v1GetDailyUsageCostDetailsResponse:
+      type: object
+      properties:
+        payerId:
+          type: string
+          description: The payer account ID for which the savings plan details are fetched.
+        monthlyCosts:
+          $ref: '#/components/schemas/v1MonthlyCosts'
+          description: Monthly aggregated cost summary for the Savings Plan.
+        spDetails:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1SpDetails'
+          description: Purchased Savings Plan details for the payer account.
+        usageCostDetails:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1UsageCostDetails'
+          description: Daily Savings Plan usage and cost details.
+        utilizationDetails:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1UtilizationDetails'
+          description: Percentage of Savings Plan utilization per ARN.
+      description: A single entry containing Savings Plan, monthly cost summary, and usage breakdown.
+    blueapiFlowV1DailyUtilization:
+      type: object
+      properties:
+        currentDate:
+          type: string
+          description: The current date for which the utilization is reported.
+        utilizationPercentage:
+          type: number
+          format: double
+          title: The percentage of utilization for this specific date
+      description: Daily utilization data for a specific date range.
+    v1CreateSPRecommendationNotificationResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        success:
+          type: boolean
+      title: Response after sending to Slack
+    v1GetCostExplorerAccessTemplateUrlResponse:
+      type: object
+      properties:
+        launchUrl:
+          type: string
+          description: The CloudFormation launch url. Open it in your browser.
+        templateUrl:
+          type: string
+          description: The latest CloudFormation template. The version is included in the filename.
+        stackName:
+          type: string
+          description: The default stack name used. Can be modified.
+        principal:
+          type: string
+          description: The AWS account that will receive the access. Do not change.
+        externalId:
+          type: string
+          description: The external id for this role. Do not change.
+      description: Response message for the Flow.GetCostExplorerAccessTemplateUrl rpc.
+    v1CreateSPRecommendationNotificationRequest:
+      type: object
+      properties:
+        configurations:
+          $ref: '#/components/schemas/CreateSPRecommendationNotificationRequestConfigurations'
+        recommendation:
+          $ref: '#/components/schemas/CreateSPRecommendationNotificationRequestRecommendation'
+      title: Configuration and recommendation details to send to Slack
+    v1UsageCostDetails:
+      type: object
+      properties:
+        currentDate:
+          type: string
+          description: The specific date this entry represents, corresponding to one day within the requested date range.
+        productCode:
+          type: string
+          description: The product code for which the usage and cost details are provided.
+        ondemandCost:
+          type: number
+          format: double
+          description: Total On-Demand cost in USD for the date.
+        reservedCost:
+          type: number
+          format: double
+          description: Total Reserved Instance cost in USD for the date.
+        savingsPlanCostByFlow:
+          type: number
+          format: double
+          description: Total Savings Plan cost in USD for the date purchased by Flow.
+        savingsPlanCostByUser:
+          type: number
+          format: double
+          description: Total Savings Plan cost in USD for the date purchased by user.
+        spotCost:
+          type: number
+          format: double
+          description: Total Spot Instance cost in USD for the date.
+        coveragePercentage:
+          type: number
+          format: double
+          description: Percentage of Savings Plan coverage for the date.
+      description: Usage and Cost Details to be used in the GetDailyUsageCostDetailsResponse.
+    v1UtilizationDetails:
+      type: object
+      properties:
+        savingsPlanName:
+          type: string
+          title: Descriptive name of the Savings Plan
+        savingsPlanArn:
+          type: string
+          title: The ARN of the Savings Plan
+        perDayUtilization:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/blueapiFlowV1DailyUtilization'
+          title: Array of daily utilization data for this Savings Plan
+      description: Utilization details for Savings Plans, including ARN and utilization percentage.
+    flowV1SavingsPlanRecommendation:
+      type: object
+      properties:
+        payerId:
+          type: string
+        linkedAccounts:
+          type: string
+        accountScope:
+          type: string
+        savingsPlanType:
+          type: string
+        term:
+          type: integer
+          format: int32
+        region:
+          type: string
+        instanceFamily:
+          type: string
+        recommendedHourlyCommitment:
+          type: number
+          format: double
+        paymentOption:
+          type: string
+        upfrontCost:
+          type: number
+          format: double
+        monthlyCost:
+          type: number
+          format: double
+        totalCost:
+          type: number
+          format: double
+        expiryDate:
+          type: string
+      title: Savings plan recommendation details
+    FlowGetAwsAccountsBody:
+      type: object
+      description: Response message for the Flow.GetAwsAccounts rpc.
+    FlowSetUserAccountSettingsBody:
+      type: object
+      properties:
+        emails:
+          type: array
+          items:
+            type: string
+          description: Required. List of email addresses to send notifications to.
+        theme:
+          type: string
+          description: Required. User interface preferences.
+        language:
+          type: string
+          description: Required. Preferred language for the user interface.
+      description: Request message for the Flow.SetUserAccountSettings rpc.
+    protobufAny:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+      additionalProperties: {}
+      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    v1GetSPPurchaseAccessTemplateUrlResponse:
+      type: object
+      properties:
+        launchUrl:
+          type: string
+          description: The CloudFormation launch url. Open it in your browser.
+        templateUrl:
+          type: string
+          description: The latest CloudFormation template. The version is included in the filename.
+        stackName:
+          type: string
+          description: The default stack name used. Can be modified.
+        principal:
+          type: string
+          description: The AWS account that will receive the access. Do not change.
+        externalId:
+          type: string
+          description: The external id for this role. Do not change.
+      description: Response message for the Flow.GetSPPurchaseAccessTemplateUrl rpc.
+    v1GetSettingsResponse:
+      type: object
+      properties:
+        id:
+          type: string
         accountScope:
           type: string
         customization:
@@ -1351,70 +1413,8 @@ components:
           format: double
         approval:
           type: boolean
+        lastUpdated:
+          type: string
         payerId:
           type: string
-      title: Configurations for the Savings Plan
-    v1GetDailyUsageCostDetailsRequest:
-      type: object
-      properties:
-        payerId:
-          type: string
-          description: Required. The id of the payer to fetch savings plan details for.
-        startDate:
-          type: string
-          description: Required. The start date of the range for the savings plan details.
-        endDate:
-          type: string
-          description: Required. The end date of the range for the savings plan details.
-      description: Request message for the Flow.GetDailyUsageCostDetailsRequest rpc.
-    blueapiFlowV1DailyUtilization:
-      type: object
-      properties:
-        currentDate:
-          type: string
-          description: The current date for which the utilization is reported.
-        utilizationPercentage:
-          type: number
-          format: double
-          title: The percentage of utilization for this specific date
-      description: Daily utilization data for a specific date range.
-    FlowSetUserAccountSettingsBody:
-      type: object
-      properties:
-        emails:
-          type: array
-          items:
-            type: string
-          description: Required. List of email addresses to send notifications to.
-        theme:
-          type: string
-          description: Required. User interface preferences.
-        language:
-          type: string
-          description: Required. Preferred language for the user interface.
-      description: Request message for the Flow.SetUserAccountSettings rpc.
-    v1CrossAccountAccessDetail:
-      type: object
-      properties:
-        roleArn:
-          type: string
-          description: The role ARN that provides the cross-account access permissions.
-        externalId:
-          type: string
-          description: The external id for this role.
-        stackId:
-          type: string
-          description: The id of the CloudFormation stack deployed in the target account.
-        stackRegion:
-          type: string
-          description: The region where the stack is deployed.
-        templateUrl:
-          type: string
-          description: The latest template used to deploy the stack.
-        status:
-          type: string
-          description: This can be `latest`, `outdated`, or some error information.
-        access:
-          type: string
-          title: 'The access type:  "savings_plan_access" or "cost_explorer_access"'
-      description: Individual cross-access detail record.
+      description: Response message for fetching previous settings configuration of a user.
