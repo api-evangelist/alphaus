@@ -1047,58 +1047,6 @@ paths:
       - IAM
 components:
   schemas:
-    apiPolicy:
-      type: object
-      properties:
-        action:
-          type: string
-        effect:
-          type: string
-        key:
-          type: string
-        values:
-          type: array
-          items:
-            type: string
-    v1UpdateUserRoleMappingRequest:
-      type: object
-      properties:
-        subUser:
-          type: string
-          description: Optional. The subuser to map the roles. Defaults to caller if not set.
-        roles:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1MapRole'
-          description: Required. The roles to map to the user. Limited to 5 items. Setting `role` to empty will remove the mapping.
-      description: Request message for the Iam.UpdateUserRoleMapping rpc.
-    IamUpsertExperimentalUIPreferenceBody:
-      type: object
-      properties:
-        version:
-          type: string
-          description: The selected UI version for the component (e.g. "v1" or "v2").
-        bannerDismissed:
-          type: boolean
-          description: Whether the experimental banner has been dismissed for this component.
-      description: Request message for the Iam.UpsertExperimentalUIPreference rpc.
-    blueapiApiRole:
-      type: object
-      properties:
-        name:
-          type: string
-        namespace:
-          type: string
-        permissions:
-          type: array
-          items:
-            type: string
-        policies:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/apiPolicy'
     v1CreateUserRoleMappingRequest:
       type: object
       properties:
@@ -1112,131 +1060,33 @@ components:
             $ref: '#/components/schemas/v1MapRole'
           description: Required. The roles to map to the user. Limited to 5 items.
       description: Request message for the Iam.CreateUserRoleMapping rpc.
-    rpcStatus:
+    v1PartnerToken:
       type: object
       properties:
-        code:
-          type: integer
-          format: int32
-          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-        message:
+        token:
           type: string
-          description: 'A developer-facing error message, which should be in English. Any
-
-            user-facing error message should be localized and sent in the
-
-            [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.'
-        details:
+    v1ListUserRoleMappingsResponse:
+      type: object
+      properties:
+        userRoleMappings:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/protobufAny'
-          description: 'A list of messages that carry the error details.  There is a common set of
-
-            message types for APIs to use.'
-      description: 'The `Status` type defines a logical error model that is suitable for
-
-        different programming environments, including REST APIs and RPC APIs. It is
-
-        used by [gRPC](https://github.com/grpc). Each `Status` message contains
-
-        three pieces of data: error code, error message, and error details.
-
-
-        You can find out more about this error model and how to work with it in the
-
-        [API Design Guide](https://cloud.google.com/apis/design/errors).'
-    v1ListRolesResponse:
-      type: object
-      properties:
-        roles:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/blueapiApiRole'
-      description: Response message for the Iam.ListRoles rpc.
-    v1CreateApiClientRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Required. The descriptive name of the API client to create.
-      description: Request message for the Iam.CreateApiClient rpc.
-    v1CreateUserRoleMappingResponse:
-      type: object
-      properties:
-        success:
-          type: array
-          items:
-            type: string
-        failed:
-          type: array
-          items:
-            type: string
-        filters:
-          type: array
-          items:
-            type: string
-      description: Response message for the Iam.CreateUserRoleMapping rpc.
-    apiPermission:
+            $ref: '#/components/schemas/apiUserRoleMapping'
+      description: Response message for the Iam.ListUserRoleMappings rpc.
+    v1MapRole:
       type: object
       properties:
         namespace:
           type: string
-        permissions:
-          type: array
-          items:
-            type: string
-        policies:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/apiPolicy'
-    v1ListIdentityProvidersResponse:
+        role:
+          type: string
+    IamUpdateFeatureFlagsBody:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/ListIdentityProvidersResponseIdentityProvider'
-      description: Response message for the Iam.ListIdentityProviders rpc.
-    v1CreateIdentityProviderRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Required. The IdP name.
-        type:
-          type: string
-          description: Required. Value is `saml`.
-        metadata:
-          type: string
-          description: Required. The contents of the metadata file from your IdP.
-      description: Request message for the Iam.CreateIdentityProvider rpc.
-    v1UpsertExperimentalUIPreferenceResponse:
-      type: object
-      properties:
-        preference:
-          $ref: '#/components/schemas/v1ExperimentalUIPreference'
-          description: The created or updated preference.
-      description: Response message for the Iam.UpsertExperimentalUIPreference rpc.
-    v1CreateIpFilterRequest:
-      type: object
-      properties:
-        value:
-          type: string
-          description: Required. The IP input to filter, either blacklist or whitelist. Should be in CIDR format (i.e. `1.2.3.4/32`).
-        type:
-          type: string
-          description: Optional. Can be `whitelist` or `blacklist`. Defaults to `blacklist` if empty.
-        rootUser:
-          type: string
-          description: Optional. If `rootUser` is valid and `subUser` is empty, filter is for this rootuser. If both `rootUser` and `subUser` inputs are empty, filter is at global scope.
-        subUser:
-          type: string
-          description: Optional. If `subuser` is valid, filter is for this subuser; `rootUser` value is discarded. If both `rootUser` and `subUser` inputs are empty, filter is at global scope.
-      description: Request message for the Iam.CreateIpFilter rpc.
+        featureFlags:
+          $ref: '#/components/schemas/apiFeatureFlags'
+      description: Request message for the Iam.UpdateFeatureFlags rpc.
     v1MFAUsersInfoResponse:
       type: object
       properties:
@@ -1246,45 +1096,156 @@ components:
             type: object
             $ref: '#/components/schemas/v1MFAUser'
       description: Response message for the MFAUsersInfoResponse rpc.
-    v1CreateGroupRootUserRequest:
+    IamUnlockUserAccountBody:
       type: object
       properties:
         email:
           type: string
-          description: The email address of the user being created.
-        password:
-          type: string
-          title: The password of the user being created. A value will be generated if not is provided for this field
-        groupId:
-          type: string
-          description: The ID of the group to which the user will be added. This must either be a billing group ID or an access group ID.
-        groupType:
-          type: string
-          description: The type of group which is represented by the group ID. Valid values include "billing_group" or "access_group".
-        inputType:
-          type: string
-          description: This value determines whether the password should be auto-generated or if the plaintext value received with the request should be used. A value of "Auto" will result in an auto-generated password whereas a value of "Custom" will result in the password included with the request being used.
-        plan:
-          type: string
-          description: The plan associated with the root-user account. Valid values include "trial", "limited3" and "limited4".
-        emailNotification:
+          description: Required. The email of the user account to unlock.
+        isRoot:
           type: boolean
-          description: Whether or not a notification should be sent to the provided email after the user has been created.
-        meta:
-          $ref: '#/components/schemas/apiFeatureFlags'
-          description: A collection of feature flags and whether or not they should be enabled. For a full list of such flags, see https://labs.alphaus.cloud/docs/blueapi/apis/iam/.
-      title: Request message for the Iam.CreateGroupRootUser rpc
-    ListIdentityProvidersResponseIdentityProvider:
+          description: IsRoot is true if Ripple or Wave root user, false if sub user.
+        userName:
+          type: string
+          description: Required if wave sub user.
+    v1UpdateUserRoleMappingRequest:
+      type: object
+      properties:
+        subUser:
+          type: string
+          description: Optional. The subuser to map the roles. Defaults to caller if not set.
+        roles:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1MapRole'
+          description: Required. The roles to map to the user. Limited to 5 items. Setting `role` to empty will remove the mapping.
+      description: Request message for the Iam.UpdateUserRoleMapping rpc.
+    v1ListIdentityProvidersResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ListIdentityProvidersResponseIdentityProvider'
+      description: Response message for the Iam.ListIdentityProviders rpc.
+    apiSubUserRole:
+      type: object
+      properties:
+        roleId:
+          type: string
+          description: Role ID assigned to the sub-user.
+        permissions:
+          type: array
+          items:
+            type: string
+          description: Permissions granted to the sub-user for this role.
+        subUserId:
+          type: string
+          description: 'Temporary: Tracks the sub-user ID to verify the role is assigned to the correct user.
+
+            This field will be removed after testing is complete.'
+    IamUpdateRoleBody:
+      type: object
+      properties:
+        newName:
+          type: string
+          description: Optional. If set, update the current name to this.
+        permissions:
+          type: array
+          items:
+            type: string
+          description: Required. The list of permissions to attach to this role.
+      description: Request message for the Iam.UpdateRole rpc.
+    blueapiApiUser:
       type: object
       properties:
         id:
           type: string
-        name:
+          description: User's unique id.
+        parent:
           type: string
+          description: 'The user''s parent. If empty or non-existent, it means this user is a root user;
+
+            otherwise, it''s a subuser.'
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: 'The attributes (key/value pair) of the user. If hierarchy is supported, it will be
+
+            separated by ''/'', such as ''key/subkey=value''. See https://alphauslabs.github.io/blueapi/
+
+            for the list of supported attributes.'
+    apiPolicy:
+      type: object
+      properties:
+        action:
+          type: string
+        effect:
+          type: string
+        key:
+          type: string
+        values:
+          type: array
+          items:
+            type: string
+    v1GetExperimentalUIPreferencesResponse:
+      type: object
+      properties:
+        preferences:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1ExperimentalUIPreference'
+          description: The list of experimental UI preferences for the authenticated MSP.
+      description: Response message for the Iam.GetExperimentalUIPreferences rpc.
+    v1SendRipplePasswordResetCodeRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          title: Required. Ripple account email address
+      title: Request message for ripple account password recovery
+    v1IpFilter:
+      type: object
+      properties:
+        id:
+          type: string
+          description: IP filter item id. Note that this name is transcient and is not fixed. However, you can use any of its permutations to endpoints that accept it, such as the `DELETE:/iam/v?/ipfilters/{id}` endpoint, without issues.
+        scope:
+          type: string
+          description: Can be `global`, `rootuser`, or `subuser`.
+        target:
+          type: string
+          description: The target of the filter. If global scope, this is usually empty. Rootuser name for rootuser scope, and subuser name for subuser scope. For subuser targets, format is `rootuser/subuser`.
         type:
           type: string
-        saml:
-          $ref: '#/components/schemas/IdentityProvidersamlInfo'
+          description: The type of IP filter. It could be `whitelist` or `blacklist`.
+        value:
+          type: string
+          description: The IP filter value. Should be in CIDR format.
+    apiSubUser:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Sub-user's unique id.
+        parentId:
+          type: string
+          description: The id of the parent user. If this is empty, the sub-user is invalid.
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Attributes specific to the sub-user.
+        roles:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/apiSubUserRole'
+          description: Role details for the sub-user, if applicable.
     apiFeatureFlags:
       type: object
       properties:
@@ -1394,6 +1355,132 @@ components:
           type: boolean
           title: Control access to budget alerts from Wave Pro
       description: Describes the features and whether or not they are enabled for a particular user.
+    v1ValidateResetPasswordLinkAndChangePasswordRequest:
+      type: object
+      properties:
+        originalEncodedCode:
+          type: string
+        userInputEncodedCode:
+          type: string
+      description: Request for message Iam.ValidateVerificationCode rpc.
+    apiPermission:
+      type: object
+      properties:
+        namespace:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+        policies:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/apiPolicy'
+    v1VerifyUserForResetPasswordResponse:
+      type: object
+      properties:
+        doesUserExists:
+          type: boolean
+      description: Response message for Iam.VerifyUserForResetPassword rpc.
+    v1CreateApiClientRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Required. The descriptive name of the API client to create.
+      description: Request message for the Iam.CreateApiClient rpc.
+    protobufAny:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+      additionalProperties: {}
+      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    v1ValidateResetPasswordLinkAndChangePasswordResponse:
+      type: object
+      properties:
+        isPasswordUpdated:
+          type: boolean
+        isResetPasswordLinkValid:
+          type: boolean
+        errorMessage:
+          type: string
+      description: Response for message Iam.ValidateVerificationCode rpc.
+    IamRefreshPartnerTokenBody:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Required. The previous (old) token to be refreshed.
+      description: Request message for the Iam.RefreshPartnerToken rpc.
+    blueapiApiRole:
+      type: object
+      properties:
+        name:
+          type: string
+        namespace:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+        policies:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/apiPolicy'
+    v1CreateUserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'Required. Min: 4, max: 18, allowed characters: letters, numbers, `_` (underscore), `.` (period) and `-` (hyphen) characters.'
+        password:
+          type: string
+          description: Required. Minimum of 8 characters.
+        email:
+          type: string
+          description: Optional. Email address of the subuser.
+        nickName:
+          type: string
+          description: Optional. Nickname or description. It is set to 'name' if empty.
+      description: Request message for the Iam.CreateUser rpc.
+    apiUserRoleMapping:
+      type: object
+      properties:
+        rootUser:
+          type: string
+        subUser:
+          type: string
+        namespace:
+          type: string
+        role:
+          type: string
+        filter:
+          type: string
+    v1ResetRipplePasswordResponse:
+      type: object
+      properties:
+        userName:
+          type: string
+          title: Ripple account information of the reseted password
+        email:
+          type: string
+    v1MFAUser:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        createdAt:
+          type: string
     apiGroupRootUser:
       type: object
       properties:
@@ -1458,92 +1545,49 @@ components:
 
             "limited3" and "limited4".'
       description: Describes the fields on an Alphaus root user for a billing group or access group.
-    v1ValidateResetPasswordLinkAndChangePasswordResponse:
+    v1CreateIpFilterRequest:
       type: object
       properties:
-        isPasswordUpdated:
-          type: boolean
-        isResetPasswordLinkValid:
-          type: boolean
-        errorMessage:
+        value:
           type: string
-      description: Response for message Iam.ValidateVerificationCode rpc.
-    v1VerifyUserForResetPasswordResponse:
-      type: object
-      properties:
-        doesUserExists:
-          type: boolean
-      description: Response message for Iam.VerifyUserForResetPassword rpc.
-    v1PartnerToken:
-      type: object
-      properties:
-        token:
+          description: Required. The IP input to filter, either blacklist or whitelist. Should be in CIDR format (i.e. `1.2.3.4/32`).
+        type:
           type: string
-    v1ListUserRoleMappingsResponse:
+          description: Optional. Can be `whitelist` or `blacklist`. Defaults to `blacklist` if empty.
+        rootUser:
+          type: string
+          description: Optional. If `rootUser` is valid and `subUser` is empty, filter is for this rootuser. If both `rootUser` and `subUser` inputs are empty, filter is at global scope.
+        subUser:
+          type: string
+          description: Optional. If `subuser` is valid, filter is for this subuser; `rootUser` value is discarded. If both `rootUser` and `subUser` inputs are empty, filter is at global scope.
+      description: Request message for the Iam.CreateIpFilter rpc.
+    IamUpsertExperimentalUIPreferenceBody:
       type: object
       properties:
-        userRoleMappings:
+        version:
+          type: string
+          description: The selected UI version for the component (e.g. "v1" or "v2").
+        bannerDismissed:
+          type: boolean
+          description: Whether the experimental banner has been dismissed for this component.
+      description: Request message for the Iam.UpsertExperimentalUIPreference rpc.
+    v1ListRolesResponse:
+      type: object
+      properties:
+        roles:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/apiUserRoleMapping'
-      description: Response message for the Iam.ListUserRoleMappings rpc.
-    v1ValidateResetPasswordLinkAndChangePasswordRequest:
+            $ref: '#/components/schemas/blueapiApiRole'
+      description: Response message for the Iam.ListRoles rpc.
+    v1UpsertExperimentalUIPreferenceResponse:
       type: object
       properties:
-        originalEncodedCode:
-          type: string
-        userInputEncodedCode:
-          type: string
-      description: Request for message Iam.ValidateVerificationCode rpc.
-    v1ResetRipplePasswordRequest:
-      type: object
-      properties:
-        resetCode:
-          type: string
-          title: Required. Reset code from email
-        newPassword:
-          type: string
-          title: Required. Atleast 8 characters
-      title: Request message for resetting ripple password
-    v1ResetRipplePasswordResponse:
-      type: object
-      properties:
-        userName:
-          type: string
-          title: Ripple account information of the reseted password
-        email:
-          type: string
-    apiUserRoleMapping:
-      type: object
-      properties:
-        rootUser:
-          type: string
-        subUser:
-          type: string
-        namespace:
-          type: string
-        role:
-          type: string
-        filter:
-          type: string
-    v1UpdateUserRoleMappingResponse:
-      type: object
-      properties:
-        success:
-          type: array
-          items:
-            type: string
-        failed:
-          type: array
-          items:
-            type: string
-        filters:
-          type: array
-          items:
-            type: string
-      description: Response message for the Iam.UpdateUserRoleMapping rpc.
-    v1MFAUser:
+        preference:
+          $ref: '#/components/schemas/v1ExperimentalUIPreference'
+          description: The created or updated preference.
+      description: Response message for the Iam.UpsertExperimentalUIPreference rpc.
+    ListIdentityProvidersResponseIdentityProvider:
       type: object
       properties:
         id:
@@ -1552,161 +1596,51 @@ components:
           type: string
         type:
           type: string
-        status:
-          type: string
-        createdAt:
-          type: string
-    IamRefreshPartnerTokenBody:
+        saml:
+          $ref: '#/components/schemas/IdentityProvidersamlInfo'
+    v1CreateGroupRootUserRequest:
       type: object
       properties:
-        token:
+        email:
           type: string
-          description: Required. The previous (old) token to be refreshed.
-      description: Request message for the Iam.RefreshPartnerToken rpc.
-    IdentityProvidersamlInfo:
-      type: object
-      properties:
-        metadata:
+          description: The email address of the user being created.
+        password:
           type: string
-    IamUpdateFeatureFlagsBody:
-      type: object
-      properties:
-        featureFlags:
+          title: The password of the user being created. A value will be generated if not is provided for this field
+        groupId:
+          type: string
+          description: The ID of the group to which the user will be added. This must either be a billing group ID or an access group ID.
+        groupType:
+          type: string
+          description: The type of group which is represented by the group ID. Valid values include "billing_group" or "access_group".
+        inputType:
+          type: string
+          description: This value determines whether the password should be auto-generated or if the plaintext value received with the request should be used. A value of "Auto" will result in an auto-generated password whereas a value of "Custom" will result in the password included with the request being used.
+        plan:
+          type: string
+          description: The plan associated with the root-user account. Valid values include "trial", "limited3" and "limited4".
+        emailNotification:
+          type: boolean
+          description: Whether or not a notification should be sent to the provided email after the user has been created.
+        meta:
           $ref: '#/components/schemas/apiFeatureFlags'
-      description: Request message for the Iam.UpdateFeatureFlags rpc.
-    IamCreatePartnerTokenBody:
-      type: object
-      description: Request message for the Iam.CreatePartnerToken rpc.
-    apiSubUser:
+          description: A collection of feature flags and whether or not they should be enabled. For a full list of such flags, see https://labs.alphaus.cloud/docs/blueapi/apis/iam/.
+      title: Request message for the Iam.CreateGroupRootUser rpc
+    v1CreateRoleRequest:
       type: object
       properties:
-        id:
+        name:
           type: string
-          description: Sub-user's unique id.
-        parentId:
+          description: Required. The name of the role to create. Role names should have at least 6 characters in length and 32 characters maximum. It should also be alphanumeric. Hyphens and underscores are allowed in between. The regular expression used for validation is `^[A-Za-z0-9][A-Za-z0-9_-]*[A-Za-z0-9]$`.
+        namespace:
           type: string
-          description: The id of the parent user. If this is empty, the sub-user is invalid.
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-          description: Attributes specific to the sub-user.
-        roles:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/apiSubUserRole'
-          description: Role details for the sub-user, if applicable.
-    IamUpdateRoleBody:
-      type: object
-      properties:
-        newName:
-          type: string
-          description: Optional. If set, update the current name to this.
+          description: Required. The namespace where this role will belong.
         permissions:
           type: array
           items:
             type: string
           description: Required. The list of permissions to attach to this role.
-      description: Request message for the Iam.UpdateRole rpc.
-    v1ExperimentalUIPreference:
-      type: object
-      properties:
-        componentId:
-          type: string
-          description: The component identifier this preference applies to.
-        version:
-          type: string
-          description: The selected UI version for the component (e.g. "v1" or "v2").
-        bannerDismissed:
-          type: boolean
-          description: Whether the experimental banner has been dismissed for this component.
-        updatedAt:
-          type: string
-          format: date-time
-          description: The timestamp of the last update.
-      description: ExperimentalUIPreference holds the UI version preference and banner state for a single component.
-    v1SendRipplePasswordResetCodeRequest:
-      type: object
-      properties:
-        email:
-          type: string
-          title: Required. Ripple account email address
-      title: Request message for ripple account password recovery
-    apiSubUserRole:
-      type: object
-      properties:
-        roleId:
-          type: string
-          description: Role ID assigned to the sub-user.
-        permissions:
-          type: array
-          items:
-            type: string
-          description: Permissions granted to the sub-user for this role.
-        subUserId:
-          type: string
-          description: 'Temporary: Tracks the sub-user ID to verify the role is assigned to the correct user.
-
-            This field will be removed after testing is complete.'
-    v1ListPermissionsResponse:
-      type: object
-      properties:
-        permissions:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/apiPermission'
-      description: Response message for the Iam.ListPermissions rpc.
-    v1MapRole:
-      type: object
-      properties:
-        namespace:
-          type: string
-        role:
-          type: string
-    blueapiApiUser:
-      type: object
-      properties:
-        id:
-          type: string
-          description: User's unique id.
-        parent:
-          type: string
-          description: 'The user''s parent. If empty or non-existent, it means this user is a root user;
-
-            otherwise, it''s a subuser.'
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-          description: 'The attributes (key/value pair) of the user. If hierarchy is supported, it will be
-
-            separated by ''/'', such as ''key/subkey=value''. See https://alphauslabs.github.io/blueapi/
-
-            for the list of supported attributes.'
-    v1GetExperimentalUIPreferencesResponse:
-      type: object
-      properties:
-        preferences:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1ExperimentalUIPreference'
-          description: The list of experimental UI preferences for the authenticated MSP.
-      description: Response message for the Iam.GetExperimentalUIPreferences rpc.
-    IamUnlockUserAccountBody:
-      type: object
-      properties:
-        email:
-          type: string
-          description: Required. The email of the user account to unlock.
-        isRoot:
-          type: boolean
-          description: IsRoot is true if Ripple or Wave root user, false if sub user.
-        userName:
-          type: string
-          description: Required if wave sub user.
+      description: Request message for the Iam.CreateRole rpc.
     apiApiClient:
       type: object
       properties:
@@ -1727,60 +1661,126 @@ components:
           description: The client's parent resource.
         createTime:
           type: string
-    protobufAny:
+    rpcStatus:
       type: object
       properties:
-        '@type':
+        code:
+          type: integer
+          format: int32
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+        message:
           type: string
-          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
-      additionalProperties: {}
-      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
-    v1IpFilter:
+          description: 'A developer-facing error message, which should be in English. Any
+
+            user-facing error message should be localized and sent in the
+
+            [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.'
+        details:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/protobufAny'
+          description: 'A list of messages that carry the error details.  There is a common set of
+
+            message types for APIs to use.'
+      description: 'The `Status` type defines a logical error model that is suitable for
+
+        different programming environments, including REST APIs and RPC APIs. It is
+
+        used by [gRPC](https://github.com/grpc). Each `Status` message contains
+
+        three pieces of data: error code, error message, and error details.
+
+
+        You can find out more about this error model and how to work with it in the
+
+        [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    v1CreateUserRoleMappingResponse:
       type: object
       properties:
-        id:
-          type: string
-          description: IP filter item id. Note that this name is transcient and is not fixed. However, you can use any of its permutations to endpoints that accept it, such as the `DELETE:/iam/v?/ipfilters/{id}` endpoint, without issues.
-        scope:
-          type: string
-          description: Can be `global`, `rootuser`, or `subuser`.
-        target:
-          type: string
-          description: The target of the filter. If global scope, this is usually empty. Rootuser name for rootuser scope, and subuser name for subuser scope. For subuser targets, format is `rootuser/subuser`.
-        type:
-          type: string
-          description: The type of IP filter. It could be `whitelist` or `blacklist`.
-        value:
-          type: string
-          description: The IP filter value. Should be in CIDR format.
-    v1CreateUserRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: 'Required. Min: 4, max: 18, allowed characters: letters, numbers, `_` (underscore), `.` (period) and `-` (hyphen) characters.'
-        password:
-          type: string
-          description: Required. Minimum of 8 characters.
-        email:
-          type: string
-          description: Optional. Email address of the subuser.
-        nickName:
-          type: string
-          description: Optional. Nickname or description. It is set to 'name' if empty.
-      description: Request message for the Iam.CreateUser rpc.
-    v1CreateRoleRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Required. The name of the role to create. Role names should have at least 6 characters in length and 32 characters maximum. It should also be alphanumeric. Hyphens and underscores are allowed in between. The regular expression used for validation is `^[A-Za-z0-9][A-Za-z0-9_-]*[A-Za-z0-9]$`.
-        namespace:
-          type: string
-          description: Required. The namespace where this role will belong.
-        permissions:
+        success:
           type: array
           items:
             type: string
-          description: Required. The list of permissions to attach to this role.
-      description: Request message for the Iam.CreateRole rpc.
+        failed:
+          type: array
+          items:
+            type: string
+        filters:
+          type: array
+          items:
+            type: string
+      description: Response message for the Iam.CreateUserRoleMapping rpc.
+    v1ExperimentalUIPreference:
+      type: object
+      properties:
+        componentId:
+          type: string
+          description: The component identifier this preference applies to.
+        version:
+          type: string
+          description: The selected UI version for the component (e.g. "v1" or "v2").
+        bannerDismissed:
+          type: boolean
+          description: Whether the experimental banner has been dismissed for this component.
+        updatedAt:
+          type: string
+          format: date-time
+          description: The timestamp of the last update.
+      description: ExperimentalUIPreference holds the UI version preference and banner state for a single component.
+    v1ListPermissionsResponse:
+      type: object
+      properties:
+        permissions:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/apiPermission'
+      description: Response message for the Iam.ListPermissions rpc.
+    IdentityProvidersamlInfo:
+      type: object
+      properties:
+        metadata:
+          type: string
+    v1UpdateUserRoleMappingResponse:
+      type: object
+      properties:
+        success:
+          type: array
+          items:
+            type: string
+        failed:
+          type: array
+          items:
+            type: string
+        filters:
+          type: array
+          items:
+            type: string
+      description: Response message for the Iam.UpdateUserRoleMapping rpc.
+    v1ResetRipplePasswordRequest:
+      type: object
+      properties:
+        resetCode:
+          type: string
+          title: Required. Reset code from email
+        newPassword:
+          type: string
+          title: Required. Atleast 8 characters
+      title: Request message for resetting ripple password
+    v1CreateIdentityProviderRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Required. The IdP name.
+        type:
+          type: string
+          description: Required. Value is `saml`.
+        metadata:
+          type: string
+          description: Required. The contents of the metadata file from your IdP.
+      description: Request message for the Iam.CreateIdentityProvider rpc.
+    IamCreatePartnerTokenBody:
+      type: object
+      description: Request message for the Iam.CreatePartnerToken rpc.
