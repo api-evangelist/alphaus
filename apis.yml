@@ -260,6 +260,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/alphaus-capability-edges.yml
+  name: Alphaus Business Capability Map
 - type: Overlay
   url: overlays/alphaus-blueapi-overlay.yaml
 - type: AgenticAccess

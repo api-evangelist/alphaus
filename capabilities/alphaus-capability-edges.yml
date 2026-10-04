@@ -1,0 +1,66 @@
+slug: alphaus
+provider: Alphaus
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Flags
+  spec_file: alphaus-flags-api-openapi.yml
+  capability_id: BC-4210.50
+  capability_id_l1: BC-4210
+  capability_name: Feature Flag Management
+  confidence: 0.88
+  evidence: Flags_EvaluateBooleanFlag returns the boolean value of a flag for a given namespace
+  reason: Runtime evaluation of boolean and variant feature flags per namespace — squarely feature flag
+    management (runtime control side).
+- tag: IAM
+  spec_file: alphaus-iam-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.82
+  evidence: Iam_ListIdentityProviders  Lists all SSO Identity Providers (IdP); apiPolicy, apiPermission,
+    v1CreateUserRoleMappingRequest, v1MFAUsersInfoResponse
+  reason: Users, roles, role mappings, policies, permissions, MFA, password reset and SSO identity providers
+    — identity and access management. API client issuance is also present but IAM/role/IdP administration
+    dominates.
+- tag: Cost
+  spec_file: alphaus-cost-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.8
+  evidence: Cost_CreateBudgetAlerts; apiMonthlyCostForecast; Cost_ImportCurFiles  Initiates an ondemand
+    import of all registered CUR files
+  reason: Cloud cost and usage reporting, budget alerts and cost forecasting across AWS/Azure/GCP — this
+    is IT spend visibility, showback and cost optimisation (IT Financial Management).
+- tag: Cover
+  spec_file: alphaus-cover-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.78
+  evidence: Cover_CreateAnomalyAlert  Create Anomaly Alert; CostExplorerRecommendationsEC2RightsizeDetails;
+    v1CreateBudgetRequest
+  reason: Cost anomaly detection, budgets and rightsizing/savings recommendations over cloud accounts
+    — IT cost optimisation and spend management rather than any generic finance capability.
+- tag: Flow
+  spec_file: alphaus-flow-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.72
+  evidence: Flow_GetRecommendationDetails  Fetch user savings plan details; Flow_GetSPPurchaseAccessTemplateUrl  Gets
+    a CloudFormation launch URL for Savings Plan purchase capabilities
+  reason: Savings-plan recommendation and purchase-enablement workflow over cloud payer accounts — cloud
+    spend optimisation, i.e. IT financial management. Some of the surface (cross-account role templates,
+    settings) is plumbing, hence not higher.
