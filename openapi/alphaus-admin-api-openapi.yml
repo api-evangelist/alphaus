@@ -773,137 +773,74 @@ paths:
         required: true
 components:
   schemas:
-    apiNotificationChannel:
-      type: object
-      properties:
-        id:
-          type: string
-        enabled:
-          type: boolean
-        name:
-          type: string
-        type:
-          type: string
-        email:
-          $ref: '#/components/schemas/apiEmailChannel'
-        slack:
-          $ref: '#/components/schemas/apiSlackChannel'
-        msteams:
-          $ref: '#/components/schemas/apiMSTeamsChannel'
-        product:
-          type: string
-    apiMSTeamsChannel:
-      type: object
-      properties:
-        webhookUrl:
-          type: string
-    blueapiApiAccount:
-      type: object
-      properties:
-        vendor:
-          type: string
-          title: The vendor
-        id:
-          type: string
-          description: The account id.
-        name:
-          type: string
-          description: The account name.
-        orgId:
-          type: string
-          description: The parent organization id.
-        billingInternalId:
-          type: string
-          description: The parent billing internal id.
-        metadata:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/apiKeyValue'
-          description: The attributes (key/value pair) of the account.
     apiAuditExport:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/apiAuditExportData'
       description: AuditExport resource definition.
-    apiAuditExportData:
+    apiKeyValue:
       type: object
       properties:
-        content:
+        key:
           type: string
-          description: 'Base64 encoded value
-
-            For example, content :`dGltZSx1c2VySWQsc3ViVXNlcklkLHVzZXJOYW1lLGlzQWRtaW4sZXZlbnROYW1lLHBhdGgsdXNlclBhc3MsY2F0ZU5hbWUNCg==`
-
-            Decoding this value, get `time,userId,subUserId,userName,isAdmin,eventName,path,userPass,cateName`.'
-        downloadedRows:
+        value:
           type: string
-          format: int64
-          description: Downloaded content lines.
-        totalRows:
-          type: string
-          format: int64
-          description: Total of content lines.
-      description: AuditExportData resource definition.
-    v1GetWaveFeaturesResponse:
+    rpcStatus:
       type: object
       properties:
-        settings:
+        code:
+          type: integer
+          format: int32
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+        message:
+          type: string
+          description: 'A developer-facing error message, which should be in English. Any
+
+            user-facing error message should be localized and sent in the
+
+            [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.'
+        details:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/protobufAny'
+          description: 'A list of messages that carry the error details.  There is a common set of
+
+            message types for APIs to use.'
+      description: 'The `Status` type defines a logical error model that is suitable for
+
+        different programming environments, including REST APIs and RPC APIs. It is
+
+        used by [gRPC](https://github.com/grpc). Each `Status` message contains
+
+        three pieces of data: error code, error message, and error details.
+
+
+        You can find out more about this error model and how to work with it in the
+
+        [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    v1WaveFeature:
+      type: object
+      properties:
+        label:
+          type: string
+        featureId:
+          type: string
+        isEnabled:
+          type: boolean
+        tickStrategy:
+          type: string
+        condition:
+          type: string
+        flag:
+          type: string
+        children:
           type: array
           items:
             type: object
             $ref: '#/components/schemas/v1WaveFeature'
-    blueapiApiNotification:
-      type: object
-      properties:
-        id:
-          type: string
-        notificationType:
-          type: string
-        channels:
-          type: array
-          items:
-            type: string
-        enabled:
-          type: boolean
-        account:
-          $ref: '#/components/schemas/blueapiApiNotificationAccount'
-    apiNotificationSettings:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Indicates whether notification is enabled for this account globally.
-        defaultChannel:
-          type: string
-          description: The id of the default notification channel.
-    v1GetMSPDefaultMetaResponse:
-      type: object
-      properties:
-        defaultMeta:
-          type: array
-          items:
-            type: string
-    apiEmailChannel:
-      type: object
-      properties:
-        format:
-          type: string
-        recipients:
-          type: array
-          items:
-            type: string
-    blueapiApiNotificationAccount:
-      type: object
-      properties:
-        vendor:
-          type: string
-        accountId:
-          type: string
-    v1CreateDefaultNotificationChannelRequest:
-      type: object
-      description: Request message for the Admin.CreateDefaultNotificationChannel rpc.
+      title: for wave features settings data maping
     apiSlackChannel:
       type: object
       properties:
@@ -919,69 +856,79 @@ components:
           type: string
         redirectUri:
           type: string
-    v1GetAccountGroupResponse:
+    v1GetWaveFeaturesResponse:
       type: object
       properties:
-        acctGroup:
-          $ref: '#/components/schemas/apiAccountGroup'
-      description: Response message for the Admin.GetAccountGroup rpc.
-    v1CreateCloudWatchMetricsStreamRequest:
-      type: object
-      properties:
-        target:
-          type: string
-          description: Required. The target AWS account to validate.
-      description: Request message for the Admin.CreateCloudWatchMetricsStream rpc.
-    v1CreateProformaCurRequest:
-      type: object
-      properties:
-        payerId:
-          type: string
-          description: Required.
-        billingInternalId:
-          type: string
-          description: Required.
-        reportName:
-          type: string
-          description: Required.
-        s3BucketName:
-          type: string
-          title: 'Optional. Default value: `alphaus-proforma-cur-export`'
-        s3Prefix:
-          type: string
-          title: 'Optional. Default value: `pre`'
-        s3Region:
-          type: string
-          title: 'Optional. Default value: `us-east-1`'
-      title: Request message for Admin.CreateProformaCur rpc
-    v1CreateDefaultCostAccessRequest:
-      type: object
-      properties:
-        target:
-          type: string
-          description: Required. The target AWS account to validate.
-        curType:
-          type: string
-          description: Optional. The CUR type. Values should be either 'legacy' or '2.0'. Defaults to 'legacy' if empty.
-      description: Request message for the Admin.CreateDefaultCostAccess rpc.
-    v1UpdateWaveFeatureSettingRequest:
-      type: object
-      properties:
-        lang:
-          type: string
-        featureSetting:
+        settings:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/v1FeatureSetting'
-    protobufAny:
+            $ref: '#/components/schemas/v1WaveFeature'
+    v1CloudWatchMetricsStream:
       type: object
       properties:
-        '@type':
+        target:
           type: string
-          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
-      additionalProperties: {}
-      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+          description: The queried target account.
+        externalId:
+          type: string
+          description: The external id for this role.
+        stackId:
+          type: string
+          description: The id of the CloudFormation stack deployed in the target account.
+        stackRegion:
+          type: string
+          description: The region where the stack is deployed.
+        templateUrl:
+          type: string
+          description: The latest template used to deploy the stack.
+        status:
+          type: string
+          description: This can be `latest`, `outdated`, or some error information.
+        lastUpdated:
+          type: string
+          description: The last updated timestamp, RFC3339 UTC.
+      description: Response message for the Admin.CreateCloudWatchMetricsStream rpc.
+    v1ExportAuditLogsRequest:
+      type: object
+      properties:
+        format:
+          type: string
+          description: Required. At the moment, `CSV`,`JSON` is supported.
+        startTime:
+          type: string
+          description: 'Required. The UTC date to start data from. If not set, the first day of the current year will be used. Format: `yyyymmdd`.'
+        endTime:
+          type: string
+          description: 'Required. The UTC date to end data from. If not set, the first day of the current year will be used. Format: `yyyymmdd`.'
+        product:
+          type: string
+          description: Optional. Valid values are 'ripple' and 'wavepro' for now. If empty default is 'ripple'.
+        waveUserIds:
+          type: array
+          items:
+            type: string
+          description: Optional. Must not be empty if product is 'wavepro'. Return logs for these userIds only.
+      description: Request message for the ExportAuditLogs rpc.
+    v1ListAccountGroupsResponse:
+      type: object
+      properties:
+        accountGroups:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/apiAccountGroup'
+      description: Response message for the Admin.ListAccountGroups rpc.
+    v1SaveNotificationSettingsRequest:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Required. Enable or disable notifications globally.
+        defaultChannel:
+          type: string
+          description: Optional. If non-empty, set this notification channel id as the default channel.
+      description: Request message for the Admin.SaveNotificationSettings rpc.
     v1CreateNotificationRequest:
       type: object
       properties:
@@ -1010,156 +957,16 @@ components:
           $ref: '#/components/schemas/adminV1NotificationAccount'
           description: Optional. only available Wave(Pro).
       description: Request message for the Admin.CreateNotificationTypeChannels rpc.
-    v1ProformaCur:
+    v1CreateDefaultCostAccessRequest:
       type: object
       properties:
-        orgId:
+        target:
           type: string
-        payerId:
+          description: Required. The target AWS account to validate.
+        curType:
           type: string
-        billingInternalId:
-          type: string
-        reportName:
-          type: string
-        bucketName:
-          type: string
-        prefix:
-          type: string
-        timeCreated:
-          type: string
-    apiAccountGroup:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The AccountGroup id.
-        name:
-          type: string
-          description: The AccountGroup name.
-        metadata:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/apiKeyValue'
-          description: The attributes (key/value pair) of the AccountGroup.
-        accounts:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/blueapiApiAccount'
-    v1SaveNotificationSettingsRequest:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Required. Enable or disable notifications globally.
-        defaultChannel:
-          type: string
-          description: Optional. If non-empty, set this notification channel id as the default channel.
-      description: Request message for the Admin.SaveNotificationSettings rpc.
-    adminV1NotificationAccount:
-      type: object
-      properties:
-        vendor:
-          type: string
-          description: Required.
-        accountId:
-          type: string
-          description: Required.
-    v1GetCloudWatchMetricsStreamTemplateUrlResponse:
-      type: object
-      properties:
-        launchUrl:
-          type: string
-          description: The CloudFormation launch url. Open it in your browser.
-        templateUrl:
-          type: string
-          description: The latest CloudFormation template. The version is included in the filename.
-        stackName:
-          type: string
-          description: The default stack name used. Can be modified.
-        externalId:
-          type: string
-          description: The external id for this role. Do not change.
-      description: Response message for the Admin.GetCloudWatchMetricsStreamTemplateUrl rpc.
-    v1UpdateMSPDefaultMetaRequest:
-      type: object
-      properties:
-        mspId:
-          type: string
-        defaultMeta:
-          type: array
-          items:
-            type: string
-    AdminUpdateNotificationBody:
-      type: object
-      properties:
-        channels:
-          type: array
-          items:
-            type: string
-          title: Required
-        enabled:
-          type: boolean
-          title: Required
-        notificationType:
-          type: string
-          description: 'Required
-
-            Valid values:
-
-            `InvoiceCalculationStarted`,
-
-            `InvoiceCalculationFinished`,
-
-            `CurUpdatedAfterInvoice`.
-
-            `AccountBudgetAlert`.'
-        account:
-          $ref: '#/components/schemas/adminV1NotificationAccount'
-          description: Optional. only available Wave(Pro).
-      description: Request message for the Admin.UpdateNotificationTypeChannels rpc.
-    protosOperation:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The server-assigned name.
-        metadata:
-          $ref: '#/components/schemas/protobufAny'
-          description: 'Service-specific metadata associated with the operation. It typically
-
-            contains progress information and common metadata such as create time.
-
-            Some services might not provide such metadata. Any method that returns a
-
-            long-running operation should document the metadata type, if any.'
-        done:
-          type: boolean
-          description: 'If the value is `false`, it means the operation is still in progress.
-
-            If `true`, the operation is completed, and either `error` or `response` is
-
-            available.'
-        error:
-          $ref: '#/components/schemas/rpcStatus'
-          description: The error result of the operation in case of failure or cancellation.
-        response:
-          $ref: '#/components/schemas/protobufAny'
-          description: 'The normal response of the operation in case of success. If the original method returns
-
-            no data on success, such as `Delete`, the response is `google.protobuf.Empty`. If the
-
-            original method is standard `Get`/`Create`/`Update`, the response should be the
-
-            resource. For other methods, the response should have the type `XxxResponse`, where
-
-            `Xxx` is the original method name. For example, if the original method name is
-
-            `TakeSnapshot()`, the inferred response type is `TakeSnapshotResponse`.'
-      description: 'This resource represents a long-running operation that is the result of a
-
-        network API call.'
+          description: Optional. The CUR type. Values should be either 'legacy' or '2.0'. Defaults to 'legacy' if empty.
+      description: Request message for the Admin.CreateDefaultCostAccess rpc.
     v1FeatureSetting:
       type: object
       properties:
@@ -1168,34 +975,6 @@ components:
         isEnabled:
           type: boolean
       title: For rpc UpdateWaveFeature
-    v1GetDefaultCostAccessTemplateUrlResponse:
-      type: object
-      properties:
-        launchUrl:
-          type: string
-          description: The CloudFormation launch url. Open it in your browser.
-        templateUrl:
-          type: string
-          description: The latest CloudFormation template. The version is included in the filename.
-        stackName:
-          type: string
-          description: The default stack name used. Can be modified.
-        principal:
-          type: string
-          description: The AWS account that will receive the access. Do not change.
-        externalId:
-          type: string
-          description: The external id for this role. Do not change.
-      description: Response message for the Admin.GetDefaultCostAccessTemplateUrl rpc.
-    v1ListNotificationsResponse:
-      type: object
-      properties:
-        notifications:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/blueapiApiNotification'
-      description: Response message for the Admin.ListNotifications rpc.
     AdminUpdateNotificationChannelBody:
       type: object
       properties:
@@ -1246,132 +1025,175 @@ components:
           type: string
           description: The last updated timestamp, RFC3339 UTC.
       description: Response message for the Admin.GetDefaultCostAccess, Admin.CreateDefaultCostAccess rpc.
-    v1ListNotificationChannelsResponse:
+    AdminUpdateNotificationBody:
       type: object
       properties:
         channels:
           type: array
           items:
-            type: object
-            $ref: '#/components/schemas/apiNotificationChannel'
-      description: Response message for the Admin.ListNotificationChannels rpc.
-    v1CloudWatchMetricsStream:
+            type: string
+          title: Required
+        enabled:
+          type: boolean
+          title: Required
+        notificationType:
+          type: string
+          description: 'Required
+
+            Valid values:
+
+            `InvoiceCalculationStarted`,
+
+            `InvoiceCalculationFinished`,
+
+            `CurUpdatedAfterInvoice`.
+
+            `AccountBudgetAlert`.'
+        account:
+          $ref: '#/components/schemas/adminV1NotificationAccount'
+          description: Optional. only available Wave(Pro).
+      description: Request message for the Admin.UpdateNotificationTypeChannels rpc.
+    v1GetMSPDefaultMetaResponse:
       type: object
       properties:
-        target:
-          type: string
-          description: The queried target account.
-        externalId:
-          type: string
-          description: The external id for this role.
-        stackId:
-          type: string
-          description: The id of the CloudFormation stack deployed in the target account.
-        stackRegion:
-          type: string
-          description: The region where the stack is deployed.
-        templateUrl:
-          type: string
-          description: The latest template used to deploy the stack.
-        status:
-          type: string
-          description: This can be `latest`, `outdated`, or some error information.
-        lastUpdated:
-          type: string
-          description: The last updated timestamp, RFC3339 UTC.
-      description: Response message for the Admin.CreateCloudWatchMetricsStream rpc.
-    rpcStatus:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-        message:
-          type: string
-          description: 'A developer-facing error message, which should be in English. Any
-
-            user-facing error message should be localized and sent in the
-
-            [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.'
-        details:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/protobufAny'
-          description: 'A list of messages that carry the error details.  There is a common set of
-
-            message types for APIs to use.'
-      description: 'The `Status` type defines a logical error model that is suitable for
-
-        different programming environments, including REST APIs and RPC APIs. It is
-
-        used by [gRPC](https://github.com/grpc). Each `Status` message contains
-
-        three pieces of data: error code, error message, and error details.
-
-
-        You can find out more about this error model and how to work with it in the
-
-        [API Design Guide](https://cloud.google.com/apis/design/errors).'
-    v1ExportAuditLogsRequest:
-      type: object
-      properties:
-        format:
-          type: string
-          description: Required. At the moment, `CSV`,`JSON` is supported.
-        startTime:
-          type: string
-          description: 'Required. The UTC date to start data from. If not set, the first day of the current year will be used. Format: `yyyymmdd`.'
-        endTime:
-          type: string
-          description: 'Required. The UTC date to end data from. If not set, the first day of the current year will be used. Format: `yyyymmdd`.'
-        product:
-          type: string
-          description: Optional. Valid values are 'ripple' and 'wavepro' for now. If empty default is 'ripple'.
-        waveUserIds:
+        defaultMeta:
           type: array
           items:
             type: string
-          description: Optional. Must not be empty if product is 'wavepro'. Return logs for these userIds only.
-      description: Request message for the ExportAuditLogs rpc.
-    v1ListAccountGroupsResponse:
+    blueapiApiAccount:
       type: object
       properties:
-        accountGroups:
+        vendor:
+          type: string
+          title: The vendor
+        id:
+          type: string
+          description: The account id.
+        name:
+          type: string
+          description: The account name.
+        orgId:
+          type: string
+          description: The parent organization id.
+        billingInternalId:
+          type: string
+          description: The parent billing internal id.
+        metadata:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/apiAccountGroup'
-      description: Response message for the Admin.ListAccountGroups rpc.
-    apiKeyValue:
+            $ref: '#/components/schemas/apiKeyValue'
+          description: The attributes (key/value pair) of the account.
+    v1GetCloudWatchMetricsStreamTemplateUrlResponse:
       type: object
       properties:
-        key:
+        launchUrl:
           type: string
-        value:
+          description: The CloudFormation launch url. Open it in your browser.
+        templateUrl:
           type: string
-    v1WaveFeature:
+          description: The latest CloudFormation template. The version is included in the filename.
+        stackName:
+          type: string
+          description: The default stack name used. Can be modified.
+        externalId:
+          type: string
+          description: The external id for this role. Do not change.
+      description: Response message for the Admin.GetCloudWatchMetricsStreamTemplateUrl rpc.
+    apiNotificationChannel:
       type: object
       properties:
-        label:
+        id:
           type: string
-        featureId:
-          type: string
-        isEnabled:
+        enabled:
           type: boolean
-        tickStrategy:
+        name:
           type: string
-        condition:
+        type:
           type: string
-        flag:
+        email:
+          $ref: '#/components/schemas/apiEmailChannel'
+        slack:
+          $ref: '#/components/schemas/apiSlackChannel'
+        msteams:
+          $ref: '#/components/schemas/apiMSTeamsChannel'
+        product:
           type: string
-        children:
+    v1UpdateMSPDefaultMetaRequest:
+      type: object
+      properties:
+        mspId:
+          type: string
+        defaultMeta:
+          type: array
+          items:
+            type: string
+    blueapiApiNotification:
+      type: object
+      properties:
+        id:
+          type: string
+        notificationType:
+          type: string
+        channels:
+          type: array
+          items:
+            type: string
+        enabled:
+          type: boolean
+        account:
+          $ref: '#/components/schemas/blueapiApiNotificationAccount'
+    v1UpdateWaveFeatureSettingRequest:
+      type: object
+      properties:
+        lang:
+          type: string
+        featureSetting:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/v1WaveFeature'
-      title: for wave features settings data maping
+            $ref: '#/components/schemas/v1FeatureSetting'
+    protosOperation:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The server-assigned name.
+        metadata:
+          $ref: '#/components/schemas/protobufAny'
+          description: 'Service-specific metadata associated with the operation. It typically
+
+            contains progress information and common metadata such as create time.
+
+            Some services might not provide such metadata. Any method that returns a
+
+            long-running operation should document the metadata type, if any.'
+        done:
+          type: boolean
+          description: 'If the value is `false`, it means the operation is still in progress.
+
+            If `true`, the operation is completed, and either `error` or `response` is
+
+            available.'
+        error:
+          $ref: '#/components/schemas/rpcStatus'
+          description: The error result of the operation in case of failure or cancellation.
+        response:
+          $ref: '#/components/schemas/protobufAny'
+          description: 'The normal response of the operation in case of success. If the original method returns
+
+            no data on success, such as `Delete`, the response is `google.protobuf.Empty`. If the
+
+            original method is standard `Get`/`Create`/`Update`, the response should be the
+
+            resource. For other methods, the response should have the type `XxxResponse`, where
+
+            `Xxx` is the original method name. For example, if the original method name is
+
+            `TakeSnapshot()`, the inferred response type is `TakeSnapshotResponse`.'
+      description: 'This resource represents a long-running operation that is the result of a
+
+        network API call.'
     v1CreateNotificationChannelRequest:
       type: object
       properties:
@@ -1394,3 +1216,181 @@ components:
           type: string
           description: 'Optional. For Octo use only: `octo`.'
       description: Request message for the Admin.CreateNotificationChannel rpc.
+    adminV1NotificationAccount:
+      type: object
+      properties:
+        vendor:
+          type: string
+          description: Required.
+        accountId:
+          type: string
+          description: Required.
+    blueapiApiNotificationAccount:
+      type: object
+      properties:
+        vendor:
+          type: string
+        accountId:
+          type: string
+    apiEmailChannel:
+      type: object
+      properties:
+        format:
+          type: string
+        recipients:
+          type: array
+          items:
+            type: string
+    v1CreateProformaCurRequest:
+      type: object
+      properties:
+        payerId:
+          type: string
+          description: Required.
+        billingInternalId:
+          type: string
+          description: Required.
+        reportName:
+          type: string
+          description: Required.
+        s3BucketName:
+          type: string
+          title: 'Optional. Default value: `alphaus-proforma-cur-export`'
+        s3Prefix:
+          type: string
+          title: 'Optional. Default value: `pre`'
+        s3Region:
+          type: string
+          title: 'Optional. Default value: `us-east-1`'
+      title: Request message for Admin.CreateProformaCur rpc
+    v1ListNotificationsResponse:
+      type: object
+      properties:
+        notifications:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/blueapiApiNotification'
+      description: Response message for the Admin.ListNotifications rpc.
+    apiAccountGroup:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The AccountGroup id.
+        name:
+          type: string
+          description: The AccountGroup name.
+        metadata:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/apiKeyValue'
+          description: The attributes (key/value pair) of the AccountGroup.
+        accounts:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/blueapiApiAccount'
+    v1ListNotificationChannelsResponse:
+      type: object
+      properties:
+        channels:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/apiNotificationChannel'
+      description: Response message for the Admin.ListNotificationChannels rpc.
+    apiAuditExportData:
+      type: object
+      properties:
+        content:
+          type: string
+          description: 'Base64 encoded value
+
+            For example, content :`dGltZSx1c2VySWQsc3ViVXNlcklkLHVzZXJOYW1lLGlzQWRtaW4sZXZlbnROYW1lLHBhdGgsdXNlclBhc3MsY2F0ZU5hbWUNCg==`
+
+            Decoding this value, get `time,userId,subUserId,userName,isAdmin,eventName,path,userPass,cateName`.'
+        downloadedRows:
+          type: string
+          format: int64
+          description: Downloaded content lines.
+        totalRows:
+          type: string
+          format: int64
+          description: Total of content lines.
+      description: AuditExportData resource definition.
+    protobufAny:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+      additionalProperties: {}
+      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    apiNotificationSettings:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Indicates whether notification is enabled for this account globally.
+        defaultChannel:
+          type: string
+          description: The id of the default notification channel.
+    v1CreateDefaultNotificationChannelRequest:
+      type: object
+      description: Request message for the Admin.CreateDefaultNotificationChannel rpc.
+    v1ProformaCur:
+      type: object
+      properties:
+        orgId:
+          type: string
+        payerId:
+          type: string
+        billingInternalId:
+          type: string
+        reportName:
+          type: string
+        bucketName:
+          type: string
+        prefix:
+          type: string
+        timeCreated:
+          type: string
+    v1GetDefaultCostAccessTemplateUrlResponse:
+      type: object
+      properties:
+        launchUrl:
+          type: string
+          description: The CloudFormation launch url. Open it in your browser.
+        templateUrl:
+          type: string
+          description: The latest CloudFormation template. The version is included in the filename.
+        stackName:
+          type: string
+          description: The default stack name used. Can be modified.
+        principal:
+          type: string
+          description: The AWS account that will receive the access. Do not change.
+        externalId:
+          type: string
+          description: The external id for this role. Do not change.
+      description: Response message for the Admin.GetDefaultCostAccessTemplateUrl rpc.
+    v1CreateCloudWatchMetricsStreamRequest:
+      type: object
+      properties:
+        target:
+          type: string
+          description: Required. The target AWS account to validate.
+      description: Request message for the Admin.CreateCloudWatchMetricsStream rpc.
+    v1GetAccountGroupResponse:
+      type: object
+      properties:
+        acctGroup:
+          $ref: '#/components/schemas/apiAccountGroup'
+      description: Response message for the Admin.GetAccountGroup rpc.
+    apiMSTeamsChannel:
+      type: object
+      properties:
+        webhookUrl:
+          type: string

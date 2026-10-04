@@ -1325,56 +1325,15 @@ paths:
       - GuaranteedCommitments
 components:
   schemas:
-    v1Address:
+    v1ListBillingGroupsResponse:
       type: object
       properties:
-        line1:
-          type: string
-          title: 'required: ex. "123 Main St"'
-        city:
-          type: string
-          title: 'required: ex. "Springfield"'
-        state:
-          type: string
-          title: 'required: ex. "IL"'
-        zip:
-          type: string
-          title: 'required: ex. "62701"'
-        country:
-          type: string
-          title: 'required: ex. "USA"'
-        line2:
-          type: string
-          title: 'optional: ex. "Apt 4B"'
-    v1GetUpdatedPurchasePlansBySegmentRequest:
-      type: object
-    v1TermsAcceptance:
-      type: object
-      properties:
-        accepted:
-          type: boolean
-        acceptedAt:
-          type: string
-        acceptedBy:
-          type: string
-      description: TermsAcceptance represents the current terms acceptance state for an entity.
-    v1StartAzureOnboardingResponse:
-      type: object
-      properties:
-        onboardingId:
-          type: string
-          description: Archera onboarding ID — pass this to all subsequent Azure onboarding RPCs.
-        state:
-          $ref: '#/components/schemas/v1AzureOnboardingState'
-          description: Full onboarding state.
-        billingGroupId:
-          type: string
-          title: Ripple billing group ID
-        companyId:
-          type: string
-          title: Ripple company ID
-      description: StartAzureOnboardingResponse is returned from StartAzureOnboarding.
-    v1CreateCustomCommitmentPlanResponse:
+        billingGroups:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1ListBillingGroupsResponseBillingGroup'
+    v1ListDraftPurchasePlansResponse:
       type: object
       properties:
         plans:
@@ -1382,667 +1341,43 @@ components:
           items:
             type: object
             $ref: '#/components/schemas/v1DefaultPurchasePlan'
-    v1AcceptBillingGroupTermsRequest:
-      type: object
-    v1DefaultPurchasePlan:
+    v1VerifyAwsOnboardingResponse:
       type: object
       properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        orgId:
-          type: string
-        segmentId:
-          type: string
-        segment:
-          $ref: '#/components/schemas/v1Segment'
-        status:
-          type: string
-        planType:
-          type: string
-        createdAt:
-          type: string
-        lastModified:
-          type: string
-        createdBy: {}
-        executionPolicy: {}
-        isDefault:
-          type: boolean
-          title: Flags
-        isRecommended:
-          type: boolean
-        isRenewal:
-          type: boolean
-        isCalculating:
-          type: boolean
-        isLocked:
-          type: boolean
-        isSaved:
-          type: boolean
-        includedContractSpecs:
+        checks:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/v1ContractSpec'
-          title: Contract details
-        includedContractTerms:
-          type: array
-          items:
-            type: string
-        maxTerm:
+            $ref: '#/components/schemas/VerifyAwsOnboardingResponseAwsOnboardingFeatureCheck'
+    v1ContractSpec:
+      type: object
+      properties:
+        commitmentType:
           type: string
-        preferredPaymentOption:
+        paymentOption:
           type: string
-        maxUpfrontCost:
-          type: number
-          format: double
-        minimumUpfrontInterestRate:
-          type: number
-          format: double
-        recommendWithinCoveredAccounts: {}
-        startDate:
+        term:
           type: string
-          title: Dates
-        endDate:
-          type: string
-        dataSource:
-          type: string
-        beforeCost:
-          type: number
-          format: double
-          title: Cost metrics
-        afterCost:
-          type: number
-          format: double
-        beforeOndemandCost:
-          type: number
-          format: double
-        beforeReservedCost:
-          type: number
-          format: double
-        coveredOndemandCost:
-          type: number
-          format: double
-        amortizedCost:
-          type: number
-          format: double
-        recurringCost:
-          type: number
-          format: double
-        upfrontCost:
-          type: number
-          format: double
-        totalCost:
-          type: number
-          format: double
-        totalMonthlyBeforeCost:
-          type: number
-          format: double
-        savings:
-          type: number
-          format: double
-          title: Savings metrics
-        monthlySavings:
-          type: number
-          format: double
-        totalSavings:
-          type: number
-          format: double
-        fee:
-          type: number
-          format: double
-        commitmentCoverage:
-          type: number
-          format: double
-          title: Coverage metrics
-        minimumCommitmentCost:
-          type: number
-          format: double
-        breakevenHours:
-          type: number
-          format: double
-        aggregateMetrics:
-          $ref: '#/components/schemas/v1AggregateMetrics'
-          title: Aggregate data
-        summaries:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1PlanSummary'
-        reservationIds:
-          type: array
-          items:
-            type: string
-          title: IDs
-        resourceIds:
-          type: array
-          items:
-            type: string
-        flaggedActions:
-          type: array
-          items:
-            type: string
-        metaPlanId:
-          type: string
-        coverageId:
-          type: string
-        monthlyAfterCost:
-          type: number
-          format: double
-          title: Monthly cost breakdowns (returned by CreateCustomCommitmentPlan and related endpoints)
-        monthlyAmortizedCost:
-          type: number
-          format: double
-        monthlyBeforeCost:
-          type: number
-          format: double
-        monthlyFee:
-          type: number
-          format: double
-        allTerms:
-          type: array
-          items:
-            type: string
-          description: All term keys present across the plan's line items.
-    ListBillingGroupsResponseBillingGroupStatus:
+        properties:
+          type: object
+    v1Provider:
       type: string
       enum:
-      - BILLING_GROUP_STATUS_UNSPECIFIED
-      - BILLING_GROUP_STATUS_ENABLED
-      - BILLING_GROUP_STATUS_DISABLED
-      default: BILLING_GROUP_STATUS_UNSPECIFIED
-    v1GetOnboardingStatusRequest:
+      - PROVIDER_UNSPECIFIED
+      - AWS
+      - AZURE
+      - GCP
+      - KUBERNETES
+      - UNKNOWN
+      default: PROVIDER_UNSPECIFIED
+    v1SetPayerAccountEnabledResponse:
       type: object
       properties:
-        billingGroupId:
-          type: string
-          title: 'Optional:
-
-            - all empty => MSP-level onboarding row
-
-            - companyId set => company flow
-
-            - payerAccountId set => payer-account flow
-
-            billingGroupId may accompany company flow'
-        companyId:
-          type: string
-        payerAccountId:
-          type: string
-    GuaranteedCommitmentsReadCommitmentReportAccountsBody:
+        payerAccount:
+          $ref: '#/components/schemas/ListPayerAccountsResponsePayerAccount'
+          title: Updated payer account row (same shape as list)
+    v1GetUpdatedPurchasePlansBySegmentRequest:
       type: object
-    v1GetResourceDailyUsageResponse:
-      type: object
-      properties:
-        dailyUsage:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1ResourceDailyUsage'
-    v1PayerAccountDetails:
-      type: object
-      properties:
-        accountId:
-          type: string
-        accountName:
-          type: string
-        rippleRegistrationStatus:
-          type: string
-        gcSetupStatus:
-          $ref: '#/components/schemas/GetOnboardingStatusResponseOnboardingStatus'
-          title: Latest persisted guaranteed commitment setup/onboarding status for this payer account (if any)
-        verificationChecks:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/VerifyAwsOnboardingResponseAwsOnboardingFeatureCheck'
-          description: 'Detailed AWS verification results (best-effort) returned from the last VerifyAwsOnboarding call.
-
-            This is used by the UI to "resume" the onboarding flow and show which verification checks
-
-            passed/failed when a user comes back later (e.g., after stopping at verification).
-
-            Empty when verification hasn''t been attempted yet or when no checks were persisted.'
-        marketplacePrivateOfferStatus:
-          type: string
-          description: 'AWS Marketplace private offer status for this payer account.
-
-            Values: NOT_CREATED, CREATING, PENDING, ACCEPTED, EXPIRED, FAILED, WITHDRAWN.'
-        marketplacePrivateOfferId:
-          type: string
-          description: Optional. AWS Marketplace offer ID if one has already been created.
-        marketplacePrivateOfferExpirationDate:
-          type: string
-          description: Optional. Expiration date of the current private offer.
-    v1GetAzureOnboardingAuthUrlResponse:
-      type: object
-      properties:
-        url:
-          type: string
-          description: The Microsoft OAuth URL the user must open to authorize Archera.
-      description: GetAzureOnboardingAuthUrlResponse contains the OAuth URL (Step 4).
-    v1GetOnboardingStatusResponse:
-      type: object
-      properties:
-        found:
-          type: boolean
-          title: Whether we found a corresponding row
-        isMsp:
-          type: boolean
-          title: 'Convenience: derived from whether billingId is empty'
-        provider:
-          $ref: '#/components/schemas/v1Provider'
-          description: Vendor saved at registration (aws/azure/gcp). Optional.
-        gcOrgId:
-          type: string
-          title: 'The org id to use for Archera upstream calls:
-
-            - MSP: mspArcheraOrgId
-
-            - company: archeraOrgId'
-        onboardingId:
-          type: string
-          title: Latest persisted onboarding ID (if any)
-        onboardingStatus:
-          $ref: '#/components/schemas/GetOnboardingStatusResponseOnboardingStatus'
-          title: Latest persisted onboarding status
-        accountId:
-          type: string
-          title: Latest persisted AWS account id (if any)
-        billingGroupId:
-          type: string
-        companyId:
-          type: string
-        verificationChecks:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/VerifyAwsOnboardingResponseAwsOnboardingFeatureCheck'
-          description: 'Detailed AWS verification results (best-effort) returned from the last VerifyAwsOnboarding call.
-
-            This is used by the UI to "resume" the onboarding flow and show which verification checks
-
-            passed/failed when a user comes back later (e.g., after stopping at verification).
-
-            Empty when verification hasn''t been attempted yet or when no checks were persisted.'
-        termsAcceptance:
-          $ref: '#/components/schemas/v1TermsAcceptance'
-    v1GetUpdatedPurchasePlansBySegmentResponse:
-      type: object
-      properties:
-        plans:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1DefaultPurchasePlan'
-    v1VerifyAwsOnboardingRequest:
-      type: object
-      properties:
-        billingGroupId:
-          type: string
-          title: 'Optional: if present => MSP customer (3rd layer), else MSP-level org (2nd layer)'
-        companyId:
-          type: string
-        gcOrgId:
-          type: string
-        onboardingId:
-          type: string
-          title: From /start response
-        accountId:
-          type: string
-          title: AWS account id being onboarded/verified
-        existingCur:
-          $ref: '#/components/schemas/v1AwsExistingCur'
-          description: 'Optional: if set, GuaranteedCommitments will use this existing CUR. If omitted, GuaranteedCommitments may create a new CUR.'
-    v1ListPayerAccountsResponse:
-      type: object
-      properties:
-        payerAccounts:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/ListPayerAccountsResponsePayerAccount'
-        payerAccountDetails:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1PayerAccountDetails'
-    v1ValidateBillingGroupRequest:
-      type: object
-      properties:
-        companyId:
-          type: string
-          description: Required. Company identifier.
-        newVersion:
-          type: boolean
-          description: 'temporarily required until we fully transition to the new onboarding flow.
-
-            This is to avoid any breaks or crash during the transition. Will be removed once the transition is complete.
-
-            Default value is false.'
-    v1ListReservableResourcesResponse:
-      type: object
-      properties:
-        resources:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1ReservableResource'
-    v1MetricsResponse:
-      type: object
-      properties:
-        lifetimeSavings:
-          type: number
-          format: double
-        mtdSavings:
-          type: number
-          format: double
-        purchaseAutomationEnabled:
-          type: boolean
-        buybackAutomationEnabled:
-          type: boolean
-        hasActionedPlan:
-          type: boolean
-        hasPendingActions:
-          type: boolean
-        latestExecutionDate:
-          type: string
-        purchaseMissedSavings:
-          type: number
-          format: double
-        buybackMissedSavings:
-          type: number
-          format: double
-        totalDailyMissedSavings:
-          type: number
-          format: double
-        hourlyMissedSavings:
-          type: number
-          format: double
-        missedSavingsStartDate:
-          type: string
-        missedSavingsEndDate:
-          type: string
-        expiringSavings:
-          type: number
-          format: double
-        coverage:
-          type: number
-          format: double
-        utilization:
-          type: number
-          format: double
-    v1AzureArcheraOrgFeatureStatus:
-      type: object
-      properties:
-        detail: {}
-        feature:
-          type: string
-        status:
-          type: string
-        updatedAt:
-          type: string
-      description: AzureArcheraOrgFeatureStatus is a single feature status entry within the Archera org object.
-    v1CommitmentsChartData:
-      type: object
-      properties:
-        date:
-          type: string
-        chartKey:
-          type: string
-        chartValue:
-          type: number
-          format: double
-    v1RegisterOrgRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        labraSubscriptionId:
-          type: string
-        users:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1OrgUser'
-        domain:
-          type: string
-        primaryAddress:
-          $ref: '#/components/schemas/v1Address'
-        awsMarketplaceOfferLink:
-          type: string
-        azureMarketplaceOfferLink:
-          type: string
-        gcpMarketplaceOfferLink:
-          type: string
-    v1RegisterOrgResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        memberships:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1Membership'
-          title: GuaranteedCommitments create-org response fields
-        domain:
-          type: string
-        primaryAddress:
-          $ref: '#/components/schemas/v1Address'
-        awsMarketplaceOfferLink:
-          type: string
-        azureMarketplaceOfferLink:
-          type: string
-        gcpMarketplaceOfferLink:
-          type: string
-    v1DeleteDraftPurchasePlanResponse:
-      type: object
-      properties:
-        planId:
-          type: string
-          title: The ID of the deleted plan
-        success:
-          type: boolean
-          title: Indicates if the plan was successfully deleted
-    v1CreateAzureIntegrationResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: True if the integration was successfully created or already existed.
-        errorCode:
-          type: string
-          description: 'Set when the Archera API returned an error (e.g. "tenant_already_connected").
-
-            "tenant_already_connected" is still considered success.'
-        errorMessage:
-          type: string
-        integrationId:
-          type: string
-          description: The Archera integration ID, if available.
-        billingGroupId:
-          type: string
-          description: Ripple billing group ID stored with this integration.
-        companyId:
-          type: string
-          description: Ripple company ID stored with this integration.
-        payerAccountId:
-          type: string
-          description: Ripple payer account ID echoed back.
-      description: 'CreateAzureIntegrationResponse is returned after creating the Azure integration (Step 8).
-
-        A "tenant_already_connected" error_code is treated as success.'
-    v1Membership:
-      type: object
-      properties:
-        role:
-          type: string
-        username:
-          type: string
-    v1AcceptBillingGroupTermsResponse:
-      type: object
-      properties:
-        termsAcceptance:
-          $ref: '#/components/schemas/v1TermsAcceptance'
-    v1OrgUser:
-      type: object
-      properties:
-        email:
-          type: string
-        role:
-          type: string
-    v1AwsExistingCur:
-      type: object
-      properties:
-        region:
-          type: string
-          title: required if existingCur is provided
-        bucket:
-          type: string
-          title: required if existingCur is provided
-        prefix:
-          type: string
-          title: required if existingCur is provided
-        reportName:
-          type: string
-          description: maps to "report_name" conceptually
-          title: required if existingCur is provided
-    v1GetPurchasePlansDetailsResponse:
-      type: object
-      properties:
-        plan:
-          $ref: '#/components/schemas/v1DefaultPurchasePlan'
-          title: Plan basic info and detailed metrics
-        lineItems:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1CommitmentPlanLineItem'
-          title: Commitment line item
-        resourceMatches:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1CommitmentPlanResourceMatch'
-          title: Covered infrastructure resource matches
-        history:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1PlanHistoryEntry'
-          title: Audit history of the plan
-    v1ListAzureOnboardingAccountsResponse:
-      type: object
-      properties:
-        accounts:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1AzureAccount'
-      description: ListAzureOnboardingAccountsResponse returns accounts the user can select.
-    GuaranteedCommitmentsCommitmentsPlanApplyBody:
-      type: object
-    VerifyAwsOnboardingResponseAwsOnboardingFeatureCheck:
-      type: object
-      properties:
-        feature:
-          type: string
-        status:
-          $ref: '#/components/schemas/AwsOnboardingFeatureCheckAwsOnboardingFeatureStatus'
-    v1CreateAzureIntegrationRequest:
-      type: object
-      properties:
-        gcOrgId:
-          type: string
-          description: Required. Archera org ID.
-        billingGroupId:
-          type: string
-          description: Ripple billing group ID — links this Azure integration to the Ripple billing group.
-        companyId:
-          type: string
-          description: Ripple company ID — links this Azure integration to the Ripple company/customer.
-        payerAccountId:
-          type: string
-          description: Ripple payer account ID — if applicable, the payer account this Azure spend rolls up to.
-        type:
-          type: string
-          description: Integration type, always "cloud/azure".
-        tenantId:
-          type: string
-        subscriptionId:
-          type: string
-        onboardingId:
-          type: string
-        accountKind:
-          type: string
-          title: '"subscription" or "billing_account"'
-        accountIds:
-          type: array
-          items:
-            type: string
-        blobContainer:
-          type: string
-        resourceGroup:
-          type: string
-        storageAccount:
-          type: string
-        roleName:
-          type: string
-        resourceGroupRegion: {}
-        storageAccountRegion: {}
-        resourceGroupTags: {}
-        storageAccountTags: {}
-      description: 'CreateAzureIntegrationRequest creates the final Azure integration (Step 8).
-
-        Ripple fields are stored alongside Archera integration data to link
-
-        the Azure tenant to the correct Ripple billing group/company/payer context.'
-    v1CommitmentsUtilizationData:
-      type: object
-      properties:
-        utilizationDate:
-          type: string
-        cost:
-          type: number
-          format: double
-        coveredCost:
-          type: number
-          format: double
-        griFees:
-          type: number
-          format: double
-        netSavings:
-          type: number
-          format: double
-        potentialSavings:
-          type: number
-          format: double
-        reservationUtilization:
-          type: number
-          format: double
-        runningHours:
-          type: number
-          format: double
-        savings:
-          type: number
-          format: double
-        unutilizedCommitment:
-          type: number
-          format: double
-    protobufAny:
-      type: object
-      properties:
-        '@type':
-          type: string
-          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
-      additionalProperties: {}
-      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
     v1ListResourcesResponse:
       type: object
       properties:
@@ -2051,121 +1386,77 @@ components:
           items:
             type: object
             $ref: '#/components/schemas/blueapiGcV1Resource'
-    v1CommitmentPlanDetails:
+    v1ListBillingGroupsResponseBillingGroup:
       type: object
       properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        orgId:
-          type: string
-        createdAt:
-          type: string
-        isCalculating:
-          type: boolean
-        status:
-          type: string
-        maxTerm:
-          type: string
-        coveredOndemandCostHourly:
-          type: number
-          format: double
-        beforeOndemandCostHourly:
-          type: number
-          format: double
-        beforeReservedCostHourly:
-          type: number
-          format: double
-        amortizedCostHourly:
-          type: number
-          format: double
-        recurringCostHourly:
-          type: number
-          format: double
-        upfrontCostHourly:
-          type: number
-          format: double
-        beforeCostHourly:
-          type: number
-          format: double
-        afterCostHourly:
-          type: number
-          format: double
-        totalCostHourly:
-          type: number
-          format: double
-        savingsHourly:
-          type: number
-          format: double
-        feeHourly:
-          type: number
-          format: double
-        commitmentCoverage:
-          type: number
-          format: double
-        minimumCommitmentCost:
-          type: number
-          format: double
-        breakevenHours:
-          type: number
-          format: double
-        totalSavings:
-          type: number
-          format: double
-        monthlySavings:
-          type: number
-          format: double
-        totalMonthlyBeforeCost:
-          type: number
-          format: double
-    v1StartAzureOnboardingRequest:
-      type: object
-      properties:
-        billingGroupId:
-          type: string
-          description: Ripple billing group ID. If present => MSP customer (3rd layer), else MSP-level org (2nd layer).
         companyId:
           type: string
-          description: Ripple company ID within the billing group.
-        gcOrgId:
+        billingGroupId:
           type: string
-          description: Required. Archera / GuaranteedCommitments org ID.
-        tenantId:
+        billingGroupName:
           type: string
-          description: Azure tenant ID.
-        subscriptionId:
+        companyName:
           type: string
-          description: Azure management subscription ID.
-      description: 'StartAzureOnboardingRequest initiates Azure onboarding (Step 1).
-
-        Ripple fields are required to link this Azure tenant to the correct
-
-        Ripple billing group and company for cost attribution and management.'
-    gcV1Org:
+        payerAccountId:
+          type: string
+        payerAccountName:
+          type: string
+        segmentId:
+          type: string
+        resourceType:
+          type: string
+        status:
+          $ref: '#/components/schemas/ListBillingGroupsResponseBillingGroupStatus'
+        onboardingStatus:
+          $ref: '#/components/schemas/GetOnboardingStatusResponseOnboardingStatus'
+        verificationChecks:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/VerifyAwsOnboardingResponseAwsOnboardingFeatureCheck'
+    v1ValidateBillingGroupResponse:
       type: object
       properties:
-        orgId:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-    v1Segment:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        provider:
-          $ref: '#/components/schemas/v1Provider'
-        isDefault:
+        ok:
           type: boolean
-        createdAt:
+          description: True if the company is allowed to proceed with onboarding; false otherwise.
+        message:
           type: string
+          description: Optional human-readable reason when ok=false.
+        code:
+          type: string
+          description: Optional machine-readable code for programmatic handling when ok=false.
+        details:
+          type: array
+          items:
+            type: string
+          description: Optional values that can be shown in translated messages.
+    v1AcceptBillingGroupTermsResponse:
+      type: object
+      properties:
+        termsAcceptance:
+          $ref: '#/components/schemas/v1TermsAcceptance'
+    protobufAny:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+      additionalProperties: {}
+      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    v1AggregateMetrics:
+      type: object
+      properties:
+        currentCoverage:
+          type: number
+          format: double
+        potentialCoverage:
+          type: number
+          format: double
+        summaries:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/v1ServiceSummary'
     v1AzureArcheraOrg:
       type: object
       properties:
@@ -2249,20 +1540,424 @@ components:
         Received from StartAzureOnboarding response and must be echoed back verbatim
 
         on every UpdateAzureOnboarding and ValidateAzureAppInstall call.'
-    v1GetAwsLaunchStackUrlResponse:
+    v1PlanHistoryEntry:
       type: object
       properties:
-        url:
+        id:
           type: string
-    v1CreateGuaranteedCommitmentAccessRequest:
+        message:
+          type: string
+        orgId:
+          type: string
+        relatedObjectId:
+          type: string
+        relatedObjectType:
+          type: string
+        timestamp:
+          type: string
+        type:
+          type: string
+        userId:
+          type: string
+        data: {}
+        user:
+          $ref: '#/components/schemas/v1PlanHistoryUser'
+    v1DeleteDraftPurchasePlanResponse:
+      type: object
+      properties:
+        planId:
+          type: string
+          title: The ID of the deleted plan
+        success:
+          type: boolean
+          title: Indicates if the plan was successfully deleted
+    v1TermsAcceptance:
+      type: object
+      properties:
+        accepted:
+          type: boolean
+        acceptedAt:
+          type: string
+        acceptedBy:
+          type: string
+      description: TermsAcceptance represents the current terms acceptance state for an entity.
+    v1MetricsResponse:
+      type: object
+      properties:
+        lifetimeSavings:
+          type: number
+          format: double
+        mtdSavings:
+          type: number
+          format: double
+        purchaseAutomationEnabled:
+          type: boolean
+        buybackAutomationEnabled:
+          type: boolean
+        hasActionedPlan:
+          type: boolean
+        hasPendingActions:
+          type: boolean
+        latestExecutionDate:
+          type: string
+        purchaseMissedSavings:
+          type: number
+          format: double
+        buybackMissedSavings:
+          type: number
+          format: double
+        totalDailyMissedSavings:
+          type: number
+          format: double
+        hourlyMissedSavings:
+          type: number
+          format: double
+        missedSavingsStartDate:
+          type: string
+        missedSavingsEndDate:
+          type: string
+        expiringSavings:
+          type: number
+          format: double
+        coverage:
+          type: number
+          format: double
+        utilization:
+          type: number
+          format: double
+    v1GetAwsPrivateOfferResponse:
+      type: object
+      properties:
+        payerAccountId:
+          type: string
+        offerId:
+          type: string
+          description: AWS Marketplace offer identifier, e.g. offer-qb7i32am664jw.
+        offerName:
+          type: string
+          description: Display name of the offer shown in the UI.
+        status:
+          type: string
+          description: Current offer status, e.g. PENDING / ACCEPTED / EXPIRED / CREATING / FAILED.
+        offerUrl:
+          type: string
+        productId:
+          type: string
+        pricePerUnit:
+          type: number
+          format: double
+        createdAt:
+          type: string
+        expirationDate:
+          type: string
+    v1StartAwsOnboardingRequest:
+      type: object
+      properties:
+        billingGroupId:
+          type: string
+          title: 'Optional: if present => MSP customer (3rd layer), else MSP-level org (2nd layer)'
+        companyId:
+          type: string
+        gcOrgId:
+          type: string
+        payerAccountId:
+          type: string
+        payerAccountName:
+          type: string
+    VerifyAwsOnboardingResponseAwsOnboardingFeatureCheck:
+      type: object
+      properties:
+        feature:
+          type: string
+        status:
+          $ref: '#/components/schemas/AwsOnboardingFeatureCheckAwsOnboardingFeatureStatus'
+    GetOnboardingStatusResponseOnboardingStatus:
+      type: string
+      enum:
+      - ONBOARDING_STATUS_UNSPECIFIED
+      - ONBOARDING_STATUS_NOT_REGISTERED
+      - ONBOARDING_STATUS_REGISTERED
+      - ONBOARDING_STATUS_ONBOARDING_STARTED
+      - ONBOARDING_STATUS_VERIFIED
+      - ONBOARDING_STATUS_VERIFY_INCOMPLETE
+      - ONBOARDING_STATUS_VERIFY_FAILED
+      default: ONBOARDING_STATUS_UNSPECIFIED
+      title: "- ONBOARDING_STATUS_NOT_REGISTERED: No row found in archera_users (org not registered yet)\n - ONBOARDING_STATUS_REGISTERED: Existing statuses you already persist"
+    v1CreateGuaranteedCommitmentAccessResponse:
       type: object
       properties:
         target:
           type: string
-          description: The AWS account ID (payer/target) where the stack was deployed.
-        externalId:
+          description: Target environment for the access configuration (for example, AWS account ID or organization).
+        rippleRoleArn:
           type: string
-          description: The guaranteed-commitments-provided external ID.
+          description: ARN of the Ripple/Alphaus IAM role to be assumed for managing guaranteed commitments.
+        rippleExternalId:
+          type: string
+          description: External ID required to assume the Ripple/Alphaus IAM role.
+        guaranteedCommitmentRoleArn:
+          type: string
+          description: ARN of the customer's IAM role used specifically for guaranteed-commitment operations.
+        guaranteedCommitmentExternalId:
+          type: string
+          description: External ID required to assume the guaranteed-commitment IAM role.
+        stackId:
+          type: string
+          description: CloudFormation stack ID created or used during the access configuration.
+        stackRegion:
+          type: string
+          description: AWS region where the CloudFormation stack is deployed (for example, "us-east-1").
+        templateUrl:
+          type: string
+          description: URL of the CloudFormation template used to create or update the stack.
+        status:
+          type: string
+          description: Current status of the access configuration or underlying CloudFormation stack.
+        lastUpdated:
+          type: string
+          description: Last update time of this configuration, typically as an ISO 8601 timestamp.
+        guaranteedCommitmentVerified:
+          type: boolean
+          description: Whether the guaranteed commitment role was successfully verified during registration.
+    v1CommitmentPlanDetails:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        orgId:
+          type: string
+        createdAt:
+          type: string
+        isCalculating:
+          type: boolean
+        status:
+          type: string
+        maxTerm:
+          type: string
+        coveredOndemandCostHourly:
+          type: number
+          format: double
+        beforeOndemandCostHourly:
+          type: number
+          format: double
+        beforeReservedCostHourly:
+          type: number
+          format: double
+        amortizedCostHourly:
+          type: number
+          format: double
+        recurringCostHourly:
+          type: number
+          format: double
+        upfrontCostHourly:
+          type: number
+          format: double
+        beforeCostHourly:
+          type: number
+          format: double
+        afterCostHourly:
+          type: number
+          format: double
+        totalCostHourly:
+          type: number
+          format: double
+        savingsHourly:
+          type: number
+          format: double
+        feeHourly:
+          type: number
+          format: double
+        commitmentCoverage:
+          type: number
+          format: double
+        minimumCommitmentCost:
+          type: number
+          format: double
+        breakevenHours:
+          type: number
+          format: double
+        totalSavings:
+          type: number
+          format: double
+        monthlySavings:
+          type: number
+          format: double
+        totalMonthlyBeforeCost:
+          type: number
+          format: double
+    v1AzureArcheraOrgLeaseBudget:
+      type: object
+      properties:
+        budget:
+          type: number
+          format: double
+        createdAt:
+          type: string
+        minTermMonths:
+          type: integer
+          format: int32
+      description: AzureArcheraOrgLeaseBudget is the lease budget config within the Archera org object.
+    v1ListOrgsRequest:
+      type: object
+    v1AzureIntegrationFeatureStatus:
+      type: object
+      properties:
+        feature:
+          type: string
+        status:
+          type: string
+          title: '"available", "missing", "warning", "unknown"'
+        detail:
+          type: array
+          items:
+            type: string
+          description: Detail strings or JSON describing why a feature is missing/warning.
+      description: AzureIntegrationFeatureStatus is a single feature check for an Azure integration (Step 9).
+    v1ServiceSummary:
+      type: object
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+        serviceName:
+          type: string
+        provider:
+          type: string
+        numCommitments:
+          type: integer
+          format: int32
+        currentCoverage:
+          type: number
+          format: double
+        potentialCoverage:
+          type: number
+          format: double
+        minCommitment:
+          type: number
+          format: double
+        monthlyCommitment:
+          type: number
+          format: double
+        upfrontCost:
+          type: number
+          format: double
+        minSavings:
+          type: number
+          format: double
+        maxSavings:
+          type: number
+          format: double
+        monthlySavings:
+          type: number
+          format: double
+        minTermHours:
+          type: integer
+          format: int32
+        maxTermHours:
+          type: integer
+          format: int32
+        griPremium:
+          type: number
+          format: double
+    v1GetAzureOnboardingAuthUrlResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The Microsoft OAuth URL the user must open to authorize Archera.
+      description: GetAzureOnboardingAuthUrlResponse contains the OAuth URL (Step 4).
+    v1Membership:
+      type: object
+      properties:
+        role:
+          type: string
+        username:
+          type: string
+    v1CreateAzureIntegrationResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: True if the integration was successfully created or already existed.
+        errorCode:
+          type: string
+          description: 'Set when the Archera API returned an error (e.g. "tenant_already_connected").
+
+            "tenant_already_connected" is still considered success.'
+        errorMessage:
+          type: string
+        integrationId:
+          type: string
+          description: The Archera integration ID, if available.
+        billingGroupId:
+          type: string
+          description: Ripple billing group ID stored with this integration.
+        companyId:
+          type: string
+          description: Ripple company ID stored with this integration.
+        payerAccountId:
+          type: string
+          description: Ripple payer account ID echoed back.
+      description: 'CreateAzureIntegrationResponse is returned after creating the Azure integration (Step 8).
+
+        A "tenant_already_connected" error_code is treated as success.'
+    GuaranteedCommitmentsValidateAzureAppInstallBody:
+      type: object
+      properties:
+        gcOrgId:
+          type: string
+          description: Required. The Archera org ID.
+        type:
+          type: string
+          description: '---- Azure resource config fields ----
+
+            Integration type, always "cloud/azure".'
+        tenantId:
+          type: string
+        subscriptionId:
+          type: string
+        accountKind:
+          type: string
+          title: '"subscription" or "billing_account"'
+        accountIds:
+          type: array
+          items:
+            type: string
+        blobContainer:
+          type: string
+        resourceGroup:
+          type: string
+        storageAccount:
+          type: string
+        roleName:
+          type: string
+        resourceGroupRegion: {}
+        storageAccountRegion: {}
+        resourceGroupTags: {}
+        storageAccountTags: {}
+        completed:
+          type: boolean
+          title: '---- Archera onboarding state fields (echo back from start/get response) ----'
+        createdAt:
+          type: string
+        createdBy:
+          $ref: '#/components/schemas/v1AzureOnboardingCreatedBy'
+        integration: {}
+        integrationId:
+          type: string
+        provider:
+          type: string
+          description: Always "azure".
+        org:
+          $ref: '#/components/schemas/v1AzureArcheraOrg'
+          description: 'The full Archera org object received from StartAzureOnboarding response.
+
+            Must be echoed back verbatim.'
     v1ListCommitmentsResponse:
       type: object
       properties:
@@ -2271,117 +1966,30 @@ components:
           items:
             type: object
             $ref: '#/components/schemas/v1Commitment'
-    GuaranteedCommitmentsSaveCommitmentsPlanAsDraftBody:
-      type: object
-      properties:
-        reservationIds:
-          type: array
-          items:
-            type: string
-        resourceIds:
-          type: array
-          items:
-            type: string
-        maxUpfrontCost:
-          type: number
-          format: double
-        provider:
-          $ref: '#/components/schemas/v1Provider'
-        endDate:
-          type: string
-        startDate:
-          type: string
-        segmentId:
-          type: string
-        status:
-          type: string
-          description: Required.
-        description:
-          type: string
-          description: Required.
-        name:
-          type: string
-          description: Required.
-        preferredPaymentOption:
-          type: string
-        includedContractTerms:
-          type: array
-          items:
-            type: string
-        includedContractSpecs:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1ContractSpec'
-        coverageId: {}
-        createdAt:
-          type: string
-        createdBy: {}
-        dataSource:
-          type: string
-        executionPolicy: {}
-        flaggedActions:
-          type: array
-          items:
-            type: string
-        id:
-          type: string
-        isCalculating:
-          type: boolean
-        isDefault:
-          type: boolean
-        isLocked:
-          type: boolean
-        isRecommended:
-          type: boolean
-        isRenewal:
-          type: boolean
-        isSaved:
-          type: boolean
-        lastModified:
-          type: string
-        metaPlanId:
-          type: string
-        minimumUpfrontInterestRate: {}
-        orgId:
-          type: string
-        planType:
-          type: string
-        recommendWithinCoveredAccounts: {}
-        segment:
-          $ref: '#/components/schemas/v1Segment'
-    v1CommitmentsChartResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1CommitmentsChartData'
-    ListPayerAccountsResponsePayerAccountStatus:
-      type: string
-      enum:
-      - PAYER_ACCOUNT_STATUS_UNSPECIFIED
-      - PAYER_ACCOUNT_STATUS_ENABLED
-      - PAYER_ACCOUNT_STATUS_DISABLED
-      default: PAYER_ACCOUNT_STATUS_UNSPECIFIED
     v1GetPayerAccountStatusResponse:
       type: object
       properties:
         payerAccount:
           $ref: '#/components/schemas/ListPayerAccountsResponsePayerAccount'
-    v1GetAvailableCommitmentTypesResponse:
+    GuaranteedCommitmentsSetBillingGroupStatusBody:
       type: object
       properties:
-        types:
-          type: array
-          items:
-            type: string
-          description: 'List of available commitment type identifiers for the requested provider.
+        enabled:
+          type: boolean
+        newVersion:
+          type: boolean
+          description: 'temporarily required until we fully transition to the new onboarding flow.
 
-            Example values: "aws/AmazonEC2", "aws/AmazonRDS", "aws/AmazonElastiCache",
+            This is to avoid any breaks or crash during the transition. Will be removed once the transition is complete.
 
-            "aws/savingsplan/Compute", "aws/savingsplan/EC2Instance", "aws/savingsplan/Database".'
+            Default value is false.'
+    v1GetBillingGroupStatusResponse:
+      type: object
+      properties:
+        billingGroup:
+          $ref: '#/components/schemas/v1ListBillingGroupsResponseBillingGroup'
+        termsAcceptance:
+          $ref: '#/components/schemas/v1TermsAcceptance'
     blueapiGcV1Resource:
       type: object
       properties:
@@ -2475,152 +2083,136 @@ components:
           type: boolean
         ondemandUsageUnit:
           type: string
-    v1AzureIntegrationFeatureStatus:
+    v1CommitmentsChartData:
       type: object
       properties:
-        feature:
+        date:
           type: string
-        status:
+        chartKey:
           type: string
-          title: '"available", "missing", "warning", "unknown"'
-        detail:
-          type: array
-          items:
-            type: string
-          description: Detail strings or JSON describing why a feature is missing/warning.
-      description: AzureIntegrationFeatureStatus is a single feature check for an Azure integration (Step 9).
-    v1ListBillingGroupsResponseBillingGroup:
+        chartValue:
+          type: number
+          format: double
+    v1ReadCommitmentReportsRequest:
+      type: object
+    v1VerifyAwsOnboardingRequest:
       type: object
       properties:
-        companyId:
-          type: string
         billingGroupId:
           type: string
-        billingGroupName:
+          title: 'Optional: if present => MSP customer (3rd layer), else MSP-level org (2nd layer)'
+        companyId:
           type: string
-        companyName:
+        gcOrgId:
           type: string
-        payerAccountId:
+        onboardingId:
           type: string
-        payerAccountName:
+          title: From /start response
+        accountId:
           type: string
-        segmentId:
+          title: AWS account id being onboarded/verified
+        existingCur:
+          $ref: '#/components/schemas/v1AwsExistingCur'
+          description: 'Optional: if set, GuaranteedCommitments will use this existing CUR. If omitted, GuaranteedCommitments may create a new CUR.'
+    v1CreateGuaranteedCommitmentAccessRequest:
+      type: object
+      properties:
+        target:
           type: string
-        resourceType:
+          description: The AWS account ID (payer/target) where the stack was deployed.
+        externalId:
           type: string
-        status:
-          $ref: '#/components/schemas/ListBillingGroupsResponseBillingGroupStatus'
-        onboardingStatus:
-          $ref: '#/components/schemas/GetOnboardingStatusResponseOnboardingStatus'
-        verificationChecks:
+          description: The guaranteed-commitments-provided external ID.
+    v1GetResourceDailyUsageResponse:
+      type: object
+      properties:
+        dailyUsage:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/VerifyAwsOnboardingResponseAwsOnboardingFeatureCheck'
-    v1CommitmentPlanLineItem:
+            $ref: '#/components/schemas/v1ResourceDailyUsage'
+    v1Address:
       type: object
       properties:
-        id:
+        line1:
           type: string
-        planId:
+          title: 'required: ex. "123 Main St"'
+        city:
           type: string
-        offerId:
+          title: 'required: ex. "Springfield"'
+        state:
           type: string
-        leaseMenuItemId:
+          title: 'required: ex. "IL"'
+        zip:
           type: string
-        accountId:
+          title: 'required: ex. "62701"'
+        country:
           type: string
-        recommendedQuantity:
-          type: number
-          format: double
-        selectedQuantity:
-          type: number
-          format: double
-        recommendedCommitment:
-          type: number
-          format: double
-        selectedCommitment:
-          type: number
-          format: double
-        isSelected:
-          type: boolean
-        afterAmortizedCost:
-          type: number
-          format: double
-        upfrontCost:
-          type: number
-          format: double
-        recurringCost:
-          type: number
-          format: double
-        beforeCost:
-          type: number
-          format: double
-        beforeOndemandCost:
-          type: number
-          format: double
-        beforeReservedCost:
-          type: number
-          format: double
-        coveredOndemandCost:
-          type: number
-          format: double
-        afterCoveredUnits:
-          type: number
-          format: double
-        totalCost:
-          type: number
-          format: double
-        monthlyCost:
-          type: number
-          format: double
-        savings:
-          type: number
-          format: double
-        monthlySavings:
-          type: number
-          format: double
-        totalSavings:
-          type: number
-          format: double
-        fee:
-          type: number
-          format: double
-        discountRate:
-          type: number
-          format: double
-        breakevenHours:
-          type: number
-          format: double
-        contractTerm:
+          title: 'required: ex. "USA"'
+        line2:
           type: string
-        paymentOption:
+          title: 'optional: ex. "Apt 4B"'
+    v1AzureOnboardingCreatedBy:
+      type: object
+      properties:
+        onboardingId:
           type: string
-        contractSpec:
-          type: object
-        offer:
-          type: object
-        renewalReservationId:
+        username:
           type: string
-        coveredUnits:
-          type: number
-          format: double
-        amortizedCost:
-          type: number
-          format: double
-    GuaranteedCommitmentsValidateAzureAppInstallBody:
+        fullName:
+          type: string
+      description: AzureOnboardingCreatedBy identifies who triggered the onboarding.
+    v1AcceptBillingGroupTermsRequest:
+      type: object
+    rpcStatus:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+        message:
+          type: string
+          description: 'A developer-facing error message, which should be in English. Any
+
+            user-facing error message should be localized and sent in the
+
+            [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.'
+        details:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/protobufAny'
+          description: 'A list of messages that carry the error details.  There is a common set of
+
+            message types for APIs to use.'
+      description: 'The `Status` type defines a logical error model that is suitable for
+
+        different programming environments, including REST APIs and RPC APIs. It is
+
+        used by [gRPC](https://github.com/grpc). Each `Status` message contains
+
+        three pieces of data: error code, error message, and error details.
+
+
+        You can find out more about this error model and how to work with it in the
+
+        [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    GuaranteedCommitmentsUpdateAzureOnboardingBody:
       type: object
       properties:
         gcOrgId:
           type: string
-          description: Required. The Archera org ID.
-        type:
+          description: Required. Archera org ID.
+        billingGroupId:
           type: string
-          description: '---- Azure resource config fields ----
-
-            Integration type, always "cloud/azure".'
+          description: Ripple billing group ID (needed to persist Ripple context).
+        companyId:
+          type: string
+          description: Ripple company ID.
         tenantId:
           type: string
+          description: Azure fields — set only those that are being updated for this step.
         subscriptionId:
           type: string
         accountKind:
@@ -2649,7 +2241,8 @@ components:
           type: string
         createdBy:
           $ref: '#/components/schemas/v1AzureOnboardingCreatedBy'
-        integration: {}
+        integration:
+          description: Linked integration object; null until integration is created.
         integrationId:
           type: string
         provider:
@@ -2659,7 +2252,29 @@ components:
           $ref: '#/components/schemas/v1AzureArcheraOrg'
           description: 'The full Archera org object received from StartAzureOnboarding response.
 
-            Must be echoed back verbatim.'
+            Must be echoed back verbatim on every PATCH call.'
+    v1RegisterOrgRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        labraSubscriptionId:
+          type: string
+        users:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1OrgUser'
+        domain:
+          type: string
+        primaryAddress:
+          $ref: '#/components/schemas/v1Address'
+        awsMarketplaceOfferLink:
+          type: string
+        azureMarketplaceOfferLink:
+          type: string
+        gcpMarketplaceOfferLink:
+          type: string
     v1ResourceDailyUsage:
       type: object
       properties:
@@ -2706,99 +2321,23 @@ components:
         providerUsageType:
           type: string
           description: Provider-specific usage type label (e.g. "BoxUsage:c5n.xlarge").
-    v1PlanSummary:
+    v1ListReservableResourcesResponse:
       type: object
       properties:
-        key:
-          type: string
-        provider:
-          type: string
-        numCommitments:
-          type: integer
-          format: int32
-        minCommitment:
-          type: number
-          format: double
-        monthlyCommitment:
-          type: number
-          format: double
-        upfrontCost:
-          type: number
-          format: double
-        minSavings:
-          type: number
-          format: double
-        maxSavings:
-          type: number
-          format: double
-        monthlySavings:
-          type: number
-          format: double
-        minTermHours:
-          type: integer
-          format: int32
-        maxTermHours:
-          type: integer
-          format: int32
-        griPremiums:
-          type: number
-          format: double
-        beforeOndemandCost:
-          type: number
-          format: double
-        afterOndemandCost:
-          type: number
-          format: double
-        ifAllOndemandCost:
-          type: number
-          format: double
-    v1ReadCommitmentReportsRequest:
-      type: object
-    v1CommitmentReportAccount:
-      type: object
-      properties:
-        billingGroupId:
-          type: string
-        billingGroupName:
-          type: string
-        accountId:
-          type: string
-        accountName:
-          type: string
-        cloud:
-          type: string
-        grossSavings:
-          type: number
-          format: double
-        riskPremium:
-          type: number
-          format: double
-        rebates:
-          type: number
-          format: double
-        netSavings:
-          type: number
-          format: double
-        revenueShare:
-          type: number
-          format: double
-    v1ValidateBillingGroupResponse:
-      type: object
-      properties:
-        ok:
-          type: boolean
-          description: True if the company is allowed to proceed with onboarding; false otherwise.
-        message:
-          type: string
-          description: Optional human-readable reason when ok=false.
-        code:
-          type: string
-          description: Optional machine-readable code for programmatic handling when ok=false.
-        details:
+        resources:
           type: array
           items:
-            type: string
-          description: Optional values that can be shown in translated messages.
+            type: object
+            $ref: '#/components/schemas/v1ReservableResource'
+    v1ListAzureIntegrationsResponse:
+      type: object
+      properties:
+        integrations:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1AzureIntegration'
+      description: ListAzureIntegrationsResponse contains all Azure integrations for the org (Step 9).
     v1CreateCustomCommitmentPlanRequest:
       type: object
       properties:
@@ -2857,38 +2396,6 @@ components:
 
             Mutually exclusive with companyId — do not set both.'
       description: CreateCustomCommitmentPlanRequest creates a new top-down custom commitment plan.
-    v1ListPurchasePlansBySegmentResponse:
-      type: object
-      properties:
-        plans:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1DefaultPurchasePlan'
-    v1ContractSpec:
-      type: object
-      properties:
-        commitmentType:
-          type: string
-        paymentOption:
-          type: string
-        term:
-          type: string
-        properties:
-          type: object
-    v1SetPayerAccountEnabledResponse:
-      type: object
-      properties:
-        payerAccount:
-          $ref: '#/components/schemas/ListPayerAccountsResponsePayerAccount'
-          title: Updated payer account row (same shape as list)
-    v1GetBillingGroupStatusResponse:
-      type: object
-      properties:
-        billingGroup:
-          $ref: '#/components/schemas/v1ListBillingGroupsResponseBillingGroup'
-        termsAcceptance:
-          $ref: '#/components/schemas/v1TermsAcceptance'
     v1AzureAccount:
       type: object
       properties:
@@ -2905,285 +2412,49 @@ components:
           type: boolean
           description: Whether this account is eligible for Archera onboarding.
       description: AzureAccount is one available subscription or billing account (Step 6).
-    v1VerifyAwsOnboardingResponse:
+    v1GetUpdatedPurchasePlansBySegmentResponse:
       type: object
       properties:
-        checks:
+        plans:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1DefaultPurchasePlan'
+    v1PayerAccountDetails:
+      type: object
+      properties:
+        accountId:
+          type: string
+        accountName:
+          type: string
+        rippleRegistrationStatus:
+          type: string
+        gcSetupStatus:
+          $ref: '#/components/schemas/GetOnboardingStatusResponseOnboardingStatus'
+          title: Latest persisted guaranteed commitment setup/onboarding status for this payer account (if any)
+        verificationChecks:
           type: array
           items:
             type: object
             $ref: '#/components/schemas/VerifyAwsOnboardingResponseAwsOnboardingFeatureCheck'
-    v1CommitmentReport:
-      type: object
-      properties:
-        month:
-          type: string
-        billUnadjusted:
-          type: number
-          format: double
-        billOptimized:
-          type: number
-          format: double
-        grossSavings:
-          type: number
-          format: double
-        riskPremium:
-          type: number
-          format: double
-        rebates:
-          type: number
-          format: double
-        netSavings:
-          type: number
-          format: double
-        revenueShare:
-          type: number
-          format: double
-        revenueShareRate:
-          type: number
-          format: double
-    v1Provider:
-      type: string
-      enum:
-      - PROVIDER_UNSPECIFIED
-      - AWS
-      - AZURE
-      - GCP
-      - KUBERNETES
-      - UNKNOWN
-      default: PROVIDER_UNSPECIFIED
-    v1StartAwsOnboardingResponse:
-      type: object
-      properties:
-        onboardingId:
-          type: string
-    v1AzureOnboardingCreatedBy:
-      type: object
-      properties:
-        onboardingId:
-          type: string
-        username:
-          type: string
-        fullName:
-          type: string
-      description: AzureOnboardingCreatedBy identifies who triggered the onboarding.
-    v1AggregateMetrics:
-      type: object
-      properties:
-        currentCoverage:
-          type: number
-          format: double
-        potentialCoverage:
-          type: number
-          format: double
-        summaries:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/v1ServiceSummary'
-    v1PlanHistoryEntry:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
-        orgId:
-          type: string
-        relatedObjectId:
-          type: string
-        relatedObjectType:
-          type: string
-        timestamp:
-          type: string
-        type:
-          type: string
-        userId:
-          type: string
-        data: {}
-        user:
-          $ref: '#/components/schemas/v1PlanHistoryUser'
-    v1StartAwsOnboardingRequest:
-      type: object
-      properties:
-        billingGroupId:
-          type: string
-          title: 'Optional: if present => MSP customer (3rd layer), else MSP-level org (2nd layer)'
-        companyId:
-          type: string
-        gcOrgId:
-          type: string
-        payerAccountId:
-          type: string
-        payerAccountName:
-          type: string
-    v1AzureIntegrationOnboarding:
-      type: object
-      properties:
-        id:
-          type: string
-        orgId:
-          type: string
-        provider:
-          type: string
-        integrationId:
-          type: string
-        completed:
-          type: boolean
-        createdAt:
-          type: string
-        createdBy:
-          $ref: '#/components/schemas/v1AzureOnboardingCreatedBy'
-      description: AzureIntegrationOnboarding is a summary of the onboarding linked to an integration.
-    v1AzureOnboardingState:
-      type: object
-      properties:
-        onboardingId:
-          type: string
-          description: Archera onboarding record ID.
-        orgId:
-          type: string
-          description: Archera org ID.
-        provider:
-          type: string
-        completed:
-          type: boolean
-        createdAt:
-          type: string
-        createdBy:
-          $ref: '#/components/schemas/v1AzureOnboardingCreatedBy'
-        integration:
-          description: Linked integration object (null until integration is created).
-        integrationId:
-          type: string
-        archeraOutboundIps:
-          type: array
-          items:
-            type: string
-          description: Outbound IPs Archera will use with this onboarding.
-        tenantId:
-          type: string
-          title: Azure identity
-        subscriptionId:
-          type: string
-        accountIds:
-          type: array
-          items:
-            type: string
-        accountKind:
-          type: string
-          title: '"subscription" or "billing_account"'
-        appAuthValidated:
-          title: Authorization state (nullable, use Value for JSON null interop)
-        appAuthorized: {}
-        blobContainer:
-          type: string
-          title: Azure resource configuration
-        resourceGroup:
-          type: string
-        storageAccount:
-          type: string
-        roleName:
-          type: string
-        createResources: {}
-        marketplaceCompleted: {}
-        permissionLevel: {}
-        resourceGroupRegion: {}
-        storageAccountRegion: {}
-        resourceGroupTags: {}
-        storageAccountTags: {}
-        org:
-          $ref: '#/components/schemas/v1AzureArcheraOrg'
-          description: 'The full Archera org object returned from Archera. Store this and pass it
+          description: 'Detailed AWS verification results (best-effort) returned from the last VerifyAwsOnboarding call.
 
-            back verbatim on every UpdateAzureOnboarding and ValidateAzureAppInstall call.'
-      description: 'AzureOnboardingState is the full Archera onboarding record state.
+            This is used by the UI to "resume" the onboarding flow and show which verification checks
 
-        Returned by StartAzureOnboarding, UpdateAzureOnboarding, ValidateAzureAppInstall.'
-    v1AzureIntegration:
-      type: object
-      properties:
-        id:
-          type: string
-        active:
-          type: boolean
-        name:
-          type: string
-        provider:
-          type: string
-        type:
-          type: string
-          description: Always "cloud/azure".
-        orgId:
-          type: string
-        userId:
-          type: string
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-        managementSubscriptionId:
-          type: string
-          title: Azure-specific
-        providerOrganizationId:
-          type: string
-          description: Azure tenant ID (stored as provider_organization_id in Archera).
-        blobContainer:
-          type: string
-        resourceGroup:
-          type: string
-        storageAccount:
-          type: string
-        costExportFormat:
-          type: string
-          title: '"FOCUS" or "ActualCost"'
-        curEarliestData:
-          type: string
-          title: CUR/data state
-        curReportName:
-          type: string
-        curUsable:
-          type: boolean
-        hasCurAccess:
-          type: boolean
-        hasFullReservationAccess:
-          type: boolean
-        featureStatuses:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1AzureIntegrationFeatureStatus'
-          title: Feature verification checks
-        onboardings:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1AzureIntegrationOnboarding'
-          title: Linked onboarding records
-        config:
-          type: object
-          title: Flexible config blob (etl_enabled, use_vm_ris_not_sps, etc.)
-      description: AzureIntegration is the full Azure cloud integration record from Archera.
-    GuaranteedCommitmentsSetBillingGroupStatusBody:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        newVersion:
-          type: boolean
-          description: 'temporarily required until we fully transition to the new onboarding flow.
+            passed/failed when a user comes back later (e.g., after stopping at verification).
 
-            This is to avoid any breaks or crash during the transition. Will be removed once the transition is complete.
+            Empty when verification hasn''t been attempted yet or when no checks were persisted.'
+        marketplacePrivateOfferStatus:
+          type: string
+          description: 'AWS Marketplace private offer status for this payer account.
 
-            Default value is false.'
-    v1PlanHistoryUser:
-      type: object
-      properties:
-        id:
+            Values: NOT_CREATED, CREATING, PENDING, ACCEPTED, EXPIRED, FAILED, WITHDRAWN.'
+        marketplacePrivateOfferId:
           type: string
-        username:
+          description: Optional. AWS Marketplace offer ID if one has already been created.
+        marketplacePrivateOfferExpirationDate:
           type: string
-        fullName:
-          type: string
+          description: Optional. Expiration date of the current private offer.
     v1Commitment:
       type: object
       properties:
@@ -3288,104 +2559,236 @@ components:
         utilization:
           type: number
           format: double
-    v1ListDraftPurchasePlansResponse:
+    GuaranteedCommitmentsSaveCommitmentsPlanAsDraftBody:
       type: object
       properties:
-        plans:
+        reservationIds:
+          type: array
+          items:
+            type: string
+        resourceIds:
+          type: array
+          items:
+            type: string
+        maxUpfrontCost:
+          type: number
+          format: double
+        provider:
+          $ref: '#/components/schemas/v1Provider'
+        endDate:
+          type: string
+        startDate:
+          type: string
+        segmentId:
+          type: string
+        status:
+          type: string
+          description: Required.
+        description:
+          type: string
+          description: Required.
+        name:
+          type: string
+          description: Required.
+        preferredPaymentOption:
+          type: string
+        includedContractTerms:
+          type: array
+          items:
+            type: string
+        includedContractSpecs:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/v1DefaultPurchasePlan'
+            $ref: '#/components/schemas/v1ContractSpec'
+        coverageId: {}
+        createdAt:
+          type: string
+        createdBy: {}
+        dataSource:
+          type: string
+        executionPolicy: {}
+        flaggedActions:
+          type: array
+          items:
+            type: string
+        id:
+          type: string
+        isCalculating:
+          type: boolean
+        isDefault:
+          type: boolean
+        isLocked:
+          type: boolean
+        isRecommended:
+          type: boolean
+        isRenewal:
+          type: boolean
+        isSaved:
+          type: boolean
+        lastModified:
+          type: string
+        metaPlanId:
+          type: string
+        minimumUpfrontInterestRate: {}
+        orgId:
+          type: string
+        planType:
+          type: string
+        recommendWithinCoveredAccounts: {}
+        segment:
+          $ref: '#/components/schemas/v1Segment'
+    gcV1Org:
+      type: object
+      properties:
+        orgId:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
     GuaranteedCommitmentsSetPayerAccountEnabledBody:
       type: object
       properties:
         enabled:
           type: boolean
-    v1AzureArcheraOrgLeaseBudget:
+    v1CreateAzureIntegrationRequest:
       type: object
       properties:
-        budget:
+        gcOrgId:
+          type: string
+          description: Required. Archera org ID.
+        billingGroupId:
+          type: string
+          description: Ripple billing group ID — links this Azure integration to the Ripple billing group.
+        companyId:
+          type: string
+          description: Ripple company ID — links this Azure integration to the Ripple company/customer.
+        payerAccountId:
+          type: string
+          description: Ripple payer account ID — if applicable, the payer account this Azure spend rolls up to.
+        type:
+          type: string
+          description: Integration type, always "cloud/azure".
+        tenantId:
+          type: string
+        subscriptionId:
+          type: string
+        onboardingId:
+          type: string
+        accountKind:
+          type: string
+          title: '"subscription" or "billing_account"'
+        accountIds:
+          type: array
+          items:
+            type: string
+        blobContainer:
+          type: string
+        resourceGroup:
+          type: string
+        storageAccount:
+          type: string
+        roleName:
+          type: string
+        resourceGroupRegion: {}
+        storageAccountRegion: {}
+        resourceGroupTags: {}
+        storageAccountTags: {}
+      description: 'CreateAzureIntegrationRequest creates the final Azure integration (Step 8).
+
+        Ripple fields are stored alongside Archera integration data to link
+
+        the Azure tenant to the correct Ripple billing group/company/payer context.'
+    v1CommitmentsUtilizationData:
+      type: object
+      properties:
+        utilizationDate:
+          type: string
+        cost:
           type: number
           format: double
-        createdAt:
-          type: string
-        minTermMonths:
-          type: integer
-          format: int32
-      description: AzureArcheraOrgLeaseBudget is the lease budget config within the Archera org object.
-    v1CreateGuaranteedCommitmentAccessResponse:
+        coveredCost:
+          type: number
+          format: double
+        griFees:
+          type: number
+          format: double
+        netSavings:
+          type: number
+          format: double
+        potentialSavings:
+          type: number
+          format: double
+        reservationUtilization:
+          type: number
+          format: double
+        runningHours:
+          type: number
+          format: double
+        savings:
+          type: number
+          format: double
+        unutilizedCommitment:
+          type: number
+          format: double
+    v1CommitmentReportAccount:
       type: object
       properties:
-        target:
+        billingGroupId:
           type: string
-          description: Target environment for the access configuration (for example, AWS account ID or organization).
-        rippleRoleArn:
+        billingGroupName:
           type: string
-          description: ARN of the Ripple/Alphaus IAM role to be assumed for managing guaranteed commitments.
-        rippleExternalId:
+        accountId:
           type: string
-          description: External ID required to assume the Ripple/Alphaus IAM role.
-        guaranteedCommitmentRoleArn:
+        accountName:
           type: string
-          description: ARN of the customer's IAM role used specifically for guaranteed-commitment operations.
-        guaranteedCommitmentExternalId:
+        cloud:
           type: string
-          description: External ID required to assume the guaranteed-commitment IAM role.
-        stackId:
-          type: string
-          description: CloudFormation stack ID created or used during the access configuration.
-        stackRegion:
-          type: string
-          description: AWS region where the CloudFormation stack is deployed (for example, "us-east-1").
-        templateUrl:
-          type: string
-          description: URL of the CloudFormation template used to create or update the stack.
-        status:
-          type: string
-          description: Current status of the access configuration or underlying CloudFormation stack.
-        lastUpdated:
-          type: string
-          description: Last update time of this configuration, typically as an ISO 8601 timestamp.
-        guaranteedCommitmentVerified:
-          type: boolean
-          description: Whether the guaranteed commitment role was successfully verified during registration.
-    v1SetBillingGroupStatusResponse:
+        grossSavings:
+          type: number
+          format: double
+        riskPremium:
+          type: number
+          format: double
+        rebates:
+          type: number
+          format: double
+        netSavings:
+          type: number
+          format: double
+        revenueShare:
+          type: number
+          format: double
+    v1GetPurchasePlansDetailsResponse:
       type: object
       properties:
-        billingGroup:
-          $ref: '#/components/schemas/v1ListBillingGroupsResponseBillingGroup'
-    v1ListBillingGroupsResponse:
-      type: object
-      properties:
-        billingGroups:
+        plan:
+          $ref: '#/components/schemas/v1DefaultPurchasePlan'
+          title: Plan basic info and detailed metrics
+        lineItems:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/v1ListBillingGroupsResponseBillingGroup'
-    v1GetGuaranteedCommitmentTemplateUrlResponse:
+            $ref: '#/components/schemas/v1CommitmentPlanLineItem'
+          title: Commitment line item
+        resourceMatches:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1CommitmentPlanResourceMatch'
+          title: Covered infrastructure resource matches
+        history:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1PlanHistoryEntry'
+          title: Audit history of the plan
+    v1GetAwsLaunchStackUrlResponse:
       type: object
       properties:
-        launchUrl:
+        url:
           type: string
-          description: CloudFormation console launch URL pre-filled with all parameters.
-        templateUrl:
-          type: string
-          description: S3 URL of the CloudFormation template.
-        stackName:
-          type: string
-          description: CloudFormation stack name.
-        principal:
-          type: string
-          description: Alphaus AWS account principal.
-        externalId:
-          type: string
-          description: Alphaus/Ripple external ID for role assumption.
-        guaranteedCommitmentPrincipal:
-          type: string
-          description: Guaranteed commitment AWS principal ARN.
-        guaranteedCommitmentExternalId:
-          type: string
-          description: Guaranteed commitment external ID for role assumption.
     v1ReservableResource:
       type: object
       properties:
@@ -3557,15 +2960,487 @@ components:
             $ref: '#/components/schemas/v1ResourceDailyUsage'
           description: Per-day usage breakdown for the requested date range.
       description: "ReservableResource is a fully-detailed infrastructure resource returned by ListReservableResources.\nIt extends the basic resource shape with usage metrics, daily usage breakdown,\nand hardware/catalog attributes needed for the Reservable Infrastructure view.\n\nComposite ID formatted as\n \"{url_encoded_resource_id}|{url_encoded_catalog_sku_org_id}|{url_encoded_catalog_sku_id}\".\n Each component must be URL/percent-encoded before concatenation so embedded \"|\"\n characters do not break parsing. Consumers must split on \"|\" and URL-decode each part."
-    AwsOnboardingFeatureCheckAwsOnboardingFeatureStatus:
+    v1StartAzureOnboardingResponse:
+      type: object
+      properties:
+        onboardingId:
+          type: string
+          description: Archera onboarding ID — pass this to all subsequent Azure onboarding RPCs.
+        state:
+          $ref: '#/components/schemas/v1AzureOnboardingState'
+          description: Full onboarding state.
+        billingGroupId:
+          type: string
+          title: Ripple billing group ID
+        companyId:
+          type: string
+          title: Ripple company ID
+      description: StartAzureOnboardingResponse is returned from StartAzureOnboarding.
+    v1CommitmentsUtilizationResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1CommitmentsUtilizationData'
+    v1CreateCustomCommitmentPlanResponse:
+      type: object
+      properties:
+        plans:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1DefaultPurchasePlan'
+    GuaranteedCommitmentsCommitmentsPlanApplyBody:
+      type: object
+    v1Segment:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        provider:
+          $ref: '#/components/schemas/v1Provider'
+        isDefault:
+          type: boolean
+        createdAt:
+          type: string
+    v1ListAzureOnboardingAccountsResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1AzureAccount'
+      description: ListAzureOnboardingAccountsResponse returns accounts the user can select.
+    ListPayerAccountsResponsePayerAccountStatus:
       type: string
       enum:
-      - AWS_ONBOARDING_FEATURE_STATUS_UNSPECIFIED
-      - AWS_ONBOARDING_FEATURE_STATUS_AVAILABLE
-      - AWS_ONBOARDING_FEATURE_STATUS_WARNING
-      - AWS_ONBOARDING_FEATURE_STATUS_MISSING
-      - AWS_ONBOARDING_FEATURE_STATUS_UNKNOWN
-      default: AWS_ONBOARDING_FEATURE_STATUS_UNSPECIFIED
+      - PAYER_ACCOUNT_STATUS_UNSPECIFIED
+      - PAYER_ACCOUNT_STATUS_ENABLED
+      - PAYER_ACCOUNT_STATUS_DISABLED
+      default: PAYER_ACCOUNT_STATUS_UNSPECIFIED
+    v1GetOnboardingStatusRequest:
+      type: object
+      properties:
+        billingGroupId:
+          type: string
+          title: 'Optional:
+
+            - all empty => MSP-level onboarding row
+
+            - companyId set => company flow
+
+            - payerAccountId set => payer-account flow
+
+            billingGroupId may accompany company flow'
+        companyId:
+          type: string
+        payerAccountId:
+          type: string
+    v1PlanHistoryUser:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        fullName:
+          type: string
+    v1AzureIntegrationOnboarding:
+      type: object
+      properties:
+        id:
+          type: string
+        orgId:
+          type: string
+        provider:
+          type: string
+        integrationId:
+          type: string
+        completed:
+          type: boolean
+        createdAt:
+          type: string
+        createdBy:
+          $ref: '#/components/schemas/v1AzureOnboardingCreatedBy'
+      description: AzureIntegrationOnboarding is a summary of the onboarding linked to an integration.
+    v1ListPurchasePlansBySegmentResponse:
+      type: object
+      properties:
+        plans:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1DefaultPurchasePlan'
+    v1AzureOnboardingState:
+      type: object
+      properties:
+        onboardingId:
+          type: string
+          description: Archera onboarding record ID.
+        orgId:
+          type: string
+          description: Archera org ID.
+        provider:
+          type: string
+        completed:
+          type: boolean
+        createdAt:
+          type: string
+        createdBy:
+          $ref: '#/components/schemas/v1AzureOnboardingCreatedBy'
+        integration:
+          description: Linked integration object (null until integration is created).
+        integrationId:
+          type: string
+        archeraOutboundIps:
+          type: array
+          items:
+            type: string
+          description: Outbound IPs Archera will use with this onboarding.
+        tenantId:
+          type: string
+          title: Azure identity
+        subscriptionId:
+          type: string
+        accountIds:
+          type: array
+          items:
+            type: string
+        accountKind:
+          type: string
+          title: '"subscription" or "billing_account"'
+        appAuthValidated:
+          title: Authorization state (nullable, use Value for JSON null interop)
+        appAuthorized: {}
+        blobContainer:
+          type: string
+          title: Azure resource configuration
+        resourceGroup:
+          type: string
+        storageAccount:
+          type: string
+        roleName:
+          type: string
+        createResources: {}
+        marketplaceCompleted: {}
+        permissionLevel: {}
+        resourceGroupRegion: {}
+        storageAccountRegion: {}
+        resourceGroupTags: {}
+        storageAccountTags: {}
+        org:
+          $ref: '#/components/schemas/v1AzureArcheraOrg'
+          description: 'The full Archera org object returned from Archera. Store this and pass it
+
+            back verbatim on every UpdateAzureOnboarding and ValidateAzureAppInstall call.'
+      description: 'AzureOnboardingState is the full Archera onboarding record state.
+
+        Returned by StartAzureOnboarding, UpdateAzureOnboarding, ValidateAzureAppInstall.'
+    v1DefaultPurchasePlan:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        orgId:
+          type: string
+        segmentId:
+          type: string
+        segment:
+          $ref: '#/components/schemas/v1Segment'
+        status:
+          type: string
+        planType:
+          type: string
+        createdAt:
+          type: string
+        lastModified:
+          type: string
+        createdBy: {}
+        executionPolicy: {}
+        isDefault:
+          type: boolean
+          title: Flags
+        isRecommended:
+          type: boolean
+        isRenewal:
+          type: boolean
+        isCalculating:
+          type: boolean
+        isLocked:
+          type: boolean
+        isSaved:
+          type: boolean
+        includedContractSpecs:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1ContractSpec'
+          title: Contract details
+        includedContractTerms:
+          type: array
+          items:
+            type: string
+        maxTerm:
+          type: string
+        preferredPaymentOption:
+          type: string
+        maxUpfrontCost:
+          type: number
+          format: double
+        minimumUpfrontInterestRate:
+          type: number
+          format: double
+        recommendWithinCoveredAccounts: {}
+        startDate:
+          type: string
+          title: Dates
+        endDate:
+          type: string
+        dataSource:
+          type: string
+        beforeCost:
+          type: number
+          format: double
+          title: Cost metrics
+        afterCost:
+          type: number
+          format: double
+        beforeOndemandCost:
+          type: number
+          format: double
+        beforeReservedCost:
+          type: number
+          format: double
+        coveredOndemandCost:
+          type: number
+          format: double
+        amortizedCost:
+          type: number
+          format: double
+        recurringCost:
+          type: number
+          format: double
+        upfrontCost:
+          type: number
+          format: double
+        totalCost:
+          type: number
+          format: double
+        totalMonthlyBeforeCost:
+          type: number
+          format: double
+        savings:
+          type: number
+          format: double
+          title: Savings metrics
+        monthlySavings:
+          type: number
+          format: double
+        totalSavings:
+          type: number
+          format: double
+        fee:
+          type: number
+          format: double
+        commitmentCoverage:
+          type: number
+          format: double
+          title: Coverage metrics
+        minimumCommitmentCost:
+          type: number
+          format: double
+        breakevenHours:
+          type: number
+          format: double
+        aggregateMetrics:
+          $ref: '#/components/schemas/v1AggregateMetrics'
+          title: Aggregate data
+        summaries:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1PlanSummary'
+        reservationIds:
+          type: array
+          items:
+            type: string
+          title: IDs
+        resourceIds:
+          type: array
+          items:
+            type: string
+        flaggedActions:
+          type: array
+          items:
+            type: string
+        metaPlanId:
+          type: string
+        coverageId:
+          type: string
+        monthlyAfterCost:
+          type: number
+          format: double
+          title: Monthly cost breakdowns (returned by CreateCustomCommitmentPlan and related endpoints)
+        monthlyAmortizedCost:
+          type: number
+          format: double
+        monthlyBeforeCost:
+          type: number
+          format: double
+        monthlyFee:
+          type: number
+          format: double
+        allTerms:
+          type: array
+          items:
+            type: string
+          description: All term keys present across the plan's line items.
+    v1CommitmentPlanLineItem:
+      type: object
+      properties:
+        id:
+          type: string
+        planId:
+          type: string
+        offerId:
+          type: string
+        leaseMenuItemId:
+          type: string
+        accountId:
+          type: string
+        recommendedQuantity:
+          type: number
+          format: double
+        selectedQuantity:
+          type: number
+          format: double
+        recommendedCommitment:
+          type: number
+          format: double
+        selectedCommitment:
+          type: number
+          format: double
+        isSelected:
+          type: boolean
+        afterAmortizedCost:
+          type: number
+          format: double
+        upfrontCost:
+          type: number
+          format: double
+        recurringCost:
+          type: number
+          format: double
+        beforeCost:
+          type: number
+          format: double
+        beforeOndemandCost:
+          type: number
+          format: double
+        beforeReservedCost:
+          type: number
+          format: double
+        coveredOndemandCost:
+          type: number
+          format: double
+        afterCoveredUnits:
+          type: number
+          format: double
+        totalCost:
+          type: number
+          format: double
+        monthlyCost:
+          type: number
+          format: double
+        savings:
+          type: number
+          format: double
+        monthlySavings:
+          type: number
+          format: double
+        totalSavings:
+          type: number
+          format: double
+        fee:
+          type: number
+          format: double
+        discountRate:
+          type: number
+          format: double
+        breakevenHours:
+          type: number
+          format: double
+        contractTerm:
+          type: string
+        paymentOption:
+          type: string
+        contractSpec:
+          type: object
+        offer:
+          type: object
+        renewalReservationId:
+          type: string
+        coveredUnits:
+          type: number
+          format: double
+        amortizedCost:
+          type: number
+          format: double
+    v1PlanSummary:
+      type: object
+      properties:
+        key:
+          type: string
+        provider:
+          type: string
+        numCommitments:
+          type: integer
+          format: int32
+        minCommitment:
+          type: number
+          format: double
+        monthlyCommitment:
+          type: number
+          format: double
+        upfrontCost:
+          type: number
+          format: double
+        minSavings:
+          type: number
+          format: double
+        maxSavings:
+          type: number
+          format: double
+        monthlySavings:
+          type: number
+          format: double
+        minTermHours:
+          type: integer
+          format: int32
+        maxTermHours:
+          type: integer
+          format: int32
+        griPremiums:
+          type: number
+          format: double
+        beforeOndemandCost:
+          type: number
+          format: double
+        afterOndemandCost:
+          type: number
+          format: double
+        ifAllOndemandCost:
+          type: number
+          format: double
     v1CommitmentPlanResourceMatch:
       type: object
       properties:
@@ -3647,143 +3522,74 @@ components:
         reservedCost:
           type: number
           format: double
-    GuaranteedCommitmentsUpdateAzureOnboardingBody:
+    v1RegisterOrgResponse:
       type: object
       properties:
-        gcOrgId:
+        id:
           type: string
-          description: Required. Archera org ID.
+        name:
+          type: string
+        memberships:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1Membership'
+          title: GuaranteedCommitments create-org response fields
+        domain:
+          type: string
+        primaryAddress:
+          $ref: '#/components/schemas/v1Address'
+        awsMarketplaceOfferLink:
+          type: string
+        azureMarketplaceOfferLink:
+          type: string
+        gcpMarketplaceOfferLink:
+          type: string
+    GuaranteedCommitmentsReadCommitmentReportAccountsBody:
+      type: object
+    v1StartAzureOnboardingRequest:
+      type: object
+      properties:
         billingGroupId:
           type: string
-          description: Ripple billing group ID (needed to persist Ripple context).
+          description: Ripple billing group ID. If present => MSP customer (3rd layer), else MSP-level org (2nd layer).
         companyId:
           type: string
-          description: Ripple company ID.
+          description: Ripple company ID within the billing group.
+        gcOrgId:
+          type: string
+          description: Required. Archera / GuaranteedCommitments org ID.
         tenantId:
           type: string
-          description: Azure fields — set only those that are being updated for this step.
+          description: Azure tenant ID.
         subscriptionId:
           type: string
-        accountKind:
+          description: Azure management subscription ID.
+      description: 'StartAzureOnboardingRequest initiates Azure onboarding (Step 1).
+
+        Ripple fields are required to link this Azure tenant to the correct
+
+        Ripple billing group and company for cost attribution and management.'
+    v1OrgUser:
+      type: object
+      properties:
+        email:
           type: string
-          title: '"subscription" or "billing_account"'
-        accountIds:
-          type: array
-          items:
-            type: string
-        blobContainer:
+        role:
           type: string
-        resourceGroup:
+    v1ValidateBillingGroupRequest:
+      type: object
+      properties:
+        companyId:
           type: string
-        storageAccount:
-          type: string
-        roleName:
-          type: string
-        resourceGroupRegion: {}
-        storageAccountRegion: {}
-        resourceGroupTags: {}
-        storageAccountTags: {}
-        completed:
+          description: Required. Company identifier.
+        newVersion:
           type: boolean
-          title: '---- Archera onboarding state fields (echo back from start/get response) ----'
-        createdAt:
-          type: string
-        createdBy:
-          $ref: '#/components/schemas/v1AzureOnboardingCreatedBy'
-        integration:
-          description: Linked integration object; null until integration is created.
-        integrationId:
-          type: string
-        provider:
-          type: string
-          description: Always "azure".
-        org:
-          $ref: '#/components/schemas/v1AzureArcheraOrg'
-          description: 'The full Archera org object received from StartAzureOnboarding response.
+          description: 'temporarily required until we fully transition to the new onboarding flow.
 
-            Must be echoed back verbatim on every PATCH call.'
-    v1ListOrgsRequest:
-      type: object
-    v1GetAwsPrivateOfferResponse:
-      type: object
-      properties:
-        payerAccountId:
-          type: string
-        offerId:
-          type: string
-          description: AWS Marketplace offer identifier, e.g. offer-qb7i32am664jw.
-        offerName:
-          type: string
-          description: Display name of the offer shown in the UI.
-        status:
-          type: string
-          description: Current offer status, e.g. PENDING / ACCEPTED / EXPIRED / CREATING / FAILED.
-        offerUrl:
-          type: string
-        productId:
-          type: string
-        pricePerUnit:
-          type: number
-          format: double
-        createdAt:
-          type: string
-        expirationDate:
-          type: string
-    v1ListAzureIntegrationsResponse:
-      type: object
-      properties:
-        integrations:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1AzureIntegration'
-      description: ListAzureIntegrationsResponse contains all Azure integrations for the org (Step 9).
-    rpcStatus:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-        message:
-          type: string
-          description: 'A developer-facing error message, which should be in English. Any
+            This is to avoid any breaks or crash during the transition. Will be removed once the transition is complete.
 
-            user-facing error message should be localized and sent in the
-
-            [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.'
-        details:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/protobufAny'
-          description: 'A list of messages that carry the error details.  There is a common set of
-
-            message types for APIs to use.'
-      description: 'The `Status` type defines a logical error model that is suitable for
-
-        different programming environments, including REST APIs and RPC APIs. It is
-
-        used by [gRPC](https://github.com/grpc). Each `Status` message contains
-
-        three pieces of data: error code, error message, and error details.
-
-
-        You can find out more about this error model and how to work with it in the
-
-        [API Design Guide](https://cloud.google.com/apis/design/errors).'
-    GetOnboardingStatusResponseOnboardingStatus:
-      type: string
-      enum:
-      - ONBOARDING_STATUS_UNSPECIFIED
-      - ONBOARDING_STATUS_NOT_REGISTERED
-      - ONBOARDING_STATUS_REGISTERED
-      - ONBOARDING_STATUS_ONBOARDING_STARTED
-      - ONBOARDING_STATUS_VERIFIED
-      - ONBOARDING_STATUS_VERIFY_INCOMPLETE
-      - ONBOARDING_STATUS_VERIFY_FAILED
-      default: ONBOARDING_STATUS_UNSPECIFIED
-      title: "- ONBOARDING_STATUS_NOT_REGISTERED: No row found in archera_users (org not registered yet)\n - ONBOARDING_STATUS_REGISTERED: Existing statuses you already persist"
+            Default value is false.'
     ListPayerAccountsResponsePayerAccount:
       type: object
       properties:
@@ -3814,64 +3620,258 @@ components:
             passed/failed when a user comes back later (e.g., after stopping at verification).
 
             Empty when verification hasn''t been attempted yet or when no checks were persisted.'
+    v1StartAwsOnboardingResponse:
+      type: object
+      properties:
+        onboardingId:
+          type: string
+    v1AwsExistingCur:
+      type: object
+      properties:
+        region:
+          type: string
+          title: required if existingCur is provided
+        bucket:
+          type: string
+          title: required if existingCur is provided
+        prefix:
+          type: string
+          title: required if existingCur is provided
+        reportName:
+          type: string
+          description: maps to "report_name" conceptually
+          title: required if existingCur is provided
+    v1AzureIntegration:
+      type: object
+      properties:
+        id:
+          type: string
+        active:
+          type: boolean
+        name:
+          type: string
+        provider:
+          type: string
+        type:
+          type: string
+          description: Always "cloud/azure".
+        orgId:
+          type: string
+        userId:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        managementSubscriptionId:
+          type: string
+          title: Azure-specific
+        providerOrganizationId:
+          type: string
+          description: Azure tenant ID (stored as provider_organization_id in Archera).
+        blobContainer:
+          type: string
+        resourceGroup:
+          type: string
+        storageAccount:
+          type: string
+        costExportFormat:
+          type: string
+          title: '"FOCUS" or "ActualCost"'
+        curEarliestData:
+          type: string
+          title: CUR/data state
+        curReportName:
+          type: string
+        curUsable:
+          type: boolean
+        hasCurAccess:
+          type: boolean
+        hasFullReservationAccess:
+          type: boolean
+        featureStatuses:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1AzureIntegrationFeatureStatus'
+          title: Feature verification checks
+        onboardings:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1AzureIntegrationOnboarding'
+          title: Linked onboarding records
+        config:
+          type: object
+          title: Flexible config blob (etl_enabled, use_vm_ris_not_sps, etc.)
+      description: AzureIntegration is the full Azure cloud integration record from Archera.
+    v1GetOnboardingStatusResponse:
+      type: object
+      properties:
+        found:
+          type: boolean
+          title: Whether we found a corresponding row
+        isMsp:
+          type: boolean
+          title: 'Convenience: derived from whether billingId is empty'
+        provider:
+          $ref: '#/components/schemas/v1Provider'
+          description: Vendor saved at registration (aws/azure/gcp). Optional.
+        gcOrgId:
+          type: string
+          title: 'The org id to use for Archera upstream calls:
+
+            - MSP: mspArcheraOrgId
+
+            - company: archeraOrgId'
+        onboardingId:
+          type: string
+          title: Latest persisted onboarding ID (if any)
+        onboardingStatus:
+          $ref: '#/components/schemas/GetOnboardingStatusResponseOnboardingStatus'
+          title: Latest persisted onboarding status
+        accountId:
+          type: string
+          title: Latest persisted AWS account id (if any)
+        billingGroupId:
+          type: string
+        companyId:
+          type: string
+        verificationChecks:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/VerifyAwsOnboardingResponseAwsOnboardingFeatureCheck'
+          description: 'Detailed AWS verification results (best-effort) returned from the last VerifyAwsOnboarding call.
+
+            This is used by the UI to "resume" the onboarding flow and show which verification checks
+
+            passed/failed when a user comes back later (e.g., after stopping at verification).
+
+            Empty when verification hasn''t been attempted yet or when no checks were persisted.'
+        termsAcceptance:
+          $ref: '#/components/schemas/v1TermsAcceptance'
+    v1CommitmentReport:
+      type: object
+      properties:
+        month:
+          type: string
+        billUnadjusted:
+          type: number
+          format: double
+        billOptimized:
+          type: number
+          format: double
+        grossSavings:
+          type: number
+          format: double
+        riskPremium:
+          type: number
+          format: double
+        rebates:
+          type: number
+          format: double
+        netSavings:
+          type: number
+          format: double
+        revenueShare:
+          type: number
+          format: double
+        revenueShareRate:
+          type: number
+          format: double
+    v1GetAvailableCommitmentTypesResponse:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            type: string
+          description: 'List of available commitment type identifiers for the requested provider.
+
+            Example values: "aws/AmazonEC2", "aws/AmazonRDS", "aws/AmazonElastiCache",
+
+            "aws/savingsplan/Compute", "aws/savingsplan/EC2Instance", "aws/savingsplan/Database".'
+    v1AzureArcheraOrgFeatureStatus:
+      type: object
+      properties:
+        detail: {}
+        feature:
+          type: string
+        status:
+          type: string
+        updatedAt:
+          type: string
+      description: AzureArcheraOrgFeatureStatus is a single feature status entry within the Archera org object.
+    v1SetBillingGroupStatusResponse:
+      type: object
+      properties:
+        billingGroup:
+          $ref: '#/components/schemas/v1ListBillingGroupsResponseBillingGroup'
+    v1ListPayerAccountsResponse:
+      type: object
+      properties:
+        payerAccounts:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ListPayerAccountsResponsePayerAccount'
+        payerAccountDetails:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1PayerAccountDetails'
+    v1GetGuaranteedCommitmentTemplateUrlResponse:
+      type: object
+      properties:
+        launchUrl:
+          type: string
+          description: CloudFormation console launch URL pre-filled with all parameters.
+        templateUrl:
+          type: string
+          description: S3 URL of the CloudFormation template.
+        stackName:
+          type: string
+          description: CloudFormation stack name.
+        principal:
+          type: string
+          description: Alphaus AWS account principal.
+        externalId:
+          type: string
+          description: Alphaus/Ripple external ID for role assumption.
+        guaranteedCommitmentPrincipal:
+          type: string
+          description: Guaranteed commitment AWS principal ARN.
+        guaranteedCommitmentExternalId:
+          type: string
+          description: Guaranteed commitment external ID for role assumption.
     v1GetAwsCloudFormationTemplateResponse:
       type: object
       properties:
         template:
           type: object
           title: CloudFormation template JSON object
-    v1ServiceSummary:
-      type: object
-      properties:
-        key:
-          type: string
-        name:
-          type: string
-        serviceName:
-          type: string
-        provider:
-          type: string
-        numCommitments:
-          type: integer
-          format: int32
-        currentCoverage:
-          type: number
-          format: double
-        potentialCoverage:
-          type: number
-          format: double
-        minCommitment:
-          type: number
-          format: double
-        monthlyCommitment:
-          type: number
-          format: double
-        upfrontCost:
-          type: number
-          format: double
-        minSavings:
-          type: number
-          format: double
-        maxSavings:
-          type: number
-          format: double
-        monthlySavings:
-          type: number
-          format: double
-        minTermHours:
-          type: integer
-          format: int32
-        maxTermHours:
-          type: integer
-          format: int32
-        griPremium:
-          type: number
-          format: double
-    v1CommitmentsUtilizationResponse:
+    v1CommitmentsChartResponse:
       type: object
       properties:
         data:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/v1CommitmentsUtilizationData'
+            $ref: '#/components/schemas/v1CommitmentsChartData'
+    ListBillingGroupsResponseBillingGroupStatus:
+      type: string
+      enum:
+      - BILLING_GROUP_STATUS_UNSPECIFIED
+      - BILLING_GROUP_STATUS_ENABLED
+      - BILLING_GROUP_STATUS_DISABLED
+      default: BILLING_GROUP_STATUS_UNSPECIFIED
+    AwsOnboardingFeatureCheckAwsOnboardingFeatureStatus:
+      type: string
+      enum:
+      - AWS_ONBOARDING_FEATURE_STATUS_UNSPECIFIED
+      - AWS_ONBOARDING_FEATURE_STATUS_AVAILABLE
+      - AWS_ONBOARDING_FEATURE_STATUS_WARNING
+      - AWS_ONBOARDING_FEATURE_STATUS_MISSING
+      - AWS_ONBOARDING_FEATURE_STATUS_UNKNOWN
+      default: AWS_ONBOARDING_FEATURE_STATUS_UNSPECIFIED
