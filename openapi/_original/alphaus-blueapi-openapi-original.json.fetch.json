@@ -1,0 +1,12 @@
+{
+ "url": "https://labs.alphaus.cloud/blueapidocs/apidocs.json",
+ "requested_url": "https://labs.alphaus.cloud/blueapidocs/apidocs.json",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 1461327,
+ "sha256": "f405c75cb1e9ed4ad247b4e92a638a372f0ed0e6309b74d30282c0c5ccaa382a",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.977), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
