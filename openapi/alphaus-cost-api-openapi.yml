@@ -6053,3 +6053,9 @@ components:
           type: boolean
           description: Optional. If set to true, skips the actual calculations. Useful as test, or reminder.
       description: Request message for the Cost.CreateCalculationsSchedule rpc.
+x-provenance:
+  method: harvested
+  publisher: Alphaus
+  source: https://labs.alphaus.cloud/blueapidocs/apidocs.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)

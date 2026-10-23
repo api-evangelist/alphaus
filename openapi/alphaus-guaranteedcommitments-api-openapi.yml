@@ -3875,3 +3875,9 @@ components:
           $ref: '#/components/schemas/v1ListBillingGroupsResponseBillingGroup'
         termsAcceptance:
           $ref: '#/components/schemas/v1TermsAcceptance'
+x-provenance:
+  method: harvested
+  publisher: Alphaus
+  source: https://labs.alphaus.cloud/blueapidocs/apidocs.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
