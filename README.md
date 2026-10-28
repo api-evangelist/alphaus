@@ -64,6 +64,153 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Alphaus is a company surfaced as a portfolio company of 500-global and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Alphaus is a Tokyo-based cloud FinOps company (No. 1 in Japan) whose platform helps enterprises, managed service providers, and cloud resellers manage and optimize multi-cloud spend across AWS, Azure, and GCP. Its products include Octo (cost visibility and optimization), Ripple and WavePro (reseller billing automation and invoicing), and Cover (cost anomaly detection and recommendation intelligence). Developers integrate through the Blue API — a unified protobuf/gRPC surface with a grpc-gateway JSON/REST proxy and generated OpenAPI — spanning 15 services and nearly 600 operations, complemented by the bluectl CLI and Go, Python, and TypeScript SDKs.
 
-Backed by: 500-global — https://alphaus.cloud
+**Areas:** Company · FinOps · Cloud Cost Management · Cloud · Billing · Multi-Cloud · AWS · Microsoft Azure · GCP · gRPC · Cost Optimization · Reseller Billing
+
+## Alphaus on APIs.io
+
+Everything profiled for Alphaus is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/alphaus/](https://apis.io/providers/alphaus/)** — or go straight to one of the APIs or properties below.
+
+### APIs (15)
+
+- [Alphaus Admin API](https://apis.io/apis/alphaus/alphaus-admin-api/) — Admin API. Base URL: https://api.alphaus.cloud/m/blue
+- [Alphaus Billing API](https://apis.io/apis/alphaus/alphaus-billing-api/) — (BETA) Billing API. Base URL: https://api.alphaus.cloud/m/blue/billing
+- [Alphaus Cost API](https://apis.io/apis/alphaus/alphaus-cost-api/) — Cost API. Base URL: https://api.alphaus.cloud/m/blue/cost
+- [Alphaus Cover API](https://apis.io/apis/alphaus/alphaus-cover-api/) — (BETA) Cover API. Base URL: https://api.alphaus.cloud/m/blue/cover
+- [Alphaus Flags API](https://apis.io/apis/alphaus/alphaus-flags-api/) — (ALPHA) Flag API. Base URL: https://api.alphaus.cloud/m/blue
+- [Alphaus Flow API](https://apis.io/apis/alphaus/alphaus-flow-api/) — (ALPHA) Flow API. Base URL: https://api.alphaus.cloud/m/blue/flow
+- [Alphaus GuaranteedCommitments API](https://apis.io/apis/alphaus/alphaus-guaranteedcommitments-api/) — (Alpha) GuaranteedCommitments API. Base URL: https://api.alphaus.cloud/m/blue/gc
+- [Alphaus Iam API](https://apis.io/apis/alphaus/alphaus-iam-api/) — (BETA) IAM API. Base URL: https://api.alphaus.cloud/m/blue
+- [Alphaus Luster API](https://apis.io/apis/alphaus/alphaus-luster-api/) — (ALPHA) Luster API. Base URL: https://api.alphaus.cloud/m/blue/luster
+- [Alphaus Operations API](https://apis.io/apis/alphaus/alphaus-operations-api/) — (BETA) Long operations API. Base URL: https://api.alphaus.cloud/m/blue
+- [Alphaus Organization API](https://apis.io/apis/alphaus/alphaus-organization-api/) — (BETA) Organization API. Base URL: https://api.alphaus.cloud/m/blue
+- [Alphaus Preferences API](https://apis.io/apis/alphaus/alphaus-preferences-api/) — (BETA) Preferences API. Base URL: https://api.alphaus.cloud/m/blue
+- [Alphaus Pricing API](https://apis.io/apis/alphaus/alphaus-pricing-api/) — (BETA) Pricing API. Base URL: https://api.alphaus.cloud/m/blue/pricing
+- [Alphaus Prism API](https://apis.io/apis/alphaus/alphaus-prism-api/) — (Alpha) Prism API. Base URL: https://api.alphaus.cloud/m/blue/prism
+- [Alphaus Vortex API](https://apis.io/apis/alphaus/alphaus-vortex-api/) — (Alpha) Vortex API. Base URL: https://api.alphaus.cloud/m/blue/vortex
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [alphaus-blue](https://apis.io/servers/alphaus/alphaus-blue/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Alphaus Agentic Access](https://apis.io/agentic-access/alphaus/alphaus-agentic-access/)
+
+#### Collections (15)
+
+Postman and Open Collection request collections.
+
+- [Blue API reference Admin API](https://apis.io/collections/alphaus/open-alphaus-admin-api/)
+- [Blue API reference Admin Billing API](https://apis.io/collections/alphaus/open-alphaus-billing-api/)
+- [Blue API reference Admin Cost API](https://apis.io/collections/alphaus/open-alphaus-cost-api/)
+- [Blue API reference Admin Cover API](https://apis.io/collections/alphaus/open-alphaus-cover-api/)
+- [Blue API reference Admin Flags API](https://apis.io/collections/alphaus/open-alphaus-flags-api/)
+- [Blue API reference Admin Flow API](https://apis.io/collections/alphaus/open-alphaus-flow-api/)
+- [Blue API reference Admin GuaranteedCommitments API](https://apis.io/collections/alphaus/open-alphaus-guaranteedcommitments-api/)
+- [Blue API reference Admin Iam API](https://apis.io/collections/alphaus/open-alphaus-iam-api/)
+- [Blue API reference Admin Luster API](https://apis.io/collections/alphaus/open-alphaus-luster-api/)
+- [Blue API reference Admin Operations API](https://apis.io/collections/alphaus/open-alphaus-operations-api/)
+- [Blue API reference Admin Organization API](https://apis.io/collections/alphaus/open-alphaus-organization-api/)
+- [Blue API reference Admin Preferences API](https://apis.io/collections/alphaus/open-alphaus-preferences-api/)
+- [Blue API reference Admin Pricing API](https://apis.io/collections/alphaus/open-alphaus-pricing-api/)
+- [Blue API reference Admin Prism API](https://apis.io/collections/alphaus/open-alphaus-prism-api/)
+- [Blue API reference Admin Vortex API](https://apis.io/collections/alphaus/open-alphaus-vortex-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Alphaus Blueapi Overlay](https://apis.io/overlays/alphaus/alphaus-blueapi-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Alphaus Authentication](https://apis.io/security/alphaus/alphaus-authentication/)
+- [Alphaus Domain Security](https://apis.io/security/alphaus/alphaus-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Alphaus Scopes](https://apis.io/scopes/alphaus/alphaus-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://alphaus.cloud)
+- [Documentation](https://labs.alphaus.cloud/docs/)
+- [Getting started](https://labs.alphaus.cloud/docs/blueapi/overview/)
+- [API reference](https://labs.alphaus.cloud/blueapidocs/)
+- [Support](https://help.alphaus.cloud/en/)
+- [Blog](https://labs.alphaus.cloud/blog/)
+- [Terms of service](https://www.alphaus.cloud/en/ripple-wave-terms-of-services)
+- [Privacy policy](https://www.alphaus.cloud/en/privacy)
+- [GitHub](https://github.com/alphauslabs)
+- [Status](https://status.alphaus.cloud/)
+
+## API Evangelist rating
+
+**Kin Score 51.2** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 38.7 |
+| Contract governance | 4.5 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 73.2 |
+| Access clarity | 27.6 |
+
+**Agent readiness 20.5** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 34.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/alphaus/](https://apis.io/providers/alphaus/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Alphaus: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/alphaus/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
